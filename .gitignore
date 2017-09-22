@@ -1,0 +1,18 @@
+#Intellij IDEA
+*.iml
+.idea/
+.settings/
+logs/
+target/
+out/
+web/
+/.apt_generated/
+.DS_Store
+/.externalToolBuilders/
+/.tern-project
+.classpath
+.factorypath
+build/
+org.eclipse.wst.common.project.facet.core.xml
+/bin/
+WebRoot/WEB-INF/class

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.EmailDao">
+	
+	  <select id="count" resultType="int" parameterType="com.test.page.EmailPage">
+	  	select count(id) from `email` 
+	  	<include refid="where" />
+	  </select>
+  
+   <select id="selectPage" resultType="com.test.model.Email" parameterType="com.test.page.EmailPage">
+ 		select * from `email` 
+	  	<include refid="where" />
+	  	order by `create_time` desc
+	  	limit #{start},#{pageSize}
+ 	</select>
+ 	
+ 	<sql id="where">
+ 		<where>
+ 			<if test="sender != null and sender.length()>0">
+ 				and `sender` = #{sender}
+ 			</if>
+ 			
+ 			<if test="receive != null and receive.length()>0">
+ 				and `receive` = #{receive}
+ 			</if>
+ 			
+ 			<if test="show>-1">
+ 				and `show` = #{show}
+ 			</if>
+ 		</where>
+ 	</sql>
+ 	
+ 	<select id="selectByIdByTheAccount" resultType="com.test.model.Email" >
+ 		select * from `email` where id=#{0} and `receive`=#{1}
+ 	</select>
+ 	
+ 	<insert id="insertEmail" parameterType="com.test.model.Email">
+ 		INSERT INTO `email` (
+			`title`,
+			`context`,
+			`sender`,
+			`receive`,
+			`create_time`
+		)
+		VALUES
+			(
+				#{title},
+				#{context},
+				#{sender},
+				#{receive},
+				now()
+			);
+ 	</insert>
+ 	
+ 	<update id="updateEmail" parameterType="com.test.model.Email">
+ 		UPDATE `email`
+			SET 
+			 `title` = #{title},
+			 `context` = #{context},
+			 `receive` = #{receive}
+			WHERE
+				`id` = #{id}
+ 	</update>
+  
+  	<update id="updateEmailSeeState" >
+   		UPDATE `email`
+			SET 
+			 `see_state` = 1
+		WHERE
+ 			id=#{0} and `receive` = #{1}
+ 	</update>
+  
+   	<update id="updateEmailShow" >
+   		UPDATE `email`
+			SET 
+			 `show` = #{show}
+		WHERE
+ 			id in
+ 			<foreach collection="id" item="i" open="(" separator="," close=")">
+	  		#{i}
+	  		</foreach>
+ 			and `receive` = #{receive}
+ 	</update>
+  
+  	<delete id="deleteEmail">
+  		delete from  `email` 
+  			where id =#{0}
+	  		 and receive = #{1}
+	  		 and `show` = 0
+  	</delete>
+</mapper>
