@@ -39,6 +39,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<!-- 后台拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
