@@ -15,22 +15,33 @@
 		<property name="location" value="classpath:conf/jdbc.properties" />
 	</bean>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-		<!-- 初始化连接大小 -->
-		<property name="initialSize" value="${initialSize}"></property>
-		<!-- 连接池最大数量 -->
-		<property name="maxActive" value="${maxActive}"></property>
-		<!-- 连接池最大空闲 -->
-		<property name="maxIdle" value="${maxIdle}"></property>
-		<!-- 连接池最小空闲 -->
-		<property name="minIdle" value="${minIdle}"></property>
-		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait" value="${maxWait}"></property>
+		<property name="filters" value="stat" />
+		<!--maxActive: 最大连接数量 -->
+		<property name="maxActive" value="20" />
+		<!--initialSize: 初始化连接 -->
+		<property name="initialSize" value="1" />
+		<!-- 获取连接时最大等待时间，单位毫秒 -->
+		<property name="maxWait" value="60000" />
+		<!-- 最小连接池数量 -->
+		<property name="minIdle" value="1" />
+		<!-- 线程会检测连接的间隔时间 -->
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<!-- Destory线程中如果检测到当前连接的最后活跃时间和当前时间的差值大于 minEvictableIdleTimeMillis，则关闭当前连接。 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!-- 用来检测连接是否有效的sql -->
+		<property name="validationQuery" value="SELECT 'x'" />
+		<!-- 申请连接的时候检测，如果空闲时间大于 timeBetweenEvictionRunsMillis， 执行validationQuery检测连接是否有效。 -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 申请连接时执行validationQuery检测连接是否有效 -->
+		<property name="testOnBorrow" value="false" />
+		<!-- 归还连接时执行validationQuery检测连接是否有效， -->
+		<property name="testOnReturn" value="false" />
 	</bean>
 
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
@@ -74,8 +85,7 @@
 	<!-- 只对业务逻辑层实施事务 -->
 	<aop:config>
 		<!-- 配置一个切入点 -->
-		<aop:pointcut id="serviceMethods"
-			expression="execution(* com.test.service.*.*(..))" />
+		<aop:pointcut id="serviceMethods" expression="execution(* com.test.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
 	</aop:config>
 
