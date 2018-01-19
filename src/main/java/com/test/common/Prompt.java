@@ -1,5 +1,5 @@
 package com.test.common;
-
+   
 public enum Prompt {
 	
 	success("success"),
