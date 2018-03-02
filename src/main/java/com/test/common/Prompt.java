@@ -4,7 +4,7 @@ public enum Prompt {
 	
 	success("success"),
 	
-	login("001"),//登陆失败
+	login("001"),//登陆失败dxiu
 	
 	fail("002"),//新增或修改失败
 	
