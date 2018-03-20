@@ -6,9 +6,9 @@ public enum UserType {
 
     Editor("编辑人员");
 
-    private String type;
+    private final String type;
 
-    UserType(String type) {
+    private UserType(String type) {
         this.type = type;
     }
 
