@@ -1,9 +1,14 @@
-package com.cxgc.news_app.model;
+package com.cxgc.news_app.core.model;
 
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ * @author 上官炳强
+ * @Date 2018-03-20 / 01:57:41
+ * @Version 1.0
+ * @Description 用户实体类
+ */
 @Data
 public class User {
 

@@ -475,7 +475,7 @@ $axure.loadDocument = function(document) {
 
 function setUpController() {
 
-    //$axure.utils = _axUtils;
+    //$axure.utilities = _axUtils;
 
     var _page = {};
     $axure.page = _page;

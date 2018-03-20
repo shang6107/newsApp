@@ -8221,7 +8221,7 @@ $axure.internal(function($ax) {
         return text.replace('<', '&lt;');
     };
 });
-//***** utils.temp.js *****//
+//***** utilities.temp.js *****//
 // ******* Deep Copy ******** //
 $axure.internal(function($ax) {
     // TODO: [ben] Ah, infinite loops cause major issues here. Tried saving objects we've already hit, but that didn't seem to work (at least at my first shot).
