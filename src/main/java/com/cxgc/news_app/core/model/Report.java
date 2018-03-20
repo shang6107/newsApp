@@ -3,19 +3,18 @@ package com.cxgc.news_app.core.model;
 import lombok.Data;
 
 import java.util.Date;
+
 /**
- * @author 上官炳强
+ * @author 何其勇
  * @Date 2018-03-20 / 01:57:41
  * @Version 1.0
- * @Description 新闻实体类
+ * @Description 用户举报类
  */
 @Data
-public class News {
+public class Report {
     private String id;
-    private String url;
-    private String type;
-    private Integer accessCount;
-    private Integer  status;
+    private String reporterId;
+    private String reportedId;
+    private String reportedContent;
     private Date createTime;
-
 }
