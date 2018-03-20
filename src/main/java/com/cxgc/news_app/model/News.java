@@ -1,7 +1,10 @@
-package com.test.model;
+package com.cxgc.news_app.model;
+
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 public class News {
     private String id;
     private String url;
