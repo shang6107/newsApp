@@ -1,0 +1,20 @@
+package com.cxgc.news_app.core.handlers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author 上官炳强
+ * @Date 2018-03-20 / 04:46:28
+ * @Version
+ * @Description
+ */
+@Controller
+public class BasicRequestHandler {
+
+    @RequestMapping("/{pageName}.html")
+    public String base(@PathVariable String pageName){
+        return pageName;
+    }
+}

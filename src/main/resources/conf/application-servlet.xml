@@ -10,9 +10,7 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-	<mvc:annotation-driven />
-
-	<context:component-scan base-package="com.*" />
+	<context:component-scan base-package="com.cxgc.news_app.core.handlers" />
 
 	<!-- annotation -->
 	<mvc:annotation-driven>
@@ -53,24 +51,24 @@
 	</bean>
 
 	<bean id="viewResolverJsp"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 		<property name="viewClass"
-			value="org.springframework.web.servlet.view.InternalResourceView" />
+				  value="org.springframework.web.servlet.view.InternalResourceView" />
 		<property name="order" value="1" />
 	</bean>
 
-	<bean id="viewResolverFtl"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+		  id="freeMarkerViewResolver">
 		<property name="viewClass"
-			value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+				  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
 		<property name="contentType" value="text/html; charset=UTF-8" />
-		<property name="exposeRequestAttributes" value="true" />
+<!--		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="requestContextAttribute" value="request" />
-		<property name="cache" value="false" />
+		<property name="cache" value="false" />-->
 		<property name="suffix" value=".ftl" />
 		<property name="order" value="0" />
 	</bean>
@@ -88,7 +86,7 @@
 	<!-- 配置freeMarker的模板路径 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/WEB-INF/freemarker" />
+		<property name="templateLoaderPath" value="/WEB-INF/freemarker/" />
 		<property name="freemarkerVariables">
 			<map>
 				<entry key="xml_escape" value-ref="fmXmlEscape" />
@@ -105,7 +103,9 @@
 			</props>
 		</property>
 	</bean>
+
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 	<import resource="application-context.xml" />
-
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven/>
 </beans>  

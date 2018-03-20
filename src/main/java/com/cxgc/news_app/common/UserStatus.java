@@ -3,8 +3,8 @@ package com.cxgc.news_app.common;
 /**
  * @author 上官炳强
  * @Date 2018-03-20 / 03:00:31
- * @Version
- * @Description
+ * @Version 1.0
+ * @Description 用户状态
  */
 public enum UserStatus {
 
