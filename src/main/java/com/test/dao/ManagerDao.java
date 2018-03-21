@@ -22,7 +22,7 @@ public interface ManagerDao {
      * @param id
      * @return删除的行数
      */
-    public int deleteAdminById(@Param("id") int id);
+    public int deleteManagerById(@Param("id") int id);
 
     /**
      * 通过账号密码查找管理员（用于管理员登录）
@@ -36,14 +36,14 @@ public interface ManagerDao {
      * 获取所有管理员列表
      * @return 管理员列表集合
      */
-    public List<Manager> selectAllAdmin();
+    public List<Manager> selectAllManager();
 
     /**
      *
      * @param manager
      * @return
      */
-    public int updateAdmin(@Param("manager") Manager manager);
+    public int updateManager(@Param("manager") Manager manager);
 
     /**
      * 修改管理员密码
