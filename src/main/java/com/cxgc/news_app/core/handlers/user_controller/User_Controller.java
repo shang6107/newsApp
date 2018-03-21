@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.user_controller;
+package com.cxgc.news_app.core.handlers.user_controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

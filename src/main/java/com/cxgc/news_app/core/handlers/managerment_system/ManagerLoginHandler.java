@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.handlers;
+package com.cxgc.news_app.core.handlers.managerment_system;
 
 import com.cxgc.news_app.core.model.Manager;
 import org.springframework.stereotype.Controller;
@@ -15,15 +15,10 @@ import java.util.Map;
  */
 @Controller
 public class ManagerLoginHandler {
+
     @RequestMapping("/logon")
     public String login(@ModelAttribute("manager") Manager manager,Map<String,Object> map){
-        if(manager != null){
-            if(manager.getPassword() != null && !manager.getPassword().equals("123456")){
-                map.put("error","密码不正确");
-                return "login";
-            }
-        }
-        System.out.println("manager = " + manager);
+
         return "index";
     }
 

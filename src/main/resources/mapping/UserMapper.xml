@@ -4,15 +4,5 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.dao.UserDao">
 	
-  <select id="selectLogin" resultType="com.cxgc.news_app.core.model.User">
-  	select * from `user` where account=#{account} and password=#{password}
-  </select>
-  
-  <select id="selectNoAccount" resultType="String">
-  	select account from `user` where account != #{account}
-  </select>
-  
-	<select id="selectByAccount" resultType="int">
-		select count(id) from `user` where account=#{0}
-	</select>
+
 </mapper>
