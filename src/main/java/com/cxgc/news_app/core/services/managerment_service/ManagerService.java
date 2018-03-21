@@ -14,7 +14,7 @@ public interface ManagerService {
      * 管理员登录
      * @param mgrNo
      * @param password
-     * @return 集合
+     * @return 集合11
      */
 
     public Map<String,Object> ManagerLogin(String mgrNo, String password);
