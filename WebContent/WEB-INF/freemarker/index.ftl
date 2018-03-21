@@ -1,4 +1,4 @@
-<#include "frame.ftl"/>
+<#include "frame.ftl"/>1
 <div class="view-topbar">
     <div class="topbar-console">
         <div class="tobar-head fl">
