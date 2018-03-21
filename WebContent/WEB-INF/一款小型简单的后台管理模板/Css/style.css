@@ -1,7 +1,7 @@
 body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, sans-serif;}
 
 .body-bottom{margin-bottom: 50px;}
-.icon-arrow-down, .icon-notice { display: block; width: 16px; height: 16px; background: url(../Images/icon_set.png) no-repeat; }
+.icon-arrow-down, .icon-notice { display: block; width: 16px; height: 16px;  }
 .icon-arrow-down { background-position: 0 0; }
 .icon-notice { background-position: -26px 0; }
 
