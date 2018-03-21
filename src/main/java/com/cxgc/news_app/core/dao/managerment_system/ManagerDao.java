@@ -1,10 +1,60 @@
 package com.cxgc.news_app.core.dao.managerment_system;
 
+
+import com.cxgc.news_app.core.model.Manager;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
- * @author 上官炳强
- * @Date 2018-03-21 / 04:58:30
- * @Version
- * @Description
+ *  @author 何其勇
+ *  @Version
+ *  @Description
  */
 public interface ManagerDao {
+    /**
+     * 通过账号密码查找管理员（用于管理员登录）
+     * @param mgrNo
+     * @param password
+     * @return 查询结果的一个对象
+     */
+    public Manager selectByMgrNoAndPassword(@Param("account") String mgrNo, @Param("password") String password);
+    /**
+     *
+     * @param manager
+     * @return 增加行数
+     */
+    public int addManager(@Param("manager") Manager manager);
+
+    /**
+     * 通过管理员ID删除管理员
+     * @param id
+     * @return删除的行数
+     */
+    public int deleteManagerById(@Param("id") int id);
+
+
+    /**
+     * 获取所有管理员列表
+     * @return 管理员列表集合
+     */
+    public List<Manager> selectAllManager();
+
+    /**
+     *
+     * @param manager
+     * @return
+     */
+    public int updateManager(@Param("manager") Manager manager);
+
+    /**
+     * 修改管理员密码
+     * @param adId
+     * @param password
+     * @return
+     */
+    public int updatePassword(@Param("id") int adId, @Param("password") String password);
 }
+
+
+
