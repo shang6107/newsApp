@@ -10,7 +10,7 @@
 .min-width-300{width: 31.4%;}
 .min-width-360{width: 35.2%;}
 .button{border:0;}
-.button.icon{background: url(../images/icon_control.png) no-repeat}
+.button.icon{background: url(../img/icon_control.png) no-repeat}
 .button.bg-blue-deep{background-color: #3498db;color: #fff;}
 .button.bg-blue-deep:hover{background-color: #44a1df;}
 .button.icon-button-blue{background-position: 4px -48px;}
