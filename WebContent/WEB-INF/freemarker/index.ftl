@@ -63,20 +63,20 @@
                 <div class="sidebar-title">
                     <a href="#">
                         <span class="icon"><b class="fl icon-arrow-down"></b></span>
-                        <span class="text-normal">产品与服务</span>
+                        <span class="text-normal">新闻服务</span>
                     </a>
                 </div>
                 <ul class="sidebar-trans">
                     <li>
                         <a href="webSet.html">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16" /></b>
-                            <span class="text-normal">站点管理</span>
+                            <span class="text-normal">用户管理</span>
                         </a>
                     </li>
                     <li>
                         <a href="smsInfo.html">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16" /></b>
-                            <span class="text-normal">短信</span>
+                            <span class="text-normal">站点统计</span>
                         </a>
                     </li>
                     <!-- <li>
@@ -91,7 +91,7 @@
                 <div class="sidebar-title">
                     <a href="#">
                         <span class="icon"><b class="fl icon-arrow-down"></b></span>
-                        <span class="text-normal">用户中心</span>
+                        <span class="text-normal">个人中心</span>
                     </a>
                 </div>
                 <ul class="sidebar-trans">
