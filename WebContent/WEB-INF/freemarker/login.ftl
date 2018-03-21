@@ -74,22 +74,25 @@
 
     /*动画（注册）*/
     $(document).ready(function(e) {
-        // $("input[name=username]").focus();
-        // $('.login-form').Validform({
-        // 	ajaxPost: true,
-        // 	tiptype: function(msg) {
-        // 		if (msg) popup_msg('' + msg + '');
-        // 	},
-        // 	callback: function(ret) {
-        // 		popup_msg('' + ret.info + '');
-        // 		if (ret.status == 1) {
-        // 			if (ret.uc_user_synlogin) {
-        // 				$("body").append(ret.uc_user_synlogin);
-        // 			}
-        // 			setTimeout("window.location='" + ret.url + "'", 2000);
-        // 		}
-        // 	}
-        // })
+         /*$("input[name=username]").focus();
+         $('.login-form').Validform({
+             tipmsg:$.Tipmsg.w,
+         	ajaxPost: true,
+         	tiptype: function(msg) {
+         		if (msg) popup_msg('' + msg + '');
+         	},
+         	callback: function(ret) {
+         	    console.log(
+         	        ret);
+         		popup_msg('' + ret.info + '');
+         		if (ret.status == 1) {
+         			if (ret.uc_user_synlogin) {
+         				$("body").append(ret.uc_user_synlogin);
+         			}
+         			setTimeout("window.location='" + ret.url + "'", 2000);
+         		}
+         	}
+         })*/
 
     });
 </script>
