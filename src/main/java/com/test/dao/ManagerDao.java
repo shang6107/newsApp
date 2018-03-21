@@ -11,6 +11,13 @@ import java.util.List;
  */
 public interface ManagerDao {
     /**
+     * 通过账号密码查找管理员（用于管理员登录）
+     * @param mgrNo
+     * @param password
+     * @return 查询结果的一个对象
+     */
+    public Manager selectByMgrNoAndPassword(@Param("account") String mgrNo, @Param("password") String password);
+    /**
      *
      * @param manager
      * @return 增加行数
@@ -24,13 +31,6 @@ public interface ManagerDao {
      */
     public int deleteManagerById(@Param("id") int id);
 
-    /**
-     * 通过账号密码查找管理员（用于管理员登录）
-     * @param account
-     * @param password
-     * @return 查询结果的一个对象
-     */
-    public Manager selectByAccountAndPassword(@Param("account") String account, @Param("password") String password);
 
     /**
      * 获取所有管理员列表

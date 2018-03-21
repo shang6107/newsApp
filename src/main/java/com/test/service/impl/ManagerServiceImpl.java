@@ -2,7 +2,7 @@ package com.test.service.impl;
 
 import com.cxgc.news_app.core.model.Manager;
 import com.test.dao.ManagerDao;
-import com.test.service.MangerService;
+import com.test.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,15 @@ import java.util.Map;
  *  @Description
  */
 @Service("ManagerService")
-public class ManagerServiceImpl implements MangerService {
+public class ManagerServiceImpl implements ManagerService {
 @Autowired
    private ManagerDao md;
     private Map<String,Object> result;
+
+    @Override
+    public Map<String, Object> ManagerLogin(String mgrNo, String password) {
+        return null;
+    }
 
     @Override
     public Map<String, Object> addManager(Manager manager) {

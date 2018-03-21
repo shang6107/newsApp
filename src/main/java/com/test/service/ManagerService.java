@@ -9,7 +9,17 @@ import java.util.Map;
  *  @Version
  *  @Description
  */
-public interface MangerService {
+public interface ManagerService {
+    /**
+     * 管理员登录
+     * @param mgrNo
+     * @param password
+     * @return 集合
+     */
+
+    public Map<String,Object> ManagerLogin(String mgrNo, String password);
+
+
     /**
      * 添加管理员
      * @param manager
