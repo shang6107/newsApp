@@ -1,9 +1,12 @@
 package com.test.dao;
 
 
-public class Manager {
-    public void login(String mgr_no,String password){
-        
 
+import java.util.UUID;
+
+public class Manager {
+    public static void main(String[] args) {
+        /* 所有表的主键生成 */
+        System.out.println(UUID.randomUUID().toString().replaceAll("-",""));
     }
 }
