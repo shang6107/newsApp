@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.handlers.news_controller;
+package com.cxgc.news_app.core.handlers.news_handler;
 
 
 import org.springframework.stereotype.Controller;
