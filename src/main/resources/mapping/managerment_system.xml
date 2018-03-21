@@ -16,7 +16,7 @@
     </resultMap>
 
 	<select id="selectByMgrNoAndPassword" resultMap="manager_result">
-        select * from manager where mgr_no = ${account} and password = ${password}
+        select * from manager where mgr_no = #{0} and password = #{1}
     </select>
 
 </mapper>

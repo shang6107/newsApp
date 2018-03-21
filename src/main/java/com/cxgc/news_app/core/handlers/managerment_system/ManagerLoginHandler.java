@@ -23,8 +23,10 @@ public class ManagerLoginHandler {
 
     @RequestMapping("/logon")
     public String login(@ModelAttribute("manager") Manager manager,Map<String,Object> map){
+        System.out.println("manager = " + manager);
         Manager manager1 = service.ManagerLogin(manager.getMgrNo(), manager.getPassword());
         map.put("mgr",manager1);
+        System.out.println("manager1 = " + manager1);
         return "index";
     }
 

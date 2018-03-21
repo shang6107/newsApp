@@ -18,7 +18,7 @@ public interface ManagerDao {
      * @param password
      * @return 查询结果的一个对象
      */
-    public Manager selectByMgrNoAndPassword(@Param("account") String mgrNo, @Param("password") String password);
+    public Manager selectByMgrNoAndPassword(String mgrNo,String password);
     /**
      *
      * @param manager
