@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao">
+
+
+    <resultMap id="manager_result" type=""
+
+	<select id="selectByMgrNoAndPassword" resultMap="manager_result">
+
+    </select>
+
+</mapper>
