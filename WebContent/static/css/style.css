@@ -57,9 +57,9 @@ body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, 
 .show-side {position: absolute;left: 0;bottom: 0px;width: 100%;height: 14px;text-align: center;display: none;}
 .show-side.show{display: block;}
 .show-side .top {background-position: right top;}
-.show-side a {display: inline-block;margin: 0 5px;width: 50px;height: 14px;background: url(../images/show_side.png) no-repeat;  border: 1px solid #000;  border-bottom: 0;border-top-left-radius: 6px;  border-top-right-radius: 6px;}
+.show-side a {display: inline-block;margin: 0 5px;width: 50px;height: 14px;background: url(../img/show_side.png) no-repeat;  border: 1px solid #000;  border-bottom: 0;border-top-left-radius: 6px;  border-top-right-radius: 6px;}
 .show-side .bottom {background-position: right bottom;}
-.ico-left {position: absolute;right: -15px;top: 50%;margin-top: -20px;width: 15px;height: 50px;background: url(../images/show_side.png) no-repeat left top;}
+.ico-left {position: absolute;right: -15px;top: 50%;margin-top: -20px;width: 15px;height: 50px;background: url(../img/show_side.png) no-repeat left top;}
 .close-left {background-position: -24px top;}
 
 
@@ -99,11 +99,11 @@ body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, 
 .upload-native{width:250px;height:170px;border:1px solid #c6c6c6;background:#fff;}
 .upload-photo-show{width:135px;float:left;padding-top:9px;}
 .upload-exam{width:135px;height:100px;background:#fff;border:1px solid #c6c6c6;margin-bottom:5px;margin-top:10px;}
-.icon-business-licence{background: url(../images/icon_business_licence.jpg) no-repeat;background-size: 135px 100px;}
-.icon-code-num{background: url(../images/icon_code_num.jpg) no-repeat;background-size: 135px 100px;}
-.icon-idcard-front{background: url(../images/icon_idcard_front.jpg) no-repeat;background-size: 135px 100px;}
-.icon-idcard-back{background: url(../images/icon_idcard_back.jpg) no-repeat;background-size: 135px 100px;}
-.icon-attoney-power{background: url(../images/icon_attoney_power.jpg) no-repeat;background-size: 135px 100px;}
+.icon-business-licence{background: url(../img/icon_business_licence.jpg) no-repeat;background-size: 135px 100px;}
+.icon-code-num{background: url(../img/icon_code_num.jpg) no-repeat;background-size: 135px 100px;}
+.icon-idcard-front{background: url(../img/icon_idcard_front.jpg) no-repeat;background-size: 135px 100px;}
+.icon-idcard-back{background: url(../img/icon_idcard_back.jpg) no-repeat;background-size: 135px 100px;}
+.icon-attoney-power{background: url(../img/icon_attoney_power.jpg) no-repeat;background-size: 135px 100px;}
 .upload-con{margin-top:10px;}
 
 /*head*/
@@ -135,7 +135,7 @@ body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, 
 .cost-check{padding: 15px;line-height: 34px;border-bottom: 1px solid #d9d9d9;}
 .cost-product{width: 150px;float: left;height: 32px;line-height: 32px;color:#575757;font-size: 14px;}
 .cost-check .input-box{margin-top: 11px;}
-.cost-check .icon,.record-content .icon{background: url(../images/icon_little8.png) no-repeat right center;padding-right: 15px;margin-left: 10px;}
+.cost-check .icon,.record-content .icon{background: url(../img/icon_little8.png) no-repeat right center;padding-right: 15px;margin-left: 10px;}
 .cost-check .hd-input,.record-content .hd-input{width:120px;height:34px;font-size: 12px;float: left;}
 .cost-check a.check{display: block;line-height: 32px;border: 1px solid #cecece;float: left;padding: 0 15px;margin-left: 15px;color: #656565;cursor: pointer;}
 .cost-count{background: #f5f6fa;padding: 20px 15px;border-bottom: 1px solid #d9d9d9;}
@@ -160,13 +160,13 @@ body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, 
 .record-content .code-text{width:70px;height:34px;float: left;}
 .record-content .code-atten{display: block;float: left;color: #076ed4;cursor: pointer;margin-left: 20px; }
 .record-content .code-atten:hover{color:#0056ab;text-decoration: underline;}
-.record-content a.cord-export{display: block;float: left;border: 1px solid #c6c6c6;line-height: 32px;color:#9d9d9d;padding: 0 15px;background: url(../images/icon_export.png) no-repeat 15px center;padding-left: 25px;}
-.record-content a.non-disable{color:#505050;background: url(../images/icon_export1.png) no-repeat 15px center;}
+.record-content a.cord-export{display: block;float: left;border: 1px solid #c6c6c6;line-height: 32px;color:#9d9d9d;padding: 0 15px;background: url(../img/icon_export.png) no-repeat 15px center;padding-left: 25px;}
+.record-content a.non-disable{color:#505050;background: url(../img/icon_export1.png) no-repeat 15px center;}
 .select-table ul li{margin: 0;}
 
 
 
-.list-checked{background: url(../images/icon_charge.png) no-repeat right bottom;}
+.list-checked{background: url(../img/icon_charge.png) no-repeat right bottom;}
 .lists .list-checked{border-color: #f6aba5;}
 
 /*弹窗*/
@@ -200,7 +200,7 @@ body{font-family: 'Lantinghei SC','microsoft yahei', Tahoma, Helvetica, SimSun, 
 .td .table-browse:hover{text-decoration: underline;color:#265dd1;}
 .th select{border:none;background:#f5f6fa;}
 .non-info{width:100%;padding-top:50px;display:none;padding-bottom: 100px;text-align: center;font-size: 18px;color:#323232;}
-.icon-non-info{background: url(../images/icon_noinfo.png) no-repeat left center;padding-left: 25px;}
+.icon-non-info{background: url(../img/icon_noinfo.png) no-repeat left center;padding-left: 25px;}
 .offcial-table .no-deco{text-decoration:none !important;color:#333;}
 .offcial-table.hide{display: none;}
 .table-center .th,.table-center .td{text-align: center;}
@@ -253,7 +253,7 @@ label{cursor: pointer;}
 .button-bg:hover{background:#66c1e1;color:#fff;}
 .step-revise{line-height:30px;border:1px solid #d9d9d9;}
 .step-revise:hover{color:#333;}
-.button-upload{line-height: 30px;border-radius:3px;background:url(../images/icon_a);color: #fff;font-size: 14px;padding:0 30px;display: block;}
+.button-upload{line-height: 30px;border-radius:3px;background:url(../img/icon_a);color: #fff;font-size: 14px;padding:0 30px;display: block;}
 .button-upload:hover{color:#fff;background: #33add6;}
 .choise-data:hover{color:#40b2da;}
 .echarts-line{height:280px;margin:0 auto;color:#737373;width:80%;}
@@ -382,17 +382,17 @@ a.submit-order:hover{background:#40b2da;color:#fff}
 .Validform_right{
 	color:#71b83d;
 	padding-left:20px;
-	background:url(../images/right.png) no-repeat left center;
+	background:url(../img/right.png) no-repeat left center;
 }
 .Validform_wrong{
 	color:red;
 	padding-left:20px;
 	white-space:nowrap;
-	background:url(../images/error.png) no-repeat left center;
+	background:url(../img/error.png) no-repeat left center;
 }
 .Validform_loading{
 	padding-left:20px;
-	background:url(../images/onLoad.gif) no-repeat left center;
+	background:url(../img/onLoad.gif) no-repeat left center;
 }
 .Validform_error{
 	background-color:#ffe7e7;
@@ -404,7 +404,7 @@ a.submit-order:hover{background:#40b2da;color:#fff}
 #Validform_msg a.Validform_close:hover{color:#cc0;}
 #Validform_msg .Validform_info{padding:8px;border:1px solid #000; border-top:none; text-align:left;}
 
-.icon {background: url(../images/icon_control.png) no-repeat;display: inline-block;}
+.icon {background: url(../img/icon_control.png) no-repeat;display: inline-block;}
 .icon-identify{background-position: -72px 0;}
 .icon-been-set{background-position: -145px 0;}
 .icon-unset{background-position: -167px 0;}
@@ -431,7 +431,7 @@ a.submit-order:hover{background:#40b2da;color:#fff}
 .country-select-warp a.selected { color: #1380CB; font-weight: bold; }
 .select-city .has-city-title { color: #333; }
 .select-city .has-city-title span { margin: 0 3px; color: #ddd; }
-.hd-select-city .menu-button-dropdown { position: absolute; right: 10px; top: 11px; display: block; width: 10px; height: 6px; background: url("../images/ico_general.png") no-repeat scroll 0 -13px}
+.hd-select-city .menu-button-dropdown { position: absolute; right: 10px; top: 11px; display: block; width: 10px; height: 6px; background: url("../img/ico_general.png") no-repeat scroll 0 -13px}
 .ct-overlay { position: absolute; top: 28px; left: -1px; width: 301px; background: #fff; z-index: 9; }
 .city-select-tab { display: table; border-right: 1px solid #ccc; border-top: 1px solid #ccc; width: 301px; height: 34px; background: #f0f0f0; }
 .city-select-tab a { display: table-cell; line-height: 33px; border-left: 1px solid #ccc; border-bottom: 1px solid #ccc; color: #4D4D4D; text-align: center; }
