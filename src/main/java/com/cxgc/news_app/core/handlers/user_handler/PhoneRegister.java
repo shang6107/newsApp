@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.handlers.user_controller;
+package com.cxgc.news_app.core.handlers.user_handler;
 
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;

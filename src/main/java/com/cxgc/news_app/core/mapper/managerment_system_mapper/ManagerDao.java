@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.dao.managerment_system;
+package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 
 
 import com.cxgc.news_app.core.model.Manager;

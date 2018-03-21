@@ -1,7 +1,6 @@
-package com.cxgc.news_app.core.handlers.user_controller;
+package com.cxgc.news_app.core.handlers.user_handler;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**

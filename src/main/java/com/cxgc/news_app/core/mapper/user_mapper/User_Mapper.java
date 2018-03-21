@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.dao.user_mapper;
+package com.cxgc.news_app.core.mapper.user_mapper;
 
 import com.cxgc.news_app.core.model.User;
 

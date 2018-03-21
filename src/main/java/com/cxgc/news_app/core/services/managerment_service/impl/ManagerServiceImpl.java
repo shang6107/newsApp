@@ -1,8 +1,8 @@
-package com.cxgc.news_app.core.services.managerment_service.imple;
+package com.cxgc.news_app.core.services.managerment_service.impl;
 
+import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Manager;
-import com.test.dao.ManagerDao;
-import com.test.service.ManagerService;
+import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
