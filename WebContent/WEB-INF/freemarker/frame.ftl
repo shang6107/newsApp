@@ -18,6 +18,5 @@
     <script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-
 </head>
 <body>
