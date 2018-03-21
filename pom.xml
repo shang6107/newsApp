@@ -237,7 +237,12 @@
 			<artifactId>java-property-utils</artifactId>
 			<version>1.9.1</version>
 		</dependency>
-
+        <!--redis依赖-->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
 
 
 
