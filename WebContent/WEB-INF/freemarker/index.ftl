@@ -171,6 +171,13 @@
     </div>
     <div class="view-product background-color">
 
+
+        <#--主要展示区-->
+
+        <h1>${mgr!""}</h1>
+
+
+
     </div>
 </div>
 

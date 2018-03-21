@@ -17,7 +17,7 @@ public interface ManagerService {
      * @return 集合11
      */
 
-    public Map<String,Object> ManagerLogin(String mgrNo, String password);
+    Manager ManagerLogin(String mgrNo, String password);
 
 
     /**

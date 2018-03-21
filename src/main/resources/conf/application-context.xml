@@ -37,12 +37,13 @@
     <!-- Spring-MyBatis -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.cxgc.news_app.core.model"/>
         <property name="mapperLocations" value="classpath:mapping/*.xml"/>
     </bean>
 
     <!-- Mybatis MapperScanner -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.cxgc.news_app.dao"/>
+        <property name="basePackage" value="com.cxgc.news_app.core.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -57,11 +58,12 @@
         <tx:attributes>
             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
             <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.cxgc.news_app.core.services.*.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.cxgc.news_app.core.services.*.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 </beans>  

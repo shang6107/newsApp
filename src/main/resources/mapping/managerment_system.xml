@@ -5,10 +5,18 @@
 <mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao">
 
 
-    <resultMap id="manager_result" type=""
+    <resultMap id="manager_result" type="manager">
+        <id property="id" column="id"/>
+        <result property="mgrNo" column="mgr_no"/>
+        <result property="password" column="password"/>
+        <result property="mgrName" column="mgr_name"/>
+        <result property="groupsId" column="groups_id"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
 	<select id="selectByMgrNoAndPassword" resultMap="manager_result">
-
+        select * from manager where mgr_no = ${account} and password = ${password}
     </select>
 
 </mapper>

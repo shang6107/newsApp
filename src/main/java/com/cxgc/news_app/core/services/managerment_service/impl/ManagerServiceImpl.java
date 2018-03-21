@@ -13,15 +13,14 @@ import java.util.Map;
  *  @Version
  *  @Description
  */
-@Service("ManagerService")
+@Service
 public class ManagerServiceImpl implements ManagerService {
 @Autowired
    private ManagerDao md;
-    private Map<String,Object> result;
 
     @Override
-    public Map<String, Object> ManagerLogin(String mgrNo, String password) {
-        return null;
+    public Manager ManagerLogin(String mgrNo, String password) {
+        return md.selectByMgrNoAndPassword(mgrNo, password);
     }
 
     @Override
