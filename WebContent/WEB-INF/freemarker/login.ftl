@@ -8,8 +8,8 @@
     <base href="${path!''}/">
     <meta charset="UTF-8">
     <script type="text/javascript" src="static/js/jquery.js"></script>
-    <link href="static/css/layout.css" rel="stylesheet" type="text/css">
-    <link href="static/css/login.css" rel="stylesheet" type="text/css">
+    <link href="static/css1/layout.css" rel="stylesheet" type="text/css">
+    <link href="static/css1/login.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="static/js/js.js"></script>
 
@@ -66,9 +66,7 @@
             }, 400);
         }, 2000);
     }
-function a() {
 
-}
     $(".login-form").submit(function () {
         $.post(
                 "${path!''}/logon",
