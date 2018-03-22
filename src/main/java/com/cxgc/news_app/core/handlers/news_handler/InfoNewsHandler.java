@@ -1,11 +1,19 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by tangqian on 2018/3/21.
- *
+ *  @author 唐倩
+ *  @Version
+ *  @Description
  */
 @Controller
 public class InfoNewsHandler {
+
+    @RequestMapping("")
+    public String test(){
+
+        return "";
+    }
 }
