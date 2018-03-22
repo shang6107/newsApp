@@ -66,7 +66,9 @@
             }, 400);
         }, 2000);
     }
-
+function a() {
+    
+}
     $(".login-form").submit(function () {
         $.post(
                 "${path!''}/logon",
