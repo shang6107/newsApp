@@ -5,7 +5,7 @@
 <mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao">
 
 
-    <resultMap id="manager_result" type="manager">
+    <resultMap id="manager_result" type="com.cxgc.news_app.core.model.Manager">
         <id property="id" column="id"/>
         <result property="mgrNo" column="mgr_no"/>
         <result property="password" column="password"/>
@@ -25,7 +25,7 @@
     <select id="selectAllManager" resultMap="manager_result">
         select * from manager
     </select>
-    <insert id="addManager" parameterType="manager_result">
+    <insert id="addManager" parameterType="com.cxgc.news_app.core.model.Manager">
         insert into manager(id,mgr_no,password,mgr_name,groups_id)
     </insert>
 
