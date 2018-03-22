@@ -25,20 +25,24 @@
         </div>
         <div class="login container " id="login">
 
-            <form class="login-form" action="index.html" method="post" autocomplete="off">
+            <form class="login-form" action="" method="post" autocomplete="off">
                 <div class="login-box border text-small" id="box">
                     <div class="name border-bottom">
-                        <input type="text" placeholder="账号" id="username" name="username" datatype="*" nullmsg="请填写帐号信息">
+                        <input type="text" placeholder="账号" id="username" name="username" datatype="*"
+                               nullmsg="请填写帐号信息">
                     </div>
                     <div class="pwd">
-                        <input type="password" placeholder="密码" datatype="*" id="password" name="password" nullmsg="请填写帐号密码">
+                        <input type="password" placeholder="密码" datatype="*" id="password" name="password"
+                               nullmsg="请填写帐号密码">
                     </div>
                 </div>
                 <input type="hidden" name="formhash" value="5abb5d21"/>
                 <input type="submit" class="btn text-center login-btn" value="立即登录">
             </form>
             <div class="forget" style="background: url('static/img/forget.png')">
-                <a href="repassword.html" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html" class="forget-new text-small fr" id="forget-new">创建一个新账号</a>
+                <a href="repassword.html" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html"
+                                                                                         class="forget-new text-small fr"
+                                                                                         id="forget-new">创建一个新账号</a>
             </div>
         </div>
     </div>
@@ -56,36 +60,24 @@
         $(".popupDom").animate({
             "top": "0px"
         }, 400);
-        setTimeout(function() {
+        setTimeout(function () {
             $(".popupDom").animate({
                 "top": "-40px"
             }, 400);
         }, 2000);
     }
 
-    /*动画（注册）*/
-    $(document).ready(function(e) {
-         /*$("input[name=username]").focus();
-         $('.login-form').Validform({
-             tipmsg:$.Tipmsg.w,
-         	ajaxPost: true,
-         	tiptype: function(msg) {
-         		if (msg) popup_msg('' + msg + '');
-         	},
-         	callback: function(ret) {
-         	    console.log(
-         	        ret);
-         		popup_msg('' + ret.info + '');
-         		if (ret.status == 1) {
-         			if (ret.uc_user_synlogin) {
-         				$("body").append(ret.uc_user_synlogin);
-         			}
-         			setTimeout("window.location='" + ret.url + "'", 2000);
-         		}
-         	}
-         })*/
-
+    $(".login-form").submit(function () {
+        $.post(
+                "${path!''}/logon",
+                {mgrNo:String($("#username").val()).trim(),password:String($("#password").val()).trim()},
+                function (data) {
+                    console.log(data);
+                });
+        return false;
     });
+
+
 </script>
 
 </body>

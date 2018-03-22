@@ -47,7 +47,7 @@
             <li class="fl topbar-info-item">
                 <div class="dropdown">
                     <a href="#" class="topbar-btn">
-                        <span class="fl text-normal">小朱</span>
+                        <span class="fl text-normal"><#if mgr??>${mgr.ngrNo!""}</#if></span>
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -63,8 +63,8 @@
 <div class="view-body">
     <div class="view-sidebar">
         <div class="sidebar-content">
-            <div class="sidebar-nav">
-                <div class="sidebar-title">
+            <div class="sidebar-nav news-menu">
+                <div class="sidebar-title news-menu">
                     <a href="javascript:void(0)">
                         <span class="icon"><b class="fl icon-arrow-down"></b></span>
                         <span class="text-normal">新闻服务</span>
@@ -85,7 +85,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="sidebar-nav">
+            <div class="sidebar-nav user-menu">
                 <div class="sidebar-title">
                     <a href="javascript:void(0)">
                         <span class="icon"><b class="fl icon-arrow-down"></b></span>
@@ -163,27 +163,48 @@
                             <span class="text-normal">修改密码</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
-
         </div>
     </div>
     <div class="view-product background-color">
 
-
-        <#--主要展示区-->
-        <#if mgr?exists && mgr.groupsId?exists >
-            <#if mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "用户维护">
-                <#include "user_index.ftl"/>
-            <#elseif mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "新闻与搜索维护">
-                <#include "news_index.ftl"/>
-            <#else>
-                <#include "root_index.ftl"/>
-            </#if>
+    <#--主要展示区-->
+    <#if mgr?exists && mgr.groupsId?exists >
+        <#if mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "用户维护">
+            <#include "user_index.ftl"/>
+            <script>
+                $(".news-menu").hide();
+            </script>
+        <#elseif mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "新闻与搜索维护">
+            <#include "news_index.ftl"/>
+            <script>
+                $(".user-menu").hide();
+            </script>
+        <#else>
+            <#include "root_index.ftl"/>
         </#if>
-
-
+    <#else >
+    <a href="login.html"><h1>请先登录<span id="countDown"></span></h1></a>
+    <script>
+        $("a").click(function () {
+            return false;
+        });
+        var countdown=5;
+        function settime(val) {
+            if (countdown == 0) {
+                location = "${path!''}/login.html";
+            } else {
+                $("#countDown").text(countdown);
+                countdown--;
+            }
+            setTimeout(function() {
+                settime(val)
+            },1000)
+        }
+        settime(document.getElementById("countDown"));
+    </script>
+    </#if>
 
 
     </div>
