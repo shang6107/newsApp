@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.news_app.core.mapper.user_mapper.User_Mapper">
+
+    <resultMap id="user_result" type="user">
+        <id property="id" column="id"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="password" column="password"/>
+        <result property="headImg" column="head_img"/>
+        <result property="gender" column="gender"/>
+        <result property="address" column="address"/>
+        <result property="hobby" column="Hobby"/>
+        <result property="introduce" column="introduce"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="typeName" column="type_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+
+
+<insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
+    INSERT INTO users(id,phone_num) VALUES (#{id},#{phoneNum})
+</insert>
+
+</mapper>

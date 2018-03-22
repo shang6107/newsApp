@@ -12,17 +12,17 @@ import java.util.Date;
 @Data
 public class User {
 
-    private String id;
-    private String phoneNum;
-    private String nickName;
-    private String password;
-    private String headImg;
-    private Integer gender;
-    private String address;
-    private String hobby;
-    private String introduce;
-    private Date lastTime;
-    private String typeName;
-    private Date createTime;
+    private String id;//用户主键
+    private String phoneNum;//电话号码
+    private String nickName;//昵称
+    private String password;//密码
+    private String headImg;//用户头像地址
+    private Integer gender;//性别
+    private String address;//住址
+    private String hobby;//爱好
+    private String introduce;//个人介绍
+    private Date lastTime;//上次登陆时间
+    private String typeName;//用户类型
+    private Date createTime;//创建时间
 
 }
