@@ -20,4 +20,13 @@
         select * from manager where mgr_no = #{0} and password = #{1}
     </select>
 
+
+
+    <select id="selectAllManager" resultMap="manager_result">
+        select * from manager
+    </select>
+    <insert id="addManager" parameterType="manager_result">
+        insert into manager(id,mgr_no,password,mgr_name,groups_id)
+    </insert>
+
 </mapper>

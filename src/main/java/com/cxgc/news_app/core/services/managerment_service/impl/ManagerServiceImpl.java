@@ -6,6 +6,7 @@ import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,8 +25,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Map<String, Object> addManager(Manager manager) {
-        return null;
+    public int addManager(Manager manager) {
+        return md.addManager(manager);
     }
 
     @Override
@@ -34,8 +35,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Map<String, Object> getManager() {
-        return null;
+    public List<Manager> getManager() {
+        return md.selectAllManager();
     }
 
     @Override

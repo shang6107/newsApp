@@ -72,6 +72,7 @@
 		<property name="cache" value="false" />-->
 		<property name="suffix" value=".ftl" />
 		<property name="order" value="0" />
+
 	</bean>
 
 	<bean

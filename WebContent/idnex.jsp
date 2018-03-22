@@ -11,6 +11,20 @@
     <title>Title</title>
 </head>
 <body>
-HolleWolrd
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<h1>新增</h1>
+<form:form action="${pageContext.request.contextPath}/add" method="post" >
+
+
+    账号：<form:input path="mgrNo"/>
+    密码：<form:input path="password"/>
+    管理员名字：<form:input path="mgrName"/>
+    权限：<form:input path="groupsId"/>
+
+
+    <input type="submit" value="提交" />
+
+
+</form:form>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +29,19 @@ public class ManagerLoginHandler {
     @ResponseBody
     public Object login(Manager manager){
         return service.ManagerLogin(manager.getMgrNo(),manager.getPassword());
+    }
+
+    @RequestMapping("/selectAllManager")
+    public  String selectAllManager(Map<String,Object> map){
+        List<Manager> manager = service.getManager();
+        System.out.println("manager = " + manager);
+        map.put("admins" , manager);
+        return "admin_index";
+    }
+    @RequestMapping("/addManager")
+    public String addManager(Map<String,Object> map){
+        map.put("admin",new Manager());
+        return "add";
     }
 
 }

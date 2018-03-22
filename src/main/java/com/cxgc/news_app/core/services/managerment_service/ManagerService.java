@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.services.managerment_service;
 
 import com.cxgc.news_app.core.model.Manager;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +27,7 @@ public interface ManagerService {
      * @return
      */
 
-    public Map<String,Object> addManager(Manager manager);
+    public int addManager(Manager manager);
 
 /**
  * 根据ID删除管理员
@@ -42,7 +43,7 @@ public interface ManagerService {
  * @return
  */
 
-    public Map<String,Object> getManager();
+    public List<Manager> getManager();
 
 
 /**
