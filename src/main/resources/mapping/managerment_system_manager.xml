@@ -10,9 +10,10 @@
         <result property="mgrNo" column="mgr_no"/>
         <result property="password" column="password"/>
         <result property="mgrName" column="mgr_name"/>
-        <result property="groupsId" column="groups_id"/>
         <result property="lastTime" column="last_time"/>
         <result property="createTime" column="create_time"/>
+        <association property="groupsId" column="groups_id"
+                     select="com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao.getGroupById"/>
     </resultMap>
 
 	<select id="selectByMgrNoAndPassword" resultMap="manager_result">

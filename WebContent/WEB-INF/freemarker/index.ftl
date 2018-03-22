@@ -173,8 +173,16 @@
 
 
         <#--主要展示区-->
+        <#if mgr?exists && mgr.groupsId?exists >
+            <#if mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "用户维护">
+                <#include "user_index.ftl"/>
+            <#elseif mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "新闻与搜索维护">
+                <#include "news_index.ftl"/>
+            <#else>
+                <#include "root_index.ftl"/>
+            </#if>
+        </#if>
 
-        <h1>${mgr!""}</h1>
 
 
 

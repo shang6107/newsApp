@@ -15,7 +15,7 @@ public class Manager {
     private String mgrNo;
     private String password;
     private String mgrName;
-    private String groupsId;
+    private Groups groupsId;
     private Date lastTime;
     private Date createTime;
 
