@@ -1,3 +1,3 @@
 <#include "frame.ftl"/>
-serch_engine page  搜索引擎页面
+user_info page  用户信息页面
 <#include "frame_end.ftl"/>

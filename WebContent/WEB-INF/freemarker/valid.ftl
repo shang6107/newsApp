@@ -1,3 +1,3 @@
 <#include "frame.ftl"/>
-serch_engine page  搜索引擎页面
+valid page  账号实名认证页面
 <#include "frame_end.ftl"/>
