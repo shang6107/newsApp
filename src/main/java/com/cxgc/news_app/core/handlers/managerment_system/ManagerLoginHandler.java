@@ -4,10 +4,10 @@ import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -17,29 +17,45 @@ import java.util.Map;
  * @Version
  * @Description
  */
+@SessionAttributes("manager")
 @Controller
 public class ManagerLoginHandler {
 
-    @Autowired
     private ManagerService service;
 
-    @RequestMapping(value = "/logon",method = RequestMethod.POST)
-    @ResponseBody
-    public Object login(Manager manager){
-        return service.ManagerLogin(manager.getMgrNo(),manager.getPassword());
+    @Autowired
+    public void setService(ManagerService service) {
+        this.service = service;
     }
 
-    @RequestMapping("/selectAllManager")
-    public  String selectAllManager(Map<String,Object> map){
-        List<Manager> manager = service.getManager();
-        System.out.println("manager = " + manager);
-        map.put("admins" , manager);
-        return "admin_index";
+    /**
+     * 管理员登录
+     * @param manager
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/logon",method = RequestMethod.POST)
+    public String login(Manager manager, ModelMap map){
+        Manager managerLogin = service.ManagerLogin(manager.getMgrNo(), manager.getPassword());
+        //登录失败
+        if(managerLogin == null) {
+            map.addAttribute("mgr", "not exits");
+            return "login";
+        }
+        //登录成功
+        map.addAttribute("manager",managerLogin);
+        return "redirect:/index.html";
     }
-    @RequestMapping("/addManager")
-    public String addManager(Map<String,Object> map){
-        map.put("admin",new Manager());
-        return "add";
+
+    /**
+     * 管理员退出
+     * @return
+     */
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logout(){
+        return "redirect:/login.html?logout";
     }
+
+
 
 }

@@ -1,10 +1,11 @@
 <#include "frame.ftl"/>
-
-
+ <#if Session.manager?exists>
+     <#assign mgr = Session.manager/>
+ </#if>
 <div class="view-topbar">
     <div class="topbar-console">
         <div class="tobar-head fl">
-            <a href="javascript:void(0)" class="topbar-logo fl">
+            <a href="/logout" class="topbar-logo fl">
                 <span><img src="static/img/logo.png" width="20" height="20"/></span>
             </a>
             <a href="index.html" class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
@@ -47,7 +48,7 @@
             <li class="fl topbar-info-item">
                 <div class="dropdown">
                     <a href="#" class="topbar-btn">
-                        <span class="fl text-normal"><#if mgr??>${mgr.ngrNo!""}</#if></span>
+                        <span class="fl text-normal"><#if mgr?exists>${mgr.mgrNo!""}</#if></span>
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -211,7 +212,6 @@
             settime(document.getElementById("countDown"));
         </script>
     </#if>
-
 
 
     </div>
