@@ -53,7 +53,6 @@ public class RegisterUtil {
 
         //获得post提交的参数
         String param = getParam(accountSid, smsContent, phone, timestamp, sig, respDataType);
-        System.out.println("param================"+param);
         //发送短信
         String result = null;
         try {
@@ -66,25 +65,8 @@ public class RegisterUtil {
             Object code = jsonObject.get("respCode");
             //判断短信收费发送成功
             if(code != null && code.toString().equals("00000") ){
-                //把当前的验证码使用数据库存放起来
-                //  手机号   验证码   验证码使用的状态  验证码的类型  验证码过期时间
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://10.0.255.255:3306/hotel", "laowang", "123456");
 
-                String sql = "insert into PhoneCode (phone,phonecode,type,status,expireDate) values (?,?,?,?,DATE_ADD(now(),INTERVAL 10 MINUTE))";
 
-                PreparedStatement ps = conn.prepareStatement(sql);
-
-                ps.setString(1, phone);
-                ps.setString(2, phoneCode);
-                ps.setInt(3, 1);
-                ps.setInt(4, 1);
-
-                ps.executeUpdate();
-                ps.close();
-                conn.close();
-                System.out.println("===========================数据库");
-                response.getWriter().print(result);
 
             }
 
@@ -97,7 +79,6 @@ public class RegisterUtil {
             e.printStackTrace();
         }
 
-        System.out.println("result================================:" + result);
         /* "respCode":"00000","respDesc":"请求成功。","failCount":"0","failList":[],"smsId":"53ab5cb93bfc4c9890a760f563e832e0"*/
 
         return phoneCode;
@@ -135,14 +116,18 @@ public class RegisterUtil {
         BufferedReader br =  new BufferedReader(new InputStreamReader(opConnection.getInputStream(), "UTF-8"));
         String line ="";
 
+/*
         System.out.println("brbrrbrbr"+br);
+*/
 
         //定义存放响应内容的对象
         StringBuffer sb = new StringBuffer();
         while((line=br.readLine()) != null){
             sb.append(line);
         }
+/*
         System.err.println("sbsbsbsbs"+sb.toString());
+*/
         //关闭资源
         br.close();
         out.close();
