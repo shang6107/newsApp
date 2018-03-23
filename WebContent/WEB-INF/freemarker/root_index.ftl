@@ -36,13 +36,25 @@
 </script>
 
 <div class="part-div">
-    <p>数据信息</p>
+    <p>代办事项</p>
     <div style="width: 1070px;margin: 0 auto">
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
+        <div class="part-div-child" align="center">
+            <p  style="">用户管理<br/><span class="">220条</span></p>
+            <img src="/static/img/icon_cost.png">
+        </div>
+        <div class="part-div-child" align="center">
+            <p align="center">新闻审核<br/><span class="">325条</span></p>
+            <img src="/static/img/icon_gold.png">
+        </div>
+        <div class="part-div-child">
+            <p align="center">违规评论<br/><span class="">26条</span></p>
+        </div>
+        <div class="part-div-child">
+            <p align="center">档案管理<br/><span class="">220条</span></p>
+        </div>
+        <div class="part-div-child">
+            <p align="center">数据分析<br/><span class="">3320条</span></p>
+        </div>
     </div>
 </div>
 <div class="part-div">
@@ -156,6 +168,7 @@
             <tr>
                 <th>用户量</th>
                 <td>1</td>
+                <td>1</td>
                 <td>2</td>
                 <td>4</td>
                 <td>7</td>
@@ -164,9 +177,55 @@
             <tr>
                 <th>下载量</th>
                 <td>1</td>
+                <td>2</td>
+                <td>2</td>
+                <td>5</td>
+                <td>3</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th>体育</th>
+                <td>1</td>
                 <td>4</td>
                 <td>2</td>
                 <td>1</td>
+                <td>6</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <th>经济</th>
+                <td>1</td>
+                <td>4</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <th>政治</th>
+                <td>8</td>
+                <td>8</td>
+                <td>0</td>
+                <td>3</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <th>国际</th>
+                <td>2</td>
+                <td>1</td>
+                <td>5</td>
+                <td>5</td>
+                <td>3</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <th>军事</th>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>6</td>
                 <td>6</td>
             </tr>
             </tbody>
