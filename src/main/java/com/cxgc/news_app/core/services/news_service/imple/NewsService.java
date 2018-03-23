@@ -5,7 +5,7 @@ package com.cxgc.news_app.core.services.news_service.imple;
  */
 public interface NewsService {
     /**
-     * 通过新闻id获得新闻的网络地址
+     * 通过新闻id获得新闻的本地地址
      */
     String getNewsById(String id);
 }
