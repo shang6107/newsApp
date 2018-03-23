@@ -11,11 +11,11 @@ import java.util.Date;
  */
 @Data
 public class News {
-    private String id;
-    private String url;
-    private String type;
-    private Integer accessCount;
-    private Integer  status;
-    private Date createTime;
+    private String id;//新闻ID
+    private String url;//网络路径
+    private String type;//新闻类型
+    private Integer accessCount;//访问量
+    private Integer  status;//状态
+    private Date createTime;//创建时间
 
 }
