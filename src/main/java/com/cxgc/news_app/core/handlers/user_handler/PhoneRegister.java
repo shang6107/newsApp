@@ -1,16 +1,19 @@
 package com.cxgc.news_app.core.handlers.user_handler;
 
+import com.alibaba.fastjson.JSON;
+import com.cxgc.news_app.core.model.ValidateCode;
 import com.cxgc.news_app.core.services.user_service.UserService;
 import com.cxgc.news_app.utility.user_uitl.RegisterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * 短信接口类.
@@ -25,27 +28,40 @@ public class PhoneRegister {
 
     /**
      * 发送短信验证码
-     * @param phone
+     * @param
      * @param request
      * @param response
      * @return
-     * @throws UnsupportedEncodingException
+     * @throws
      */
     @RequestMapping("/phoneRegister")
     @ResponseBody
-    public String phoneRegister(@RequestBody String phone, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public Object phoneRegister(ValidateCode validateCode,String askType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+
+        System.out.println("phone = " + validateCode.getPhoneNum());
         //验证手机号是否已注册
-        if(user_service.getUserByPhone(phone)==null){
-            return "该手机号没有注册！";
+        System.out.println("askType = " + askType);
+        if(askType.equals("login")){
+            if(user_service.getUserByPhone(validateCode.getPhoneNum())==null){
+                return "该手机号没有注册！";
+            }
         }
 
+
         //发送短信验证码
-        String yzm = registerUtil.phoneRegister(phone, request, response);
+        String yzm = registerUtil.phoneRegister(validateCode.getPhoneNum(), request, response);
 
         //将手机号和验证码存入手机短信验证码表
-        Integer result = user_service.addIdentifyingCode(phone, yzm);
-        System.out.println("result = " + result);
 
+        validateCode.setId(UUID.randomUUID().toString().replaceAll("-",""));
+        validateCode.setCode(yzm);
+        Date now =new Date();
+        Date afterDate = new Date(now.getTime()+600000);
+        validateCode.setExpireTime(afterDate);
+        validateCode.setCreateTime(now);
+        validateCode.setUsable(2);
+        Integer result = user_service.addIdentifyingCode(validateCode);
+        System.out.println("result = " + result);
 
         return "1";
     }

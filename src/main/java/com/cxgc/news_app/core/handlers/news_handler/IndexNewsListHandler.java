@@ -1,11 +1,13 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
 
-import com.cxgc.news_app.core.model.News;
+
+import com.cxgc.news_app.core.services.news_service.imple.NewsIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.Map;
 
 /**
  * @author 徐瑜壮
@@ -15,18 +17,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class IndexNewsListHandler {
-    private News news;
+
+    @Autowired
+    private NewsIndexService ns;
+
     /**
      * 首页新闻数据
      * @return 新闻json数据
      */
-    @RequestMapping("/newsList")
+    @RequestMapping("/newsIndex")
     @ResponseBody
-    public Object indexNewsList(){
+    public Map<String,Object> index(String id){
 
-
-
-        return "username";
+        return ns.index(id);
     }
+
 
 }

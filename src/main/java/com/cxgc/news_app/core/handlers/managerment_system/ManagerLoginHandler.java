@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * @author 上官炳强
@@ -17,7 +17,6 @@ import java.util.Map;
  * @Version
  * @Description
  */
-@SessionAttributes("manager")
 @Controller
 public class ManagerLoginHandler {
 
@@ -35,13 +34,15 @@ public class ManagerLoginHandler {
      * @return
      */
     @RequestMapping(value = "/logon",method = RequestMethod.POST)
-    public String login(Manager manager, ModelMap map){
+    public String login(Manager manager, ModelMap map,HttpSession session){
         Manager managerLogin = service.ManagerLogin(manager.getMgrNo(), manager.getPassword());
         //登录失败
         if(managerLogin == null) {
             map.addAttribute("mgr", "not exits");
+
             return "login";
         }
+        session.setAttribute("manager",managerLogin);
         //登录成功
         map.addAttribute("manager",managerLogin);
         return "redirect:/index.html";
@@ -52,7 +53,9 @@ public class ManagerLoginHandler {
      * @return
      */
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public String logout(){
+    public String logout(HttpSession session){
+        session.removeAttribute("manager");
+        session.invalidate();
         return "redirect:/login.html?logout";
     }
 
