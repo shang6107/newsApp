@@ -1,21 +1,20 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.cxgc.news_app.core.model.News;
+
+import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.services.news_service.imple.NewsService;
-import net.sf.json.JSON;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.json.Json;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *  @author 唐倩
@@ -32,7 +31,7 @@ public class InfoNewsHandler {
      * @return
      */
     @RequestMapping("/getOneNews")
-    public @ResponseBody JSONArray test(String id,HttpServletResponse response) throws IOException {
+    public Map<String,Object> test(String id, HttpServletResponse response) throws IOException {
         System.out.println("id = " + id);
         String url = newsService.getNewsById(id);
         System.out.println("url = " + url);
@@ -48,6 +47,11 @@ public class InfoNewsHandler {
                 stringBuffer.append(b.toString());
             }
             System.out.println("stringBuffer = " + stringBuffer);
-      return com.alibaba.fastjson.JSON.parseArray(stringBuffer.toString());//String text
+            //获得该新闻的所有评论
+            Collection<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
+            Map<String,Object> map=new HashedMap();
+            map.put("news",stringBuffer);
+            map.put("comments",commentCollection);
+            return map;
     }
 }
