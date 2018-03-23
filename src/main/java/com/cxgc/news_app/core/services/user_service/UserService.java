@@ -38,22 +38,22 @@ public class UserService {
 
     /**
      * 保存验证码
-     * @param phone
-     * @param yzm
+     * @param
+     * @param
      * @return
      */
-    public Integer addIdentifyingCode(String phone,String yzm){
-        return userMapper.addIdentifyingCode(phone,yzm);
+    public Integer addIdentifyingCode(ValidateCode validateCode){
+        return userMapper.addIdentifyingCode(validateCode);
     }
 
     /**
      * 登陆验证
-     * @param phone
-     * @param yzm
+     * @param
+     * @param
      * @return
      */
-    public ValidateCode loginVerification(String phone, String yzm){
-        return userMapper.loginVerification(phone,yzm);
+    public ValidateCode loginVerification(ValidateCode validateCode){
+        return userMapper.loginVerification(validateCode);
     }
 
     /**

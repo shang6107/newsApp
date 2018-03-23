@@ -16,5 +16,19 @@
     margin-left: 10px;
     width: 200px;
     height: 130px;
-    background: #c1ddf6;
+    background: #d8eaf6;
+}
+
+.inline-block-part{
+    float: left;
+}
+
+.ul-list li{
+    display: block;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.color-li{
+    background: #f2f2f2;
 }
