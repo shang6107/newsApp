@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.UUID;
 
 /**
  * @author 徐瑜壮
@@ -15,8 +16,9 @@ public class NewsSpider {
 
 
     public static void main(String[] args) throws IOException {
-        NewsSpider n = new NewsSpider();
-        n.spider();
+
+        /*NewsSpider n = new NewsSpider();
+        n.spider();*/
     }
     public String spider() throws IOException {
 

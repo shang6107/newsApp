@@ -21,7 +21,6 @@
     </select>
 
 
-
     <select id="selectAllManager" resultMap="manager_result">
         select * from manager
     </select>
