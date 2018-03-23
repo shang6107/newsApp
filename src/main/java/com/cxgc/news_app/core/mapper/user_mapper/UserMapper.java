@@ -40,17 +40,17 @@ public interface UserMapper {
 
     /**
      * 保存验证码
-     * @param phone
-     * @param yzm
+     * @param
+     * @param
      * @return
      */
-    public int addIdentifyingCode(String phone,String yzm);
+    public int addIdentifyingCode(ValidateCode validateCode);
 
     /**
      * 登陆验证
-     * @param phone
-     * @param yzm
+     * @param
+     * @param
      * @return
      */
-    public ValidateCode loginVerification(String phone, String yzm);
+    public ValidateCode loginVerification(ValidateCode validateCode);
 }
