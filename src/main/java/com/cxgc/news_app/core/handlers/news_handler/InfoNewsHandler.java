@@ -28,7 +28,7 @@ public class InfoNewsHandler {
     @Autowired
     private NewsService newsService;
     /**
-     * 通过新闻id获得新闻的网络地址
+     * 通过新闻id获得新闻的本地地址
      * @return
      */
     @RequestMapping("/getOneNews")
