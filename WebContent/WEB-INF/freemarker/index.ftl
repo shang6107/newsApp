@@ -61,7 +61,7 @@
 </div>
 
 
-<div class="view-body">
+<div class="view-body" >
     <div class="view-sidebar">
         <div class="sidebar-content">
             <div class="sidebar-nav news-menu">
@@ -168,7 +168,7 @@
             </div>
         </div>
     </div>
-    <div class="view-product background-color">
+    <div class="view-product background-color" style="overflow: hidden">
 
     <#--主要展示区-->
     <#if mgr?exists && mgr.groupsId?exists >

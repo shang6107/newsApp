@@ -9,7 +9,9 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css1/identify.css" />
+    <link rel="stylesheet" type="text/css" href="/static/js/skin/layer.css" />
     <link rel="stylesheet" type="text/css" href="/static/css1/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css1/layui.css" />
     <link rel="stylesheet" type="text/css" href="/static/css1/style.css" />
     <link rel="stylesheet" type="text/css" href="/static/css1/login.css" />
     <link rel="stylesheet" type="text/css" href="/static/css1/control_index.css" />
