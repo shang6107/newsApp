@@ -15,7 +15,7 @@ public class Comment {
     private String id;
     private String content;
     private Integer goodCount;
-    private String newsId;
+    private News newsId;
     private String userId;
     private Date createTime;
 }
