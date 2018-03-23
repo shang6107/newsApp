@@ -13,23 +13,8 @@
     <link href="static/css1/login.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="static/js/js.js"></script>
-    <script type="text/javascript" src="static/js/Validform_v5.3.2_min.js">
-        function popup_msg(msg) {
-            $(".popup").html("" + msg + "");
-            $(".popupDom").animate({
-                "top": "0px"
-            }, 400);
-            setTimeout(function () {
-                $(".popupDom").animate({
-                    "top": "-40px"
-                }, 400);
-            }, 2000);
-        }
-        <#if result?exists>
-        console.log("${result}");
-        popup_msg("${result!''}");
-        </#if>
-    </script>
+    <script type="text/javascript" src="static/js/Validform_v5.3.2_min.js"></script>
+
 </head>
 <body style="background: url('/static/img/login-bg.png')">
 <div class="main ">
@@ -69,6 +54,22 @@
         <div class="popup text-default">
         </div>
     </div>
+    <script>
+        function popup_msg(msg) {
+            $(".popup").html("" + msg + "");
+            $(".popupDom").animate({
+                "top": "0px"
+            }, 400);
+            setTimeout(function () {
+                $(".popupDom").animate({
+                    "top": "-40px"
+                }, 400);
+            }, 2000);
+        }
+        <#if mgr?exists && mgr == "not exits">
+            popup_msg("用户名或密码不正确");
+        </#if>
+    </script>
 </div>
 
 </body>

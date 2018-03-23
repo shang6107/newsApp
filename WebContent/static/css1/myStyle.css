@@ -1,0 +1,34 @@
+.table-div{
+    display: inline-block;
+    position: relative;
+}
+
+.float-table-div{
+    margin-left: -120px
+}
+
+.part-div{
+    margin: 10px auto auto auto;background: #f2f2f2;width: 95%;overflow-x: hidden;
+}
+
+.part-div-child{
+    display: inline-block;
+    margin-left: 10px;
+    width: 200px;
+    height: 130px;
+    background: #d8eaf6;
+}
+
+.inline-block-part{
+    float: left;
+}
+
+.ul-list li{
+    display: block;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.color-li{
+    background: #f2f2f2;
+}
