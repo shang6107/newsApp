@@ -19,10 +19,33 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
+    <resultMap id="ValidateCoder_result" type="com.cxgc.news_app.core.model.ValidateCode">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="usable" column="usable"/>
+        <result property="sent" column="sended"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+
 
 
 <insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
     INSERT INTO users(id,phone_num) VALUES (#{id},#{phoneNum})
 </insert>
+
+    <insert id="addIdentifyingCode" parameterType="com.cxgc.news_app.core.model.ValidateCode">
+        INSERT INTO validate_code VALUES (#{id},#{code},#{phoneNum},#{expireTime},#{usable},2,#{createTime})
+    </insert>
+
+    <select id="getUserByPhone" resultMap="user_result">
+        select * from users where phone_num=#{phoneNum}
+    </select>
+
+    <select id="loginVerification" resultMap="ValidateCoder_result">
+        select * from validate_code where phone_num=#{phoneNum} and code=#{code}
+    </select>
 
 </mapper>

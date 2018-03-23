@@ -41,11 +41,7 @@
                 <input type="hidden" name="formhash" value="5abb5d21"/>
                 <input type="submit" class="btn text-center login-btn" value="立即登录">
             </form>
-            <div class="forget" style="background: url('static/img/forget.png')">
-                <a href="repassword.html" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html"
-                                                                                         class="forget-new text-small fr"
-                                                                                         id="forget-new">创建一个新账号</a>
-            </div>
+
         </div>
     </div>
 
