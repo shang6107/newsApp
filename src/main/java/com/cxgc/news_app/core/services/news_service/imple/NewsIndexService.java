@@ -23,12 +23,7 @@ public interface NewsIndexService {
      * @return 新闻类型
      */
     List<String> selectNewsType();
-    /**
-     *
-     * @param id 用户id
-     * @return 头像路径
-     */
-    String selectUserHeadImg(String id);
+
     /**
      *
      * @return 新闻集合

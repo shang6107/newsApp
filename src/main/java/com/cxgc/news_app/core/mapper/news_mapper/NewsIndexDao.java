@@ -18,12 +18,7 @@ public interface NewsIndexDao {
      */
     List<String> selectNewsType();
 
-    /**
-     *
-     * @param id 用户id
-     * @return 头像路径
-     */
-    String selectUserHeadImg(String id);
+
 
     /**
      *
