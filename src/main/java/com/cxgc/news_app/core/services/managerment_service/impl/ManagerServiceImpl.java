@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
+import com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
@@ -18,6 +19,9 @@ import java.util.Map;
 public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao md;
+    @Autowired
+    private GroupDao groupDao;
+
 
     @Override
     public Manager ManagerLogin(String mgrNo, String password) {
@@ -27,7 +31,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager getManagerByMgrNo(String no) {
         //:TODO 待实现的 mgrService 方法
-        
+
         
         
         return null;
