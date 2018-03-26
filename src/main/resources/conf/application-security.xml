@@ -11,51 +11,26 @@
     <!-- 配置用户相关权限 -->
 
     <http auto-config="true">
+        <!--<intercept-url pattern="/**" access="hasAnyRole('用户管理员')"/>-->
         <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/app**" access="permitAll" method="POST"/>
         <intercept-url pattern="/static**" access="permitAll"/>
-        <intercept-url pattern="/management-system/root**" access="hasRole('超级管理员')" />
-        <intercept-url pattern="/management-system/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
-        <intercept-url pattern="/management-system/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
-        <form-login  login-page="/management-system/login"
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/root**" access="hasRole('超级管理员')" />
+        <intercept-url pattern="/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
+        <intercept-url pattern="/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
+        <form-login  login-page="/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
+                     authentication-failure-forward-url="/login?error"
                      authentication-success-handler-ref="authenticationSuccessHandler"
-                     authentication-failure-forward-url="/management-system/login?error"
-                     authentication-details-source-ref="customAuthenticationDetailsSource"
-        />
-        <!--    拒绝访问跳转页面    -->
-        <access-denied-handler error-page="/management-system/403.html"/>
-        <!--    防范 csrf 攻击    -->
-        <csrf/>
-        <!--    session 管理器    -->
-        <session-management invalid-session-url="/login">
-            <concurrency-control error-if-maximum-exceeded="true"/>
-        </session-management>
-
-
+                     />
+        <access-denied-handler error-page="/403.html"/>
+        <!--<session-management invalid-session-url="/login"/>-->
     </http>
 
-    <beans:bean
-            id="loggerListener"
-            class="org.springframework.security.authentication.event.LoggerListener" />
-    <beans:bean
-            id="authorizationListener"
-            class="org.springframework.security.access.event.LoggerListener" />
-    <!--    密码加密工具类    -->
-    <beans:bean
-            id="bCryptPasswordEncoder"
-            class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    <!--    自定义 authentication provider     -->
-    <beans:bean
-            id="customAuthenticationProvider"
-            class="com.cxgc.news_app.core.config.CustomAuthenticationProvider"
-            p:userDetailsService-ref="customManagerDetailsService"
-            p:passwordEncoder-ref="bCryptPasswordEncoder"
-            p:isEncoder="false"/>
-
-    <!--    权限管理器   -->
     <authentication-manager>
-        <authentication-provider ref="customAuthenticationProvider"/>
+        <authentication-provider user-service-ref="customManagerDetailsService"/>
     </authentication-manager>
 
 </beans:beans>

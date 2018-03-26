@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!''}">
+    <base href="${path!'/'}">
     <meta charset="UTF-8">
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <link href="/static/css1/layout.css" rel="stylesheet" type="text/css">
@@ -26,12 +26,12 @@
             </a>
         </div>
         <div class="login container " id="login">
-
-            <form class="login-form" action="/logon" method="post" autocomplete="off">
+            <form class="login-form" action="/login" method="post" autocomplete="off">
                 <div class="login-box border text-small" id="box">
                     <div class="name border-bottom">
-                        <input type="text" placeholder="账号" id="username" name="mgrNo" datatype="*"
-                               value="${mgrNo!''}" nullmsg="请填写帐号信息">
+                        <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+                        <input type="text" placeholder="账号" id="mgrNo" name="mgrNo" datatype="*"
+                                nullmsg="请填写帐号信息">
                     </div>
                     <div class="pwd">
                         <input type="password" placeholder="密码" datatype="*" id="password" name="password"
@@ -65,9 +65,6 @@
         <#if RequestParameters.error?exists>
             popup_msg("用户名或密码不正确");
         </#if>
-        <#--<#if mgr?exists && mgr == "not exits">
-            popup_msg("用户名或密码不正确");
-        </#if>-->
     </script>
 </div>
 

@@ -23,7 +23,7 @@
     </select>
 
     <select id="getAuthoritiesByGroupId" resultMap="authoritiesResult">
-        select ag.* from groups g join authorities_groups ag on g.id = ag.group_id
+        select ath.* from groups g join authorities_groups ag on g.id = ag.group_id
         join authorities ath on ath.id = ag.authorities_id where g.id = #{0}
     </select>
 
