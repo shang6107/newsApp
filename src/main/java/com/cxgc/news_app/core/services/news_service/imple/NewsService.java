@@ -16,4 +16,8 @@ public interface NewsService {
      * 通过新闻id获得新闻对象，包括评论等信息
      */
     Collection<Comment> getAllCommentByNewsId(String id);
+    /**
+     * 将用户的评论保存在评论表中
+     */
+    int putIntoComment(Comment comment);
 }
