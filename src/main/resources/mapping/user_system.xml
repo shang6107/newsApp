@@ -81,17 +81,17 @@
     </select>
 
     <!--添加浏览记录-->
-    <insert id="addHistory" parameterType="com.cxgc.news_app.core.model.History">
+   <!-- <insert id="addHistory" parameterType="com.cxgc.news_app.core.model.History">
         insert into history values(#{},#{},#{})
-    </insert>
+    </insert>-->
 
     <!--添加收藏记录-->
-    <insert id="addCollections" parameterType="com.cxgc.news_app.core.model.Collections">
+   <!-- <insert id="addCollections" parameterType="com.cxgc.news_app.core.model.Collections">
         insert into collections values(#{},#{},#{})
-    </insert>
+    </insert>-->
 
     <!--添加评论记录-->
-    <insert id="addComment" parameterType="com.cxgc.news_app.core.model.Comment">
+    <!--<insert id="addComment" parameterType="com.cxgc.news_app.core.model.Comment">
         insert into comment values(#{},#{},#{})
-    </insert>
+    </insert>-->
 </mapper>
