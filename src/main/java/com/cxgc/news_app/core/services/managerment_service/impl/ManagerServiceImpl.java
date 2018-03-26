@@ -19,16 +19,11 @@ import java.util.Map;
 public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao md;
-    @Autowired
-    private GroupDao groupDao;
-
 
     @Override
     public Manager ManagerLogin(String mgrNo, String password) {
         return md.selectByMgrNoAndPassword(mgrNo, password);
     }
-
-
 
     @Override
     public int addManager(Manager manager) {

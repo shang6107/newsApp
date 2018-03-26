@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Description
  */
 @Controller
-@RequestMapping("/management-system")
+//@RequestMapping("/management-system")
 public class BasicRequestHandler {
 
     @RequestMapping("/{pageName}.html")

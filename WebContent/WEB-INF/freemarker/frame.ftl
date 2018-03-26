@@ -192,7 +192,7 @@
 
     <div class="view-product background-color" style="overflow: hidden">
 
-<#if Session.manager?exists>
+<#--<#if Session.manager?exists>
     <#assign mgr = Session.manager/>
 <#else >
 <div class="go-login" style="margin: 50px auto;">
@@ -222,4 +222,4 @@
 
     settime(document.getElementById("countDown"));
 </script>
-</#if>
+</#if>-->
