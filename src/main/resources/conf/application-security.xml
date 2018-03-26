@@ -16,7 +16,6 @@
         <intercept-url pattern="/management-system/root**" access="hasRole('超级管理员')" />
         <intercept-url pattern="/management-system/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
         <intercept-url pattern="/management-system/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
-
         <form-login  login-page="/management-system/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
@@ -32,6 +31,7 @@
         <session-management invalid-session-url="/login">
             <concurrency-control error-if-maximum-exceeded="true"/>
         </session-management>
+
 
     </http>
 
