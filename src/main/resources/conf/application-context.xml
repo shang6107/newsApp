@@ -48,6 +48,7 @@
         <property name="mapperLocations" value="classpath:mapping/*.xml"/>
     </bean>
 
+
     <!-- Mybatis MapperScanner -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.cxgc.news_app.core.mapper"/>
