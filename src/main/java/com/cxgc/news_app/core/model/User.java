@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.model;
 
+import com.cxgc.news_app.common.UserStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -24,5 +25,6 @@ public class User {
     private Date lastTime;//上次登陆时间
     private String typeName;//用户类型
     private Date createTime;//创建时间
+    private UserStatus userStatus ;//用户状态
 
 }

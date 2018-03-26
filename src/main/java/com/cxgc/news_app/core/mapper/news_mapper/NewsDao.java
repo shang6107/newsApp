@@ -24,4 +24,11 @@ public interface NewsDao {
      * @return
      */
     News getNews(String id);
+
+    /**
+     * 保存用户评论
+     * @param comment
+     * @return
+     */
+    int putIntoComment(Comment comment);
 }

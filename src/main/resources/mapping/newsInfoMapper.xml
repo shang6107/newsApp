@@ -34,5 +34,9 @@
         select url from news where id=#{id}
     </select>
 
+    <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
+        insert into comment(id,content,news_id,user_id,create_time) values(#{comment.id},#{comment.content},#{comment.newsId},#{comment.userId},#{comment.createTime})
+    </insert>
+
 
 </mapper>

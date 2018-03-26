@@ -36,4 +36,15 @@ public class NewsServiceImpl implements NewsService{
     public Collection<Comment> getAllCommentByNewsId(String id) {
         return newsDao.getAllCommentByNewsId(id);
     }
+
+    /**
+     * 保存用户评论记录
+     * @param comment 评论对象
+     * @return
+     */
+
+    public int putIntoComment(Comment comment) {
+        return newsDao.putIntoComment(comment);
+    }
+
 }
