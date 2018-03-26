@@ -15,11 +15,11 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-<!--    <context:component-scan base-package="com.cxgc.news_app"/>
-
-    <context:property-placeholder location="classpath:conf/jdbc.properties"/>-->
-
-    <context:component-scan base-package="com.cxgc.news_app"/>
+    <context:component-scan base-package="com.cxgc.news_app" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
     <context:property-placeholder location="classpath:conf/jdbc.properties" />
     <!--
         <bean id="propertyConfigurer"
@@ -41,8 +41,6 @@
           p:acquireRetryAttempts="10"
     />
 
-
-
     <!-- Spring-MyBatis -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -59,6 +57,7 @@
     <!-- Transaction manager -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
@@ -77,4 +76,4 @@
     </aop:config>
 
     <import resource="classpath:conf/application-security.xml"/>
-</beans>  
+</beans>

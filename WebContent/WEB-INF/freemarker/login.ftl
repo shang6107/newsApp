@@ -22,7 +22,7 @@
     <div class="login-dom login-max">
         <div class="logo text-center">
             <a href="#">
-                <img src="static/img/logo.png" width="180px" height="180px">
+                <img src="/static/img/logo.png" width="180px" height="180px">
             </a>
         </div>
         <div class="login container " id="login">

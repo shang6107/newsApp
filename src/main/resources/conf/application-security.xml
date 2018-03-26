@@ -17,7 +17,7 @@
         <intercept-url pattern="/management-system/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
         <intercept-url pattern="/management-system/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
 
-        <form-login  login-page="/login"
+        <form-login  login-page="/management-system/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
                      authentication-success-handler-ref="authenticationSuccessHandler"
@@ -25,7 +25,7 @@
                      authentication-details-source-ref="customAuthenticationDetailsSource"
         />
         <!--    拒绝访问跳转页面    -->
-        <access-denied-handler error-page="/management-system/403"/>
+        <access-denied-handler error-page="/management-system/403.html"/>
         <!--    防范 csrf 攻击    -->
         <csrf/>
         <!--    session 管理器    -->

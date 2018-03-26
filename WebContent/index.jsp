@@ -1,3 +1,5 @@
+<%--
 <%
-    response.sendRedirect("/login.html");
+    response.sendRedirect("/management_system/login");
 %>
+--%>
