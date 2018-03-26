@@ -35,7 +35,8 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             log.debug("Can't redirect");
             return;
         }
-
+        targetUrl = request.getContextPath() + "/manage-system" + targetUrl;
+        log.info("Redirect target : {}" , targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
@@ -51,15 +52,16 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
         }
 
         if (isRoot(roles)) {
-            url = "/root";
+            url = "/root_index.html";
         } else if (isNews(roles)) {
-            url = "/news";
+            url = "/news_index.html";
         } else if (isUser(roles)) {
-            url = "/user";
+            url = "/user_index.html";
         } else {
             url = "/403";
         }
-        log.info("Redirect target : {}" , url);
+
+
         return url;
     }
 

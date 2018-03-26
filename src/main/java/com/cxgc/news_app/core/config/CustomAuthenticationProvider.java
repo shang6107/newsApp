@@ -77,8 +77,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         CustomWebAuthenticationDetails details =
                 (CustomWebAuthenticationDetails) authentication.getDetails();
-        //获取表单的非 username 和 password 数据
-        String token = details.getToken();
+
         //获取表单的密码
         String credentials = (String) authentication.getCredentials();
         //获取数据库取得的数据
