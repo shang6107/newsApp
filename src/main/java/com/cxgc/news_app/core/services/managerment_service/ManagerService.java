@@ -20,7 +20,6 @@ public interface ManagerService {
 
     Manager ManagerLogin(String mgrNo, String password);
 
-    Manager getManagerByMgrNo(String no);
 
 
     /**

@@ -28,14 +28,7 @@ public class ManagerServiceImpl implements ManagerService {
         return md.selectByMgrNoAndPassword(mgrNo, password);
     }
 
-    @Override
-    public Manager getManagerByMgrNo(String no) {
-        //:TODO 待实现的 mgrService 方法
 
-        
-        
-        return null;
-    }
 
     @Override
     public int addManager(Manager manager) {
