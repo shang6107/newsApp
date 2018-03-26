@@ -42,7 +42,7 @@ public class NewsServiceImpl implements NewsService{
      * @param comment 评论对象
      * @return
      */
-    @Override
+
     public int putIntoComment(Comment comment) {
         return newsDao.putIntoComment(comment);
     }

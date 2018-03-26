@@ -20,7 +20,7 @@
 
     <!--查询最新的新闻-->
     <select id="selectNewsList" resultMap="newsBean">
-        SELECT * from news order by create_time desc LIMIT 30;
+        SELECT id,title,url,news_type_id,access_count,status,DATE_FORMAT(create_time,'%Y-%d-%m') createTime from news order by create_time desc LIMIT 30;
     </select>
 
 

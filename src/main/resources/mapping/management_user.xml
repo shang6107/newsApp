@@ -17,7 +17,11 @@
         <result property="lastTime" column="last_time"/>
         <result property="typeName" column="type_name"/>
         <result property="createTime" column="create_time"/>
-        <result property="userStatus" column="status" javaType="com.cxgc.news_app.common.UserStatus"/>
+        <result property="status" column="status"
+                javaType="com.cxgc.news_app.common.UserStatus"
+                jdbcType="INTEGER"
+                typeHandler="com.cxgc.news_app.utility.EnumUtil"/>
+
     </resultMap>
 
 
