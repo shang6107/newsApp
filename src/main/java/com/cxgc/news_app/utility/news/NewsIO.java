@@ -9,7 +9,7 @@ public class NewsIO {
     /**
      * 获得后台文件的工具方法
      * @param url
-     * @return
+     * @return 字符串
      * @throws IOException
      */
     public static StringBuffer getStringFromFile(String url) throws IOException {
