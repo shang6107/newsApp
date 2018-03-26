@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.handlers.user_handler;
 
 import com.cxgc.news_app.core.model.ValidateCode;
+import com.cxgc.news_app.core.services.user_service.UserService;
 import com.cxgc.news_app.core.services.user_service.impl.UserServiceImpl;
 import com.cxgc.news_app.utility.user_uitl.RegisterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.UUID;
 public class PhoneRegister {
 
     @Autowired
-    private UserServiceImpl user_service;
+    private UserService user_service;
     @Autowired
     private RegisterUtil registerUtil;
 
