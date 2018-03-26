@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!''}">
+    <base href="${path!''}/">
     <meta charset="UTF-8">
     <script type="text/javascript" src="/static/js/jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css1/identify.css"/>
@@ -210,7 +210,7 @@
 
     function settime(val) {
         if (countdown == 0) {
-            location = "${path!''}/login.html";
+            location = "${path!''}/management-system/login.html";
         } else {
             $("#countDown").text(countdown);
             countdown--;

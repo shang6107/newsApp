@@ -1,15 +1,12 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
-import com.cxgc.news_app.core.model.Manager;
-import com.cxgc.news_app.core.services.managerment_service.ManagerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-
-import javax.servlet.http.HttpSession;
-
 
 /**
  * @author 上官炳强
@@ -18,45 +15,26 @@ import javax.servlet.http.HttpSession;
  * @Description
  */
 @Controller
+@RequestMapping("/management-system")
 public class ManagerLoginHandler {
 
-    private ManagerService service;
-
-    @Autowired
-    public void setService(ManagerService service) {
-        this.service = service;
+    @RequestMapping(value = "/login")
+    public String login(ModelMap map){
+        map.put("user",getPrincipal());
+        return "login";
     }
 
-    /**
-     * 管理员登录
-     * @param manager
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = "/logon",method = RequestMethod.POST)
-    public String login(Manager manager, ModelMap map,HttpSession session){
-        Manager managerLogin = service.ManagerLogin(manager.getMgrNo(), manager.getPassword());
-        //登录失败
-        if(managerLogin == null) {
-            map.addAttribute("mgr", "not exits");
-
-            return "login";
+    private String getPrincipal(){
+        String userName = null;
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
         }
-        session.setAttribute("manager",managerLogin);
-        //登录成功
-        map.addAttribute("manager",managerLogin);
-        return "redirect:/index.html";
-    }
-
-    /**
-     * 管理员退出
-     * @return
-     */
-    @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public String logout(HttpSession session){
-        session.removeAttribute("manager");
-        session.invalidate();
-        return "redirect:/login.html?logout";
+        return userName;
     }
 
 

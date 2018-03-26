@@ -2,6 +2,8 @@ package com.cxgc.news_app.core.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author 何其勇
  * @Date 2018-03-20 / 01:57:41
@@ -10,7 +12,8 @@ import lombok.Data;
  */
 @Data
 public class Groups {
-    private  String id;
-    private  String groupName;
-    private  String descpt;
+    private String id;
+    private String groupName;
+    private String descpt;
+    private List<Authorities> authorities;
 }

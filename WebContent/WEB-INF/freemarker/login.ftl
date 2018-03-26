@@ -22,7 +22,7 @@
     <div class="login-dom login-max">
         <div class="logo text-center">
             <a href="#">
-                <img src="static/img/logo.png" width="180px" height="180px">
+                <img src="/static/img/logo.png" width="180px" height="180px">
             </a>
         </div>
         <div class="login container " id="login">
@@ -62,9 +62,12 @@
                 }, 400);
             }, 2000);
         }
-        <#if mgr?exists && mgr == "not exits">
+        <#if RequestParameters.error?exists>
             popup_msg("用户名或密码不正确");
         </#if>
+        <#--<#if mgr?exists && mgr == "not exits">
+            popup_msg("用户名或密码不正确");
+        </#if>-->
     </script>
 </div>
 
