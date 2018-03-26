@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -60,7 +61,9 @@ public class InfoNewsHandler {
     public void putDiscuss(Comment comment){
         System.out.println("comment = " + comment);
         String content=comment.getContent();
-
+        comment.setCreateTime(new Date());
+        comment.setId("cre"+System.currentTimeMillis());
+        int result=newsService.putIntoComment(comment);
 
     }
 
