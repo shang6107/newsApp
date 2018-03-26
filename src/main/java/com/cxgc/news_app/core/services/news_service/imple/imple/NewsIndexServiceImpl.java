@@ -30,7 +30,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
     public Map<String, Object> index(String id) {
         Map<String,Object> map = new HashMap<>();
 
-        map.put("newType", selectNewsType());
+        map.put("newsType", selectNewsType());
 
         map.put("newsList",selectNewsList());
 
@@ -57,7 +57,5 @@ public class NewsIndexServiceImpl implements NewsIndexService{
     public List<News> selectNewsList() {
        return   nd.selectNewsList();
     }
-
-
 
 }

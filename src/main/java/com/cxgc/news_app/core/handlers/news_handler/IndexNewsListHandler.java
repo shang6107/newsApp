@@ -16,6 +16,7 @@ import java.util.Map;
  * @Description
  */
 @Controller
+@RequestMapping("/app")
 public class IndexNewsListHandler {
     @Autowired
     private NewsIndexService ns;
@@ -24,10 +25,9 @@ public class IndexNewsListHandler {
      * 首页新闻数据
      * @return 新闻json数据
      */
-    @RequestMapping("/newsIndex")
+    @RequestMapping("index")
     @ResponseBody
     public Map<String,Object> index(String id){
-
         return ns.index(id);
     }
 
