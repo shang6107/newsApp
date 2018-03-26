@@ -1,7 +1,5 @@
 package com.cxgc.news_app.utility.news;
-
 import java.io.*;
-
 /**
  * Created by 唐倩 on 2018/3/23.
  */
