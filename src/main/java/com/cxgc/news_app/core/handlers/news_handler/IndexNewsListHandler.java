@@ -1,7 +1,5 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
-
-
 import com.cxgc.news_app.core.services.news_service.imple.NewsIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +23,10 @@ public class IndexNewsListHandler {
      * 首页新闻数据
      * @return 新闻json数据
      */
-    @RequestMapping("index")
+    @RequestMapping(value = "index")
     @ResponseBody
     public Map<String,Object> index(String id){
+
         return ns.index(id);
     }
 
