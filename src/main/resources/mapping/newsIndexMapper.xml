@@ -6,6 +6,7 @@
 
     <resultMap id="newsBean" type="news">
         <id property="id" column="id"/>
+        <result property="title" column="title"/>
         <result property="url" column="url"/>
         <result property="type" column="news_type_id"/>
         <result property="accessCount" column="access_count"/>

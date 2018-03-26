@@ -1,7 +1,8 @@
 package com.cxgc.news_app.core.mapper.user_mapper;
 
-import com.cxgc.news_app.core.model.User;
-import com.cxgc.news_app.core.model.ValidateCode;
+import com.cxgc.news_app.core.model.*;
+
+import java.util.List;
 
 /**
  * 用户数据交互层
@@ -53,4 +54,46 @@ public interface UserMapper {
      * @return
      */
     public ValidateCode loginVerification(ValidateCode validateCode);
+
+    /**
+     * 获取用户浏览记录
+     * @param user
+     * @return
+     */
+    public List<History> listHistory(User user);
+
+    /**
+     * 获取用户收藏
+     * @param user
+     * @return
+     */
+    public List<Collections> listCollections(User user);
+
+    /**
+     * 获取用户评论信息
+     * @param user
+     * @return
+     */
+    public List<Comment> listComment(User user);
+
+    /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
+    public int addComment(Comment comment);
+
+    /**
+     * 添加收藏记录
+     * @param collections
+     * @return
+     */
+    public int addCollections(Collections collections);
+
+    /**
+     * 添加历史记录
+     * @param history
+     * @return
+     */
+    public int addHistory(History history);
 }
