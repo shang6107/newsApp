@@ -31,7 +31,7 @@
                     <div class="name border-bottom">
                         <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
                         <input type="text" placeholder="账号" id="mgrNo" name="mgrNo" datatype="*"
-                               value="${mgrNo!''}" nullmsg="请填写帐号信息">
+                                nullmsg="请填写帐号信息">
                     </div>
                     <div class="pwd">
                         <input type="password" placeholder="密码" datatype="*" id="password" name="password"
@@ -65,9 +65,6 @@
         <#if RequestParameters.error?exists>
             popup_msg("用户名或密码不正确");
         </#if>
-        <#--<#if mgr?exists && mgr == "not exits">
-            popup_msg("用户名或密码不正确");
-        </#if>-->
     </script>
 </div>
 

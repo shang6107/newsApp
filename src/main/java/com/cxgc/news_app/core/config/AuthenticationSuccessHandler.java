@@ -35,7 +35,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             log.debug("Can't redirect");
             return;
         }
-        targetUrl = request.getContextPath() + targetUrl;
+        targetUrl = request.getContextPath()  + /**/   targetUrl;
         log.info("Redirect target : {}" , targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
@@ -58,7 +58,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
         } else if (isUser(roles)) {
             url = "/user_index.html";
         } else {
-            url = "/403";
+            url = "/403.html";
         }
 
 

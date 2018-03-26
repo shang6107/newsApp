@@ -70,7 +70,7 @@
             <li class="fl topbar-info-item">
                 <div class="dropdown">
                     <a href="#" class="topbar-btn">
-                        <span class="fl text-normal"><#if mgr?exists>${mgr.mgrNo!""}</#if></span>
+                        <span class="fl text-normal" id="current-user-span"></span>
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -85,7 +85,9 @@
 
 <div class="view-body">
     <div class="view-sidebar">
+
         <div class="sidebar-content">
+
             <div class="sidebar-nav news-menu">
                 <div class="sidebar-title news-menu">
                     <a href="javascript:void(0)">
@@ -108,6 +110,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="sidebar-nav user-menu">
                 <div class="sidebar-title">
                     <a href="javascript:void(0)">
@@ -137,7 +140,6 @@
                     </li>
                 </ul>
             </div>
-
 
             <div class="sidebar-nav">
                 <div class="sidebar-title">
@@ -189,10 +191,18 @@
             </div>
         </div>
     </div>
-
+<#--<#if Session ?exists && Session.SPRING_SECURITY_CONTEXT?exists
+&& Session.SPRING_SECURITY_CONTEXT.authentication?exists
+&& Session.SPRING_SECURITY_CONTEXT.principal
+&& Session.SPRING_SECURITY_CONTEXT.principal.username>-->
+<#if Session.SPRING_SECURITY_CONTEXT.authentication.principal.username?exists>
+    <script>
+        $("#current-user-span").text("${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username!''}");
+    </script>
+</#if>
     <div class="view-product background-color" style="overflow: hidden">
 
-<#--<#if Session.manager?exists>
+    <#--<#if Session.manager?exists>
     <#assign mgr = Session.manager/>
 <#else >
 <div class="go-login" style="margin: 50px auto;">

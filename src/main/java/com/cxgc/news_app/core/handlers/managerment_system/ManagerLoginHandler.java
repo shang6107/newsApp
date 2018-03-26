@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description
  */
 @Controller
-//@RequestMapping("/management-system")
+//@RequestMapping("/management")
 public class ManagerLoginHandler {
 
     @RequestMapping(value = "/login")
@@ -27,17 +27,21 @@ public class ManagerLoginHandler {
         return "login";
     }
 
-    @RequestMapping("/news")
+    @RequestMapping("/news_index")
     public String newsPage(ModelMap map){
-        map.put("user",getPrincipal());
+        map.put("mgr",getPrincipal());
         return "news_index";
+    }
+
+    @RequestMapping("/user_index")
+    public String userPage(ModelMap map){
+        map.put("mgr",getPrincipal());
+        return "user_index";
     }
 
     private String getPrincipal(){
         String userName = null;
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        Object principal = authentication.getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication();
         if (principal instanceof UserDetails) {
             userName = ((UserDetails)principal).getUsername();
         } else {
