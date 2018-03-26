@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
+import com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
@@ -10,19 +11,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  @author 何其勇
- *  @Version
- *  @Description
+ * @author 何其勇
+ * @Version
+ * @Description
  */
 @Service
 public class ManagerServiceImpl implements ManagerService {
-@Autowired
-   private ManagerDao md;
+    @Autowired
+    private ManagerDao md;
+    @Autowired
+    private GroupDao groupDao;
+
 
     @Override
     public Manager ManagerLogin(String mgrNo, String password) {
         return md.selectByMgrNoAndPassword(mgrNo, password);
     }
+
+
 
     @Override
     public int addManager(Manager manager) {

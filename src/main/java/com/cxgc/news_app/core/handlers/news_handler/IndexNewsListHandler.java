@@ -17,7 +17,6 @@ import java.util.Map;
  */
 @Controller
 public class IndexNewsListHandler {
-
     @Autowired
     private NewsIndexService ns;
 

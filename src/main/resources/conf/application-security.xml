@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:p="http://www.springframework.org/schema/p"
+             xsi:schemaLocation="
+             http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security.xsd">
+    <!-- 配置用户相关权限 -->
 
-</beans>
+    <http auto-config="true">
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/static**" access="permitAll"/>
+        <intercept-url pattern="/management-system/root**" access="hasRole('超级管理员')" />
+        <intercept-url pattern="/management-system/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
+        <intercept-url pattern="/management-system/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
+
+        <form-login  login-page="/login"
+                     username-parameter="mgrNo"
+                     password-parameter="password"
+                     authentication-success-handler-ref="authenticationSuccessHandler"
+                     authentication-failure-forward-url="/management-system/login?error"
+                     authentication-details-source-ref="customAuthenticationDetailsSource"
+        />
+        <!--    拒绝访问跳转页面    -->
+        <access-denied-handler error-page="/management-system/403"/>
+        <!--    防范 csrf 攻击    -->
+        <csrf/>
+        <!--    session 管理器    -->
+        <session-management invalid-session-url="/login">
+            <concurrency-control error-if-maximum-exceeded="true"/>
+        </session-management>
+
+    </http>
+
+    <beans:bean
+            id="loggerListener"
+            class="org.springframework.security.authentication.event.LoggerListener" />
+    <beans:bean
+            id="authorizationListener"
+            class="org.springframework.security.access.event.LoggerListener" />
+    <!--    密码加密工具类    -->
+    <beans:bean
+            id="bCryptPasswordEncoder"
+            class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <!--    自定义 authentication provider     -->
+    <beans:bean
+            id="customAuthenticationProvider"
+            class="com.cxgc.news_app.core.config.CustomAuthenticationProvider"
+            p:userDetailsService-ref="customManagerDetailsService"
+            p:passwordEncoder-ref="bCryptPasswordEncoder"
+            p:isEncoder="false"/>
+
+    <!--    权限管理器   -->
+    <authentication-manager>
+        <authentication-provider ref="customAuthenticationProvider"/>
+    </authentication-manager>
+
+</beans:beans>

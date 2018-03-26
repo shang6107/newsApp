@@ -2,23 +2,20 @@
 <#if Request.contextPath?exists>
     <#assign path = Request.contextPath/>
 </#if>
-<#if Session.manager?exists>
-    <#assign mgr = Session.manager/>
-</#if>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!''}">
+    <base href="${path!''}/">
     <meta charset="UTF-8">
     <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css1/identify.css" />
-    <link rel="stylesheet" type="text/css" href="/static/js/skin/layer.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/layui.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/style.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/login.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/control_index.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css1/myStyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css1/identify.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/js/skin/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/login.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/control_index.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css1/myStyle.css"/>
     <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/static/js/layer.js"></script>
     <script type="text/javascript" src="/static/js/haidao.offcial.general.js"></script>
@@ -86,7 +83,7 @@
 </div>
 
 
-<div class="view-body" >
+<div class="view-body">
     <div class="view-sidebar">
         <div class="sidebar-content">
             <div class="sidebar-nav news-menu">
@@ -194,3 +191,35 @@
     </div>
 
     <div class="view-product background-color" style="overflow: hidden">
+
+<#if Session.manager?exists>
+    <#assign mgr = Session.manager/>
+<#else >
+<div class="go-login" style="margin: 50px auto;">
+    <a id="go-login" href="login.html"><h3 style="color: #1E9FFF" align="center">
+        您目前以游客身份访问，查看更多内容请先登录(<span id="countDown"></span> 点击手动返回登录页面)</h3></a>
+</div>
+<script>
+    ($(function () {
+                $(".view-topbar a,.sidebar-nav a").click(function () {
+                    return false;
+                });
+            })
+    );
+    var countdown = 5;
+
+    function settime(val) {
+        if (countdown == 0) {
+            location = "${path!''}/management-system/login.html";
+        } else {
+            $("#countDown").text(countdown);
+            countdown--;
+        }
+        setTimeout(function () {
+            settime(val)
+        }, 1000)
+    }
+
+    settime(document.getElementById("countDown"));
+</script>
+</#if>

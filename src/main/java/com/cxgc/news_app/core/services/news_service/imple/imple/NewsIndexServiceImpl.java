@@ -31,7 +31,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         Map<String,Object> map = new HashMap<>();
 
         map.put("newType", selectNewsType());
-        map.put("userHeadImg",selectUserHeadImg(id));
+
         map.put("newsList",selectNewsList());
 
         return map;
@@ -47,15 +47,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
 
     }
 
-    /**
-     *
-     * @param id 用户id
-     * @return 头像路径
-     */
-    @Override
-    public String selectUserHeadImg(String id) {
-        return nd.selectUserHeadImg(id);
-    }
+
 
     /**
      *

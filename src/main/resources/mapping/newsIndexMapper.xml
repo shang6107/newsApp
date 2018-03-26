@@ -22,7 +22,5 @@
         SELECT * from news order by create_time desc LIMIT 30;
     </select>
 
-    <select id="selectUserHeadImg" resultType="String">
-        SELECT head_img from users where id=#{0}
-    </select>
+
 </mapper>

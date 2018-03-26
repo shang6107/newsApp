@@ -1,3 +1,3 @@
 <#include "frame.ftl"/>
-serch_engine page  搜索引擎页面
+manager_home page  管理员个人中心页面
 <#include "frame_end.ftl"/>

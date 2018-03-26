@@ -21,6 +21,7 @@ public interface ManagerService {
     Manager ManagerLogin(String mgrNo, String password);
 
 
+
     /**
      * 添加管理员
      * @param manager

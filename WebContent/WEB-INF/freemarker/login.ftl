@@ -6,14 +6,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!''}/">
+    <base href="${path!''}">
     <meta charset="UTF-8">
-    <script type="text/javascript" src="static/js/jquery.js"></script>
-    <link href="static/css1/layout.css" rel="stylesheet" type="text/css">
-    <link href="static/css1/login.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="static/js/js.js"></script>
-    <script type="text/javascript" src="static/js/Validform_v5.3.2_min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <link href="/static/css1/layout.css" rel="stylesheet" type="text/css">
+    <link href="/static/css1/login.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/js.js"></script>
+    <script type="text/javascript" src="/static/js/Validform_v5.3.2_min.js"></script>
 
 </head>
 <body style="background: url('/static/img/login-bg.png')">
@@ -41,11 +41,7 @@
                 <input type="hidden" name="formhash" value="5abb5d21"/>
                 <input type="submit" class="btn text-center login-btn" value="立即登录">
             </form>
-            <div class="forget" style="background: url('static/img/forget.png')">
-                <a href="repassword.html" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html"
-                                                                                         class="forget-new text-small fr"
-                                                                                         id="forget-new">创建一个新账号</a>
-            </div>
+
         </div>
     </div>
 
@@ -66,9 +62,12 @@
                 }, 400);
             }, 2000);
         }
-        <#if mgr?exists && mgr == "not exits">
+        <#if RequestParameters.error?exists>
             popup_msg("用户名或密码不正确");
         </#if>
+        <#--<#if mgr?exists && mgr == "not exits">
+            popup_msg("用户名或密码不正确");
+        </#if>-->
     </script>
 </div>
 

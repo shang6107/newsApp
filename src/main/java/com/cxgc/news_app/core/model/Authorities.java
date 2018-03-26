@@ -11,6 +11,6 @@ import lombok.Data;
 @Data
 public class Authorities {
     private String id;
-    private String autjoritiesName;
+    private String authoritiesName;
     private String descpt;
 }
