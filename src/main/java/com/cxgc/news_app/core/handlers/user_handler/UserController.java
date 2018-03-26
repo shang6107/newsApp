@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.handlers.user_handler;
 
 import com.cxgc.news_app.core.model.*;
+import com.cxgc.news_app.core.services.user_service.UserService;
 import com.cxgc.news_app.core.services.user_service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    private UserServiceImpl user_service;
+    private UserService user_service;
     /**
      * 用户的登陆
      * @param
