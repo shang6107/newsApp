@@ -58,16 +58,17 @@
                 <th>娱乐</th>
                 <th>科技</th>
                 <th>财经</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th>1200</th>
+                <th>1400</th>
                 <td>540</td>
                 <td>300</td>
                 <td>150</td>
                 <td>180</td>
-
+                <td>200</td>
             </tr>
             </tbody>
         </table>
@@ -84,16 +85,16 @@
                 <th>科技</th>
                 <th>财经</th>
 
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>20</td>
+                <td>200</td>
                 <td>200</td>
                 <td>300</td>
                 <td>500</td>
-                <td>50</td>
-
+                <td>400</td>
             </tr>
             </tbody>
         </table>
