@@ -9,13 +9,12 @@ public class NewsIO {
     public static StringBuffer getStringFromFile(String url) throws IOException {
         File file=new File(url);
         StringBuffer stringBuffer=new StringBuffer();
-        InputStream is=new FileInputStream(file);
-        int len;
-        byte[] b=new byte[1024];
-        while((len=is.read(b))!=-1){
-            stringBuffer.append(b.toString());
+        InputStreamReader is=new InputStreamReader(new FileInputStream(file),"GBK");
+        BufferedReader br=new BufferedReader(is);
+        String txtStr=null;
+        while((txtStr=br.readLine())!=null){
+            stringBuffer.append(txtStr);
         }
-        System.out.println("stringBuffer = " + stringBuffer);
         return stringBuffer;
     }
 }
