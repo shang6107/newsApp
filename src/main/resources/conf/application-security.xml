@@ -10,12 +10,11 @@
              http://www.springframework.org/schema/security/spring-security.xsd">
     <!-- 配置用户相关权限 -->
 
-    <http auto-config="true">
+    <http auto-config="true" use-expressions="true">
         <!--<intercept-url pattern="/**" access="hasAnyRole('用户管理员')"/>-->
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/app**" access="permitAll" method="POST"/>
         <intercept-url pattern="/static**" access="permitAll"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
         <intercept-url pattern="/root**" access="hasRole('超级管理员')" />
         <intercept-url pattern="/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
         <intercept-url pattern="/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
