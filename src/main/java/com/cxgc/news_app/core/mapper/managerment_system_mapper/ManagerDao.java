@@ -12,6 +12,9 @@ import java.util.List;
  *  @Description
  */
 public interface ManagerDao {
+    
+    Manager getManagerByMgrNo(String mgrNo);
+    
     /**
      * 通过账号密码查找管理员（用于管理员登录）
      * @param mgrNo

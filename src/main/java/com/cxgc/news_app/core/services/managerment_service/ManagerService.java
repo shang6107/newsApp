@@ -20,6 +20,8 @@ public interface ManagerService {
 
     Manager ManagerLogin(String mgrNo, String password);
 
+    Manager getManagerByMgrNo(String no);
+
 
     /**
      * 添加管理员

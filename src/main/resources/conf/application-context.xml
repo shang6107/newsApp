@@ -75,4 +75,6 @@
         <aop:pointcut id="serviceMethods" expression="execution(* com.cxgc.news_app.core.services.*.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
+
+    <import resource="classpath:conf/application-security.xml"/>
 </beans>  

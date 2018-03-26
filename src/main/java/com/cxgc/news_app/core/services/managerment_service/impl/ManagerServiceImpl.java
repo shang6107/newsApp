@@ -10,18 +10,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  @author 何其勇
- *  @Version
- *  @Description
+ * @author 何其勇
+ * @Version
+ * @Description
  */
 @Service
 public class ManagerServiceImpl implements ManagerService {
-@Autowired
-   private ManagerDao md;
+    @Autowired
+    private ManagerDao md;
 
     @Override
     public Manager ManagerLogin(String mgrNo, String password) {
         return md.selectByMgrNoAndPassword(mgrNo, password);
+    }
+
+    @Override
+    public Manager getManagerByMgrNo(String no) {
+        //:TODO 待实现的 mgrService 方法
+        
+        
+        
+        return null;
     }
 
     @Override
