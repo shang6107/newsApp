@@ -1,4 +1,3 @@
-/*
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.UserManagementDao;
@@ -9,13 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-*/
 /**
  * @author 何其勇
  * @Date
  * @Version
  * @Description
- *//*
+ */
 
 @Service
 public class UserManagementServiceImpl implements UserManagementService{
@@ -26,5 +24,14 @@ public class UserManagementServiceImpl implements UserManagementService{
     public List<User> selectAllUser() {
         return umd.selectAllUser();
     }
+
+    @Override
+    public User updateUser(String id ) {
+        return umd.updateUser(id);
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return umd.getUserById(id);
+    }
 }
-*/
