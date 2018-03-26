@@ -3,9 +3,15 @@ package com.cxgc.news_app.utility.news;
 import java.io.*;
 
 /**
- * Created by jiang_hai on 2018/3/23.
+ * Created by 唐倩 on 2018/3/23.
  */
 public class NewsIO {
+    /**
+     * 获得后台文件的工具方法
+     * @param url
+     * @return
+     * @throws IOException
+     */
     public static StringBuffer getStringFromFile(String url) throws IOException {
         File file=new File(url);
         StringBuffer stringBuffer=new StringBuffer();
