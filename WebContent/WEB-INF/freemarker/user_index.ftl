@@ -80,33 +80,24 @@
     });
 </script>
 <div class="part-div" >
-    <p>概要信息</p>
-    <div class="table-div first-table-div">
-        <table id='myTable6'>
-            <caption>统计</caption>
-            <thead>
-            <tr>
-                <th></th>
-                <th>男</th>
-                <th>女</th>
-                <th>合计</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th>1200</th>
-                <td>540</td>
-                <td>660</td>
-
-            </tr>
-            </tbody>
-        </table>
+数据统计：
         </div>
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
-      <div class="part-div-child"></div>
+
+        <div class="part-div-child"  style="width: 300px;height: 150px;">
+            APP下载人数总量：
+        </div>
+
+        <div class="part-div-child" style="width: 300px;height: 150px;">
+            会员人数：
+        </div>
+
+        <div class="part-div-child" style="width: 300px;height: 150px;">
+            登陆人数统计：
+        </div>
+
+      <div class="part-div-child" style="width: 300px;height: 150px;">
+           被举报的人数：
+      </div>
 
 
 <div class="part-div">
@@ -207,18 +198,16 @@
 
 
 </div>
-<div class="part-div">
+<div class="part-div" style="width: 600px;height: 200px ;float: left" >
     <p>数据分析</p>
     <table id='myTable4'>
         <thead>
         <tr>
             <th></th>
-            <th></th>
             <th>第一周</th>
             <th>第二周</th>
             <th>第三周</th>
             <th>第四周</th>
-            <th>月计</th>
         </tr>
         </thead>
         <tbody>
@@ -228,7 +217,6 @@
             <td>2</td>
             <td>4</td>
             <td>7</td>
-            <td>14</td>
         </tr>
         <tr>
             <th>下载量</th>
@@ -236,7 +224,6 @@
             <td>4</td>
             <td>2</td>
             <td>1</td>
-            <td>8</td>
         </tr>
         <tr>
             <th>举报量</th>
@@ -244,9 +231,28 @@
             <td>3</td>
             <td>4</td>
             <td>5</td>
-            <td>8</td>
         </tr>
         </tbody>
     </table>
+    <script>
+        for(var i = 0 ; i < $(".ul-list li").length ; i ++){
+            if(i % 2){
+                $(".ul-list li").eq(i).css("background","#f2f2f2");
+            }
+        }
+    </script>
+    <div class="inline-block-part" style="margin-left: 20px ;width: 600px">
+        <p>最新动态</p>
+        <div style="width: 400px;height: 130px;background: #fffffd;">
+            <p align="right"><a href="#">更多 >></a></p>
+            <hr class="layui-layer-border"/>
+            <ul class="ul-list">
+                <li>sdafdsaf</li>
+                <li>sdafdsaf</li>
+                <li>sdafdsaf</li>
+                <li>sdafdsaf</li>
+            </ul>
+        </div>
+    </div>
 </div>
 <#include "frame_end.ftl"/>
