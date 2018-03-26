@@ -13,19 +13,19 @@
     <http auto-config="true">
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/static**" access="permitAll"/>
-        <intercept-url pattern="/root**" access="hasRole('超级管理员') or hasRole('超级管理员')" />
-        <intercept-url pattern="/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
-        <intercept-url pattern="/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
+        <intercept-url pattern="/management-system/root**" access="hasRole('超级管理员')" />
+        <intercept-url pattern="/management-system/user**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
+        <intercept-url pattern="/management-system/news**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
 
         <form-login  login-page="/login"
-                     username-parameter="username"
+                     username-parameter="mgrNo"
                      password-parameter="password"
                      authentication-success-handler-ref="authenticationSuccessHandler"
-                     authentication-failure-forward-url="/login?error"
+                     authentication-failure-forward-url="/management-system/login?error"
                      authentication-details-source-ref="customAuthenticationDetailsSource"
         />
         <!--    拒绝访问跳转页面    -->
-        <access-denied-handler error-page="/403"/>
+        <access-denied-handler error-page="/management-system/403"/>
         <!--    防范 csrf 攻击    -->
         <csrf/>
         <!--    session 管理器    -->

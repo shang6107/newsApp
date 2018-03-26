@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
 import com.cxgc.news_app.core.config.MyManagerDetails;
+import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Authorities;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
@@ -30,7 +31,7 @@ import java.util.List;
 public class CustomManagerDetailsService implements UserDetailsService{
 
 	@Autowired
-	private ManagerService service;
+	private ManagerDao managerDao;
 	/**
 	 * 		基于 managerNo 分配一个用户，在真实的实现类中，搜索该用户可能是敏感的，也可能不是
 	 * 	，关键在于实现类如何进行配置。介于此 ，<code>UserDetails</code> 的回调信息可能与真实的
@@ -44,7 +45,7 @@ public class CustomManagerDetailsService implements UserDetailsService{
 			throws UsernameNotFoundException {
 
 		//从数据库获取 manager 对应的数据
-		Manager manager = service.getManagerByMgrNo(mgrNo);
+		Manager manager = managerDao.getManagerByMgrNo(mgrNo);
 		if(manager==null){
 			log.debug("User not found from mgrNo : {}",manager);
 			throw new UsernameNotFoundException("MgrNo not found");

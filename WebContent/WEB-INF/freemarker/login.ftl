@@ -62,9 +62,12 @@
                 }, 400);
             }, 2000);
         }
-        <#if mgr?exists && mgr == "not exits">
+        <#if RequestParameters.error?exists>
             popup_msg("用户名或密码不正确");
         </#if>
+        <#--<#if mgr?exists && mgr == "not exits">
+            popup_msg("用户名或密码不正确");
+        </#if>-->
     </script>
 </div>
 
