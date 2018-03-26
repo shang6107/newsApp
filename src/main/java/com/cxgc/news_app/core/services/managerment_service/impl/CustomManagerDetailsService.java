@@ -73,10 +73,14 @@ public class CustomManagerDetailsService implements UserDetailsService{
 	 */
 	private List<GrantedAuthority> getGrantedAuthorities(Manager manager){
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for (Authorities authorities1 : manager.getGroups().getAuthorities()){
-			authorities.add(new SimpleGrantedAuthority(authorities1.getAuthoritiesName()));
-		}
+		if(manager.getGroups() != null) {
 			authorities.add(new SimpleGrantedAuthority("ROLE_" + manager.getGroups().getGroupName()));
+			if (manager.getGroups().getAuthorities() != null)
+				for (Authorities authorities1 : manager.getGroups().getAuthorities()) {
+					authorities.add(new SimpleGrantedAuthority(authorities1.getAuthoritiesName()));
+				}
+		}
+
 		return authorities;
 	}
 	

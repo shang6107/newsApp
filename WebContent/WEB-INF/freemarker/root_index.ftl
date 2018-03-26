@@ -1,3 +1,4 @@
+<#include "index.ftl"/>
 <script type="text/javascript" src="/static/js/jsapi.js"></script>
 <script type="text/javascript" src="/static/js/corechart.js"></script>
 <script type="text/javascript" src="/static/js/jquery.gvChart-1.0.1.min.js"></script>
@@ -254,3 +255,4 @@
         </div>
     </div>
 </div>
+<#include "frame_end.ftl"/>

@@ -1,5 +1,5 @@
 <#include "frame.ftl"/>
-<#if mgr?exists && mgr.groupsId?exists >
+<#--<#if mgr?exists && mgr.groupsId?exists >
     <#if mgr.groupsId.groupName?exists && mgr.groupsId.groupName == "用户维护">
         <#include "user_index.ftl"/>
     <script>
@@ -13,7 +13,7 @@
     <#else>
         <#include "root_index.ftl"/>
     </#if>
-</#if>
+</#if>-->
 <script>
     $(".sidebar-title").live('click', function () {
         if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
@@ -25,4 +25,3 @@
         }
     });
 </script>
-<#include "frame_end.ftl"/>

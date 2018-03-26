@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author 何其勇
@@ -9,6 +10,7 @@ import lombok.Data;
  * @Description 类
  */
 @Data
+@ToString
 public class Authorities {
     private String id;
     private String authoritiesName;

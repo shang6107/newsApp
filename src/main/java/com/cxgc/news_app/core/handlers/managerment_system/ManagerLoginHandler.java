@@ -4,9 +4,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author 上官炳强
@@ -15,20 +19,29 @@ import org.springframework.web.bind.annotation.*;
  * @Description
  */
 @Controller
-@RequestMapping("/management-system")
+//@RequestMapping("/management")
 public class ManagerLoginHandler {
 
     @RequestMapping(value = "/login")
-    public String login(ModelMap map){
-        map.put("user",getPrincipal());
+    public String login(){
         return "login";
+    }
+
+    @RequestMapping("/news_index")
+    public String newsPage(ModelMap map){
+        map.put("mgr",getPrincipal());
+        return "news_index";
+    }
+
+    @RequestMapping("/user_index")
+    public String userPage(ModelMap map){
+        map.put("mgr",getPrincipal());
+        return "user_index";
     }
 
     private String getPrincipal(){
         String userName = null;
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        Object principal = authentication.getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication();
         if (principal instanceof UserDetails) {
             userName = ((UserDetails)principal).getUsername();
         } else {
@@ -37,6 +50,15 @@ public class ManagerLoginHandler {
         return userName;
     }
 
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
 
 
 }
