@@ -31,7 +31,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         Map<String,Object> map = new HashMap<>();
 
         map.put("newsType", selectNewsType());
-
+        System.out.println(selectNewsList());
         map.put("newsList",selectNewsList());
 
         return map;
