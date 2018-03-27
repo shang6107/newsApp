@@ -32,5 +32,9 @@ public interface UserManagementDao {
      * @return 用户的全部信息
      */
     User getUserById(String id);
+
+
+
+
 }
 
