@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.config;
+package com.cxgc.news_app.core.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -35,7 +35,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             log.debug("Can't redirect");
             return;
         }
-        targetUrl = request.getContextPath()  + /*"/management"+*/   targetUrl;
+       /* targetUrl = request.getContextPath()  + "/management"+   targetUrl;*/
         log.info("Redirect target : {}" , targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

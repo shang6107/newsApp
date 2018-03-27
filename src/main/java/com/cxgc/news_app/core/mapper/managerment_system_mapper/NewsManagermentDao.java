@@ -2,6 +2,8 @@ package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 
 
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
+import com.cxgc.news_app.core.model.Release;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,5 +35,22 @@ public interface NewsManagermentDao {
      * @return
      */
     public List<News> selectAllNews();
+
+    /**
+     * 修改发布新闻状态
+     *
+     * @return
+     */
+    public Release updateReleaseByStauts();
+
+    /**
+     * 查询所有发布新闻
+     *
+     * @param id
+     * @return
+     */
+    public Release selectRelease(String id);
+
+    NewsType getNewsTypeById(Integer id);
 
 }

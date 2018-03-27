@@ -31,7 +31,7 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping("/login_y")
+    @RequestMapping("/login-y")
     @ResponseBody
     public Object login(ValidateCode validateCode){
         System.out.println("phone = " + validateCode.getPhoneNum());

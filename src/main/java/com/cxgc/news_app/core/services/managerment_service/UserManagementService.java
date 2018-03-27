@@ -20,15 +20,15 @@ public interface UserManagementService {
 
  /**
   * 修改用户状态
-  * @param id
+  * @param user
   * @return
   */
- User updateUser(String id);
+ int editUserInfo(User user);
 
  /**
   * 获得用户的信息通过ID
   * @param id
   * @return
   */
- User getUserById(String id);
+ User getUserById(String phoneNum);
 }

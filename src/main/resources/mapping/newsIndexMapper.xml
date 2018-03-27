@@ -8,10 +8,18 @@
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="url" column="url"/>
-        <result property="type" column="news_type_id"/>
         <result property="accessCount" column="access_count"/>
-        <result property="status" column="status"/>
         <result property="createTime" column="create_time"/>
+        <association property="type" column="news_type_id" select="
+com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"/>
+        <!--
+         private String id;//新闻ID
+    private String title;//新闻标题
+    private String url;//网络路径
+    private NewsType type;//新闻类型
+    private Integer accessCount;//访问量
+    private Date createTime;//创建时间
+        -->
     </resultMap>
     <!--查询所有新闻类型-->
     <select id="selectNewsType" resultType="String">

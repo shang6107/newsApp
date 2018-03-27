@@ -1,8 +1,8 @@
 <#include "index.ftl"/>
-<script type="text/javascript" src="/static/js/jsapi.js"></script>
-<script type="text/javascript" src="/static/js/corechart.js"></script>
-<script type="text/javascript" src="/static/js/jquery.gvChart-1.0.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ba-resize.min.js"></script>
+<script type="text/javascript" src="static/js/jsapi.js"></script>
+<script type="text/javascript" src="static/js/corechart.js"></script>
+<script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
 <script type="text/javascript">
     gvChartInit();
 
@@ -234,6 +234,7 @@
         </tr>
         </tbody>
     </table>
+</div>
     <script>
         for(var i = 0 ; i < $(".ul-list li").length ; i ++){
             if(i % 2){
@@ -243,7 +244,7 @@
     </script>
     <div class="inline-block-part" style="margin-left: 20px ;width: 600px">
         <p>最新动态</p>
-        <div style="width: 400px;height: 130px;background: #fffffd;">
+        <div style="width: 500px;height: 200px;background: #fffffd;">
             <p align="right"><a href="#">更多 >></a></p>
             <hr class="layui-layer-border"/>
             <ul class="ul-list">
@@ -253,6 +254,6 @@
                 <li>sdafdsaf</li>
             </ul>
         </div>
-    </div>
+
 </div>
 <#include "frame_end.ftl"/>

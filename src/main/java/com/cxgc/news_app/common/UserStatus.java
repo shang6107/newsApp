@@ -1,7 +1,5 @@
 package com.cxgc.news_app.common;
 
-import com.cxgc.news_app.utility.BaseEnum;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +9,7 @@ import java.util.Map;
  * @Version 1.0
  * @Description 用户状态
  */
-public enum UserStatus implements BaseEnum<UserStatus, Integer> {
+public enum UserStatus  {
 
     FREEZE(1, "冻结"),
 
@@ -27,14 +25,6 @@ public enum UserStatus implements BaseEnum<UserStatus, Integer> {
     UserStatus(Integer status,String reason){
         this.reason = reason;
         this.status = status;
-    }
-
-    static Map<Integer, UserStatus> enumMap = new HashMap();
-
-    static {
-        for (UserStatus type : UserStatus.values()) {
-            enumMap.put(type.getStatus(), type);
-        }
     }
 
     public void setReason(String reason) {
@@ -53,7 +43,12 @@ public enum UserStatus implements BaseEnum<UserStatus, Integer> {
         return status;
     }
 
-    public static UserStatus getEnum(String value) {
-        return enumMap.get(value);
+    public static UserStatus getUserStatusByStatus(Integer status){
+        for(UserStatus userStatus : UserStatus.values()){
+            if(userStatus.status.equals(status)){
+                return userStatus;
+            }
+        }
+        return null;
     }
 }
