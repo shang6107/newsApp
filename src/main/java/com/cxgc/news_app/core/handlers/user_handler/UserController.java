@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.handlers.user_handler;
 
 import com.cxgc.news_app.core.model.*;
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.services.user_service.UserService;
 import com.cxgc.news_app.core.services.user_service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 用户操作
  * 流转控制层
  */
 @Controller
+@RequestMapping("/app")
 public class UserController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping("/login-y")
+    @RequestMapping(value = "/login_y")
     @ResponseBody
     public Object login(ValidateCode validateCode){
         System.out.println("phone = " + validateCode.getPhoneNum());
@@ -119,7 +119,8 @@ public class UserController {
     @ResponseBody
     public Object editInfo(User user){
         user_service.editUserInfo(user);
-        User newUser = user_service.getUserByPhone(user.getPhoneNum());
+        User newUser = user_service.getUserById(user.getId());
+        System.out.println("newUser = " + newUser);
         return newUser;
     }
 
@@ -131,7 +132,12 @@ public class UserController {
     @RequestMapping("/listHis")
     @ResponseBody
     public Object listHis(User user){
+        System.out.println("user = " + user);
         List<History> histories = user_service.listHistory(user);
+        if(histories.isEmpty()){
+            System.out.println("histories = " + histories);
+            return "0";
+        }
         return histories;
     }
 
@@ -143,8 +149,11 @@ public class UserController {
     @RequestMapping("/listCollections")
     @ResponseBody
     public Object listCollections(User user){
+        Map<String,Object> map = new HashMap<>();
         List<Collections> collections = user_service.listCollections(user);
-        return collections;
+        System.out.println("collections = " + collections);
+        map.put("collections",collections);
+        return map;
     }
 
     /**
