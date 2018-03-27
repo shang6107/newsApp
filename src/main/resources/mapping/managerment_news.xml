@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao">
+
+    <resultMap id="news_result" type="com.cxgc.news_app.core.model.News">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="URL"/>
+        <result property="type" column="news_type_id"/>
+        <result property="accessCount" column="access_count"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"
+                javaType="com.cxgc.news_app.common.ReleaseStatus"
+                jdbcType="INTEGER"
+                typeHandler="com.cxgc.news_app.utility.EnumUtil"/>
+
+    </resultMap>
+
+
+    <select id="selectAllNews" resultMap="news_result">
+        select * from news
+    </select>
+
+</mapper>

@@ -18,6 +18,6 @@ public class News {
     private String type;//新闻类型
     private Integer accessCount;//访问量
     private Integer  status;//状态
-    private String createTime;//创建时间
+    private Date createTime;//创建时间
 
 }

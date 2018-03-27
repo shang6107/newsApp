@@ -53,11 +53,11 @@
             <thead>
             <tr>
                 <th></th>
-                <th>热点</th>
-                <th>问答</th>
-                <th>娱乐</th>
-                <th>科技</th>
-                <th>财经</th>
+                <th>体育</th>
+                <th>经济</th>
+                <th>政治</th>
+                <th>国际</th>
+                <th>军事</th>
 
             </tr>
             </thead>
@@ -79,11 +79,11 @@
             <thead>
             <tr>
                 <th></th>
-                <th>热点</th>
-                <th>问答</th>
-                <th>娱乐</th>
-                <th>科技</th>
-                <th>财经</th>
+                <th>体育</th>
+                <th>经济</th>
+                <th>政治</th>
+                <th>国际</th>
+                <th>军事</th>
 
 
             </tr>
