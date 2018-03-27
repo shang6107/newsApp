@@ -51,9 +51,9 @@ public class NewsSpider{
 
 
 
-    public static void spider(Integer apiNo) throws IOException {
+    public static JSONArray spider(Integer type) throws IOException {
 
-        URL url = new URL(newsApi.get(apiNo));
+        URL url = new URL(newsApi.get(type));
         URLConnection urlConnection = url.openConnection();
 
         InputStream inputStream = urlConnection.getInputStream();
@@ -65,7 +65,7 @@ public class NewsSpider{
         }
         JSONObject jsonObject = JSON.parseObject(sb.toString());
         Object data = jsonObject.get("data");
-        objects = JSON.parseArray(data.toString());
+        return JSON.parseArray(data.toString());
     }
 
     public static  List<News> responseAppIndex(Integer type) throws IOException {
@@ -76,24 +76,29 @@ public class NewsSpider{
         t.start();
         return newsList;
     }
+
     //响应给前台的新闻集合
     public static List<News> newsList(Integer type) throws IOException {
         List<News> newsList = new ArrayList<>();
         News newsInstance = new News();
         JSONObject news;
-        synchronized (objects){
-            for (int i=0;i<objects.size();i++){
-                news = objects.getJSONObject(i);
-                newsInstance.setTitle(news.getString("title"));
-                newsInstance.setId(news.getString("id"));
-                /*newsInstance.setAuthor(news.getString("posterScreenName"));*/
-                /*newsInstance.setCreateTime(news.getString("publishDateStr").replace("T"," "));*/
-                newsList.add(newsInstance);
-            }
+
+        if(objects==null){
+            objects=spider(type);
+
         }
+            synchronized (objects){
+                for (int i=0;i<objects.size();i++){
+                    news = objects.getJSONObject(i);
+                    newsInstance.setTitle(news.getString("title"));
+                    newsInstance.setId(news.getString("id"));
+                    /*newsInstance.setAuthor(news.getString("posterScreenName"));*/
+                    /*newsInstance.setCreateTime(news.getString("publishDateStr").replace("T"," "));*/
+                    newsList.add(newsInstance);
+                }
+            }
         return newsList;
     }
-
 
     //保存新闻到本地
     public static void newsSave(String content,Object id,Integer apiNo) throws IOException {

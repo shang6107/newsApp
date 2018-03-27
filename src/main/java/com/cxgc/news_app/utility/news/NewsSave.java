@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NewsSave extends Thread{
@@ -28,6 +30,7 @@ public class NewsSave extends Thread{
         try {
             newsHandle();
             nid.insertNews(saveNewsToDatabase());
+            objects=null;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,17 +38,21 @@ public class NewsSave extends Thread{
 
 
     public  void newsHandle() throws IOException {
-        JSONObject news = null;
-
+        JSONObject news;
+        List<String> strings = null;
+        File newsList = new File(path);
+        if(newsList.exists()){
+          String[]  list = newsList.list();
+          strings = Arrays.asList(list);
+        }
      a:  for(int i=0;i<objects.size();i++){
             news = objects.getJSONObject(i);
             String id = news.getString("id");
-            File newsList = new File(path);
-            if(newsList.exists()){
-                String[] list = newsList.list();
-                for (String s: list) {
-                    if(s.equals(id)){
+            if(strings!=null){
+                for (int j=0;i<strings.size();i++){
+                    if(strings.get(j).equals(id)){
                         objects.remove(i);
+                        strings.remove(j);
                         i--;
                         break a;
                     }
@@ -60,7 +67,6 @@ public class NewsSave extends Thread{
     public List<News> saveNewsToDatabase() throws IOException {
         News n;
         List<News> newsList = NewsSpider.newsList(type);
-        System.out.println(newsList);
         for (int i=0;i<newsList.size();i++){
             n = newsList.get(i);
             n.setType(type);

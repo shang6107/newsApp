@@ -19,4 +19,5 @@ public class News {
     private Integer accessCount;//访问量
     private Date createTime;//创建时间
 
+
 }
