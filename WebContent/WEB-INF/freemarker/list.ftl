@@ -36,7 +36,7 @@
                 <th scope="col">账户</th>
                 <th scope="col">昵称</th>
                 <th scope="col">状态</th>
-                <th scope="col">状态</th>
+                <th scope="col">类型</th>
                 <th scope="col">上次登录时间</th>
                 <th scope="col">创建时间</th>
                 <th scope="col">操作</th>
@@ -52,12 +52,22 @@
                     <td id="1">${user.phoneNum!"无"}</td>
                     <td>${user.nickName!"无"}</td>
                     <td>${user.status.reason!"无"}</td>
-                    <#if user.lastTime?exists>
-                        <td>${user.lastTime?string("yyyy-MM-dd")}</td>
+                    <td>
+                        <#if user.typeName??>
+                    ${user.typeName.type!"无"}
+
+                   </#if>
+                    </td>
+                    <td>
+                        <#if user.lastTime?exists>
+                        ${user.lastTime?string("yyyy-MM-dd")}
                     </#if>
-                    <#if user.createTime?exists>
-                        <td>${user.createTime?string("yyyy-MM-dd")}</td>
+                    </td>
+                    <td>
+                        <#if user.createTime?exists>
+                        ${user.createTime?string("yyyy-MM-dd")}
                     </#if>
+                    </td>
                     <td id="sel"><a href=""> 查看</td>
                 </tr>
 
@@ -65,10 +75,10 @@
             </#if>
             </tbody>
         </table>
-<<<<<<< Updated upstream
+        <<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
+        =======
+        >>>>>>> Stashed changes
     </div>
 
 </div>
@@ -84,17 +94,17 @@
 </script>
 <script type="text/javascript">
 
-    $(".tables").delegate("a","click",function () {
-            console.log("11111");
-                    var phoneNum=$(this).parent().children(":first").text();
-                    var row=$(this).parent();
-                    alert(row);
-                    alert(phoneNum)
-                    var url = "getUserById?phoneNum="+phoneNum;
-                    $.post(url,phoneNum,function(data){
-                    });
-                 return false;
-            });
+    $(".tables").delegate("a", "click", function () {
+        console.log("11111");
+        var phoneNum = $(this).parent().children(":first").text();
+        var row = $(this).parent();
+        alert(row);
+        alert(phoneNum)
+        var url = "getUserById?phoneNum=" + phoneNum;
+        $.post(url, phoneNum, function (data) {
+        });
+        return false;
+    });
 
 </script>
 </body>

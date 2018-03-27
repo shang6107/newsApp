@@ -22,6 +22,9 @@ public class ManagerUserHandler {
     private UserManagementService ums;
 @RequestMapping("/list")
     public String selectAllUser(Map<String,Object> map){
+    for(User user : ums.selectAllUser()){
+        System.out.println("user = " + user);
+    }
     map.put("users",ums.selectAllUser() );
     return "list";
 }

@@ -24,11 +24,13 @@ public class UserStatusTypeHandler implements TypeHandler<UserStatus>{
 
     @Override
     public UserStatus getResult(ResultSet resultSet, String s) throws SQLException {
+
         return UserStatus.getUserStatusByStatus(resultSet.getInt(s));
     }
 
     @Override
     public UserStatus getResult(ResultSet resultSet, int i) throws SQLException {
+
         return UserStatus.getUserStatusByStatus(resultSet.getInt(i));
     }
 

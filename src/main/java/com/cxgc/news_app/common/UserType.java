@@ -1,6 +1,5 @@
 package com.cxgc.news_app.common;
 
-import com.cxgc.news_app.core.model.User;
 
 public enum UserType {
 
@@ -16,9 +15,9 @@ public enum UserType {
         return null;
     }
 
-    private final String type;
+    private String type;
 
-    private UserType(String type) {
+    UserType(String type) {
         this.type = type;
     }
 
@@ -26,8 +25,7 @@ public enum UserType {
         return type;
     }
 
-    @Override
-    public String toString() {
-        return getType();
+    public void setType(String type) {
+        this.type = type;
     }
 }
