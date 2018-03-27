@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 
 
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
 import org.apache.ibatis.annotations.Param;
 
@@ -49,4 +50,7 @@ public interface NewsManagermentDao {
      * @return
      */
     public Release selectRelease(String id);
+
+    NewsType getNewsTypeById(Integer id);
+
 }
