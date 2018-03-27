@@ -13,9 +13,10 @@ import java.util.Date;
 @Data
 public class News {
     private String id;//新闻ID
+    private String author;
     private String title;//新闻标题
     private String url;//网络路径
-    private String type;//新闻类型
+    private Integer type;//新闻类型
     private Integer accessCount;//访问量
     private Integer  status;//状态
     private String createTime;//创建时间

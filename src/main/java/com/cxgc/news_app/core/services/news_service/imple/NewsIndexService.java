@@ -29,4 +29,6 @@ public interface NewsIndexService {
      * @return 新闻集合
      */
     List<News> selectNewsList();
+
+    List<News> newsListByType(Integer type);
 }

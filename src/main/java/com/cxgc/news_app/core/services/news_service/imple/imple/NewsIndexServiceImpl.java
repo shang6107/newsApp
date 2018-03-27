@@ -3,9 +3,11 @@ package com.cxgc.news_app.core.services.news_service.imple.imple;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.services.news_service.imple.NewsIndexService;
+import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,16 @@ public class NewsIndexServiceImpl implements NewsIndexService{
     @Override
     public List<News> selectNewsList() {
        return   nd.selectNewsList();
+    }
+
+    @Override
+    public List<News> newsListByType(Integer type){
+        try {
+          return   NewsSpider.responseAppIndex(type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

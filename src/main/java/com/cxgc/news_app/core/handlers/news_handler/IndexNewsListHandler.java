@@ -29,6 +29,10 @@ public class IndexNewsListHandler {
 
         return ns.index(id);
     }
+    @RequestMapping("newsType")
+    @ResponseBody
+    public void newsType(){
 
-
+        ns.newsListByType(1);
+    }
 }

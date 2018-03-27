@@ -2,7 +2,9 @@ package com.cxgc.news_app.core.mapper.news_mapper;
 
 
 import com.cxgc.news_app.core.model.News;
+import org.apache.ibatis.annotations.Param;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
@@ -25,4 +27,6 @@ public interface NewsIndexDao {
      * @return 新闻集合
      */
     List<News> selectNewsList();
+
+    void insertNews( @Param("news") List<News> newsList);
 }
