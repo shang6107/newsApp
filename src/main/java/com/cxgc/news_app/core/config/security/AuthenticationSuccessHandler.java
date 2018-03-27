@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.config;
+package com.cxgc.news_app.core.config.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

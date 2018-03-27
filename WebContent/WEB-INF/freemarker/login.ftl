@@ -1,28 +1,24 @@
 <#import "spring.ftl" as spring/>
-<#if Request.contextPath?exists>
-    <#assign path = Request.contextPath/>
-</#if>
-
+<#assign path = (Request.request.getContextPath())!"">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!'/'}">
+    <base href="${path!''}/">
     <meta charset="UTF-8">
-    <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <link href="/static/css1/layout.css" rel="stylesheet" type="text/css">
-    <link href="/static/css1/login.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/js.js"></script>
-    <script type="text/javascript" src="/static/js/Validform_v5.3.2_min.js"></script>
-
+    <link href="static/css1/layout.css" rel="stylesheet" type="text/css">
+    <link href="static/css1/login.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/js.js"></script>
+    <script type="text/javascript" src="static/js/Validform_v5.3.2_min.js"></script>
 </head>
-<body style="background: url('/static/img/login-bg.png')">
+<body style="background: url('static/img/login-bg.png')">
 <div class="main ">
     <!--登录-->
     <div class="login-dom login-max">
         <div class="logo text-center">
             <a href="#">
-                <img src="/static/img/logo.png" width="180px" height="180px">
+                <img src="static/img/logo.png" width="180px" height="180px">
             </a>
         </div>
         <div class="login container " id="login">
