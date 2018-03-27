@@ -23,10 +23,8 @@ public class UserServiceImpl implements UserService{
      * @param id
      * @return
      */
-    public User getByUser(String id){
-
-
-        return null;
+    public User getUserById(String id){
+             return userMapper.getUserById(id);
     }
 
     /**

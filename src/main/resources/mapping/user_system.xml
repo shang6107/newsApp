@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.user_mapper.UserMapper">
-
+    <!--用户实体类与数据库表的映射-->
     <resultMap id="user_result" type="com.cxgc.news_app.core.model.User">
         <id property="id" column="id"/>
         <result property="phoneNum" column="phone_num"/>
@@ -15,13 +15,11 @@
         <result property="hobby" column="Hobby"/>
         <result property="introduce" column="introduce"/>
         <result property="lastTime" column="last_time"/>
-        <result property="status" column="status"
-                typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
-        <result property="typeName" column="type_name"
-                typeHandler="com.cxgc.news_app.core.config.mybatis.UserTypeHandler"/>
+        <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
+        <result property="typeName" column="type_name" typeHandler="com.cxgc.news_app.core.config.mybatis.UserTypeHandler"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
-
+    <!--手机验证码实体类与数据库的映射-->
     <resultMap id="ValidateCoder_result" type="com.cxgc.news_app.core.model.ValidateCode">
         <id property="id" column="id"/>
         <result property="code" column="code"/>
@@ -31,30 +29,45 @@
         <result property="sent" column="sended"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
+    <!--收藏实体类与数据库表的映射-->
+    <resultMap id="collection_result" type="com.cxgc.news_app.core.model.Collections">
+        <id property="id" column="id"/>
+        <result property="releaseId" column="release_id"/>
+        <result property="newsId" column="news_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
 
-    <!--新增用户-->
-    <insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
-        INSERT INTO users(id,phone_num,nick_name,create_time) VALUES (#{id},#{phoneNum},#{nickName},#{createTime})
-    </insert>
-    <!--存入验证码-->
+<!--新增用户-->
+<insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
+    INSERT INTO users(id,phone_num,nick_name,create_time) VALUES (#{id},#{phoneNum},#{nickName},#{createTime})
+</insert>
+<!--存入验证码-->
     <insert id="addIdentifyingCode" parameterType="com.cxgc.news_app.core.model.ValidateCode">
         INSERT INTO validate_code VALUES (#{id},#{code},#{phoneNum},#{expireTime},#{usable},2,#{createTime})
     </insert>
-    <!--by电话获取用户信息-->
-    <select id="getUserByPhone" resultMap="user_result">
-        select * from users where phone_num=#{phoneNum}
+<!--by电话获取用户信息-->
+    <select id="getUserByPhone"   resultMap="user_result">
+        select * from users where phone_num=#{phone,jdbcType=VARCHAR}
     </select>
-    <!--查询验证码是否正确-->
-    <select id="loginVerification" resultMap="ValidateCoder_result">
+<!--通过id获取用户信息-->
+    <select id="getUserById"   resultMap="user_result">
+        select * from users where id=#{id,jdbcType=VARCHAR}
+    </select>
+<!--查询验证码是否正确-->
+    <select id="loginVerification" parameterType="com.cxgc.news_app.core.model.ValidateCode" resultMap="ValidateCoder_result">
         select * from validate_code where phone_num=#{phoneNum} and code=#{code}
     </select>
-    <!--修改用户资料-->
+<!--修改用户资料-->
     <update id="editUserInfo" parameterType="com.cxgc.news_app.core.model.User">
         update users
         <trim prefix="set" suffixOverrides=",">
             <if test="headImg != null">
                 headImg =#{headImg},
+            </if>
+            <if test="nickName != null">
+                nick_name =#{nickName},
             </if>
             <if test="hobby != null">
                 hobby=#{hobby}
@@ -68,32 +81,29 @@
         </trim>
         where id =#{id}
     </update>
-    <!--获取指定用户的历史浏览记录-->
-    <select id="listHistory" parameterType="com.cxgc.news_app.core.model.User"
-            resultType="com.cxgc.news_app.core.model.History">
+<!--获取指定用户的历史浏览记录-->
+    <select id="listHistory" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.History">
         select * from history where user_id =#{id};
     </select>
 
     <!--获取指定用户的收藏-->
-    <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User"
-            resultType="com.cxgc.news_app.core.model.Collections">
+    <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collection_result">
         select * from collections where user_id=#{id}
     </select>
-    <!--获取指定用户评论信息-->
-    <select id="listComment" parameterType="com.cxgc.news_app.core.model.User"
-            resultType="com.cxgc.news_app.core.model.Comment">
+   <!--获取指定用户评论信息-->
+    <select id="listComment" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.Comment">
         select * from comment where user_id = #{id}
     </select>
 
     <!--添加浏览记录-->
-    <!-- <insert id="addHistory" parameterType="com.cxgc.news_app.core.model.History">
-         insert into history values(#{},#{},#{})
-     </insert>-->
+   <!-- <insert id="addHistory" parameterType="com.cxgc.news_app.core.model.History">
+        insert into history values(#{},#{},#{})
+    </insert>-->
 
     <!--添加收藏记录-->
-    <!-- <insert id="addCollections" parameterType="com.cxgc.news_app.core.model.Collections">
-         insert into collections values(#{},#{},#{})
-     </insert>-->
+   <!-- <insert id="addCollections" parameterType="com.cxgc.news_app.core.model.Collections">
+        insert into collections values(#{},#{},#{})
+    </insert>-->
 
     <!--添加评论记录-->
     <!--<insert id="addComment" parameterType="com.cxgc.news_app.core.model.Comment">
