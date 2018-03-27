@@ -20,18 +20,18 @@ public interface UserManagementDao {
     List<User> selectAllUser();
 
     /**
-     * 修改用户状态
-     * @param id
+     * 修改用户信息
+     * @param user
      * @return 用户
      */
-    User updateUser(String id);
+    int editUserInfo(User user);
 
     /**
      * 得到用户信息
-     * @param id
+     * @param phoneNum
      * @return 用户的全部信息
      */
-    User getUserById(String id);
+    User getUserById(String phoneNum);
 
 
 
