@@ -1,8 +1,8 @@
 <#include "index.ftl"/>
-<script type="text/javascript" src="/static/js/jsapi.js"></script>
-<script type="text/javascript" src="/static/js/corechart.js"></script>
-<script type="text/javascript" src="/static/js/jquery.gvChart-1.0.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ba-resize.min.js"></script>
+<script type="text/javascript" src="static/js/jsapi.js"></script>
+<script type="text/javascript" src="static/js/corechart.js"></script>
+<script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
 <script type="text/javascript">
     gvChartInit();
 
@@ -41,20 +41,23 @@
     <div style="width: 1070px;margin: 0 auto">
         <div class="part-div-child" align="center">
             <p  style="">用户管理<br/><span class="">220条</span></p>
-            <img src="/static/img/icon_cost.png">
+            <img src="static/img/icon_cost.png">
         </div>
         <div class="part-div-child" align="center">
             <p align="center">新闻审核<br/><span class="">325条</span></p>
-            <img src="/static/img/icon_gold.png">
+            <img src="static/img/icon_gold.png">
         </div>
-        <div class="part-div-child">
+        <div class="part-div-child" align="center">
             <p align="center">违规评论<br/><span class="">26条</span></p>
+            <img src="static/img/icon_gold.png">
         </div>
-        <div class="part-div-child">
+        <div class="part-div-child" align="center">
             <p align="center">档案管理<br/><span class="">220条</span></p>
+            <img src="static/img/icon_gold.png">
         </div>
-        <div class="part-div-child">
+        <div class="part-div-child" align="center">
             <p align="center">数据分析<br/><span class="">3320条</span></p>
+            <img src="static/img/icon_gold.png">
         </div>
     </div>
 </div>
@@ -202,24 +205,7 @@
                 <td>1</td>
                 <td>6</td>
             </tr>
-            <tr>
-                <th>政治</th>
-                <td>8</td>
-                <td>8</td>
-                <td>0</td>
-                <td>3</td>
-                <td>5</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <th>国际</th>
-                <td>2</td>
-                <td>1</td>
-                <td>5</td>
-                <td>5</td>
-                <td>3</td>
-                <td>7</td>
-            </tr>
+
             <tr>
                 <th>军事</th>
                 <td>1</td>
@@ -234,19 +220,13 @@
 
 
     </div>
-    <script>
-        for(var i = 0 ; i < $(".ul-list li").length ; i ++){
-            if(i % 2){
-                $(".ul-list li").eq(i).css("background","#f2f2f2");
-            }
-        }
-    </script>
+
     <div class="inline-block-part" style="margin-left: 20px">
         <p>最新动态</p>
         <div style="width: 600px;height: 230px;background: #fffffd;">
             <p align="right"><a href="#">更多 >></a></p>
             <hr class="layui-layer-border"/>
-            <ul class="ul-list">
+            <ul class="ul-list layui-upload-list">
                 <li>sdafdsaf</li>
                 <li>sdafdsaf</li>
                 <li>sdafdsaf</li>
@@ -255,4 +235,11 @@
         </div>
     </div>
 </div>
+<script>
+    for(var i = 0 ; i < $(".ul-list li").length ; i ++){
+        if(i % 2){
+            $(".ul-list li").eq(i).css("background","#f2f2f2");
+        }
+    }
+</script>
 <#include "frame_end.ftl"/>

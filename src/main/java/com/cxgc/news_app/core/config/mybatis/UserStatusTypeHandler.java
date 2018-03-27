@@ -1,4 +1,4 @@
-package com.cxgc.news_app.utility.mybatis.typehandler;
+package com.cxgc.news_app.core.config.mybatis;
 
 import com.cxgc.news_app.common.UserStatus;
 import org.apache.ibatis.type.JdbcType;

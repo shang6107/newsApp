@@ -22,7 +22,7 @@
             </a>
         </div>
         <div class="login container " id="login">
-            <form class="login-form" action="/login" method="post" autocomplete="off">
+            <form class="login-form" action="login" method="post" autocomplete="off">
                 <div class="login-box border text-small" id="box">
                     <div class="name border-bottom">
                         <input type="text" placeholder="账号" id="mgrNo" name="mgrNo" datatype="*"
