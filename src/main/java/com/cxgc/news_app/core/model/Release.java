@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.model;
 
+import com.cxgc.news_app.common.ReleaseStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,7 +11,7 @@ public class Release {
     private String path;
     private String userId;
     private Integer accessCount;
-    private String newTypeId;
+    private NewsType newTypeId;
     private String title;
-    private Integer status;
+    private ReleaseStatus status;
 }

@@ -8,19 +8,15 @@
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="url" column="URL"/>
-        <result property="type" column="news_type_id"/>
         <result property="accessCount" column="access_count"/>
         <result property="createTime" column="create_time"/>
-        <result property="status" column="status"
-                javaType="com.cxgc.news_app.common.ReleaseStatus"
-                jdbcType="INTEGER"
-                typeHandler="com.cxgc.news_app.utility.EnumUtil"/>
-
+        <result property="type" column="news_type_id" />
     </resultMap>
 
     <select id="selectAllNews" resultMap="news_result">
         select * from news
     </select>
+
 
 
 </mapper>
