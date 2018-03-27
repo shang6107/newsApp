@@ -27,6 +27,11 @@
         select head_img,phone_num,nick_name,status,last_time,create_time from users
     </select>
 
+    <select id="getUserById" resultMap="user_result">
+        select head_img, phone_num,nick_name,gender,address,Hobby,introduce,last_time,type_name,create_time,status from users
+
+    </select>
+
     
     
 </mapper>
