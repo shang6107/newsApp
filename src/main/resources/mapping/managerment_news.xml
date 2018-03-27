@@ -18,7 +18,9 @@
 
     </resultMap>
 
-
+    <select id="selectAllNews" resultMap="news_result">
+        select * from news
+    </select>
 
 
 </mapper>
