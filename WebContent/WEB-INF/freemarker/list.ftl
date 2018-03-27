@@ -36,6 +36,7 @@
                 <th scope="col">账户</th>
                 <th scope="col">昵称</th>
                 <th scope="col">状态</th>
+                <th scope="col">状态</th>
                 <th scope="col">上次登录时间</th>
                 <th scope="col">创建时间</th>
                 <th scope="col">操作</th>
@@ -64,7 +65,10 @@
             </#if>
             </tbody>
         </table>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     </div>
 
 </div>

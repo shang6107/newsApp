@@ -195,11 +195,11 @@
 && Session.SPRING_SECURITY_CONTEXT.authentication?exists
 && Session.SPRING_SECURITY_CONTEXT.principal
 && Session.SPRING_SECURITY_CONTEXT.principal.username>-->
-<#if Session.SPRING_SECURITY_CONTEXT.authentication.principal.username?exists>
+<#--<#if Session.SPRING_SECURITY_CONTEXT.authentication.principal.username?exists>
     <script>
         $("#current-user-span").text("${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username!''}");
     </script>
-</#if>
+</#if>-->
     <div class="view-product background-color" style="overflow: hidden">
 
     <#--<#if Session.manager?exists>

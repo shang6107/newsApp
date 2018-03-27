@@ -1,5 +1,7 @@
 package com.cxgc.news_app.common;
 
+import com.cxgc.news_app.core.model.Release;
+
 /**
  * @author 上官炳强
  * @Date 2018-03-20 / 02:42:25
@@ -30,6 +32,23 @@ public enum ReleaseStatus {
 
     public String getReason() {
         return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public static ReleaseStatus getReleaseStatusByStatus(Integer status){
+        for(ReleaseStatus releaseStatus : ReleaseStatus.values()){
+            if(releaseStatus.status.equals(status)){
+                return releaseStatus;
+            }
+        }
+        return null;
     }
 
     @Override

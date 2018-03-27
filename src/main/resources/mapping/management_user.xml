@@ -15,11 +15,11 @@
         <result property="hobby" column="Hobby"/>
         <result property="introduce" column="introduce"/>
         <result property="lastTime" column="last_time"/>
-        <result property="typeName" column="type_name"/>
         <result property="createTime" column="create_time"/>
         <result property="status" column="status"
                 typeHandler="com.cxgc.news_app.utility.mybatis.typehandler.UserStatusTypeHandler"/>
-
+        <result property="typeName" column="type_name"
+                typeHandler="com.cxgc.news_app.utility.mybatis.typehandler.UserTypeHandler"/>
     </resultMap>
 
 
