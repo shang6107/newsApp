@@ -10,7 +10,7 @@
     </select>
 
     <select id="getUserById" resultMap="com.cxgc.news_app.core.mapper.user_mapper.UserMapper.user_result">
-        select * from users
+        select * from users where phone_num = #{0}
     </select>
 
     

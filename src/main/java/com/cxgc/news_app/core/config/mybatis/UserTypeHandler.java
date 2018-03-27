@@ -23,13 +23,11 @@ public class UserTypeHandler implements TypeHandler<UserType> {
 
     @Override
     public UserType getResult(ResultSet resultSet, String s) throws SQLException {
-        System.out.println("resultSet.getString(s) = " + resultSet.getString(s));
         return UserType.getUserTypeByType(resultSet.getString(s));
     }
 
     @Override
     public UserType getResult(ResultSet resultSet, int i) throws SQLException {
-        System.out.println("resultSet.getString(i) = " + resultSet.getString(i));
         return UserType.getUserTypeByType(resultSet.getString(i));
     }
 
