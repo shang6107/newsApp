@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.mapper.news_mapper;
 
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.model.News;
 
@@ -31,4 +32,12 @@ public interface NewsDao {
      * @return
      */
     int putIntoComment(Comment comment);
+    /**
+     * 添加用户收藏记录
+     */
+    int inputCollection(Collections collection);
+    /**
+     * 取消用户收藏记录
+     */
+    int outPutCollection(Collections collection);
 }
