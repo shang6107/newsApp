@@ -23,7 +23,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="static/js/layer.js"></script>
-    <script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>
+<#--<script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>-->
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
     <script type="text/javascript" src="static/js/myJavaScript.js"></script>
@@ -84,7 +84,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 
         <div class="sidebar-content">
 
-            <#--    newsManager    Authentication  -->
+        <#--    newsManager    Authentication  -->
         <@security.authorize access="hasRole('ROLE_新闻管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav news-menu">
                 <div class="sidebar-title news-menu">
@@ -109,7 +109,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </ul>
             </div>
         </@security.authorize>
-            <#--    userManager    Authentication  -->
+        <#--    userManager    Authentication  -->
         <@security.authorize access="hasRole('ROLE_用户管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav user-menu">
                 <div class="sidebar-title">
@@ -141,7 +141,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </ul>
             </div>
         </@security.authorize>
-            <#--    hasAuthorited    Authentication  -->
+        <#--    hasAuthorited    Authentication  -->
         <@security.authorize access="isAuthenticated()">
             <div class="sidebar-nav">
                 <div class="sidebar-title">
@@ -172,11 +172,15 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
         </div>
     </div>
 
-    <#--    manager name    -->
-    <#assign foo = Session.SPRING_SECURITY_CONTEXT.authentication.principal/>
-<#if foo?exists>
+<#--    manager name    -->
+<#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal)?exists>
+    <#assign foo = (Session.SPRING_SECURITY_CONTEXT.authentication.principal)/>
     <script>
-        $("#current-user-span").text("${foo.username}");
+        $("#current-user-span").text("${(foo.username)!''}");
+    </script>
+<#else >
+    <script>
+        location = "${path!''}/management/login?error"
     </script>
 </#if>
     <div class="view-product background-color" style="overflow: hidden">
