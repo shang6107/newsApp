@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -67,9 +68,11 @@ public class NewsSave extends Thread{
     public List<News> saveNewsToDatabase() throws IOException {
         News n;
         List<News> newsList = NewsSpider.newsList(type);
+        NewsType nt = new NewsType();
+        nt.setId(type);
         for (int i=0;i<newsList.size();i++){
             n = newsList.get(i);
-            n.setType(type);
+            n.setType(nt);
             n.setUrl(path+"\\"+n.getId());
         }
         return newsList;

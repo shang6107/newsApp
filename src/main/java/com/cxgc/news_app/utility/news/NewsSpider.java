@@ -93,7 +93,7 @@ public class NewsSpider{
                     newsInstance.setTitle(news.getString("title"));
                     newsInstance.setId(news.getString("id"));
                     /*newsInstance.setAuthor(news.getString("posterScreenName"));*/
-                    /*newsInstance.setCreateTime(news.getString("publishDateStr").replace("T"," "));*/
+                    newsInstance.setCreateTime(news.getDate("publishDateStr"));
                     newsList.add(newsInstance);
                 }
             }
