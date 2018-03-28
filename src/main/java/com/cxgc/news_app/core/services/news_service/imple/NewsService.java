@@ -4,7 +4,6 @@ import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 
 import java.util.Collection;
-
 /**
  * Created by 唐倩 on 2018/3/21.
  */
