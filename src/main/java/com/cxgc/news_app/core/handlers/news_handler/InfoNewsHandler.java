@@ -1,13 +1,16 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.services.news_service.imple.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -58,13 +61,45 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("putDiscuss")
-    public void putDiscuss(Comment comment){
-        System.out.println("comment = " + comment);
-        String content=comment.getContent();
+    public @ResponseBody String putDiscuss(Comment comment){
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
         int result=newsService.putIntoComment(comment);
-
+        if(result>0){
+            return "发布成功！";
+        }
+        return "发布失败！";
     }
+
+    /**
+     * 用户收藏与取消收藏
+     */
+   // @CrossOrigin
+    @RequestMapping("putCollection")
+    public @ResponseBody String insertCollections(String newsId,String userId,@Param("c") int c){
+        Collections collection=new Collections();
+        collection.setCreateTime(new Date()+"");
+        collection.setNewsId(newsId);
+        collection.setUserId(userId);
+        System.out.println("collection = " + collection);
+        System.out.println("c = " + c);
+        String result=null;
+        //判断是取消收藏还是收藏
+        if(c==1){//收藏
+            collection.setId("coll"+System.currentTimeMillis());
+            System.out.println("collection = " + collection);
+            int result1=newsService.inputCollection(collection);
+            if(result1>0){
+                result="收藏成功！";
+            }
+        }
+        if(c==0){//取消收藏
+            int result2=newsService.outPutCollection(collection);
+            if(result2>0){
+                result="取消收藏！";
+            }
+        }
+        return result;
+  }
 
 }
