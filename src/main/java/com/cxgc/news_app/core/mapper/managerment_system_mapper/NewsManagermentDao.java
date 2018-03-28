@@ -14,12 +14,12 @@ import java.util.Map;
  */
 public interface NewsManagermentDao {
     /**
-     * 添加新闻
+     * 发布新闻
      *
-     * @param news
+     * @param release
      * @return
      */
-    public int addNews(@Param("News") News news);
+    public int addRelease(@Param("Release") Release release);
 
     /**
      * 根据id删除新闻
@@ -46,11 +46,15 @@ public interface NewsManagermentDao {
     /**
      * 查询所有发布新闻
      *
+     * @return
+     */
+    public List<Release> selectRelease();
+
+    /**
+     * 新闻类型查询
      * @param id
      * @return
      */
-    public Release selectRelease(String id);
-
     NewsType getNewsTypeById(Integer id);
 
 }

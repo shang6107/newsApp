@@ -35,7 +35,7 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
             log.debug("Can't redirect");
             return;
         }
-       /* targetUrl = request.getContextPath()  + "/management"+   targetUrl;*/
+        targetUrl = "/management"+   targetUrl;
         log.info("Redirect target : {}" , targetUrl);
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

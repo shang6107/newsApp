@@ -22,6 +22,7 @@ public class User {
     private Integer gender;//性别
     private String address;//住址
     private String hobby;//爱好
+    private Date brith;//生日
     private String introduce;//个人介绍
     private Date lastTime;//上次登陆时间
     private UserType typeName;//用户类型

@@ -28,13 +28,13 @@ public class RegisterUtil {
 
         request.setCharacterEncoding("UTF-8");
         //账号的Id由第三方平台提供
-        String accountSid ="67ca7b9ec8cf49429ebf8a8aeefb87b8";
+        String accountSid ="97d9f0729dde41f78fb05ad4b77bea14";
 
         //定义短信验证码
         String phoneCode = Integer.toString((int)(Math.random()*(1000000-100000)) +(100000));
         System.out.println("phoneCode==========================:" + phoneCode);
         //提供需要发送的短信内容。短信的内容需和你账号内的一个模板相同
-        String smsContent ="【头天新闻】您的验证码为" + phoneCode +"，请于 10 分钟内正确输入，如非本人操作，请忽略此短信。";
+        String smsContent ="【头条新闻】您的验证码为" + phoneCode +"，请于 10 分钟内正确输入，如非本人操作，请忽略此短信。";
 
         //定义时间戳
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -42,7 +42,7 @@ public class RegisterUtil {
         String timestamp = sdf.format(new Date());
 
         //定义账号的令牌authToken
-        String authToken = "7a9ed22b2ef947518e6592666cc2a7b8";
+        String authToken = "8169bfd10e3b4a62b5b32bda8026827d";
 
 
         //定义响应文件的类型
@@ -56,32 +56,27 @@ public class RegisterUtil {
         //发送短信
         String result = null;
         try {
-            result ="{\"respCode\":\"00000\",\"respDesc\":\"请求成功。\",\"failCount\":\"0\",\"failList\":[],\"smsId\":\"53ab5cb93bfc4c9890a760f563e832e0\"}"; //send(param);
-            /* result = send(param);*/
-
+           // result ="{\"respCode\":\"00000\",\"respDesc\":\"请求成功。\",\"failCount\":\"0\",\"failList\":[],\"smsId\":\"53ab5cb93bfc4c9890a760f563e832e0\"}"; //send(param);
+             result = send(param);
+            System.out.println("result = " + result);
             //字符串转换为JSON对象
             JSONObject jsonObject  =JSONObject.fromObject(result);
 
             Object code = jsonObject.get("respCode");
+            System.out.println("code = " + code);
             //判断短信收费发送成功
             if(code != null && code.toString().equals("00000") ){
-
-
-
+                return phoneCode;
             }
-
-          /*  //把第三方响应的信息发送给客户端
-           ;*/
-
-
-        } catch (Exception e) {
+           } catch (Exception e) {
             // TODO Auto-generated catch block
+            System.out.println("result = " + e);
             e.printStackTrace();
         }
 
         /* "respCode":"00000","respDesc":"请求成功。","failCount":"0","failList":[],"smsId":"53ab5cb93bfc4c9890a760f563e832e0"*/
 
-        return phoneCode;
+        return null;
 
     }
 
@@ -133,6 +128,7 @@ public class RegisterUtil {
         out.close();
 
         //返回发送短信，第三方响应的结果
+        System.out.println("sb = " + sb);
         return sb.toString();
     }
 
