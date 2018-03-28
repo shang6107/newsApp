@@ -27,6 +27,10 @@ com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNe
         select * from comment where news_id=#{newsId}
     </select>
 
+    <select id="checkCollection" resultType="collections">
+        select * from collections where news_id=#{newsId} and user_id=#{userId}
+    </select>
+
     <select id="getNews" resultMap="oneNews">
         select * from news where id=#{id}
     </select>
