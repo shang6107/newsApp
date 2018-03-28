@@ -78,7 +78,7 @@ public class InfoNewsHandler {
     @RequestMapping("putCollection")
     public @ResponseBody String insertCollections(String newsId,String userId,@Param("c") int c){
         Collections collection=new Collections();
-        collection.setCreateTime(new Date()+"");
+        collection.setCreateTime(new Date());
         collection.setNewsId(newsId);
         collection.setUserId(userId);
         System.out.println("collection = " + collection);
