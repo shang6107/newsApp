@@ -49,7 +49,6 @@ public class InfoNewsHandler {
             map.put("comments",commentCollection);
             return map;
     }
-
     /**
      * 记录用户评论（判断用户是否登录）
      */
