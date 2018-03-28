@@ -2,6 +2,9 @@ package com.cxgc.news_app.core.services.user_service;
 
 import com.cxgc.news_app.core.model.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface UserService {
@@ -23,27 +26,27 @@ public interface UserService {
      * @param
      * @return
      */
-    public Integer addIdentifyingCode(ValidateCode validateCode);
+    public String  addIdentifyingCode(ValidateCode validateCode, String askType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException;
     /**
      * 登陆验证
      * @param
      * @param
      * @return
      */
-    public ValidateCode loginVerification(ValidateCode validateCode);
+    public User loginVerification(ValidateCode validateCode);
     /**
      * 新增用户
-     * @param user
+     * @param
      * @return
      */
-    public Integer addUser(User user);
+    public User addUser(ValidateCode validateCode);
 
     /**
      * 修改用户信息
      * @param user
      * @return
      */
-    public int editUserInfo(User user);
+    public User editUserInfo(User user);
 
     /**
      * 获取用户浏览记录
