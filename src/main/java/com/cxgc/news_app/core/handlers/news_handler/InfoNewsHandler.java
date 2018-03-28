@@ -2,7 +2,7 @@ package com.cxgc.news_app.core.handlers.news_handler;
 
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
-import com.cxgc.news_app.core.services.news_service.imple.NewsService;
+import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 

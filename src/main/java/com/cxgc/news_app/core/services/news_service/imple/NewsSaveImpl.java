@@ -1,73 +1,90 @@
-package com.cxgc.news_app.utility.news;
+package com.cxgc.news_app.core.services.news_service.imple;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
+import com.cxgc.news_app.core.services.news_service.NewsSave;
+import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-public class NewsSave extends Thread{
+@Service
+@Scope
+public  class NewsSaveImpl implements NewsSave {
     @Autowired
-    NewsIndexDao nid;
-    private  JSONArray objects;
+    private NewsIndexDao nid;
+
+    private JSONArray objects;
     private  Integer type;
     private String path;
-
-    public NewsSave(JSONArray objects,Integer type,String path){
+    public NewsSaveImpl(){}
+    public NewsSaveImpl(JSONArray objects,Integer type,String path){
         this.objects=objects;
         this.type=type;
         this.path = path;
-
     }
     @Override
     public void run() {
         try {
+            System.out.println(nid);
             newsHandle();
-            nid.insertNews(saveNewsToDatabase());
-            objects=null;
+            List<News> newsList = saveNewsToDatabase();
+            if(newsList!=null&&newsList.size()>0){
+                nid.insertNews(newsList);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }finally {
+            objects=null;
         }
     }
 
 
-    public  void newsHandle() throws IOException {
+    @Override
+    public void newsHandle() throws IOException {
         JSONObject news;
         List<String> strings = null;
         File newsList = new File(path);
         if(newsList.exists()){
-          String[]  list = newsList.list();
-          strings = Arrays.asList(list);
+            String[]  list = newsList.list();
+            strings = new ArrayList<>(Arrays.asList(list));
         }
-     a:  for(int i=0;i<objects.size();i++){
+        a:  for(int i=0;i<objects.size();i++){
             news = objects.getJSONObject(i);
             String id = news.getString("id");
             if(strings!=null){
-                for (int j=0;i<strings.size();i++){
+                for (int j=0;j<strings.size();j++){
                     if(strings.get(j).equals(id)){
                         objects.remove(i);
                         strings.remove(j);
                         i--;
-                        break a;
+                        j--;
+                        continue a;
                     }
                 }
 
             }
-         String content= (String) news.get("content");
-         NewsSpider.newsSave(content,id,type);
+            String content= news.getString("content");
+
+            NewsSpider.newsSave(content,id,type);
         }
     }
-
-    public List<News> saveNewsToDatabase() throws IOException {
+    @Override
+    public List<News> saveNewsToDatabase() throws IOException, ParseException {
         News n;
-        List<News> newsList = NewsSpider.newsList(type);
+        NewsSpider ns = new NewsSpider();
+        List<News> newsList = ns.newsList(type);
         NewsType nt = new NewsType();
         nt.setId(type);
         for (int i=0;i<newsList.size();i++){
