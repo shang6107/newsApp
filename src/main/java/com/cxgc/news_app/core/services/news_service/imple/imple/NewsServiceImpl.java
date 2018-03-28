@@ -34,7 +34,18 @@ public class NewsServiceImpl implements NewsService{
      */
     @Override
     public Collection<Comment> getAllCommentByNewsId(String id) {
-        return newsDao.getAllCommentByNewsId(id);
+        Collection<Comment> allCommentByNewsId = newsDao.getAllCommentByNewsId(id);
+        return allCommentByNewsId;
+    }
+
+    /**
+     * 获得用户对该新闻的收藏情况
+     * @param collection
+     * @return 收藏对象
+     */
+    @Override
+    public Collections checkCollection(Collections collection) {
+        return newsDao.checkCollection(collection);
     }
 
     /**
@@ -52,7 +63,6 @@ public class NewsServiceImpl implements NewsService{
      */
     @Override
     public int inputCollection(Collections collection) {
-        System.out.println("collection = " + collection);
         return newsDao.inputCollection(collection);
     }
 
