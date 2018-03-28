@@ -13,7 +13,7 @@
         <result property="gender" column="gender"/>
         <result property="address" column="address"/>
         <result property="hobby" column="Hobby"/>
-        <result property="brith" column="brith"/>
+        <result property="birth" column="birth"/>
         <result property="introduce" column="introduce"/>
         <result property="lastTime" column="last_time"/>
         <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
@@ -77,8 +77,8 @@
             <if test="gender != null">
                 gender =#{gender},
             </if>
-            <if test="brith != null">
-                brith =#{brith}
+            <if test="birth != null">
+                birth =#{birth}
             </if>
             <if test="hobby != null">
                 hobby=#{hobby}
