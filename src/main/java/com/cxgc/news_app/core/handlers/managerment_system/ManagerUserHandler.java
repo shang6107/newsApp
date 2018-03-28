@@ -30,7 +30,6 @@ public class ManagerUserHandler {
         return "list";
     }
 
-
     @RequestMapping("/user-management-update")
     public String editUserInfo(@RequestParam(value = "phoneNum", required = false) String phoneNum,
                                Map<String,Object> map) {

@@ -1,14 +1,16 @@
+<#--Spring taglib-->
 <#import "spring.ftl" as spring/>
 <#--<#assign security=
 JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 <#--http://www.springframework.org/security/tags/>-->
+<#--Context Path-->
 <#assign path = (Request.request.getContextPath())!"">
-
+<#--Spring Security taglib-->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="${path!''}/">
+    <base href="${path!''}/"><#-- Context Path -->
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="static/css1/identify.css"/>
     <link rel="stylesheet" type="text/css" href="static/js/skin/layer.css"/>
@@ -40,26 +42,14 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     </div>
     <div class="topbar-info">
         <ul class="fr">
+
             <li class="fl dropdown topbar-notice topbar-btn">
                 <a href="javascript:void(0)" class="dropdown-toggle">
                     <span class="icon-notice"></span>
                     <span class="topbar-num have" id="msg-notice-span">0</span>
-                    <!--have表示有消息，没有消息去掉have-->
                 </a>
             </li>
-            <!-- 					<li class="fl topbar-info-item strong">
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle topbar-btn">
-                <span class="fl">工单服务</span>
-                <span class="icon-arrow-down"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">我的工单</a></li>
-                    <li><a href="#">提交工单</a></li>
-                </ul>
-            </div>
-            </li>
-             -->
+
             <li class="fl topbar-info-item">
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="topbar-btn">
@@ -79,10 +69,11 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="logout">退出</a></li>
+                        <li><a href="management/logout">退出</a></li>
                     </ul>
                 </div>
             </li>
+
         </ul>
     </div>
 </div>
@@ -93,6 +84,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 
         <div class="sidebar-content">
 
+            <#--    newsManager    Authentication  -->
         <@security.authorize access="hasRole('ROLE_新闻管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav news-menu">
                 <div class="sidebar-title news-menu">
@@ -117,7 +109,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </ul>
             </div>
         </@security.authorize>
-
+            <#--    userManager    Authentication  -->
         <@security.authorize access="hasRole('ROLE_用户管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav user-menu">
                 <div class="sidebar-title">
@@ -149,7 +141,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </ul>
             </div>
         </@security.authorize>
-
+            <#--    hasAuthorited    Authentication  -->
         <@security.authorize access="isAuthenticated()">
             <div class="sidebar-nav">
                 <div class="sidebar-title">
@@ -177,71 +169,15 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
             </div>
         </@security.authorize>
 
-
-            <#--  个人中心 移到页面右上角 -->
-            <#--<div class="sidebar-nav">
-                <div class="sidebar-title">
-                    <a href="javascript:void(0)">
-                        <span class="icon"><b class="fl icon-arrow-down"></b></span>
-                        <span class="text-normal">个人中心</span>
-                    </a>
-                </div>
-                <ul class="sidebar-trans">
-                    <li>
-                        <a href="userInfo.html">
-                            <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
-                            <span class="text-normal">账号信息</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="identify.html">
-                            <b class="sidebar-icon"><img src="static/img/icon_order.png" width="16"
-                                                         height="16"/></b>
-                            <span class="text-normal">修改密码</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>-->
-
-
-
         </div>
     </div>
-<#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)?exists>
+
+    <#--    manager name    -->
+    <#assign foo = Session.SPRING_SECURITY_CONTEXT.authentication.principal/>
+<#if foo?exists>
     <script>
-        $("#current-user-span").text("${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username!''}");
+        $("#current-user-span").text("${foo.username}");
     </script>
 </#if>
     <div class="view-product background-color" style="overflow: hidden">
 
-    <#--<#if Session.manager?exists>
-    <#assign mgr = Session.manager/>
-<#else >
-<div class="go-login" style="margin: 50px auto;">
-    <a id="go-login" href="login.html"><h3 style="color: #1E9FFF" align="center">
-        您目前以游客身份访问，查看更多内容请先登录(<span id="countDown"></span> 点击手动返回登录页面)</h3></a>
-</div>
-<script>
-    ($(function () {
-                $(".view-topbar a,.sidebar-nav a").click(function () {
-                    return false;
-                });
-            })
-    );
-    var countdown = 5;
-
-    function settime(val) {
-        if (countdown == 0) {
-            location = "${path!''}/management-system/login.html";
-        } else {
-            $("#countDown").text(countdown);
-            countdown--;
-        }
-        setTimeout(function () {
-            settime(val)
-        }, 1000)
-    }
-
-    settime(document.getElementById("countDown"));
-</script>
-</#if>-->

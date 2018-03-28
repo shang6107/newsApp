@@ -1,3 +1,4 @@
+<#include "frame.ftl">
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -7,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 
-    <link rel="stylesheet" type="text/css" href="/static/css1/htmleaf-demo.css">
-    <link rel="stylesheet" href="/static/css1/samples-styles.css">
-    <link rel="stylesheet" href="/static/css1/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css1/htmleaf-demo.css">
+    <link rel="stylesheet" href="static/css1/samples-styles.css">
+    <link rel="stylesheet" href="static/css1/bootstrap.min.css">
 
     <style type="text/css">
         td.alt {
@@ -51,7 +52,7 @@
                 <tr>
                     <td>${new.id!"无"}</td>
                     <td>${new.title!"无"}</td>
-                    <td>${new.type!"无"}</td>
+                    <td>${new.type.typeName!"无"}</td>
                     <td>${new.accessCount!"无"}</td>
                     <td>${new.status!"无"}</td>
                     <#if new.createTime?exists>
@@ -66,8 +67,8 @@
 
 </div>
 
-<script src="/static/js/jquery-1.11.0.min.js"></script>
-<script src="/static/js/jquery.filtertable.min.js"></script>
+<script src="static/js/jquery-1.11.0.min.js"></script>
+<script src="static/js/jquery.filtertable.min.js"></script>
 <script>
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
@@ -77,3 +78,4 @@
 </script>
 </body>
 </html>
+<#include "frame_end.ftl">

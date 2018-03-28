@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description
  */
 @Controller
-//@RequestMapping("/management")
+@RequestMapping("/management")
 public class ManagerLoginHandler {
 
     @RequestMapping(value = "/login")

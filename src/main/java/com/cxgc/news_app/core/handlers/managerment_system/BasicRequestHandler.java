@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description
  */
 @Controller
-//@RequestMapping("/management")
+@RequestMapping("/management")
 public class BasicRequestHandler {
 
     @RequestMapping("/{pageName}.html")
