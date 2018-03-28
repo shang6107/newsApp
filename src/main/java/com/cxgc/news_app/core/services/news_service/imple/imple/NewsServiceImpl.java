@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.news_service.imple.imple;
 
 import com.cxgc.news_app.core.mapper.news_mapper.NewsDao;
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.services.news_service.imple.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,20 @@ public class NewsServiceImpl implements NewsService{
         return newsDao.putIntoComment(comment);
     }
 
+    /**
+     * 添加用户收藏记录
+     */
+    @Override
+    public int inputCollection(Collections collection) {
+        System.out.println("collection = " + collection);
+        return newsDao.inputCollection(collection);
+    }
+
+    /**
+     * 取消用户收藏记录
+     */
+    @Override
+    public int outPutCollection(Collections collection) {
+        return newsDao.outPutCollection(collection);
+    }
 }

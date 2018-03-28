@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.news_service.imple;
 
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 
 import java.util.Collection;
@@ -20,4 +21,12 @@ public interface NewsService {
      * 将用户的评论保存在评论表中
      */
     int putIntoComment(Comment comment);
+    /**
+     * 记录用户收藏数据
+     */
+    int inputCollection(Collections collection);
+    /**
+     * 取消用户收藏记录
+     */
+    int outPutCollection(Collections collection);
 }
