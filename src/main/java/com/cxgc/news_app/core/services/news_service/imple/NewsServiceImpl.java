@@ -1,9 +1,9 @@
-package com.cxgc.news_app.core.services.news_service.imple.imple;
+package com.cxgc.news_app.core.services.news_service.imple;
 
 import com.cxgc.news_app.core.mapper.news_mapper.NewsDao;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
-import com.cxgc.news_app.core.services.news_service.imple.NewsService;
+import com.cxgc.news_app.core.services.news_service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.managerment_service;
 
 import com.cxgc.news_app.core.model.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public interface UserManagementService {
   * 查询所有用户
   * @return 用户集合
   */
- List<User> selectAllUser();
+ PageInfo<User> selectAllUser(Integer pageNum, Integer pageSize);
 
  /**
   * 修改用户状态

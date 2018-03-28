@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.managerment_service;
 
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,12 +13,12 @@ import java.util.Map;
  */
 public interface NewsManagermentService {
     /**
-     * 添加新闻
+     * 发布新闻
      *
-     * @param news
+     * @param release
      * @return
      */
-    public int addNews(News news);
+    public int addRelease(Release release);
 
     /**
      * 根据id删除新闻
@@ -44,8 +45,13 @@ public interface NewsManagermentService {
     /**
      * 查询所有发布新闻
      *
+     * @return
+     */
+    public List<Release> selectRelease();
+    /**
+     * 新闻类型查询
      * @param id
      * @return
      */
-    public Release selectRelease(String id);
+     public NewsType getNewsTypeById(Integer id);
 }

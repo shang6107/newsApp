@@ -3,14 +3,18 @@ package com.cxgc.news_app.utility.news;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
+import com.cxgc.news_app.core.services.news_service.NewsSave;
+import com.cxgc.news_app.core.services.news_service.imple.NewsSaveImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -20,12 +24,13 @@ import java.util.*;
  * @Version
  * @Description
  */
-
+@Repository
 public class NewsSpider{
-
+@Autowired
+NewsSave nsi;
 
     private static Map<Integer,String> newsApi = new HashMap<>();
-    private static JSONArray objects;
+    private  JSONArray objects;
     static {
         //1、科技
         newsApi.put(1,"http://120.76.205.241:8000/news/baijia?catid=1&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
@@ -40,14 +45,7 @@ public class NewsSpider{
 
     }
 
-    public static void main(String[] args) throws IOException {
 
-        /*NewsSpider n = new NewsSpider();
-        n.spider();*/
-
-        //System.out.println(newsDate());
-        responseAppIndex(1);
-    }
 
 
 
@@ -55,7 +53,7 @@ public class NewsSpider{
 
         URL url = new URL(newsApi.get(type));
         URLConnection urlConnection = url.openConnection();
-
+        urlConnection.setConnectTimeout(5000);
         InputStream inputStream = urlConnection.getInputStream();
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("utf-8")));
         StringBuffer sb = new StringBuffer();
@@ -68,32 +66,40 @@ public class NewsSpider{
         return JSON.parseArray(data.toString());
     }
 
-    public static  List<News> responseAppIndex(Integer type) throws IOException {
-
+    public   List<News> responseAppIndex(Integer type) throws IOException, ParseException {
         String path = newsPath(type);
         List<News> newsList = newsList(type);
-        Thread t = new NewsSave(objects,type,path);
+        System.out.println(nsi);
+        Thread t = new Thread(nsi);
         t.start();
         return newsList;
     }
 
     //响应给前台的新闻集合
-    public static List<News> newsList(Integer type) throws IOException {
+    public  List<News> newsList(Integer type) throws IOException, ParseException {
         List<News> newsList = new ArrayList<>();
-        News newsInstance = new News();
-        JSONObject news;
 
+        JSONObject news;
         if(objects==null){
             objects=spider(type);
-
         }
             synchronized (objects){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            /*NewsType n = new NewsType();
+            n.setId(type);
+            n.setTypeDesc("");
+            n.setTypeName("");*/
+
                 for (int i=0;i<objects.size();i++){
+                    News newsInstance = new News();
                     news = objects.getJSONObject(i);
                     newsInstance.setTitle(news.getString("title"));
                     newsInstance.setId(news.getString("id"));
-                    /*newsInstance.setAuthor(news.getString("posterScreenName"));*/
-                    newsInstance.setCreateTime(news.getDate("publishDateStr"));
+                    newsInstance.setAuthor(news.getString("posterScreenName"));
+                    newsInstance.setCreateTime(sdf.parse(news.getString("publishDateStr").replace("T"," ")));
+                    /*newsInstance.setUrl("");
+                    newsInstance.setType(n);
+                    newsInstance.setAccessCount(0);*/
                     newsList.add(newsInstance);
                 }
             }
@@ -110,7 +116,6 @@ public class NewsSpider{
         bfw.close();
         fw.close();
     }
-
     public static String  newsDate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date d = new Date();
