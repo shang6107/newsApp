@@ -40,9 +40,13 @@
 
 
 <!--新增用户-->
-<insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
+<!--<insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
     INSERT INTO users(id,phone_num,nick_name,create_time) VALUES (#{id},#{phoneNum},#{nickName},#{createTime})
-</insert>
+</insert>-->
+    <!-- <include refid="key"/>和<include refid="value"/>表示引用上面sql片段 -->
+    <insert id="addUser" parameterType="com.cxgc.news_app.core.model.User">
+        insert into users(<include refid="key"/>) values(<include refid="value"/>);
+    </insert>
 <!--存入验证码-->
     <insert id="addIdentifyingCode" parameterType="com.cxgc.news_app.core.model.ValidateCode">
         INSERT INTO validate_code VALUES (#{id},#{code},#{phoneNum},#{expireTime},#{usable},2,#{createTime})
@@ -109,4 +113,45 @@
     <!--<insert id="addComment" parameterType="com.cxgc.news_app.core.model.Comment">
         insert into comment values(#{},#{},#{})
     </insert>-->
+    <!-- 动态insert -->
+    <!-- 定义两个sql片段，第一个对应字段名,id属性值任意并且唯一 -->
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id!=null">id,</if>
+            <if test="phoneNum!=null">phone_num,</if>
+            <if test="nickName!=null">nick_name,</if>
+            <if test="password!=null">password,</if>
+            <if test="headImg!=null">head_img,</if>
+            <if test="gender!=null">gender,</if>
+            <if test="address!=null">address,</if>
+            <if test="hobby!=null">Hobby,</if>
+            <if test="introduce!=null">introduce,</if>
+            <if test="lastTime!=null">last_time,</if>
+            <if test="status!=null">status,</if>
+            <if test="typeName!=null">type_name,</if>
+            <if test="createTime!=null">create_time,</if>
+        </trim>
+    </sql>
+
+
+    <!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id!=null">#{id},</if>
+            <if test="phoneNum!=null">#{phoneNum},</if>
+            <if test="nickName!=null">#{nickName},</if>
+            <if test="password!=null">#{password}, </if>
+            <if test="headImg!=null">#{headImg},</if>
+            <if test="gender!=null"> #{gender},</if>
+            <if test="address!=null">#{address},</if>
+            <if test="hobby!=null">#{hobby},</if>
+            <if test="introduce!=null">#{introduce},</if>
+            <if test="lastTime!=null">#{lastTime},</if>
+            <if test="status!=null">#{status},</if>
+            <if test="typeName!=null">#{typeNam}},</if>
+            <if test="createTime!=null">#{createTime},</if>
+        </trim>
+    </sql>
+
+
 </mapper>
