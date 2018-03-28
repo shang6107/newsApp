@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.services.managerment_service.impl;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.UserManagementDao;
 import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.MapKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,9 @@ public class UserManagementServiceImpl implements UserManagementService{
     private UserManagementDao umd;
 
 
-
-
     @Override
-    public List<User> selectAllUser() {
-        return umd.selectAllUser();
+    public PageInfo<User> selectAllUser(Integer pageNum, Integer pageSize) {
+        return null;
     }
 
     @Override

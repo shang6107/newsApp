@@ -26,7 +26,7 @@ public class ManagerUserHandler {
 
     @RequestMapping("/user-list")
     public String selectAllUser(Map<String, Object> map) {
-        map.put("users", ums.selectAllUser());
+        map.put("users", /*ums.selectAllUser()*/null);
         return "list";
     }
 
