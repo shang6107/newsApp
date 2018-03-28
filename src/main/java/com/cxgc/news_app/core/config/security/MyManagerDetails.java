@@ -1,4 +1,4 @@
-package com.cxgc.news_app.core.config;
+package com.cxgc.news_app.core.config.security;
 
 import com.cxgc.news_app.core.model.Manager;
 import lombok.AllArgsConstructor;

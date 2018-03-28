@@ -10,7 +10,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    public User getByUser(String id);
+    public User getUserById(String id);
     /**
      * 通过手机号获取用户信息
      * @param phone

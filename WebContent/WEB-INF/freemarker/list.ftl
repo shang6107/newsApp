@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh">
-
+<#if (RequestParameters.error)?exists>
+    <script>
+        alert("没有相应的记录");
+    </script>
+</#if>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 
-    <link rel="stylesheet" type="text/css" href="/static/css1/htmleaf-demo.css">
-    <link rel="stylesheet" href="/static/css1/samples-styles.css">
-    <link rel="stylesheet" href="/static/css1/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href=static/css1/htmleaf-demo.css">
+    <link rel="stylesheet" href="static/css1/samples-styles.css">
+    <link rel="stylesheet" href="static/css1/bootstrap.min.css">
 
     <style type="text/css">
         td.alt {
@@ -30,16 +34,16 @@
             <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件"></input>
         </div>
         <br>
-        <table class="">
+        <table class="tables">
             <thead>
             <tr>
-
-                <th scope="col">headImg</th>
-                <th scope="col">phoneNum</th>
-                <th scope="col">nickName</th>
-                <th scope="col">status</th>
-                <th scope="col">lastTime</th>
-                <th scope="col">createTime</th>
+                <th scope="col">账户</th>
+                <th scope="col">昵称</th>
+                <th scope="col">状态</th>
+                <th scope="col">类型</th>
+                <th scope="col">上次登录时间</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">操作</th>
 
 
             </tr>
@@ -49,33 +53,39 @@
             <#if users??>
                 <#list users as user>
                 <tr>
-                    <td>${user.headImg!"无"}</td>
-                    <td>${user.phoneNum!"无"}</td>
+                    <td >${user.phoneNum!"无"}</td>
                     <td>${user.nickName!"无"}</td>
-                    <td>${user.userStatus!"无"}</td>
+
+                    <td>${user.status.reason!"无"}</td>
+
+                    <td><#if user.typeName??>
+                        ${user.typeName.type!"无"}
+                    </#if></td>
+
+                <td>
                     <#if user.lastTime?exists>
-                        <td>${user.lastTime?string("yyyy-MM-dd")}</td>
+                        ${user.lastTime?string("yyyy-MM-dd")}
                     </#if>
+                </td>
+                <td>
                     <#if user.createTime?exists>
-                        <td>${user.createTime?string("yyyy-MM-dd")}</td>
+                      ${user.createTime?string("yyyy-MM-dd")}
                     </#if>
+                </td>
+                    <td class="sel"><a href="user-management-update?phoneNum=${user.phoneNum!""}"> 查看</td>
                 </tr>
 
                 </#list>
             </#if>
             </tbody>
         </table>
-        <#if users??>
-<script>
-    console.log("${users}");
-</script>
-        </#if>
+
     </div>
 
 </div>
 
-<script src="/static/js/jquery-1.11.0.min.js"></script>
-<script src="/static/js/jquery.filtertable.min.js"></script>
+<script src="static/js/jquery-1.11.0.min.js"></script>
+<script src="static/js/jquery.filtertable.min.js"></script>
 <script>
     $(document).ready(function () {
         $('table').filterTable({ // apply filterTable to all tables on this page
@@ -83,5 +93,21 @@
         });
     });
 </script>
+<script type="text/javascript">
+
+    $(function(){
+        $(".sel").click(function(){
+            var phoneNum=$(this).parent().children(":first").text();
+                    var row=$(this).parent();
+                    var url = "user-management-update";
+                    $.post(url,phoneNum,function(data){
+                        alert(data);
+
+                    });
+
+            });
+    });
+</script>
+
 </body>
 </html>

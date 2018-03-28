@@ -5,7 +5,10 @@ import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -20,23 +23,33 @@ import java.util.Map;
 public class ManagerUserHandler {
     @Autowired
     private UserManagementService ums;
-@RequestMapping("/list")
-    public String selectAllUser(Map<String,Object> map){
-    map.put("users",ums.selectAllUser() );
-    return "list";
-}
+
+    @RequestMapping("/list")
+    public String selectAllUser(Map<String, Object> map) {
+        map.put("users", ums.selectAllUser());
+        return "list";
+    }
 
 
+    @RequestMapping("/user-management-update")
+    public String editUserInfo(@RequestParam(value = "phoneNum", required = false) String phoneNum,
+                               Map<String,Object> map) {
 
-@RequestMapping("/update")
-    public String updateUser(Map<String,Object> map,String id){
-        map.put("user",ums.updateUser(id));
-        return "update";
+        User user = ums.getUserById(phoneNum);
 
-}
-@RequestMapping("/getUserById")
-    public String getUserById(String id){
-    User userById = ums.getUserById(id);
+        if(user == null){
+            return "redirect:/list?error";
+        }else{
+            map.put("user",user);
+        }
+
+        return "user_management_update";
+
+    }
+
+    @RequestMapping("/getUserById")
+    public String getUserById(String id) {
+        User user = ums.getUserById(id);
         return "";
-}
+    }
 }

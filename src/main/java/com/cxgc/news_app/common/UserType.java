@@ -1,14 +1,23 @@
 package com.cxgc.news_app.common;
 
+
 public enum UserType {
 
     OrdinaryUser("普通用户"),
 
     Editor("编辑人员");
 
-    private final String type;
+    public static UserType getUserTypeByType(String type){
+        for(UserType ut : UserType.values()){
+            if(ut.getType().equals(type))
+                return ut;
+        }
+        return null;
+    }
 
-    private UserType(String type) {
+    private String type;
+
+    UserType(String type) {
         this.type = type;
     }
 
@@ -16,8 +25,7 @@ public enum UserType {
         return type;
     }
 
-    @Override
-    public String toString() {
-        return getType();
+    public void setType(String type) {
+        this.type = type;
     }
 }

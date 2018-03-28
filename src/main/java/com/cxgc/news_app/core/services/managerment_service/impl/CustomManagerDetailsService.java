@@ -1,10 +1,9 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
-import com.cxgc.news_app.core.config.MyManagerDetails;
+import com.cxgc.news_app.core.config.security.MyManagerDetails;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Authorities;
 import com.cxgc.news_app.core.model.Manager;
-import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

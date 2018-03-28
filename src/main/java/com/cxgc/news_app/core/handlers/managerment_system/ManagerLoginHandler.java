@@ -57,7 +57,9 @@ public class ManagerLoginHandler {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout";
+        return "redirect:/" +
+                (request.getContextPath().equals("") ? "" : request.getContextPath() + "/")
+                + "login?logout";
     }
 
 

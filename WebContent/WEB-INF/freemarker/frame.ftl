@@ -1,44 +1,49 @@
 <#import "spring.ftl" as spring/>
-<#if Request.contextPath?exists>
-    <#assign path = Request.contextPath/>
-</#if>
+<#--<#assign security=
+JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
+<#--http://www.springframework.org/security/tags/>-->
+<#assign path = (Request.request.getContextPath())!"">
+
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <base href="${path!''}/">
     <meta charset="UTF-8">
-    <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css1/identify.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/js/skin/layer.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/layout.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/layui.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/style.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/login.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/control_index.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css1/myStyle.css"/>
-    <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/layer.js"></script>
-    <script type="text/javascript" src="/static/js/haidao.offcial.general.js"></script>
-    <script type="text/javascript" src="/static/js/select.js"></script>
-    <script type="text/javascript" src="/static/js/haidao.validate.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css1/identify.css"/>
+    <link rel="stylesheet" type="text/css" href="static/js/skin/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/style.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/login.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/control_index.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/myStyle.css"/>
+    <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/layer.js"></script>
+    <script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>
+    <script type="text/javascript" src="static/js/select.js"></script>
+    <script type="text/javascript" src="static/js/haidao.validate.js"></script>
+    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
 </head>
 <body>
 
 <div class="view-topbar">
     <div class="topbar-console">
         <div class="tobar-head fl">
-            <a href="/logout" class="topbar-logo fl">
+            <a href="logout" class="topbar-logo fl">
                 <span><img src="static/img/logo.png" width="20" height="20"/></span>
             </a>
             <a href="index.html" class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
         </div>
+        <h1 align="center" style="margin-top: 5px;line-height: inherit;color: whitesmoke">今日头条APP后台管理系统 V1.0</h1>
     </div>
     <div class="topbar-info">
         <ul class="fr">
             <li class="fl dropdown topbar-notice topbar-btn">
                 <a href="javascript:void(0)" class="dropdown-toggle">
                     <span class="icon-notice"></span>
-                    <span class="topbar-num have">0</span>
+                    <span class="topbar-num have" id="msg-notice-span">0</span>
                     <!--have表示有消息，没有消息去掉have-->
                 </a>
             </li>
@@ -62,19 +67,19 @@
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">模板开发手册</a></li>
-                        <li><a href="#">某某数据字典</a></li>
+                        <li><a href="javascript:void(0)">APP简介</a></li>
+                        <li><a href="javascript:void(0)">开发人员简介</a></li>
                     </ul>
                 </div>
             </li>
             <li class="fl topbar-info-item">
                 <div class="dropdown">
-                    <a href="#" class="topbar-btn">
+                    <a href="javascript:void(0)" class="topbar-btn">
                         <span class="fl text-normal" id="current-user-span"></span>
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="login.html">退出</a></li>
+                        <li><a href="logout">退出</a></li>
                     </ul>
                 </div>
             </li>
@@ -88,6 +93,7 @@
 
         <div class="sidebar-content">
 
+        <@security.authorize access="hasRole('ROLE_新闻管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav news-menu">
                 <div class="sidebar-title news-menu">
                     <a href="javascript:void(0)">
@@ -110,7 +116,9 @@
                     </li>
                 </ul>
             </div>
+        </@security.authorize>
 
+        <@security.authorize access="hasRole('ROLE_用户管理员') or hasRole('超级管理员')">
             <div class="sidebar-nav user-menu">
                 <div class="sidebar-title">
                     <a href="javascript:void(0)">
@@ -140,7 +148,9 @@
                     </li>
                 </ul>
             </div>
+        </@security.authorize>
 
+        <@security.authorize access="isAuthenticated()">
             <div class="sidebar-nav">
                 <div class="sidebar-title">
                     <a href="javascript:void(0)">
@@ -165,8 +175,11 @@
 
                 </ul>
             </div>
+        </@security.authorize>
 
-            <div class="sidebar-nav">
+
+            <#--  个人中心 移到页面右上角 -->
+            <#--<div class="sidebar-nav">
                 <div class="sidebar-title">
                     <a href="javascript:void(0)">
                         <span class="icon"><b class="fl icon-arrow-down"></b></span>
@@ -188,14 +201,13 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
+
+
+
         </div>
     </div>
-<#--<#if Session ?exists && Session.SPRING_SECURITY_CONTEXT?exists
-&& Session.SPRING_SECURITY_CONTEXT.authentication?exists
-&& Session.SPRING_SECURITY_CONTEXT.principal
-&& Session.SPRING_SECURITY_CONTEXT.principal.username>-->
-<#if Session.SPRING_SECURITY_CONTEXT.authentication.principal.username?exists>
+<#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal.username)?exists>
     <script>
         $("#current-user-span").text("${Session.SPRING_SECURITY_CONTEXT.authentication.principal.username!''}");
     </script>

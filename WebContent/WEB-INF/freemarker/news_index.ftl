@@ -1,8 +1,8 @@
 <#include "index.ftl"/>
-<script type="text/javascript" src="/static/js/jsapi.js"></script>
-<script type="text/javascript" src="/static/js/corechart.js"></script>
-<script type="text/javascript" src="/static/js/jquery.gvChart-1.0.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ba-resize.min.js"></script>
+<script type="text/javascript" src="static/js/jsapi.js"></script>
+<script type="text/javascript" src="static/js/corechart.js"></script>
+<script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
 <script type="text/javascript">
     gvChartInit();
 
@@ -22,7 +22,7 @@
 
 
     $(document).ready(function () {
-        var elements = ["#myTable1", "#myTable2", "#myTable5", "#myTable3"];
+        var elements = ["#myTable5", "#myTable3"];
         paint(elements);
         $("#myTable4").gvChart({
             chartType: 'LineChart',
@@ -35,7 +35,6 @@
     });
 
 </script>
-
 <div class="part-div">
     <p>数据信息</p>
     <div style="width: 1070px;margin: 0 auto">
@@ -50,26 +49,26 @@
     <p>概要信息</p>
     <div class="table-div first-table-div">
         <table id='myTable5'>
-            <caption>新闻类型分布</caption>
+            <caption>新闻发布类型分布</caption>
             <thead>
             <tr>
                 <th></th>
-                <th>娱乐</th>
-                <th>科技</th>
-                <th>财经</th>
-                <th>军事</th>
                 <th>体育</th>
+                <th>经济</th>
+                <th>政治</th>
+                <th>国际</th>
+                <th>军事</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-
-                <td>120</td>
-                <td>180</td>
+                <th>1400</th>
+                <td>540</td>
+                <td>300</td>
                 <td>150</td>
                 <td>180</td>
-                <td>120</td>
-
+                <td>200</td>
             </tr>
             </tbody>
         </table>
@@ -80,65 +79,27 @@
             <thead>
             <tr>
                 <th></th>
-                <th>娱乐</th>
-                <th>科技</th>
-                <th>财经</th>
-                <th>军事</th>
                 <th>体育</th>
+                <th>经济</th>
+                <th>政治</th>
+                <th>国际</th>
+                <th>军事</th>
+
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>100</td>
                 <td>200</td>
-                <td>900</td>
-                <td>150</td>
-                <td>180</td>
                 <td>200</td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table-div float-table-div">
-        <table id='myTable1'>
-            <caption>会员性别分布</caption>
-            <thead>
-            <tr>
-                <th></th>
-                <th>男</th>
-                <th>女</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table-div float-table-div">
-        <table id='myTable2'>
-            <caption>会员性别分布</caption>
-            <thead>
-            <tr>
-                <th></th>
-                <th>男</th>
-                <th>女</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>2</td>
+                <td>300</td>
+                <td>500</td>
+                <td>400</td>
             </tr>
             </tbody>
         </table>
     </div>
 
-
-</div>
 <div class="part-div">
     <p>数据分析</p>
     <table id='myTable4'>
@@ -155,7 +116,7 @@
         </thead>
         <tbody>
         <tr>
-            <th>用户量</th>
+            <th>发布量</th>
             <td>1</td>
             <td>2</td>
             <td>4</td>
@@ -163,7 +124,7 @@
             <td>3</td>
         </tr>
         <tr>
-            <th>下载量</th>
+            <th>搜索量</th>
             <td>1</td>
             <td>4</td>
             <td>2</td>
