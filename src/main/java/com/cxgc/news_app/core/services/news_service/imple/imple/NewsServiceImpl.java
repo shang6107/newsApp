@@ -14,7 +14,6 @@ import java.util.Collection;
  */
 @Service
 public class NewsServiceImpl implements NewsService{
-
     @Autowired
     private NewsDao newsDao;
 
