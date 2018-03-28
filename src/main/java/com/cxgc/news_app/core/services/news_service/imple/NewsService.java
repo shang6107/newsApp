@@ -12,9 +12,13 @@ public interface NewsService {
      */
     String getNewsById(String id);
     /**
-     * 通过新闻id获得新闻对象，包括评论等信息
+     * 通过新闻id获得新闻对象，包括评论，收藏等信息
      */
     Collection<Comment> getAllCommentByNewsId(String id);
+    /**
+     * 获得用户对该新闻的收藏情况
+     */
+    Collections checkCollection(Collections collection);
     /**
      * 将用户的评论保存在评论表中
      */
@@ -27,4 +31,5 @@ public interface NewsService {
      * 取消用户收藏记录
      */
     int outPutCollection(Collections collection);
+
 }
