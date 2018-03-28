@@ -20,6 +20,11 @@ public interface NewsDao {
     Collection<Comment> getAllCommentByNewsId(String newsId);
 
     /**
+     * 通过新闻id和用户id获得用户对该新闻的收藏情况
+     */
+    Collections checkCollection(Collections collection);
+
+    /**
      * 通过新闻id获得新闻对象
      * @param id
      * @return
