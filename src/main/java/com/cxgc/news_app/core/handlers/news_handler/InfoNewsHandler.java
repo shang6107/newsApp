@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -31,12 +30,12 @@ public class InfoNewsHandler {
     @Autowired
     private NewsService newsService;
     /**
-     * 通过新闻id获得新闻及所有评论
+     * 通过新闻id获得新闻及所有评论,收藏
      * @return
      */
     @CrossOrigin
     @RequestMapping("getOneNews")
-    public @ResponseBody Map<String,Object> test(String id) throws IOException {
+    public @ResponseBody Map<String,Object> test(String id,@Param("userId") String userId) throws IOException {
         Map<String,Object> map=new HashedMap();
         String url = newsService.getNewsById(id);
         if(url==null){
@@ -45,8 +44,14 @@ public class InfoNewsHandler {
             StringBuffer stringFromFile = NewsIO.getStringFromFile(url);
             //获得该新闻的所有评论
             Collection<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
+            //获得用户对该新闻的收藏情况
+             Collections collection=new Collections();
+            collection.setUserId(userId);
+            collection.setNewsId(id);
+            Collections checkCollection=newsService.checkCollection(collection);
             map.put("news",stringFromFile);
             map.put("comments",commentCollection);
+            map.put("checkCollection",checkCollection);
             return map;
     }
     /**
@@ -60,33 +65,32 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("putDiscuss")
-    public @ResponseBody String putDiscuss(Comment comment){
+    public @ResponseBody Map<String,Object> putDiscuss(Comment comment){
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
+        Map<String,Object> map=new HashedMap();
         int result=newsService.putIntoComment(comment);
         if(result>0){
-            return "发布成功！";
+            map.put("saveComment","发布成功！");
         }
-        return "发布失败！";
+        map.put("saveComment","发布失败！");
+        return map;
     }
 
     /**
      * 用户收藏与取消收藏
      */
-   // @CrossOrigin
+    @CrossOrigin
     @RequestMapping("putCollection")
     public @ResponseBody String insertCollections(String newsId,String userId,@Param("c") int c){
         Collections collection=new Collections();
         collection.setCreateTime(new Date());
         collection.setNewsId(newsId);
         collection.setUserId(userId);
-        System.out.println("collection = " + collection);
-        System.out.println("c = " + c);
         String result=null;
         //判断是取消收藏还是收藏
         if(c==1){//收藏
             collection.setId("coll"+System.currentTimeMillis());
-            System.out.println("collection = " + collection);
             int result1=newsService.inputCollection(collection);
             if(result1>0){
                 result="收藏成功！";
