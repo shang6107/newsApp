@@ -24,7 +24,7 @@ public class ManagerUserHandler {
     @Autowired
     private UserManagementService ums;
 
-    @RequestMapping("/list")
+    @RequestMapping("/user-list")
     public String selectAllUser(Map<String, Object> map) {
         map.put("users", ums.selectAllUser());
         return "list";
@@ -46,9 +46,27 @@ public class ManagerUserHandler {
 
     }
 
-    @RequestMapping("/getUserById")
+    @RequestMapping("/user-getUserById")
     public String getUserById(String id) {
         User user = ums.getUserById(id);
         return "";
     }
+
+    @RequestMapping("/user-statistical")
+    public String countNum(Map<String ,Object> map){
+
+        System.out.println(ums.test());
+        map.put("test",ums.test());
+        map.put("countMen",ums.countMen());
+        map.put("countAll",ums.countAll());
+        map.put("countFreeze",ums.countFreeze());
+        map.put("countFailure",ums.countFailure());
+        System.out.println(ums.countAll());
+        System.out.println(ums.countFreeze());
+        System.out.println(ums.countFailure());
+       return "user_index";
+    }
+
+
+
 }

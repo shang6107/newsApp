@@ -80,15 +80,16 @@
     });
 </script>
 <div class="part-div" >
+
 数据统计：
         </div>
 
         <div class="part-div-child"  style="width: 300px;height: 150px;">
-            APP下载人数总量：
+            APP下载人数总量：${(countAll.all)!""}
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
-            会员人数：
+            会员人数：${(countMen?number)!"1111"}
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
@@ -142,8 +143,8 @@
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
-                <td>2</td>
+                <td>${(test.male)!""}</td>
+                <td>${(countAll.all)!""}-${(test.male)!""}</td>
 
             </tr>
             </tbody>
@@ -155,13 +156,17 @@
             <thead>
             <tr>
                 <th></th>
-                <th>会员</th>
-                <th>普通</th>
+                <th>正常</th>
+                <th>冻结</th>
+                <th>异常</th>
+                <th>失效</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>1</td>
+                <td>2</td>
+                <td>2</td>
                 <td>2</td>
             </tr>
             </tbody>
