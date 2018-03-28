@@ -36,8 +36,15 @@ com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNe
     </select>
 
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
-        insert into comment(id,content,news_id,user_id,create_time) values(#{comment.id},#{comment.content},#{comment.newsId},#{comment.userId},#{comment.createTime})
+        insert into comment(id,content,news_id,user_id,create_time) values(#{id},#{content},#{newsId},#{userId},#{createTime})
     </insert>
 
+    <insert id="inputCollection" parameterType="com.cxgc.news_app.core.model.Collections">
+        insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId},#{userId},#{createTime})
+    </insert>
+
+    <delete id="outPutCollection" parameterType="collections">
+        delete from collections where user_Id=#{userId} and news_Id=#{newsId}
+    </delete>
 
 </mapper>
