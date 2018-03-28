@@ -36,27 +36,30 @@
             <tr>
 
                 <th scope="col">id</th>
-                <th scope="col">title</th>
-                <th scope="col">type</th>
-                <th scope="col">accessCount</th>
-                <th scope="col">status</th>
                 <th scope="col">createTime</th>
-
+                <th scope="col">path</th>
+                <th scope="col">userId</th>
+                <th scope="col">accessCount</th>
+                <th scope="col">title</th>
+                <th scope="col">status</th>
+                <th scope="col">newTypeId</th>
 
             </tr>
             </thead>
             <tbody>
 
-            <#if news??>
-                <#list news as new>
+            <#if releases??>
+                <#list releases as release>
                 <tr>
-                    <td>${new.id!"无"}</td>
-                    <td>${new.title!"无"}</td>
-                    <td>${new.type.typeName!"无"}</td>
-                    <td>${new.accessCount!"无"}</td>
-                    <td>${new.status!"无"}</td>
-                    <#if new.createTime?exists>
-                        <td>${new.createTime?string("yyyy-MM-dd")}</td>
+                    <td>${release.id!"无"}</td>
+                    <td>${release.path!"无"}</td>
+                    <td>${release.userId!"无"}</td>
+                    <td>${release.accessCount!"无"}</td>
+                    <td>${release.title!"无"}</td>
+                    <td>${release.status!"无"}</td>
+                    <td>${release.newTypeId.typeName!"无"}</td>
+                    <#if release.createTime?exists>
+                        <td>${release.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
                 </tr>
                 </#list>
