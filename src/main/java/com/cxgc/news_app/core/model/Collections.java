@@ -10,6 +10,7 @@ import java.util.Date;
  * @Version 1.0
  * @Description 用户收藏类
  */
+
 @Data
 public class Collections {
     private String id;
