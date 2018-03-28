@@ -10,8 +10,7 @@
        <result property="accessCount" column="access_count"/>
        <result property="status" column="status"/>
        <result property="createTime" column="create_time"/>
-       <association property="type" column="news_type_id" select="
-com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"/>
+       <association property="type" column="news_type_id" select="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"/>
    </resultMap>
 
     <resultMap id="allComment" type="comment">
