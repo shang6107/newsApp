@@ -54,4 +54,9 @@ public interface NewsDao {
      * 取消用户收藏记录
      */
     int outPutCollection(Collections collection);
+    /**
+     * 保存用户的点赞
+     */
+    int putonGood(Comment comment);
+
 }
