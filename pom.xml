@@ -8,7 +8,7 @@
 	<description>newsApp</description>
 
 	<properties>
-		<!-- spring版本号 -->
+        <!-- spring版本号 -->
 		<spring.version>4.2.2.RELEASE</spring.version>
 		<!-- mybatis版本号 -->
 		<mybatis.version>3.2.6</mybatis.version>
@@ -19,11 +19,17 @@
 		<jackson.version>2.6.3</jackson.version>
 	</properties>
 	<dependencies>
-		 
+
+		<dependency>
+			<groupId>com.github.jsqlparser</groupId>
+			<artifactId>jsqlparser</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
-			<version>5.1.2</version>
+			<version>4.1.0</version>
 		</dependency>
 
 		<dependency>

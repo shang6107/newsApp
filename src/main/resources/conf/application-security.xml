@@ -19,7 +19,7 @@
         <form-login  login-page="/management/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
-                     authentication-failure-forward-url="/management/login?error"
+                     authentication-failure-forward-url="/management/login?unAuthenticated"
                      authentication-success-handler-ref="authenticationSuccessHandler"
                      />
         <access-denied-handler error-page="/management/403.html"/>

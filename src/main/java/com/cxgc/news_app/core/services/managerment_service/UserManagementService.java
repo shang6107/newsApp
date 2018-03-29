@@ -18,7 +18,7 @@ public interface UserManagementService {
   * 查询所有用户
   * @return 用户集合
   */
- PageInfo<User> selectAllUser(Integer pageNum, Integer pageSize);
+ Object selectAllUser(Integer pageNum, Integer pageSize);
 
  /**
   * 修改用户状态
@@ -34,7 +34,7 @@ public interface UserManagementService {
   * @param phoneNum
   * @return
   */
- User getUserById(String phoneNum);
+ User getUserByPhoneNum(String phoneNum);
 
 
  /**
@@ -63,4 +63,20 @@ public interface UserManagementService {
 
 
  Map<String,Object> test();
+ /**
+  * 统计被举报人数
+  * @return
+  */
+ Map<String,Object> report();
+
+ /**
+  * 统计编辑人员
+  * @return
+  */
+ Map<String,Object> typeName();
+ /**
+  * 统计异常人员账号
+  * @return
+  */
+ Map<String,Object> abnormal();
 }

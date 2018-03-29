@@ -5,6 +5,7 @@ import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.model.News;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by 唐倩 on 2018/3/21.
@@ -17,8 +18,12 @@ public interface NewsDao {
     /**
      * 通过新闻id获得所有的新闻评论
      */
-    Collection<Comment> getAllCommentByNewsId(String newsId);
+    List<Comment> getAllCommentByNewsId(String newsId);
 
+    /**
+     * 通过用户id和新闻id获得该用户对该新闻的所有评论记录
+     */
+    List<Comment> getCommentByNewIdAndUserId(Comment comment);
     /**
      * 通过新闻id和用户id获得用户对该新闻的收藏情况
      */
@@ -38,6 +43,10 @@ public interface NewsDao {
      */
     int putIntoComment(Comment comment);
     /**
+     * 修改用户评论
+     */
+    void updateComment(Comment comment);
+    /**
      * 添加用户收藏记录
      */
     int inputCollection(Collections collection);
@@ -45,4 +54,9 @@ public interface NewsDao {
      * 取消用户收藏记录
      */
     int outPutCollection(Collections collection);
+    /**
+     * 保存用户的点赞
+     */
+    int putonGood(Comment comment);
+
 }

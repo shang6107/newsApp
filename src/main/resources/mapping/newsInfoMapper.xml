@@ -26,6 +26,10 @@
         select * from comment where news_id=#{newsId}
     </select>
 
+    <select id="getCommentByNewIdAndUserId" resultMap="allComment">
+        select * from comment where user_id=#{userId} and news_id=#{newsId}
+    </select>
+
     <select id="checkCollection" resultType="collections">
         select * from collections where news_id=#{newsId} and user_id=#{userId}
     </select>
@@ -33,21 +37,34 @@
     <select id="getNews" resultMap="oneNews">
         select * from news where id=#{id}
     </select>
-
+    <!--获得新闻的url-->
     <select id="getNewsById" resultType="java.lang.String">
         select url from news where id=#{id}
     </select>
 
+    <!--发布评论-->
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
         insert into comment(id,content,news_id,user_id,create_time) values(#{id},#{content},#{newsId},#{userId},#{createTime})
     </insert>
 
+    <!--更新评论-->
+    <update id="updateComment" parameterType="comment">
+        update comment set content=#{content} where id=#{id}
+    </update>
+
+    <!--收藏-->
     <insert id="inputCollection" parameterType="com.cxgc.news_app.core.model.Collections">
         insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId},#{userId},#{createTime})
     </insert>
 
+    <!--取消收藏-->
     <delete id="outPutCollection" parameterType="collections">
         delete from collections where user_Id=#{userId} and news_Id=#{newsId}
     </delete>
+
+    <!--点赞-->
+    <update id="putonGood" parameterType="comment">
+        update comment set good_count=#{goodCount} where news_id=#{newsId}
+    </update>
 
 </mapper>

@@ -31,9 +31,9 @@
     <!-- c3p0 dataSource -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           p:driverClass="${jdbc.driver}"
-          p:jdbcUrl="jdbc:mysql://192.168.10.200:3306/news_app?characterEncoding=utf-8"
+          p:jdbcUrl="${jdbc.url}"
           p:user="${jdbc.username}"
-          p:password="123456"
+          p:password="${jdbc.password}"
           p:initialPoolSize="5"
           p:minPoolSize="3"
           p:maxPoolSize="100"

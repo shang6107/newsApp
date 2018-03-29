@@ -1,20 +1,18 @@
 package com.cxgc.news_app.core.handlers.user_handler;
 
 import com.cxgc.news_app.core.model.*;
-import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.services.user_service.UserService;
-import com.cxgc.news_app.core.services.user_service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户操作
@@ -23,6 +21,12 @@ import java.util.*;
 @Controller
 @RequestMapping("/app")
 public class UserController {
+
+
+    @InitBinder
+    public  void  intDate(WebDataBinder dataBinder){
+        dataBinder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));
+    }
 
     @Autowired
     private UserService user_service;
@@ -51,7 +55,10 @@ public class UserController {
      */
     @RequestMapping("/editInfo")
     @ResponseBody
-    public Object editInfo(User user){return user_service.editUserInfo(user);}
+    public Object editInfo(User user){
+        System.out.println("user = " + user);
+        System.out.println("user_service.editUserInfo(user) = " + user_service.editUserInfo(user));
+        return user_service.editUserInfo(user);}
 
     /**
      * 查看浏览记录

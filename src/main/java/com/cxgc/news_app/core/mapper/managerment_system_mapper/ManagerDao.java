@@ -14,14 +14,7 @@ import java.util.List;
 public interface ManagerDao {
     
     Manager getManagerByMgrNo(String mgrNo);
-    
-    /**
-     * 通过账号密码查找管理员（用于管理员登录）
-     * @param mgrNo
-     * @param password
-     * @return 查询结果的一个对象
-     */
-    public Manager selectByMgrNoAndPassword(String mgrNo,String password);
+
     /**
      *
      * @param manager
