@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,29 +35,60 @@ public class InfoNewsHandler {
      * @return
      */
     @CrossOrigin
-    @RequestMapping("getOneNews")
+    @RequestMapping("/getOneNews")
     public @ResponseBody Map<String,Object> test(String id,@Param("userId") String userId) throws IOException {
         Map<String,Object> map=new HashedMap();
+        //获得该新闻的所有评论
+        List<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
+        //获得新闻对象
         String url = newsService.getNewsById(id);
-        if(url==null){
-            return null;
-        }
-            StringBuffer stringFromFile = NewsIO.getStringFromFile(url);
-            //获得该新闻的所有评论
-            Collection<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
-            //获得用户对该新闻的收藏情况
-             Collections collection=new Collections();
-            collection.setUserId(userId);
-            collection.setNewsId(id);
-            Collections checkCollection=newsService.checkCollection(collection);
-            map.put("news",stringFromFile);
-            map.put("comments",commentCollection);
-            map.put("checkCollection",checkCollection);
-            return map;
+        if(url==null){return null;}
+        StringBuffer stringFromFile = NewsIO.getStringFromFile(url);
+        System.out.println("stringFromFile"+stringFromFile);
+        map.put("news",stringFromFile);
+
+        //获得用户对该新闻的收藏情况
+        Collections collection=new Collections();
+        collection.setUserId(userId);
+        collection.setNewsId(id);
+        Collections checkCollection=newsService.checkCollection(collection);
+        map.put("checkCollection",checkCollection);
+
+        //所有的评论数
+        int commentsNum=commentCollection.size();
+        map.put("commentsNum",commentsNum);
+
+        //获得每次请求的前5条数据
+        List<Comment> eachComment=new ArrayList<>();
+        //5*num
+            for (int i = 2 * (1 - 1); i < 2 * 1; i++) {
+                eachComment.add(commentCollection.get(i));
+            }
+        map.put("comments",eachComment);
+        return map;
     }
+
     /**
-     * 记录用户评论（判断用户是否登录）
+     * 每次刷新获得即时评论
      */
+    @CrossOrigin
+    @RequestMapping("/getEachComment")
+    public @ResponseBody Map<String,Object> getEachComment(String id,@Param("count") int count){
+        System.out.println("id"+id);
+        //获得该新闻的所有评论
+        List<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
+        System.out.println("count = " + count);
+        Map<String,Object> map=new HashedMap();
+        System.out.println("评论中----》commentCollection"+commentCollection);
+        //获得每次请求的前5条数据
+        List<Comment> eachComment=new ArrayList<>();
+        for (int i = 2 * (count-1); i < 2 * count; i++) {
+            eachComment.add(commentCollection.get(i));
+        }
+        map.put("comments",eachComment);
+        return map;
+    }
+
     /**
      * 前提是登录状态下
      * 每条每人最多发送2条评论，每条最多50字，
@@ -64,25 +96,24 @@ public class InfoNewsHandler {
      * 用户还可以删除自己发送过的评论。
      */
     @CrossOrigin
-    @RequestMapping("putDiscuss")
-    public @ResponseBody Map<String,Object> putDiscuss(Comment comment){
+    @RequestMapping("/putDiscuss")
+    public @ResponseBody String putDiscuss(Comment comment){
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
-        Map<String,Object> map=new HashedMap();
+
         int result=newsService.putIntoComment(comment);
-        if(result>0){
-            map.put("saveComment","发布成功！");
+        if(result>1){
+            return "评论更改成功！";
         }
-        map.put("saveComment","发布失败！");
-        return map;
+       return "评论发布成功！";
     }
 
     /**
      * 用户收藏与取消收藏
      */
     @CrossOrigin
-    @RequestMapping("putCollection")
-    public @ResponseBody String insertCollections(String newsId,String userId,@Param("c") int c){
+    @RequestMapping("/putCollection")
+    public @ResponseBody String insertCollections(String newsId, String userId, @Param("c") int c){
         Collections collection=new Collections();
         collection.setCreateTime(new Date());
         collection.setNewsId(newsId);
