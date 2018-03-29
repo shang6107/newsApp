@@ -91,4 +91,14 @@ public class NewsServiceImpl implements NewsService{
     public int outPutCollection(Collections collection) {
         return newsDao.outPutCollection(collection);
     }
+
+    /**
+     * 保存用户的评论点赞
+     * @param comment
+     * @return
+     */
+    @Override
+    public int putonGood(Comment comment) {
+        return newsDao.putonGood(comment);
+    }
 }
