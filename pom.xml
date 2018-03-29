@@ -20,6 +20,14 @@
 	</properties>
 	<dependencies>
 
+<<<<<<< Updated upstream
+=======
+		<dependency>
+			<groupId>com.github.jsqlparser</groupId>
+			<artifactId>jsqlparser</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+>>>>>>> Stashed changes
 
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>

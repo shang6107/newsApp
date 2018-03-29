@@ -18,7 +18,7 @@ public interface UserManagementService {
   * 查询所有用户
   * @return 用户集合
   */
- PageInfo<User> selectAllUser(Integer pageNum, Integer pageSize);
+ Object selectAllUser(Integer pageNum, Integer pageSize);
 
  /**
   * 修改用户状态

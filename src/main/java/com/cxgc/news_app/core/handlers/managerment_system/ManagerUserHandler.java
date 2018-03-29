@@ -25,8 +25,8 @@ public class ManagerUserHandler {
     private UserManagementService ums;
 
     @RequestMapping("/user-list")
-    public String selectAllUser(Map<String, Object> map) {
-        map.put("users", /*ums.selectAllUser()*/null);
+    public String selectAllUser(Integer pageNum,Integer pageSize,Map<String, Object> map) {
+        map.put("users", ums.selectAllUser(pageNum,pageSize));
         return "list";
     }
 
