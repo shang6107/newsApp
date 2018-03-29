@@ -12,6 +12,22 @@
     <select id="getUserById" resultMap="com.cxgc.news_app.core.mapper.user_mapper.UserMapper.user_result">
         select * from users where phone_num = #{0}
     </select>
+    <update id="editUserInfo" parameterType="com.cxgc.news_app.core.model.User">
+        update users
+        <trim prefix="set" suffixOverrides=",">
+            <if test="status != null">
+                status =#{stutas},
+            </if>
+
+            <if test="typeName != null">
+                typename =#{typeName},
+            </if>
+
+
+
+        </trim>
+        where id =#{id}
+    </update>
 
     <resultMap id="maleCount" type="map">
         <result column="male" property="male"/>
@@ -27,6 +43,12 @@
 </resultMap>
     <resultMap id="report" type="map">
         <result column="report" property="report"/>
+    </resultMap>
+    <resultMap id="type" type="map">
+        <result column="typename" property="typename"/>
+    </resultMap>
+    <resultMap id="abnormal" type="map">
+        <result column="abnormal" property="abnormal"/>
     </resultMap>
 
 
@@ -45,7 +67,13 @@
         select count(phone_num) as "all" from users ;
     </select>
     <select id="report" resultMap="report">
-        select count(id) as "all"from report;
+    select count(id) as "all"from report;
+</select>
+    <select id="typeName" resultMap="type">
+        select count(id) as "typename" from users where type_name="编辑人员";
+    </select>
+    <select id="abnormal" resultMap="abnormal">
+          select count(phone_num) as "abnormal" from users where status=2;
     </select>
 
 

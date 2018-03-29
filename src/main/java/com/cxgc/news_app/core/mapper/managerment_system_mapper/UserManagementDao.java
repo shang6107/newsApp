@@ -60,5 +60,24 @@ public interface UserManagementDao {
 
     Map<String,Object> test();
 
+    /**
+     * 统计被举报人数
+     * @return
+     */
+    Map<String,Object> report();
+
+    /**
+     * 统计编辑人员
+     * @return
+     */
+    Map<String,Object> typeName();
+
+    /**
+     * 统计异常人员账号
+     * @return
+     */
+    Map<String,Object> abnormal();
+
+
 }
 

@@ -120,7 +120,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </div>
                 <ul class="sidebar-trans">
                     <li>
-                        <a href="list.html">
+                        <a href="management/user-list">
                             <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
                             <span class="text-normal">账号管理</span>
                         </a>

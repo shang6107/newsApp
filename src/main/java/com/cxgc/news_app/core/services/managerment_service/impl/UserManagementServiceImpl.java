@@ -43,7 +43,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
-    public User getUserById(String phoneNum) {
+    public User getUserByPhoneNum(String phoneNum) {
         return umd.getUserById(phoneNum);
     }
 
@@ -70,5 +70,20 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Override
     public Map<String, Object> test() {
         return umd.test();
+    }
+
+    @Override
+    public Map<String, Object> report() {
+        return umd.report();
+    }
+
+    @Override
+    public Map<String, Object> typeName() {
+        return umd.typeName();
+    }
+
+    @Override
+    public Map<String, Object> abnormal() {
+        return umd.abnormal();
     }
 }
