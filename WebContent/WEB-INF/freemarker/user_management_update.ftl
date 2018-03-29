@@ -89,7 +89,7 @@
                 <div class="form-group">
                 <label class="control-label col-sm-2">账号状态:</label>
                 <div class="col-sm-6">
-                <@spring.formInput "user.status" "class=form-control"></@spring.formInput> <span id="span3"></span>
+                <@spring.formInput "user.status.reason" "class=form-control"></@spring.formInput> <span id="span3"></span>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                 <div class="form-group">
                 <label class="control-label col-sm-2">账号类型:</label>
                 <div class="col-sm-6">
-                <@spring.formInput "user.typeName" "class=form-control"></@spring.formInput> <span id="span3"></span>
+                <@spring.formInput "user.typeName.type" "class=form-control"></@spring.formInput> <span id="span3"></span>
                 </div>
 
             </div>
