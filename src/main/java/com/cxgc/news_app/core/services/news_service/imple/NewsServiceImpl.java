@@ -20,7 +20,6 @@ import static sun.plugin2.os.windows.OSVERSIONINFOA.size;
 public class NewsServiceImpl implements NewsService{
     @Autowired
     private NewsDao newsDao;
-
     /**
      * 通过新闻id获得新闻的本地地址
      * @param id 新闻id
