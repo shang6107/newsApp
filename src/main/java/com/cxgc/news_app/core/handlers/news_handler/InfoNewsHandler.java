@@ -30,6 +30,10 @@ public class InfoNewsHandler {
 
     @Autowired
     private NewsService newsService;
+    public static int num=1;
+    //获得该新闻的所有评论
+    List<Comment> commentCollection ;
+    public static String newsId;
     /**
      * 通过新闻id获得新闻及所有评论,收藏
      * @return
@@ -38,14 +42,16 @@ public class InfoNewsHandler {
     @RequestMapping("/getOneNews")
     public @ResponseBody Map<String,Object> test(String id,@Param("userId") String userId) throws IOException {
         Map<String,Object> map=new HashedMap();
+        newsId=id;
+        System.out.println("id = " + id);
         //获得该新闻的所有评论
-        List<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
+        commentCollection = newsService.getAllCommentByNewsId(newsId);
         //获得新闻对象
         String url = newsService.getNewsById(id);
         if(url==null){return null;}
         StringBuffer stringFromFile = NewsIO.getStringFromFile(url);
-        System.out.println("stringFromFile"+stringFromFile);
         map.put("news",stringFromFile);
+        System.out.println("commentCollection"+commentCollection);
 
         //获得用户对该新闻的收藏情况
         Collections collection=new Collections();
@@ -61,7 +67,8 @@ public class InfoNewsHandler {
         //获得每次请求的前5条数据
         List<Comment> eachComment=new ArrayList<>();
         //5*num
-            for (int i = 2 * (1 - 1); i < 2 * 1; i++) {
+        num=1;
+            for (int i = 2 * (num - 1); i < 2 * num; i++) {
                 eachComment.add(commentCollection.get(i));
             }
         map.put("comments",eachComment);
@@ -73,17 +80,21 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/getEachComment")
-    public @ResponseBody Map<String,Object> getEachComment(String id,@Param("count") int count){
-        System.out.println("id"+id);
-        //获得该新闻的所有评论
-        List<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
-        System.out.println("count = " + count);
+    public @ResponseBody Map<String,Object> getEachComment(String id){
+        num++;
+        newsId=id;
         Map<String,Object> map=new HashedMap();
-        System.out.println("评论中----》commentCollection"+commentCollection);
+        System.out.println("num = " + num);
         //获得每次请求的前5条数据
         List<Comment> eachComment=new ArrayList<>();
-        for (int i = 2 * (count-1); i < 2 * count; i++) {
-            eachComment.add(commentCollection.get(i));
+        if(commentCollection.size()%2==0){
+            for (int i = 2 * (num-1); i < 2 * num; i++) {
+                eachComment.add(commentCollection.get(i));
+                System.out.println("eachComment"+eachComment);
+            }
+        }
+        if(commentCollection.size()%2==1){
+            eachComment.add(commentCollection.get(2*num));
         }
         map.put("comments",eachComment);
         return map;
@@ -135,5 +146,22 @@ public class InfoNewsHandler {
         }
         return result;
   }
+
+    /**
+     * 点赞数更新
+     * @return
+     */
+    @CrossOrigin
+    @RequestMapping("putonGood")
+      public @ResponseBody String putonGood(Comment comment){
+        System.out.println("userId = " + comment.getUserId());
+        System.out.println("newsId = " + comment.getNewsId());
+        System.out.println("goodCount=" +comment.getGoodCount());
+        int result=newsService.putonGood(comment);
+        if(result>1){
+            return "点赞成功！";
+        }
+        return "点赞失败！";
+      }
 
 }
