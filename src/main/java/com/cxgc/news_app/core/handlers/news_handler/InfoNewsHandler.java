@@ -61,8 +61,7 @@ public class InfoNewsHandler {
         //获得每次请求的前5条数据
         List<Comment> eachComment=new ArrayList<>();
         //5*num
-        int num=1;
-            for (int i = 2 * (num - 1); i < 2 * num; i++) {
+            for (int i = 2 * (1 - 1); i < 2 * 1; i++) {
                 eachComment.add(commentCollection.get(i));
             }
         map.put("comments",eachComment);
