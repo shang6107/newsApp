@@ -20,10 +20,6 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerDao md;
 
-    @Override
-    public Manager ManagerLogin(String mgrNo, String password) {
-        return md.selectByMgrNoAndPassword(mgrNo, password);
-    }
 
     @Override
     public int addManager(Manager manager) {

@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 public class Manager {
     private String id;
+    private String headImg;
     private String mgrNo;
     private String password;
     private String mgrName;

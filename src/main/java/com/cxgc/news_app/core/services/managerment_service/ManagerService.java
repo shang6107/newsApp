@@ -11,16 +11,6 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerService {
-    /**
-     * 管理员登录
-     * @param mgrNo
-     * @param password
-     * @return 集合11
-     */
-
-    Manager ManagerLogin(String mgrNo, String password);
-
-
 
     /**
      * 添加管理员

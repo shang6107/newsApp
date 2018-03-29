@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,9 +11,13 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author 上官炳强
@@ -72,6 +77,17 @@ public class ManagerLoginHandler {
                 (request.getContextPath().equals("") ? "" : request.getContextPath() + "/")
                 + "login?logout";
     }
+
+    @RequestMapping("/commit-form-data")
+    public String test(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
+        String path = request.getContextPath() + "/static/img/" + file.getName();
+        if(manager != null)
+        manager.setHeadImg(path);
+        if(file != null)
+        file.transferTo(new File(path));
+        return "test";
+    }
+
 
 
 }
