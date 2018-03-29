@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.mapper.news_mapper;
 
 
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
 import org.apache.ibatis.annotations.Param;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,7 +19,7 @@ public interface NewsIndexDao {
      * 查询所有的新闻类型
      * @return 所有新闻类型
      */
-    List<String> selectNewsType();
+    List<NewsType> selectNewsType();
 
 
 

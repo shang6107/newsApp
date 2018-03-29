@@ -80,23 +80,26 @@
     });
 </script>
 <div class="part-div" >
+
 数据统计：
         </div>
 
         <div class="part-div-child"  style="width: 300px;height: 150px;">
-            APP下载人数总量：
+            APP下载人数总量：${(countAll.all)!""}
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
-            会员人数：
+              男性用户：${(test.male)!""}
+
+
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
-            登陆人数统计：
+           女性用户：${(countAll.all-test.male)!""}
         </div>
 
       <div class="part-div-child" style="width: 300px;height: 150px;">
-           被举报的人数：
+           被举报的人数：${(reports.report)!"0"}
       </div>
 
 
@@ -104,27 +107,21 @@
     <p>概要信息</p>
     <div class="table-div first-table-div">
         <table id='myTable5'>
-            <caption>会员地区分布</caption>
+            <caption>用户类型</caption>
             <thead>
             <tr>
                 <th></th>
-                <th>河北</th>
-                <th>河南</th>
-                <th>湖北</th>
-                <th>湖南</th>
-                <th>山东</th>
-                <th>山西</th>
+                <th>编辑人员</th>
+                <th>普通人员</th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th>1200</th>
-                <td>540</td>
-                <td>300</td>
-                <td>150</td>
-                <td>180</td>
-                <td>120</td>
-                <td>180</td>
+
+                <td>${(typename.typename)!""}</td>
+                <td>${'${(countAll.all-typename.typename)!""}'}</td>
+
             </tr>
             </tbody>
         </table>
@@ -142,8 +139,9 @@
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
-                <td>2</td>
+
+                <td>${(test.male)!""}</td>
+                <td>${(countAll.all-test.male)!""}</td>
 
             </tr>
             </tbody>
@@ -155,14 +153,18 @@
             <thead>
             <tr>
                 <th></th>
-                <th>会员</th>
-                <th>普通</th>
+                <th>正常</th>
+                <th>冻结</th>
+                <th>异常</th>
+                <th>失效</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
-                <td>2</td>
+                <td>${(countAll.all-countFreeze.freeze-abnormals.abnormal-countFailure.failure)!""}</td>
+                <td>${(countFreeze.freeze)!""}</td>
+                <td>${(abnormals.abnormal)!""}</td>
+                <td>${(countFailure.failure)!""}</td>
             </tr>
             </tbody>
         </table>
@@ -248,10 +250,10 @@
             <p align="right"><a href="#">更多 >></a></p>
             <hr class="layui-layer-border"/>
             <ul class="ul-list">
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </div>
 

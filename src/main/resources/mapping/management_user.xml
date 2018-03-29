@@ -12,6 +12,71 @@
     <select id="getUserById" resultMap="com.cxgc.news_app.core.mapper.user_mapper.UserMapper.user_result">
         select * from users where phone_num = #{0}
     </select>
+    <update id="editUserInfo" parameterType="com.cxgc.news_app.core.model.User">
+        update users
+        <trim prefix="set" suffixOverrides=",">
+            <if test="status != null">
+                status =#{stutas},
+            </if>
+
+            <if test="typeName != null">
+                typename =#{typeName},
+            </if>
+
+
+
+        </trim>
+        where id =#{id}
+    </update>
+
+    <resultMap id="maleCount" type="map">
+        <result column="male" property="male"/>
+    </resultMap>
+    <resultMap id="freezecount" type="map">
+        <result column="freeze" property="freeze"/>
+    </resultMap>
+    <resultMap id="failurecount" type="map">
+        <result column="failure" property="failure"/>
+    </resultMap>
+    <resultMap id="allcount" type="map">
+    <result column="all" property="all"/>
+</resultMap>
+    <resultMap id="report" type="map">
+        <result column="report" property="report"/>
+    </resultMap>
+    <resultMap id="type" type="map">
+        <result column="typename" property="typename"/>
+    </resultMap>
+    <resultMap id="abnormal" type="map">
+        <result column="abnormal" property="abnormal"/>
+    </resultMap>
+
+
+
+    <select id="test" resultMap="maleCount">
+        select count(phone_num) as "male" from users where gender=1;
+    </select>
+
+    <select id="countFreeze" resultMap="freezecount">
+        select count(phone_num) as "freeze" from users where status=1;
+    </select>
+    <select id="countFailure" resultMap="failurecount">
+        select count(phone_num) as "failure" from users where status=4;
+    </select>
+    <select id="countAll" resultMap="allcount">
+        select count(phone_num) as "all" from users ;
+    </select>
+    <select id="report" resultMap="report">
+    select count(id) as "all"from report;
+</select>
+    <select id="typeName" resultMap="type">
+        select count(id) as "typename" from users where type_name="编辑人员";
+    </select>
+    <select id="abnormal" resultMap="abnormal">
+          select count(phone_num) as "abnormal" from users where status=2;
+    </select>
+
+
 
     
     

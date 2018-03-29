@@ -1,16 +1,20 @@
-package com.cxgc.news_app.core.services.news_service.imple.imple;
+package com.cxgc.news_app.core.services.news_service.imple;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
-import com.cxgc.news_app.core.services.news_service.imple.NewsIndexService;
+import com.cxgc.news_app.core.model.NewsType;
+import com.cxgc.news_app.core.services.news_service.NewsIndexService;
+import com.cxgc.news_app.core.services.news_service.NewsSave;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * @author 徐瑜壮
@@ -44,7 +48,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
      * @return 新闻类型集合
      */
     @Override
-    public List<String> selectNewsType() {
+    public List<NewsType> selectNewsType() {
       return   nd.selectNewsType();
 
     }
@@ -62,12 +66,19 @@ public class NewsIndexServiceImpl implements NewsIndexService{
 
     @Override
     public List<News> newsListByType(Integer type){
+        NewsSpider ns = new NewsSpider();
         try {
-          return   NewsSpider.responseAppIndex(type);
+          return  ns.responseAppIndex(type);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+
+
+
 
 }

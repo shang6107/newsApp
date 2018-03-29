@@ -1,7 +1,10 @@
-package com.cxgc.news_app.core.services.news_service.imple;
+package com.cxgc.news_app.core.services.news_service;
 
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.NewsType;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +14,7 @@ import java.util.Map;
  * @Version
  * @Description
  */
-public interface NewsIndexService {
+public interface NewsIndexService{
 
     /**
      *
@@ -22,7 +25,7 @@ public interface NewsIndexService {
      *
      * @return 新闻类型
      */
-    List<String> selectNewsType();
+    List<NewsType> selectNewsType();
 
     /**
      *
@@ -31,4 +34,6 @@ public interface NewsIndexService {
     List<News> selectNewsList();
 
     List<News> newsListByType(Integer type);
+
+
 }

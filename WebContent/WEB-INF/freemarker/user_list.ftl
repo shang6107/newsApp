@@ -56,10 +56,10 @@
                     <td >${user.phoneNum!"无"}</td>
                     <td>${user.nickName!"无"}</td>
 
-                    <td>${user.status.reason!"无"}</td>
+                    <td>${(user.status.reason)!"无"}</td>
 
                     <td><#if user.typeName??>
-                        ${user.typeName.type!"无"}
+                        ${(user.typeName.type)!"无"}
                     </#if></td>
 
                 <td>
@@ -72,7 +72,7 @@
                       ${user.createTime?string("yyyy-MM-dd")}
                     </#if>
                 </td>
-                    <td class="sel"><a href="user-management-update?phoneNum=${user.phoneNum!""}"> 查看</td>
+                    <td class="sel"><a href="user-getUserByPhoneNum?phoneNum=${user.phoneNum!""}"> 查看</td>
                 </tr>
 
                 </#list>

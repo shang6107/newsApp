@@ -18,18 +18,19 @@
 		<!-- jackson -->
 		<jackson.version>2.6.3</jackson.version>
 	</properties>
-
-
-
-
 	<dependencies>
 
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.3.1</version>
+			<groupId>com.github.jsqlparser</groupId>
+			<artifactId>jsqlparser</artifactId>
+			<version>0.9.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>c3p0</groupId>
@@ -42,13 +43,7 @@
 			<version>1.16.18</version>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<!-- 表示开发的时候引入，发布的时候不会加载此包 -->
-			<scope>test</scope>
-		</dependency>
+
 		<!-- spring核心包 -->
 		<dependency>
 			<groupId>org.springframework</groupId>

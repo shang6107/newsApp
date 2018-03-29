@@ -20,36 +20,55 @@ import java.util.Map;
  */
 
 @Controller
+@RequestMapping("/management")
 public class ManagerUserHandler {
     @Autowired
     private UserManagementService ums;
 
-    @RequestMapping("/list")
-    public String selectAllUser(Map<String, Object> map) {
-        map.put("users", ums.selectAllUser());
-        return "list";
+    @RequestMapping("/user-list")
+    public String selectAllUser(Integer pageNum,Integer pageSize,Map<String, Object> map) {
+        map.put("users", ums.selectAllUser(pageNum,pageSize));
+        return "user_list";
     }
-
 
     @RequestMapping("/user-management-update")
     public String editUserInfo(@RequestParam(value = "phoneNum", required = false) String phoneNum,
                                Map<String,Object> map) {
 
-        User user = ums.getUserById(phoneNum);
-
+        User user = ums.getUserByPhoneNum(phoneNum);
+        System.out.println(user);
         if(user == null){
             return "redirect:/list?error";
         }else{
             map.put("user",user);
         }
 
-        return "user_management_update";
-
-    }
-
-    @RequestMapping("/getUserById")
-    public String getUserById(String id) {
-        User user = ums.getUserById(id);
         return "";
+
     }
+
+    @RequestMapping("/user-getUserByPhoneNum")
+    public String getUserByPhoneNum(@RequestParam(value = "phoneNum", required = false) String phoneNum,Map<String,Object> map) {
+        User user = ums.getUserByPhoneNum(phoneNum);
+        System.out.println(user);
+              map.put("user",user);
+        return "user_management_update";
+    }
+
+    @RequestMapping("/user-statistical")
+    public String countNum(Map<String ,Object> map){
+        map.put("countMen",ums.countMen());
+        map.put("test",ums.test());
+        map.put("countAll",ums.countAll());
+        map.put("countFreeze",ums.countFreeze());
+        map.put("countFailure",ums.countFailure());
+        map.put("reports",ums.report());
+        map.put("typename",ums.typeName());
+        map.put("abnormals",ums.abnormal());
+
+       return "user_index";
+    }
+
+
+
 }

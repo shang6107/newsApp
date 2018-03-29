@@ -1,10 +1,14 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
-import com.cxgc.news_app.core.services.news_service.imple.NewsIndexService;
+import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.services.news_service.NewsIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,8 +35,9 @@ public class IndexNewsListHandler {
     }
     @RequestMapping("newsType")
     @ResponseBody
-    public void newsType(){
-
-        ns.newsListByType(1);
+    public Map<String,Object> newsType(Integer type){
+        Map<String,Object> map = new HashMap<>();
+        map.put("newsList",ns.newsListByType(type));
+        return  map;
     }
 }

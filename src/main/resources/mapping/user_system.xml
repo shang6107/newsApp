@@ -13,6 +13,7 @@
         <result property="gender" column="gender"/>
         <result property="address" column="address"/>
         <result property="hobby" column="Hobby"/>
+        <result property="birth" column="birth"/>
         <result property="introduce" column="introduce"/>
         <result property="lastTime" column="last_time"/>
         <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
@@ -68,10 +69,16 @@
         update users
         <trim prefix="set" suffixOverrides=",">
             <if test="headImg != null">
-                headImg =#{headImg},
+                headImg =#{headImg}
             </if>
             <if test="nickName != null">
-                nick_name =#{nickName},
+                nick_name =#{nickName}
+            </if>
+            <if test="gender != null">
+                gender =#{gender},
+            </if>
+            <if test="birth != null">
+                birth =#{birth}
             </if>
             <if test="hobby != null">
                 hobby=#{hobby}

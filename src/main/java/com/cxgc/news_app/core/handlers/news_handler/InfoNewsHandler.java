@@ -2,7 +2,7 @@ package com.cxgc.news_app.core.handlers.news_handler;
 
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
-import com.cxgc.news_app.core.services.news_service.imple.NewsService;
+import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.annotations.Param;

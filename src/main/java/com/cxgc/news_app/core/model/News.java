@@ -18,7 +18,7 @@ public class News {
     private NewsType type;//新闻类型
     private Integer accessCount;//访问量
     private Date createTime;//创建时间
-
+    private String author;
 
 
 }

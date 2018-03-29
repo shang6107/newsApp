@@ -1,5 +1,7 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  * @Description
  */
 @Controller
-//@RequestMapping("/management")
+@RequestMapping("/management")
 public class ManagerLoginHandler {
-
+    @Autowired
+    private UserManagementService ums;
     @RequestMapping(value = "/login")
     public String login(){
         return "login";
@@ -36,6 +39,14 @@ public class ManagerLoginHandler {
     @RequestMapping("/user_index")
     public String userPage(ModelMap map){
         map.put("mgr",getPrincipal());
+        map.put("countMen",ums.countMen());
+        map.put("test",ums.test());
+        map.put("countAll",ums.countAll());
+        map.put("countFreeze",ums.countFreeze());
+        map.put("countFailure",ums.countFailure());
+        map.put("reports",ums.report());
+        map.put("typename",ums.typeName());
+        map.put("abnormals",ums.abnormal());
         return "user_index";
     }
 
