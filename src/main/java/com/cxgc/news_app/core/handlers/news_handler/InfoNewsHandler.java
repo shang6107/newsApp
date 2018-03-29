@@ -74,16 +74,16 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/getEachComment")
-    public @ResponseBody Map<String,Object> getEachComment(String id,@Param("count") int num){
+    public @ResponseBody Map<String,Object> getEachComment(String id,@Param("count") int count){
         System.out.println("id"+id);
         //获得该新闻的所有评论
         List<Comment> commentCollection = newsService.getAllCommentByNewsId(id);
-        System.out.println("num = " + num);
+        System.out.println("count = " + count);
         Map<String,Object> map=new HashedMap();
         System.out.println("评论中----》commentCollection"+commentCollection);
         //获得每次请求的前5条数据
         List<Comment> eachComment=new ArrayList<>();
-        for (int i = 2 * (num-1); i < 2 * num; i++) {
+        for (int i = 2 * (count-1); i < 2 * count; i++) {
             eachComment.add(commentCollection.get(i));
         }
         map.put("comments",eachComment);
