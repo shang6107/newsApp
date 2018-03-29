@@ -20,7 +20,7 @@ public interface NewsIndexService{
      *
      * @return 首页所需要的所有数据
      */
-    Map<String,Object> index(String id);
+    Map<String,Object> index();
     /**
      *
      * @return 新闻类型
@@ -34,6 +34,6 @@ public interface NewsIndexService{
     List<News> selectNewsList();
 
     List<News> newsListByType(Integer type);
-
+    /*List<News> responseAppIndex(Integer type) throws IOException, ParseException;*/
 
 }

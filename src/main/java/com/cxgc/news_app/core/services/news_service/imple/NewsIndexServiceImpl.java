@@ -1,7 +1,6 @@
 package com.cxgc.news_app.core.services.news_service.imple;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
 import com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
@@ -11,7 +10,6 @@ import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
@@ -26,18 +24,19 @@ import java.util.*;
 public class NewsIndexServiceImpl implements NewsIndexService{
     @Autowired
     private NewsIndexDao nd;
-
+    @Autowired
+    private NewsSpider ns;
+    @Autowired
+    NewsSave newsSave;
     /**
      *
-     * @param id 用户id
+     *
      * @return 首页需要的所有数据的map集合
      */
     @Override
-    public Map<String, Object> index(String id) {
+    public Map<String, Object> index() {
         Map<String,Object> map = new HashMap<>();
-
         map.put("newsType", selectNewsType());
-        System.out.println(selectNewsList());
         map.put("newsList",selectNewsList());
 
         return map;
@@ -61,14 +60,31 @@ public class NewsIndexServiceImpl implements NewsIndexService{
      */
     @Override
     public List<News> selectNewsList() {
-       return   nd.selectNewsList();
+        List<News> list = new ArrayList<>();
+        List<News> newsList = nd.selectNewsList();
+        Random r = new Random();
+        for (int i =0;i<10;i++){
+         int index= r.nextInt(newsList.size());
+         list.add(newsList.get(index));
+         newsList.remove(index);
+       }
+        return   list;
     }
 
+    /**
+     * 按类型查询新闻
+     * @param type 新闻类型
+     * @return 新闻集合
+     */
     @Override
     public List<News> newsListByType(Integer type){
-        NewsSpider ns = new NewsSpider();
         try {
-          return  ns.responseAppIndex(type);
+            String path = ns.newsPath(type);
+            List<News> newsList = ns.newsList(type);
+            if(ns.objects!=null){
+                newsSave.newsSaveAsync(ns,type,path);
+            }
+            return newsList;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -77,8 +93,15 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         return null;
     }
 
-
-
-
+    /*@Autowired
+    public   List<News> responseAppIndex(Integer type) throws IOException, ParseException {
+        String path = ns.newsPath(type);
+        List<News> newsList = ns.newsList(type);
+        System.out.println(ns.objects);
+        if(ns.objects!=null){
+            newsSave.newsSaveAsync(ns.objects,type,path);
+        }
+        return newsList;
+    }*/
 
 }

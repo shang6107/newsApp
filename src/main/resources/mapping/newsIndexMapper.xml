@@ -8,14 +8,7 @@
         <result property="typeName" column="type_name"/>
         <result property="typeDesc" column="type_desc"/>
     </resultMap>
-    <resultMap id="newsBean" type="news">
-        <id property="id" column="id"/>
-        <result property="title" column="title"/>
-        <result property="url" column="url"/>
-        <result property="accessCount" column="access_count"/>
-        <result property="createTime" column="create_time"/>
-        <association property="type" column="news_type_id" resultMap="nt"/>
-    </resultMap>
+
 
         <!--
          private String id;//新闻ID
@@ -32,15 +25,15 @@
     </select>
 
     <!--查询最新的新闻-->
-    <select id="selectNewsList" resultMap="newsBean">
-        SELECT id,title,url,news_type_id,access_count,status,create_time from news order by create_time desc LIMIT 30;
-    </select>
+    <select id="selectNewsList" resultType="com.cxgc.news_app.core.model.News">
+  SELECT id,title,news_type_id,access_count,status,author,create_time createTime from news order by create_time desc LIMIT 30
+</select>
     
     <insert id="insertNews">
-        INSERT INTO news(id,title,author,url,news_type_id) VALUES
+        INSERT INTO news(id,title,author,url,news_type_id,create_time) VALUES
 
         <foreach collection="news" item="n" separator=",">
-            (#{n.id},#{n.title},#{n.author},#{n.url},#{n.type.id})
+            (#{n.id},#{n.title},#{n.author},#{n.url},#{n.type.id},#{n.createTime})
         </foreach>
     </insert>
 
