@@ -37,7 +37,7 @@
     <select id="getNews" resultMap="oneNews">
         select * from news where id=#{id}
     </select>
-
+    <!--获得新闻的url-->
     <select id="getNewsById" resultType="java.lang.String">
         select url from news where id=#{id}
     </select>
