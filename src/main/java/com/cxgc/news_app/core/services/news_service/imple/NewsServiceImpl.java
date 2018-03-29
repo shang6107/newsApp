@@ -7,7 +7,11 @@ import com.cxgc.news_app.core.services.news_service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import static sun.plugin2.os.windows.OSVERSIONINFOA.size;
 
 /**
  * Created by 唐倩 on 2018/3/21.
@@ -32,10 +36,10 @@ public class NewsServiceImpl implements NewsService{
      * @param id 新闻id
      * @return 该新闻的所有评论
      */
+
     @Override
-    public Collection<Comment> getAllCommentByNewsId(String id) {
-        Collection<Comment> allCommentByNewsId = newsDao.getAllCommentByNewsId(id);
-        return allCommentByNewsId;
+    public  List<Comment> getAllCommentByNewsId(String id) {
+        return newsDao.getAllCommentByNewsId(id);
     }
 
     /**
@@ -53,9 +57,24 @@ public class NewsServiceImpl implements NewsService{
      * @param comment 评论对象
      * @return
      */
-
+    int num=1;
     public int putIntoComment(Comment comment) {
-        return newsDao.putIntoComment(comment);
+        //获得该用户对该新闻的所有评论
+        List<Comment> commentByNewIdAndUserId = newsDao.getCommentByNewIdAndUserId(comment);
+        if(commentByNewIdAndUserId.size()==2){
+            if(num%2==1){
+                commentByNewIdAndUserId.get(0).setContent(comment.getContent());
+                newsDao.updateComment(commentByNewIdAndUserId.get(0));
+                num++;
+            }else if(num%2==0){
+                commentByNewIdAndUserId.get(1).setContent(comment.getContent());
+                newsDao.updateComment(commentByNewIdAndUserId.get(1));
+                num++;
+            }
+            return 2;
+        }
+        newsDao.putIntoComment(comment);
+        return 1;
     }
 
     /**
