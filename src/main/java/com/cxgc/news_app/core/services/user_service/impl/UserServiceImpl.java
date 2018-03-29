@@ -84,8 +84,9 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     public User loginVerification(ValidateCode validateCode){
-
+        System.out.println("validateCode = " + validateCode);
         ValidateCode newsValidateCode = userMapper.loginVerification(validateCode);
+        System.out.println("newsValidateCode = " + newsValidateCode);
         if(newsValidateCode!=null && newsValidateCode.getUsable()==2){
             User user = userMapper.getUserByPhone(validateCode.getPhoneNum());
             return user;

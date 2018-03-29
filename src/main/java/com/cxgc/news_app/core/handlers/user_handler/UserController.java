@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import java.util.Map;
  * 用户操作
  * 流转控制层
  */
+@CrossOrigin
 @Controller
 @RequestMapping("/app")
 public class UserController {
@@ -68,13 +70,15 @@ public class UserController {
     @RequestMapping("/listHis")
     @ResponseBody
     public Object listHis(User user){
+        Map<String,Object> map = new HashMap<>();
         System.out.println("user = " + user);
         List<History> histories = user_service.listHistory(user);
         if(histories.isEmpty()){
             System.out.println("histories = " + histories);
             return "0";
         }
-        return histories;
+        map.put("histories",histories);
+        return map;
     }
 
     /**
