@@ -23,10 +23,14 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="static/js/layer.js"></script>
-<#--<script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>-->
+    <script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
+<#--<script type="text/javascript" src="static/js/myJavaScript.js"></script>-->
+    <script type="text/javascript" src="static/js/jsapi.js"></script>
+    <script type="text/javascript" src="static/js/corechart.js"></script>
+    <script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
 </head>
 <body>
 
@@ -36,7 +40,18 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
             <a href="logout" class="topbar-logo fl">
                 <span><img src="static/img/logo.png" width="20" height="20"/></span>
             </a>
-            <a href="index.html" class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
+        <@security.authorize access="hasRole('超级管理员')">
+            <a href="management/root_index.html"
+               class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
+        </@security.authorize>
+        <@security.authorize access="hasRole('用户管理员')">
+            <a href="management/user_index.html"
+               class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
+        </@security.authorize>
+        <@security.authorize access="hasRole('新闻管理员')">
+            <a href="management/news_index.html"
+               class="topbar-home-link topbar-btn text-center fl"><span>管理控制台</span></a>
+        </@security.authorize>
         </div>
         <h1 align="center" style="margin-top: 5px;line-height: inherit;color: whitesmoke">今日头条APP后台管理系统 V1.0</h1>
     </div>
@@ -44,12 +59,11 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
         <ul class="fr">
 
             <li class="fl dropdown topbar-notice topbar-btn">
-                <a href="javascript:void(0)" class="dropdown-toggle">
+                <a href="" class="dropdown-toggle">
                     <span class="icon-notice"></span>
                     <span class="topbar-num have" id="msg-notice-span">0</span>
                 </a>
             </li>
-
             <li class="fl topbar-info-item">
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="topbar-btn">
@@ -57,8 +71,8 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)">APP简介</a></li>
-                        <li><a href="javascript:void(0)">开发人员简介</a></li>
+                        <li><a href="">APP简介</a></li>
+                        <li><a href="">开发人员简介</a></li>
                     </ul>
                 </div>
             </li>
@@ -69,11 +83,11 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         <span class="icon-arrow-down"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="management/manager_home.html">个人中心</a></li>
                         <li><a href="management/logout">退出</a></li>
                     </ul>
                 </div>
             </li>
-
         </ul>
     </div>
 </div>
@@ -95,13 +109,13 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </div>
                 <ul class="sidebar-trans">
                     <li>
-                        <a href="/news_management.html">
+                        <a href="management/news_release_list">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
-                            <span class="text-normal">新闻管理</span>
+                            <span class="text-normal">新闻发布</span>
                         </a>
                     </li>
                     <li>
-                        <a href="smsInfo.html">
+                        <a href="management/news_list">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>
                         </a>
@@ -126,16 +140,10 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         </a>
                     </li>
                     <li>
-                        <a href="identify.html">
+                        <a href="management/valid">
                             <b class="sidebar-icon"><img src="static/img/icon_authentication.png" width="16"
                                                          height="16"/></b>
                             <span class="text-normal">实名认证</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="message.html">
-                            <b class="sidebar-icon"><img src="static/img/icon_news.png" width="16" height="16"/></b>
-                            <span class="text-normal">用户信息</span>
                         </a>
                     </li>
                 </ul>
@@ -185,3 +193,14 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 </#if>
     <div class="view-product background-color" style="overflow: hidden">
 
+        <script>
+            $(".sidebar-title").live('click', function () {
+                if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
+                    $(this).next().slideDown(200);
+                    $(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
+                } else {
+                    $(this).next().slideUp(200);
+                    $(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
+                }
+            });
+        </script>

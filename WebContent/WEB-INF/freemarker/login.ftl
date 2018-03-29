@@ -57,8 +57,11 @@
                 }, 400);
             }, 2000);
         }
+        <#if RequestParameters.unAuthenticated?exists>
+            popup_msg("\u8bf7\u767b\u5f55");
+        </#if>
         <#if RequestParameters.error?exists>
-            popup_msg("用户名或密码不正确");
+            popup_msg("\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e");
         </#if>
     </script>
 </div>

@@ -21,11 +21,6 @@
         select * from manager where mgr_no = #{0}
     </select>
 
-	<select id="selectByMgrNoAndPassword" resultMap="manager_result">
-        select * from manager where mgr_no = #{0} and password = #{1}
-    </select>
-
-
     <select id="selectAllManager" resultMap="manager_result">
         select * from manager
     </select>
