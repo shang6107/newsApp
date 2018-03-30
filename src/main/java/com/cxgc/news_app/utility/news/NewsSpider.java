@@ -33,6 +33,9 @@ public class NewsSpider{
     private NewsSave ns;
     private static Map<Integer,String> newsApi = new HashMap<>();
     public JSONArray objects;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+    private static Calendar d = Calendar.getInstance();
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static {
         //1、科技
         newsApi.put(5,"http://120.76.205.241:8000/news/baijia?catid=1&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
@@ -80,7 +83,7 @@ public class NewsSpider{
             objects=spider(type);
         }
             synchronized (objects){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
             /*NewsType n = new NewsType();
             n.setId(type);
             n.setTypeDesc("");
@@ -89,7 +92,7 @@ public class NewsSpider{
                     News newsInstance = new News();
                     news = objects.getJSONObject(i);
                     newsInstance.setTitle(news.getString("title"));
-                    newsInstance.setId(news.getString("id"));
+                    newsInstance.setId(newsDate()+news.getString("id"));
                     newsInstance.setAuthor(news.getString("posterScreenName"));
                     newsInstance.setCreateTime(sdf.parse(news.getString("publishDateStr").replace("T"," ")));
                     /*newsInstance.setUrl("");
@@ -103,7 +106,6 @@ public class NewsSpider{
 
     //保存新闻到本地
     public static void newsSave(String content,Object id,Integer apiNo) throws IOException {
-
         File news = new File(newsPath(apiNo)+"\\"+id);
         FileWriter fw = new FileWriter(news);
         BufferedWriter bfw = new BufferedWriter(fw);
@@ -112,9 +114,7 @@ public class NewsSpider{
         fw.close();
     }
     public static String  newsDate(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date d = new Date();
-        String format = dateFormat.format(d);
+        String format = dateFormat.format(d.getTime());
         return format;
     }
 

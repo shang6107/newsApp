@@ -36,5 +36,14 @@
             (#{n.id},#{n.title},#{n.author},#{n.url},#{n.type.id},#{n.createTime})
         </foreach>
     </insert>
+    <update id="addNewsRecords">
+        UPDATE news set access_count =(100+if(access_count is NULL,0,access_count)) WHERE id=#{0}
+    </update>
+    <update id="addUserRecords">
+      UPDATE history SET create_time=NOW() WHERE user_id=#{0} AND (release_id =#{1} OR news_id=#{1});
+    </update>
 
+    <insert id="insertUserRecords">
+        INSERT INTO history(id,user_id,news_id,CREATE_time) VALUES(#{0},#{1},#{2},NOW());
+    </insert>
 </mapper>

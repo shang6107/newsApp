@@ -30,4 +30,8 @@ public interface NewsIndexDao {
     List<News> selectNewsList();
 
     void insertNews( @Param("news") List<News> newsList);
+
+    void addNewsRecords(String newsId);
+    Integer updateUserRecords(String userId,String newsId);
+    void insertUserRecords(String id,String userId,String newsId);
 }
