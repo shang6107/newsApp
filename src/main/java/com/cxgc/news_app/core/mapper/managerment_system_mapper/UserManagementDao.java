@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 
+import com.cxgc.news_app.core.model.Report;
 import com.cxgc.news_app.core.model.User;
 import org.apache.ibatis.annotations.MapKey;
 
@@ -78,6 +79,11 @@ public interface UserManagementDao {
      */
     Map<String,Object> abnormal();
 
+    /**
+     * 查询所有的举报信息
+     * @return 举报信息的集合
+     */
+     List<Report> getAllReport();
 
 }
 

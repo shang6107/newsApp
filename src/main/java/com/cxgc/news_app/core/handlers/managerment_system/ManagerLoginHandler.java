@@ -62,6 +62,7 @@ public class ManagerLoginHandler {
         map.put("reports",ums.report());
         map.put("typename",ums.typeName());
         map.put("abnormals",ums.abnormal());
+        map.put("report",ums.getAllReport());
         return "user_index";
     }
 
