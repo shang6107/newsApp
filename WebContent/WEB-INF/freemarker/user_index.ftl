@@ -89,13 +89,13 @@
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
-              男性用户：${(test.male)!""}
+             编辑人员：${(typename.typename)!""}
 
 
         </div>
 
         <div class="part-div-child" style="width: 300px;height: 150px;">
-           女性用户：${(countAll.all-test.male)!""}
+           普通用户：${(countAll.all-typename.typename)!""}
         </div>
 
       <div class="part-div-child" style="width: 300px;height: 150px;">
@@ -149,7 +149,7 @@
     </div>
     <div class="table-div float-table-div">
         <table id='myTable1'>
-            <caption>人员</caption>
+            <caption>用户状态</caption>
             <thead>
             <tr>
                 <th></th>
@@ -171,7 +171,7 @@
     </div>
     <div class="table-div float-table-div">
         <table id='myTable2'>
-            <caption>人员</caption>
+            <caption>人员使用</caption>
             <thead>
             <tr>
                 <th></th>
@@ -200,7 +200,7 @@
 
 
 </div>
-<div class="part-div" style="width: 600px;height: 200px ;float: left" >
+<div class="part-div" style="width: 700px;height: 250px ;float: left" >
     <p>数据分析</p>
     <table id='myTable4'>
         <thead>
@@ -244,18 +244,42 @@
             }
         }
     </script>
+
     <div class="inline-block-part" style="margin-left: 20px ;width: 600px">
         <p>最新动态</p>
         <div style="width: 500px;height: 200px;background: #fffffd;">
-            <p align="right"><a href="#">更多 >></a></p>
             <hr class="layui-layer-border"/>
-            <ul class="ul-list">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+            <table class="tables">
+                <thead>
+                <tr>
+                    <th scope="col">举报人</th>
+                    <th scope="col">&nbsp &nbsp 被举报人</th>
+                    <th scope="col">&nbsp &nbsp 举报内容</th>
+                    <th scope="col">&nbsp &nbsp 举报时间</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <#if report??>
+                    <#list report as report1>
+                    <tr>
+                        <td >${report1.reporterId!"无"}</td>
+                        <td>&nbsp &nbsp ${report1.reportedId}</td>
+
+                        <td>&nbsp &nbsp ${report1.reportedContent!"无"}</td>
+
+                        <td>
+                        &nbsp &nbsp <#if report1.createTime?exists>
+                      ${report1.createTime?string("yyyy-MM-dd")}
+                    </#if>
+
+                    </#list>
+                </#if>
+                </tbody>
+            </table>
         </div>
 
 </div>
+
 <#include "frame_end.ftl"/>
