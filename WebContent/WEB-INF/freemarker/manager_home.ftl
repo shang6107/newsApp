@@ -9,6 +9,13 @@
                     <p class="margin-small-top clearfix">
                         <span class="fl">账户安全级别:</span>
                         <a class="button bg-green-deep icon icon-button-green fl margin-left" href="javascript:">高</a>
+                        <span class="fl">
+                            点击修改个人资料
+                            <a href="">
+                                <i class="Hui-iconfont">&#xe6df;</i>
+                            </a>
+                        </span>
+
                     </p>
                 </div>
                 <span class="fr icon-head">
