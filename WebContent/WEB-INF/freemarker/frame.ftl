@@ -109,7 +109,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </div>
                 <ul class="sidebar-trans">
                     <li>
-                        <a href="management/news_release_list">
+                        <a href="management/news_list">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
                             <span class="text-normal">新闻</span>
                         </a>
@@ -121,7 +121,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                     </a>
                 </li>
                     <li>
-                        <a href="management/news_list">
+                        <a href="management/">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>
                         </a>

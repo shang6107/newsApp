@@ -63,7 +63,7 @@
                 </#list>
             </#if>
             </tbody>
-        </table>
+        </table><br><br>
         <a href="/management/addRelease">发布新闻</a>
     </div>
 
