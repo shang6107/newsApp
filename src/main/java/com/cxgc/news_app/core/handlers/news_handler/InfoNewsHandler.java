@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,52 +32,44 @@ public class InfoNewsHandler {
     private NewsService newsService;
 
     public static int num=1;
-
-    //获得该新闻的所有评论
-    List<Comment> commentCollection ;
-    public static String newsId;
+    public static int size=2;
     /**
      * 通过新闻id获得新闻及所有评论,收藏
      * @return
      */
     @CrossOrigin
     @RequestMapping("/getOneNews")
-    public @ResponseBody Map<String,Object> test(String id,@Param("userId") String userId) throws IOException {
+    public @ResponseBody Map<String,Object> test(String id,String userId) throws IOException {
         Map<String,Object> map=new HashedMap();
-        newsId=id;
-        System.out.println("id = " + id);
-        //获得该新闻的所有评论
-        commentCollection = newsService.getAllCommentByNewsId(newsId);
+
         //获得新闻对象
-        String url = newsService.getNewsById(id);
-        if(url==null){return null;}
-        StringBuffer stringFromFile = NewsIO.getStringFromFile(url);
-        map.put("news",stringFromFile);
-        System.out.println("commentCollection"+commentCollection);
+        News oneNew = newsService.getNewsById(id);
+        if(oneNew.getUrl()==null){return null;}
+        StringBuffer stringFromFile = NewsIO.getStringFromFile(oneNew.getUrl());
+        map.put("newsFile",stringFromFile);//新闻内容
+        map.put("news",oneNew);//新闻对象
 
         //获得用户对该新闻的收藏情况
-        Collections collection=new Collections();
-        collection.setUserId(userId);
-        News n=new News();
-        n.setId(id);
-        collection.setNewsId(n);
-        Collections checkCollection=newsService.checkCollection(collection);
-        map.put("checkCollection",checkCollection);
-
+        if(userId!=null){
+            Collections collection=new Collections();
+            collection.setUserId(userId);
+            News n=new News();
+            n.setId(id);
+            collection.setNewsId(n);
+            Collections checkCollection=newsService.checkCollection(collection);
+            map.put("checkCollection",checkCollection);
+        }
         //所有的评论数
-        int commentsNum=commentCollection.size();
+        int commentsNum = newsService.getCommentNum(id);
         map.put("commentsNum",commentsNum);
 
         //获得每次请求的前5条数据
-        List<Comment> eachComment=new ArrayList<>();
-        //5*num
         num=1;
-            for (int i = 2 * (num - 1); i < 2 * num; i++) {
-                eachComment.add(commentCollection.get(i));
-            }
+        int startNo=size * (num - 1);
+        List<Comment> eachComment=newsService.getAllCommentByNewsId(id,startNo,size);
         map.put("comments",eachComment);
         return map;
-    }
+}
 
     /**
      * 每次刷新获得即时评论
@@ -86,28 +77,22 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/getEachComment")
     public @ResponseBody Map<String,Object> getEachComment(String id){
-        num++;
-        newsId=id;
         Map<String,Object> map=new HashedMap();
-        System.out.println("num = " + num);
-        //获得每次请求的前5条数据
-        List<Comment> eachComment=new ArrayList<>();
-        if(commentCollection.size()%2==0){
-            if(2 * (num - 1)<commentCollection.size()) {
-                for (int i = 2 * (num - 1); i < 2 * num; i++) {
-                    eachComment.add(commentCollection.get(i));
-                }
-            }
+        num++;
+        int startNo=size * (num - 1);
+        List<Comment> eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+
+        if(eachComment.size()==0){
+            num--;
+            startNo=size * (num - 1);
+            eachComment.clear();
+            eachComment.add(newsService.getAllCommentByNewsId(id, startNo, size).get(1));
         }
-        if(commentCollection.size()%2==1){
-            if(2*num-commentCollection.size()==1) {
-                eachComment.add(commentCollection.get(commentCollection.size()-1));
-            }else{
-                for (int i = 2 * (num-1); i < 2 * num; i++) {
-                    eachComment.add(commentCollection.get(i));
-                }
-            }
-        }
+
+        //所有的评论数
+        int commentsNum = newsService.getCommentNum(id);
+        map.put("commentsNum",commentsNum);
+
         map.put("eachComment",eachComment);
         return map;
     }
@@ -120,15 +105,19 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/putDiscuss")
-    public @ResponseBody String putDiscuss(Comment comment){
+    public @ResponseBody String putDiscuss(@Param("userId") String userId,@Param("newsId") String newsId,@Param("content") String content,@Param("disscussNum") int disscussNum){
+        Comment comment=new Comment();
+        comment.setNewsId(newsId);
+        comment.setUserId(userId);
+        comment.setContent(content);
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
-
-        int result=newsService.putIntoComment(comment);
+        comment.setGoodCount(0);
+        int result=newsService.putIntoComment(comment,disscussNum);
         if(result>1){
-            return "评论更改成功！";
+            return "评论成功！";
         }
-       return "评论发布成功！";
+       return "评论失败！";
     }
 
     /**
@@ -136,7 +125,7 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/putCollection")
-    public @ResponseBody String insertCollections(String newsId, String userId, @Param("c") int c){
+    public @ResponseBody String insertCollections(@Param("newsId") String newsId,@Param("userId") String userId, @Param("c") int c){
         Collections collection=new Collections();
         collection.setCreateTime(new Date());
         News n=new News();
@@ -167,11 +156,9 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/putonGood")
-      public void putonGood(Comment comment){
-        System.out.println("userId = " + comment.getUserId());
-        System.out.println("newsId = " + comment.getNewsId());
-        System.out.println("goodCount=" +comment.getGoodCount());
+      public @ResponseBody String putonGood(Comment comment){
         newsService.putonGood(comment);
+        return "true";
       }
 
 }
