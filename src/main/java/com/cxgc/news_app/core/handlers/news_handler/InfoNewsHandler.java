@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.handlers.news_handler;
 
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import javax.enterprise.inject.New;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +58,9 @@ public class InfoNewsHandler {
         //获得用户对该新闻的收藏情况
         Collections collection=new Collections();
         collection.setUserId(userId);
-        collection.setNewsId(id);
+        News n=new News();
+        n.setId(id);
+        collection.setNews(n);
         Collections checkCollection=newsService.checkCollection(collection);
         map.put("checkCollection",checkCollection);
 
@@ -88,15 +92,22 @@ public class InfoNewsHandler {
         //获得每次请求的前5条数据
         List<Comment> eachComment=new ArrayList<>();
         if(commentCollection.size()%2==0){
-            for (int i = 2 * (num-1); i < 2 * num; i++) {
-                eachComment.add(commentCollection.get(i));
-                System.out.println("eachComment"+eachComment);
+            if(2 * (num - 1)<commentCollection.size()) {
+                for (int i = 2 * (num - 1); i < 2 * num; i++) {
+                    eachComment.add(commentCollection.get(i));
+                }
             }
         }
         if(commentCollection.size()%2==1){
-            eachComment.add(commentCollection.get(2*num));
+            if(2*num-commentCollection.size()==1) {
+                eachComment.add(commentCollection.get(commentCollection.size()-1));
+            }else{
+                for (int i = 2 * (num-1); i < 2 * num; i++) {
+                    eachComment.add(commentCollection.get(i));
+                }
+            }
         }
-        map.put("comments",eachComment);
+        map.put("eachComment",eachComment);
         return map;
     }
 
@@ -127,7 +138,9 @@ public class InfoNewsHandler {
     public @ResponseBody String insertCollections(String newsId, String userId, @Param("c") int c){
         Collections collection=new Collections();
         collection.setCreateTime(new Date());
-        collection.setNewsId(newsId);
+        News n=new News();
+        n.setId(newsId);
+        collection.setNews(n);
         collection.setUserId(userId);
         String result=null;
         //判断是取消收藏还是收藏
@@ -152,16 +165,12 @@ public class InfoNewsHandler {
      * @return
      */
     @CrossOrigin
-    @RequestMapping("putonGood")
-      public @ResponseBody String putonGood(Comment comment){
+    @RequestMapping("/putonGood")
+      public void putonGood(Comment comment){
         System.out.println("userId = " + comment.getUserId());
         System.out.println("newsId = " + comment.getNewsId());
         System.out.println("goodCount=" +comment.getGoodCount());
-        int result=newsService.putonGood(comment);
-        if(result>1){
-            return "点赞成功！";
-        }
-        return "点赞失败！";
+        newsService.putonGood(comment);
       }
 
 }
