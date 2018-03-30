@@ -8,10 +8,12 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 <#--Spring Security taglib-->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <base href="${path!''}/"><#-- Context Path -->
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <link rel="stylesheet" type="text/css" href="static/css1/identify.css"/>
     <link rel="stylesheet" type="text/css" href="static/js/skin/layer.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/layout.css"/>

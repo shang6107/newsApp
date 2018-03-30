@@ -4,6 +4,7 @@ import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.common.UserType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 /**
@@ -23,11 +24,13 @@ public class User {
     private Integer gender;//性别
     private String address;//住址
     private String hobby;//爱好
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;//生日
     private String introduce;//个人介绍
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastTime;//上次登陆时间
     private UserType typeName;//用户类型
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;//创建时间
     private UserStatus status;
 

@@ -1,15 +1,17 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
 
+import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.common.UserType;
 import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -25,34 +27,34 @@ public class ManagerUserHandler {
     @Autowired
     private UserManagementService ums;
 
-    @RequestMapping("/user-list")
+    @RequestMapping(value = "/user-list" )
     public String selectAllUser(Integer pageNum,Integer pageSize,Map<String, Object> map) {
         map.put("users", ums.selectAllUser(pageNum,pageSize));
         return "user_list";
     }
 
-    @RequestMapping("/user-management-update")
-    public String editUserInfo(@RequestParam(value = "phoneNum", required = false) String phoneNum,
-                               Map<String,Object> map) {
-
-        User user = ums.getUserByPhoneNum(phoneNum);
+    @RequestMapping(value = "/user-management-update")
+    public String editUserInfo(User user,Integer statusReason,String userTypes) throws UnsupportedEncodingException {
+        UserStatus userStatusByStatus = UserStatus.getUserStatusByStatus(statusReason);
+        user.setNickName(new String(user.getNickName().getBytes("ISO-8859-1"),"UTF-8"));
+        user.setAddress(new String(user.getAddress().getBytes("ISO-8859-1"),"UTF-8"));
+        user.setIntroduce(new String(user.getIntroduce().getBytes("ISO-8859-1"),"UTF-8"));
+        user.setHobby(new String(user.getHobby().getBytes("ISO-8859-1"),"UTF-8"));
+        user.setStatus(userStatusByStatus);
+        user.setTypeName(UserType.getUserTypeByType(new String(userTypes.getBytes("ISO-8859-1"),"UTF-8")));
+         ums.editUserInfo(user);
         System.out.println(user);
-        if(user == null){
-            return "redirect:/list?error";
-        }else{
-            map.put("user",user);
-        }
-
-        return "";
+        return "user_list";
 
     }
 
     @RequestMapping("/user-getUserByPhoneNum")
     public String getUserByPhoneNum(@RequestParam(value = "phoneNum", required = false) String phoneNum,Map<String,Object> map) {
         User user = ums.getUserByPhoneNum(phoneNum);
-        System.out.println(user);
+
               map.put("user",user);
-        return "user_management_update";
+
+        return "user_management";
     }
 
     @RequestMapping("/user-statistical")

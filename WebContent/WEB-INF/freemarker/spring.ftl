@@ -212,7 +212,7 @@
  * from a list of options.
  *
  * @param path the name of the field to bind to
- * @param options a map (value=label) of all the available options
+ * @param options  a map(value=label) of all the available options
  * @param attributes any additional attributes for the element (such as class
  *    or CSS styles or size
 -->

@@ -25,7 +25,7 @@ public interface UserManagementService {
   * @param user
   * @return
   */
- int editUserInfo(User user);
+ User editUserInfo(User user);
 
 
 

@@ -38,8 +38,13 @@ public class UserManagementServiceImpl implements UserManagementService {
 
 
     @Override
-    public int editUserInfo(User user) {
-        return umd.editUserInfo(user);
+    public User editUserInfo(User user) {
+        int i= umd.editUserInfo(user);
+
+        if(i>0){
+            return umd.getUserById(user.getPhoneNum());
+        }
+        return null;
     }
 
     @Override
