@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.services.news_service.imple;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsDao;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static sun.plugin2.os.windows.OSVERSIONINFOA.size;
 
@@ -97,8 +99,22 @@ public class NewsServiceImpl implements NewsService{
      * @param comment
      * @return
      */
+    List<Comment> list;
     @Override
-    public int putonGood(Comment comment) {
-        return newsDao.putonGood(comment);
+    public void putonGood(Comment comment) {
+//        if(list==null){
+//            list=new ArrayList<>();
+//        }
+//        if(list!=null&&list.size()==100){
+//            List<Comment> add;
+//            add = list;
+//            list=null;
+//            addBath(add);
+//        }
+//        list.add(comment);
+        newsDao.putonGood(comment);
     }
+//    public void addBath(List<Comment> comment){
+//        newsDao.putonGood(comment);
+//    }
 }
