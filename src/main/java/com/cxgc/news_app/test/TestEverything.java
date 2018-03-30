@@ -3,6 +3,7 @@ package com.cxgc.news_app.test;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import sun.security.provider.MD5;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -63,6 +64,8 @@ public class TestEverything {
     }*/
 
     public static void main(String[] args) throws IOException, JSONException {
-
+        for(int i = 0 ; i < 100 ; i ++){
+            System.out.println(UUID.randomUUID().toString().replaceAll("-",""));
+        }
     }
 }

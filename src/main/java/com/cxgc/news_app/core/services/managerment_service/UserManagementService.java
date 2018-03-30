@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.managerment_service;
 
+import com.cxgc.news_app.core.model.Report;
 import com.cxgc.news_app.core.model.User;
 import com.github.pagehelper.PageInfo;
 
@@ -79,4 +80,11 @@ public interface UserManagementService {
   * @return
   */
  Map<String,Object> abnormal();
+
+
+ /**
+  * 查询所有的举报信息
+  * @return 举报信息的集合
+  */
+ List<Report> getAllReport();
 }

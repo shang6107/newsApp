@@ -6,6 +6,7 @@ import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.services.news_service.NewsIndexService;
 import com.cxgc.news_app.core.services.news_service.NewsSave;
+import com.cxgc.news_app.utility.idutil.UtilY;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,15 +94,26 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         return null;
     }
 
-    /*@Autowired
-    public   List<News> responseAppIndex(Integer type) throws IOException, ParseException {
-        String path = ns.newsPath(type);
-        List<News> newsList = ns.newsList(type);
-        System.out.println(ns.objects);
-        if(ns.objects!=null){
-            newsSave.newsSaveAsync(ns.objects,type,path);
+    @Override
+    public void addUserRecords(String userId, String newsId) {
+        Integer integer = nd.updateUserRecords(userId, newsId);
+        if(integer >0){
+
+            nd.insertUserRecords(UtilY.getId(),userId,newsId);
         }
-        return newsList;
-    }*/
+    }
+    Map<String,Integer> map = new HashMap<>();
+    @Override
+    public void addNewsRecords(String newsId) {
+        if(map.get(newsId)==null){
+            map.put(newsId,1);
+        }else {
+            map.put(newsId,map.get(newsId)+1);
+            if(map.get(newsId)==1){
+                nd.addNewsRecords(newsId);
+            }
+        }
+    }
+
 
 }
