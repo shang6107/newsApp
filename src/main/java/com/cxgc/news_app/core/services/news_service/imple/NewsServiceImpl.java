@@ -22,25 +22,44 @@ import static sun.plugin2.os.windows.OSVERSIONINFOA.size;
 public class NewsServiceImpl implements NewsService{
     @Autowired
     private NewsDao newsDao;
+
     /**
-     * 通过新闻id获得新闻的本地地址
-     * @param id 新闻id
-     * @return 新闻本地地址url
+     * 通过新闻id得到新闻对象
+     * @param id
+     * @return
      */
     @Override
-    public String getNewsById(String id) {
-        return newsDao.getNewsById(id);
+    public News getNewsById(String id) {
+        return newsDao.getNews(id);
     }
 
     /**
-     * 通过新闻id获得所有的评论对象
+     * 通过新闻id获得当前评论对象
      * @param id 新闻id
      * @return 该新闻的所有评论
      */
 
     @Override
-    public  List<Comment> getAllCommentByNewsId(String id) {
-        return newsDao.getAllCommentByNewsId(id);
+    public  List<Comment> getAllCommentByNewsId(String id,int startNo,int size) {
+        return newsDao.getAllCommentByNewsId(id,startNo,size);
+    }
+
+    /**
+     * 通过新闻id获得该新闻的所有评论数
+     * @param id
+     * @return
+     */
+    @Override
+    public int getCommentNum(String id) {
+        return newsDao.getCommentNum(id);
+    }
+
+    /**
+     * 通过新闻id和用户id获得该用户对该新闻的所有评论
+     */
+    @Override
+    public List<Comment> getCommentByNewIdAndUserId(Comment comment) {
+        return newsDao.getCommentByNewIdAndUserId(comment);
     }
 
     /**
@@ -59,10 +78,10 @@ public class NewsServiceImpl implements NewsService{
      * @return
      */
     int num=1;
-    public int putIntoComment(Comment comment) {
-        //获得该用户对该新闻的所有评论
-        List<Comment> commentByNewIdAndUserId = newsDao.getCommentByNewIdAndUserId(comment);
-        if(commentByNewIdAndUserId.size()==2){
+    public int putIntoComment(Comment comment,int disscussNum) {
+        if(disscussNum==2){
+            //获得该用户对该新闻的所有评论
+            List<Comment> commentByNewIdAndUserId = newsDao.getCommentByNewIdAndUserId(comment);
             if(num%2==1){
                 commentByNewIdAndUserId.get(0).setContent(comment.getContent());
                 newsDao.updateComment(commentByNewIdAndUserId.get(0));
