@@ -29,7 +29,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-<#--<script type="text/javascript" src="static/js/myJavaScript.js"></script>-->
+<script type="text/javascript" src="static/js/myJavaScript.js"></script>
     <script type="text/javascript" src="static/js/jsapi.js"></script>
     <script type="text/javascript" src="static/js/corechart.js"></script>
     <script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
@@ -124,7 +124,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                     </a>
                 </li>
                     <li>
-                        <a href="management/">
+                        <a href="management/search_engine.html">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>
                         </a>
@@ -203,13 +203,15 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <div class="view-product background-color" style="overflow: hidden">
 
         <script>
-            $(".sidebar-title").live('click', function () {
-                if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
-                    $(this).next().slideDown(200);
-                    $(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
-                } else {
-                    $(this).next().slideUp(200);
-                    $(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
-                }
-            });
+            ($(function () {
+                $(".sidebar-title").live('click', function () {
+                    if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
+                        $(this).next().slideDown(200);
+                        $(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
+                    } else {
+                        $(this).next().slideUp(200);
+                        $(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
+                    }
+                });
+            }));
         </script>
