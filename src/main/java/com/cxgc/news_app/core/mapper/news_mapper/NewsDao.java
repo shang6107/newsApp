@@ -57,6 +57,6 @@ public interface NewsDao {
     /**
      * 保存用户的点赞
      */
-    int putonGood(Comment comment);
+    void putonGood(Comment comment);
 
 }
