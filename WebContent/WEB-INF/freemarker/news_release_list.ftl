@@ -1,6 +1,6 @@
 <#include "frame.ftl">
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -21,46 +21,40 @@
 </head>
 <body>
 <div class="htmleaf-container">
-    <header class="htmleaf-header">
-
-
-    </header>
     <div class="htmleaf-content">
-        <div class="input-group">
-            <div class="input-group-addon">过滤条件</div>
-            <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件"></input>
-        </div>
-        <br>
+
         <table class="">
             <thead>
             <tr>
 
-                <th scope="col">id</th>
-                <th scope="col">createTime</th>
-                <th scope="col">path</th>
-                <th scope="col">userId</th>
-                <th scope="col">accessCount</th>
-                <th scope="col">title</th>
-                <th scope="col">status</th>
-                <th scope="col">newTypeId</th>
+                <th scope="col">ID</th>
+                <th scope="col">新闻类型</th>
+                <th scope="col">标题</th>
+                <th scope="col">发布者</th>
+                <th scope="col">发布时间</th>
+                <th scope="col">浏览量</th>
+                <th scope="col">保存路径</th>
+                <th scope="col">状态</th>
+                <th scope="col">操作</th>
 
             </tr>
             </thead>
             <tbody>
 
-            <#if releases??>
-                <#list releases as release>
+            <#if release??>
+                <#list release as releas>
                 <tr>
-                    <td>${release.id!"无"}</td>
-                    <td>${release.path!"无"}</td>
-                    <td>${release.userId!"无"}</td>
-                    <td>${release.accessCount!"无"}</td>
-                    <td>${release.title!"无"}</td>
-                    <td>${release.status!"无"}</td>
-                    <td>${release.newTypeId.typeName!"无"}</td>
-                    <#if release.createTime?exists>
-                        <td>${release.createTime?string("yyyy-MM-dd")}</td>
+                    <td>${releas.id!"无"}</td>
+                    <td>${releas.newTypeId.typeName!"无"}</td>
+                    <td>${releas.title!"无"}</td>
+                    <td>${releas.userId.nickName!"无"}</td>
+                    <#if releas.createTime?exists>
+                        <td>${releas.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
+                    <td>${releas.accessCount!"无"}</td>
+                    <td>${releas.path!"无"}</td>
+                    <td>${releas.status.reason!"无"}</td>
+                    <td class="sel"><a href="/management/updateReleaseById?id=${releas.id!""}">修改</a></td>
                 </tr>
                 </#list>
             </#if>
