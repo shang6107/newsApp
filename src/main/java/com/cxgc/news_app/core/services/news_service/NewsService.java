@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.news_service;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.News;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,18 +11,23 @@ import java.util.List;
  */
 public interface NewsService {
     /**
-     * 通过新闻id获得新闻的本地地址
+     * 通过新闻id获得新闻
      */
-    String getNewsById(String id);
+    News getNewsById(String id);
     /**
      * 通过新闻id获得新闻对象，包括评论，收藏等信息
      */
-     List<Comment> getAllCommentByNewsId(String id);
+     List<Comment> getAllCommentByNewsId(String id,int startNo,int size);
+
+    /**
+     * 通过新闻id获得所有新闻评论数
+     */
+    int getCommentNum(String id);
 
     /**
      * 通过新闻id和用户id获得该用户对该新闻的所有评论
      */
-    //Collection<Comment> getCommentByNewIdAndUserId(Comment comment);
+    List<Comment> getCommentByNewIdAndUserId(Comment comment);
 
     /**
      * 获得用户对该新闻的收藏情况
@@ -30,7 +36,7 @@ public interface NewsService {
     /**
      * 将用户的评论保存在评论表中
      */
-    int putIntoComment(Comment comment);
+    int putIntoComment(Comment comment,int disscussNum);
     /**
      * 记录用户收藏数据
      */
