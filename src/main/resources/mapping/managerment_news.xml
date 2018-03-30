@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao">
 
+    <update id="updateReleaseById" parameterType="com.cxgc.news_app.core.model.Release">
+        UPDATE `release` set
+        `status`=#{status}
+        <if test="newTypeId != null">
+            ,new_Type_Id=#{newTypeId.id}
+        </if>
+
+
+        where id=#{id}
+    </update>
+
     <resultMap id="news_result" type="com.cxgc.news_app.core.model.News">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
@@ -16,6 +27,7 @@
     <select id="selectAllNews" resultMap="news_result">
         select * from news
     </select>
+
 
     <resultMap id="release_result" type="com.cxgc.news_app.core.model.Release">
         <id property="id" column="id"/>
@@ -45,24 +57,10 @@
         <association property="newTypeId" column="news_type_id" select="getNewsTypeById"/>
     </resultMap>
 
-
     <insert id="addRelease" parameterType="com.cxgc.news_app.core.model.Release">
          insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
          values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
      </insert>
-
-    <update id="updateReleaseById" parameterType="com.cxgc.news_app.core.model.Release">
-        UPDATE release
-        <trim prefix="set" suffixOverrides=",">
-            <if test="status !=null">
-                status=#{status},
-            </if>
-            <if test="newTypeId !=null">
-                new_Type_Id=${newTypeId}
-            </if>
-        </trim>
-        where id=${0}
-    </update>
 
     <select id="selectRelease" resultMap="release_result">
         select * from `release` join users on `release`.user_Id=users.id

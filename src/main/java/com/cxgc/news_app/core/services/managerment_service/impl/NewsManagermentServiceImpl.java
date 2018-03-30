@@ -39,9 +39,19 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.deleteReleaseById(id);
     }
 
+
     @Override
-    public String updateReleaseById(Release release) {
-        return nmd.updateReleaseById(release);
+    public int updateReleaseById(Release release) {
+        int i = nmd.updateReleaseById(release);
+        if (i > 0) {
+            nmd.selectReleaseById(release.getId());
+        }
+        return Integer.parseInt(null);
+    }
+
+    @Override
+    public Release selectReleaseById(String id) {
+        return nmd.selectReleaseById(id);
     }
 
     @Override
@@ -49,10 +59,6 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.selectRelease();
     }
 
-    @Override
-    public String selectReleaseById(String id) {
-        return nmd.selectReleaseById(id);
-    }
 
     @Override
     public NewsType getNewsTypeById(Integer id) {

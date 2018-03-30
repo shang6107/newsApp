@@ -47,7 +47,9 @@ public interface NewsManagermentDao {
      *
      * @return
      */
-    public String updateReleaseById(Release release);
+    public int updateReleaseById(Release release);
+
+
 
     /**
      * 查询所有发布新闻
@@ -62,7 +64,7 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public String selectReleaseById(String id);
+    public Release selectReleaseById(String id);
 
     /**
      * 新闻类型查询

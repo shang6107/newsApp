@@ -48,7 +48,14 @@ public interface NewsManagermentService {
      *
      * @return
      */
-    public String updateReleaseById(Release release);
+    public int updateReleaseById(Release release);
+
+    /**
+     * 通过Id获取新闻
+     * @param id
+     * @return
+     */
+    Release selectReleaseById(String id);
 
     /**
      * 查询所有发布新闻
@@ -57,13 +64,6 @@ public interface NewsManagermentService {
      */
     public List<Release> selectRelease();
 
-    /**
-     * 根据id查询发布新闻
-     *
-     * @param id
-     * @return
-     */
-    public String selectReleaseById(String id);
 
     /**
      * 新闻类型查询

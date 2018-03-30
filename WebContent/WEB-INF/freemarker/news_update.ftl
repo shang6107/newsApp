@@ -14,7 +14,7 @@
     <div class="bootstrap-frm">
 
         <br><br>
-        <form action="" method="post" class="STYLE-NAME">
+        <form action="management/news_update" method="post" class="STYLE-NAME">
             <h1>新闻修改
             </h1>
             <label>
@@ -51,7 +51,7 @@
             </label>
             <label>
                 <span>&nbsp;</span>
-                <input type="button" class="button" value="提交"/>
+                <input type="submit" class="button" value="提交"/>
             </label>
         </form>
     </div>

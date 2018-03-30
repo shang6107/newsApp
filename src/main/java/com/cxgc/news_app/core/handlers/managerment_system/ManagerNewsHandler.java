@@ -26,19 +26,22 @@ public class ManagerNewsHandler {
         return "news_list";
     }
 
-    @RequestMapping("/search-page")
-    public String searchPage(){
-
-        return "";
-    }
-
-
-    @RequestMapping("/updateReleaseById")
+    @RequestMapping("/news_update")
     public String updateReleaseById(Release release) {
 
+        nms.updateReleaseById(release);
+        System.out.println(release);
+        return "news_release_list";
+    }
 
+    @RequestMapping("/updateReleaseById")
+    public String selectReleaseById(String id, Map<String, Object> map) {
+
+        Release release = nms.selectReleaseById(id);
+        map.put("release", release);
         return "news_update";
     }
+
     @RequestMapping("/addRelease")
     public String addRelease(Release release) {
 
