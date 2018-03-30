@@ -26,6 +26,13 @@ public class ManagerNewsHandler {
         return "news_list";
     }
 
+    @RequestMapping("/search-page")
+    public String searchPage(){
+
+        return "";
+    }
+
+
     @RequestMapping("/updateReleaseById")
     public String updateReleaseById(Release release) {
 

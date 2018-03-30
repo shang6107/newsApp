@@ -2,15 +2,17 @@ package com.cxgc.news_app.core.handlers.user_handler;
 
 import com.cxgc.news_app.core.model.*;
 import com.cxgc.news_app.core.services.user_service.UserService;
+import com.cxgc.news_app.utility.idutil.UtilY;
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,7 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping("/register_y")
+    @RequestMapping("register_y")
     @ResponseBody
     public Object register(ValidateCode validateCode){return user_service.addUser(validateCode);}
 
@@ -127,6 +129,38 @@ public class UserController {
     @ResponseBody
     public Object addComment(Comment comment){
 
+        return null;
+    }
+
+    /**
+     * 账号密码登陆
+     * @param user
+     * @return
+     */
+    @RequestMapping("/apsLogin")
+    @ResponseBody
+    public Object apsLogin(User user){
+        user.setPassword(UtilY.MD5(user.getPassword()));
+        System.out.println("user = " + user);
+        return user_service.getUserByPhoneAndPassword(user);
+    }
+
+    /**
+     * 修改密码
+     * @param user
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping("/editPassword")
+    @ResponseBody
+    public Object editPassword(User user,String newPassword){
+        user.setPassword(UtilY.MD5(user.getPassword()));
+        if(user_service.getUserByPhoneAndPassword(user)!=null){
+            user.setPassword(UtilY.MD5(newPassword));
+            System.out.println("user = " + user);
+            user_service.editUserInfo(user);
+            return "修改成功！";
+        }
         return null;
     }
 }

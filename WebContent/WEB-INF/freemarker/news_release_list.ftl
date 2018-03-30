@@ -57,9 +57,7 @@
         </table><br><br>
         <a href="/management/addRelease">发布新闻</a>
     </div>
-
 </div>
-
 <script src="static/js/jquery-1.11.0.min.js"></script>
 <script src="static/js/jquery.filtertable.min.js"></script>
 <script>

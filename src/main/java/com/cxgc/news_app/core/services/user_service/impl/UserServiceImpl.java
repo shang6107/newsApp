@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService{
      */
     public String addIdentifyingCode(ValidateCode validateCode, String askType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         //验证手机号是否已注册
+        System.out.println("askType = " + askType);
         if(askType.equals("login")){
             if(userMapper.getUserByPhone(validateCode.getPhoneNum())==null){
                 return "该手机号没有注册！";
@@ -160,5 +161,18 @@ public class UserServiceImpl implements UserService{
      */
     public List<Comment> listComment(User user){
         return userMapper.listComment(user);
+    }
+
+    /**
+     * 账号密码登陆
+     * @param user
+     * @return
+     */
+    public User getUserByPhoneAndPassword(User user){
+        User sucUser = userMapper.getUserByPhoneAndPassword(user);
+        if(sucUser!=null){
+            return sucUser;
+        }
+        return null;
     }
 }
