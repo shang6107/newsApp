@@ -12,7 +12,8 @@
                     </p>
                 </div>
                 <span class="fr icon-head">
-										<img src="http://user.haidao.la/avatar.php?uid=1504&type=virtual&size=middle" alt="账户头像">
+										<img src="http://user.haidao.la/avatar.php?uid=1504&type=virtual&size=middle"
+                                             alt="账户头像">
 									</span>
             </dt>
             <dd class="padding-big clearfix">
@@ -30,24 +31,23 @@
                     <i class="fl icon icon-wechat"></i>
                     <span class="fl margin-left">微信：<a class="text-underline" href="#">未绑定</a></span>
                 </p>
-                <#--<p class="w50 fl">
-                    <i class="fl icon icon-password"></i>
-                    <span class="fl margin-left">支付密码：<a class='text-underline' href="#"> 未设置</a></span>
-                </p>-->
+            <#--<p class="w50 fl">
+                <i class="fl icon icon-password"></i>
+                <span class="fl margin-left">支付密码：<a class='text-underline' href="#"> 未设置</a></span>
+            </p>-->
             </dd>
         </dl>
     </div>
-
 
 
     <div class="text-box-main min-width-360 fl">
         <dl>
             <dt class="padding-big lists-border-list clearfix">
                 <div class="fl w50 title">
-                    <p>身份信息 : ${(Session.SPRING_SECURITY_CONTEXT.authentication.principal.domain.groups.groupName)!''}</p>
+                    <p>身份信息 : ${(foo.domain.groups.groupName)!''}</p>
                     <p class="margin-small-top clearfix" align="center">
-                        <#--<span class="fl"><em class="h3 text-red-deep">0.00 </em>元</span>-->
-                        <img src="static/img/identify_personal.png"  width="40" height="40">
+                    <#--<span class="fl"><em class="h3 text-red-deep">0.00 </em>元</span>-->
+                        <img src="static/img/identify_personal.png" width="30" height="30">
                     </p>
                 </div>
                 <div class="fl w50 padding-left title">
@@ -58,7 +58,30 @@
                 </div>
             </dt>
             <dd class="padding-big">
-                您好，管理员交流群号：在使用中有任何问题，欢迎随时联系！
+                <p class="text-sliver text-default margin-small-top">
+                <@security.authorize access="isAuthenticated()">
+                    <span class="fl margin-left color-span">权限分发：
+                                <a class="text-underline" href="#">进入</a>
+                        </span>
+                </@security.authorize>
+                <@security.authorize access="hasRole('用户管理员') or hasRole('新闻管理员')">
+                    <span class="fl margin-left color-span">添加管理员：
+                            <a class="text-underline" href="#">未拥有</a>
+                        </span>
+                    <span class="fl margin-left color-span">撤销管理员：
+                            <a class="text-underline" href="#">未拥有</a>
+                        </span>
+                </@security.authorize>
+                <@security.authorize access="hasRole('超级管理员')">
+                    <span class="fl margin-left color-span">添加管理员：
+                            <a class="text-underline" href="#">进入</a>
+                        </span>
+                    <span class="fl margin-left color-span">撤销管理员：
+                            <a class="text-underline" href="#">进入</a>
+                        </span>
+                </@security.authorize>
+                </p>
+
             </dd>
         </dl>
     </div>
@@ -68,7 +91,7 @@
                 <div class="fl title">
                     <p>交流群：</p>
                     <p class="text-sliver text-default margin-small-top">
-                        <em class="h3 text-golden margin-big-right">❹群：</em>537054447
+                        <em class="h3 text-golden margin-big-right">群号：</em>658309868
                     </p>
                 </div>
                 <div class="fr">
@@ -77,7 +100,7 @@
             </dt>
             <dd class="padding-big">
                 <div class="account-class text-hidden">
-                    <p>您好，我是您的交流群：，在使用中有任何问题，欢迎随时联系！</p>
+                    <p>您好，在使用中有任何问题，欢迎随时联系交流！</p>
                 </div>
             </dd>
         </dl>
@@ -86,7 +109,7 @@
 <!--产品-->
 <div class="account-product margin-big-top clearfix">
     <div class="text-box-main padding-big fl mine-product">
-        <h2 class="h6 margin-big-bottom">我的产品</h2>
+        <h2 class="h6 margin-big-bottom">个人工作</h2>
         <div class="mine-product-content clearfix">
             <ul class="w50 fl lists">
                 <!-- <li class="w70 lists-border-list">
@@ -136,8 +159,8 @@
         </div>
     </div>
     <div class="text-box-main padding-big fl w25">
-        <h2 class="h6 margin-big-bottom">我的产品</h2>
-        <ul class="lists">
+        <h2 class="h6 margin-big-bottom">最新动态</h2>
+        <ul class="lists ul-list">
             <li class="lists-list"><a href="#">05-10 云托管服务临时维护公告管服务临时维护公告管服务临时维护公告管服务临时维护公告管服务临时维护公告管服务临时维护公告</a></li>
             <li class="lists-list"><a href="#">05-10 云托管服务临时维护公告</a></li>
             <li class="lists-list"><a href="#">05-10 云托管服务临时维护公告</a></li>

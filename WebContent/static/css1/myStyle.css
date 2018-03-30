@@ -10,7 +10,9 @@
 .part-div{
     margin: 10px auto auto auto;background: #f2f2f2;width: 95%;overflow-x: hidden;
 }
-
+.color-span{
+    color: rgba(141, 141, 141, 0.78);
+}
 .part-div-child{
 
     float: left;
