@@ -1,12 +1,4 @@
 <#include "frame.ftl">
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
 
     <link rel="stylesheet" type="text/css" href="static/css1/htmleaf-demo.css">
     <link rel="stylesheet" href="static/css1/samples-styles.css">
@@ -18,11 +10,13 @@
             background-color: rgba(230, 127, 34, 0.2);
         }
     </style>
-</head>
-<body>
 <div class="htmleaf-container">
     <div class="htmleaf-content">
-
+        <div class="input-group">
+            <div class="input-group-addon">过滤条件</div>
+            <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件"></input>
+        </div>
+        <br>
         <table class="">
             <thead>
             <tr>
@@ -60,10 +54,9 @@
             </#if>
             </tbody>
         </table>
+        <a href="management/addRelease">发布新闻</a>
     </div>
-
 </div>
-
 <script src="static/js/jquery-1.11.0.min.js"></script>
 <script src="static/js/jquery.filtertable.min.js"></script>
 <script>
@@ -73,6 +66,4 @@
         });
     });
 </script>
-</body>
-</html>
 <#include "frame_end.ftl">

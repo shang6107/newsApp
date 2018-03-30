@@ -43,9 +43,19 @@ public enum UserStatus  {
         return status;
     }
 
-    public static UserStatus getUserStatusByStatus(Integer status){
+
+    public static UserStatus getUserStatusByReason(String reason){
         for(UserStatus userStatus : UserStatus.values()){
-            if(userStatus.status.equals(status)){
+            if(userStatus.reason.equals(reason)){
+                return userStatus;
+            }
+        }
+        return null;
+    }
+
+    public static UserStatus getUserStatusByStatus(Integer status) {
+        for (UserStatus userStatus : UserStatus.values()) {
+            if (userStatus.status.equals(status)) {
                 return userStatus;
             }
         }

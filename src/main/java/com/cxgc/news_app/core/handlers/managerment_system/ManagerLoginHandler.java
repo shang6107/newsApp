@@ -23,13 +23,18 @@ import java.io.IOException;
  * @author 上官炳强
  * @Date 2018-03-20 / 03:36:41
  * @Version
- * @Description
+ * @Description 管理员后台操作Controller
  */
 @Controller
 @RequestMapping("/management")
 public class ManagerLoginHandler {
     @Autowired
     private UserManagementService ums;
+
+    /**
+     * 管理员登录
+     * @return
+     */
     @RequestMapping(value = "/login")
     public String login(){
         return "login";
@@ -41,6 +46,11 @@ public class ManagerLoginHandler {
         return "news_index";
     }
 
+    /**
+     * 用户管理员主页。登录成功根据重定向策略自动跳转到该 View
+     * @param map
+     * @return
+     */
     @RequestMapping("/user_index")
     public String userPage(ModelMap map){
         map.put("mgr",getPrincipal());
@@ -52,9 +62,14 @@ public class ManagerLoginHandler {
         map.put("reports",ums.report());
         map.put("typename",ums.typeName());
         map.put("abnormals",ums.abnormal());
+        map.put("report",ums.getAllReport());
         return "user_index";
     }
 
+    /**
+     * 新闻管理员主页。登录成功根据重定向策略自动跳转到该 View
+     * @return
+     */
     private String getPrincipal(){
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication();
@@ -66,7 +81,12 @@ public class ManagerLoginHandler {
         return userName;
     }
 
-
+    /**
+     * 管理员安全退出系统(注销)的处理方法
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -76,13 +96,26 @@ public class ManagerLoginHandler {
         return "redirect:/management/login?logout";
     }
 
+    /**
+     * 管理员上传头像图片资料的处理方法
+     * @param file
+     * @param manager
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/commit-form-data")
     public String test(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
-        String path = request.getContextPath() + "/static/img/" + file.getName();
-        if(manager != null)
-        manager.setHeadImg(path);
-        if(file != null)
-        file.transferTo(new File(path));
+        String realPath = request.getServletContext().getRealPath("/static/img/user/head");
+        File headPath = new File(realPath);
+        if(!headPath.exists()){
+            headPath.mkdirs();
+        }
+        String fileName = System.currentTimeMillis()
+                + "-" + manager.getMgrNo()
+                + "-" + file.getOriginalFilename();
+        headPath = new File(headPath,fileName);
+        file.transferTo(headPath);
         return "test";
     }
 

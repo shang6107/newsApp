@@ -96,4 +96,11 @@ public interface UserMapper {
      * @return
      */
     public int addHistory(History history);
+
+    /**
+     * 账号密码登陆
+     * @param user
+     * @return
+     */
+    public User getUserByPhoneAndPassword(User user);
 }

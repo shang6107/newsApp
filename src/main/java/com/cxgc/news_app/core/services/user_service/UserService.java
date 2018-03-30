@@ -68,4 +68,11 @@ public interface UserService {
      * @return
      */
     public List<Comment> listComment(User user);
+
+    /**
+     * 账号密码登陆
+     * @param user
+     * @return
+     */
+    public User getUserByPhoneAndPassword(User user);
 }

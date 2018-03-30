@@ -8,10 +8,12 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 <#--Spring Security taglib-->
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <base href="${path!''}/"><#-- Context Path -->
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <link rel="stylesheet" type="text/css" href="static/css1/identify.css"/>
     <link rel="stylesheet" type="text/css" href="static/js/skin/layer.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/layout.css"/>
@@ -22,11 +24,12 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <link rel="stylesheet" type="text/css" href="static/css1/myStyle.css"/>
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/layui.all.js"></script>
     <script type="text/javascript" src="static/js/layer.js"></script>
-    <script type="text/javascript" src="static/js/haidao.offcial.general.js"></script>
+    <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-<#--<script type="text/javascript" src="static/js/myJavaScript.js"></script>-->
+<script type="text/javascript" src="static/js/myJavaScript.js"></script>
     <script type="text/javascript" src="static/js/jsapi.js"></script>
     <script type="text/javascript" src="static/js/corechart.js"></script>
     <script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
@@ -109,13 +112,19 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </div>
                 <ul class="sidebar-trans">
                     <li>
-                        <a href="management/news_release_list">
+                        <a href="management/news_list">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
-                            <span class="text-normal">新闻发布</span>
+                            <span class="text-normal">新闻</span>
                         </a>
                     </li>
                     <li>
-                        <a href="management/news_list">
+                    <a href="management/news_release_list">
+                        <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
+                        <span class="text-normal">新闻发布</span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="management/search_engine.html">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>
                         </a>
@@ -194,13 +203,15 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <div class="view-product background-color" style="overflow: hidden">
 
         <script>
-            $(".sidebar-title").live('click', function () {
-                if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
-                    $(this).next().slideDown(200);
-                    $(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
-                } else {
-                    $(this).next().slideUp(200);
-                    $(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
-                }
-            });
+            ($(function () {
+                $(".sidebar-title").live('click', function () {
+                    if ($(this).parent(".sidebar-nav").hasClass("sidebar-nav-fold")) {
+                        $(this).next().slideDown(200);
+                        $(this).parent(".sidebar-nav").removeClass("sidebar-nav-fold");
+                    } else {
+                        $(this).next().slideUp(200);
+                        $(this).parent(".sidebar-nav").addClass("sidebar-nav-fold");
+                    }
+                });
+            }));
         </script>

@@ -15,8 +15,8 @@ public class ManagerNewsHandler {
     private NewsManagermentService nms;
 
     @RequestMapping("/news_release_list")
-    public String selectRelease(Map<String,Object> map){
-        map.put("release",nms.selectRelease());
+    public String selectRelease(Map<String, Object> map) {
+        map.put("release", nms.selectRelease());
         return "news_release_list";
     }
 
@@ -26,22 +26,28 @@ public class ManagerNewsHandler {
         return "news_list";
     }
 
+    @RequestMapping("/search-page")
+    public String searchPage(){
+
+        return "";
+    }
+
+
     @RequestMapping("/updateReleaseById")
     public String updateReleaseById(Release release) {
 
 
         return "news_update";
     }
-
-    @RequestMapping("test?id=123")
-    public String selectReleaseById(String id) {
-        String release=nms.selectReleaseById(id);
-        return "test";
-    }
-   /* @RequestMapping("/news_addRelease")
+    @RequestMapping("/addRelease")
     public String addRelease(Release release) {
-        String release1 = nms.addRelease(release);
+
         return "news_addRelease";
+    }
+  /*  @RequestMapping("/updateReleaseById")
+    public String selectReleaseById(String id) {
+        String release = nms.selectReleaseById(id);
+        return "test";
     }
 
     @RequestMapping("/news_list")

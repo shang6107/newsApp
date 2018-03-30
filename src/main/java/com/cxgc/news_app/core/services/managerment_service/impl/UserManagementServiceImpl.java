@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.UserManagementDao;
+import com.cxgc.news_app.core.model.Report;
 import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import com.github.pagehelper.PageHelper;
@@ -38,8 +39,13 @@ public class UserManagementServiceImpl implements UserManagementService {
 
 
     @Override
-    public int editUserInfo(User user) {
-        return umd.editUserInfo(user);
+    public User editUserInfo(User user) {
+        int i= umd.editUserInfo(user);
+
+        if(i>0){
+            return umd.getUserById(user.getPhoneNum());
+        }
+        return null;
     }
 
     @Override
@@ -85,5 +91,10 @@ public class UserManagementServiceImpl implements UserManagementService {
     @Override
     public Map<String, Object> abnormal() {
         return umd.abnormal();
+    }
+
+    @Override
+    public List<Report> getAllReport() {
+        return umd.getAllReport();
     }
 }

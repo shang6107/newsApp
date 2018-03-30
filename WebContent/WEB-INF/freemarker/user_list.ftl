@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="zh">
+<#include "frame.ftl"/>
 <#if (RequestParameters.error)?exists>
     <script>
         alert("没有相应的记录");
     </script>
 </#if>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
 
     <link rel="stylesheet" type="text/css" href=static/css1/htmleaf-demo.css">
     <link rel="stylesheet" href="static/css1/samples-styles.css">
@@ -21,8 +15,8 @@
             background-color: rgba(230, 127, 34, 0.2);
         }
     </style>
-</head>
-<body>
+
+
 <div class="htmleaf-container">
     <header class="htmleaf-header">
 
@@ -72,7 +66,7 @@
                       ${user.createTime?string("yyyy-MM-dd")}
                     </#if>
                 </td>
-                    <td class="sel"><a href="user-getUserByPhoneNum?phoneNum=${user.phoneNum!""}"> 查看</td>
+                    <td class="sel"><a href="management/user-getUserByPhoneNum?phoneNum=${user.phoneNum!""}"> 查看</td>
                 </tr>
 
                 </#list>
@@ -109,5 +103,4 @@
     });
 </script>
 
-</body>
-</html>
+<#include "frame_end.ftl"/>
