@@ -64,6 +64,7 @@
             </#if>
             </tbody>
         </table>
+        <a href="/management/addRelease">发布新闻</a>
     </div>
 
 </div>

@@ -45,12 +45,12 @@
         <association property="newTypeId" column="news_type_id" select="getNewsTypeById"/>
     </resultMap>
 
-    <!--  添加发布新闻
+
     <insert id="addRelease" parameterType="com.cxgc.news_app.core.model.Release">
          insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
          values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
      </insert>
- -->
+
     <update id="updateReleaseById" parameterType="com.cxgc.news_app.core.model.Release">
         UPDATE release
         <trim prefix="set" suffixOverrides=",">

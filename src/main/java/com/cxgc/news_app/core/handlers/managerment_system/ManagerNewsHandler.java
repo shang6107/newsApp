@@ -32,16 +32,15 @@ public class ManagerNewsHandler {
 
         return "news_update";
     }
+    @RequestMapping("/addRelease")
+    public String addRelease(Release release) {
 
+        return "news_addRelease";
+    }
   /*  @RequestMapping("/updateReleaseById")
     public String selectReleaseById(String id) {
         String release = nms.selectReleaseById(id);
         return "test";
-    }*/
-   /* @RequestMapping("/news_addRelease")
-    public String addRelease(Release release) {
-        String release1 = nms.addRelease(release);
-        return "news_addRelease";
     }
 
     @RequestMapping("/news_list")
