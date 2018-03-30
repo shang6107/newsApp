@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.core.model.Release;
 import com.cxgc.news_app.core.services.managerment_service.NewsManagermentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,8 @@ public class ManagerNewsHandler {
     private NewsManagermentService nms;
 
     @RequestMapping("/news_release_list")
-    public String selectRelease(Map<String, Object> map) {
-        map.put("release", nms.selectRelease());
+    public String selectRelease(Map<String,Object> map){
+        map.put("release",nms.selectRelease());
         return "news_release_list";
     }
 
@@ -24,4 +25,28 @@ public class ManagerNewsHandler {
         map.put("news", nms.selectAllNews());
         return "news_list";
     }
+
+    @RequestMapping("/updateReleaseById")
+    public String updateReleaseById(Release release) {
+
+
+        return "news_update";
+    }
+
+    @RequestMapping("test?id=123")
+    public String selectReleaseById(String id) {
+        String release=nms.selectReleaseById(id);
+        return "test";
+    }
+   /* @RequestMapping("/news_addRelease")
+    public String addRelease(Release release) {
+        String release1 = nms.addRelease(release);
+        return "news_addRelease";
+    }
+
+    @RequestMapping("/news_list")
+    public String deleteNewsById(String id) {
+        String news = nms.deleteNewsById(id);
+        return "news_list";
+    }*/
 }

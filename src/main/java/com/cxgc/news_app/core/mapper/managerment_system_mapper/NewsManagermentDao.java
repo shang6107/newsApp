@@ -4,10 +4,8 @@ package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * pjl
@@ -19,7 +17,7 @@ public interface NewsManagermentDao {
      * @param release
      * @return
      */
-    public int addRelease(@Param("Release") Release release);
+    public String addRelease(Release release);
 
     /**
      * 根据id删除新闻
@@ -27,7 +25,7 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public Map<String, Object> deleteNewsById(@Param("id") String id);
+    public String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
@@ -37,11 +35,19 @@ public interface NewsManagermentDao {
     public List<News> selectAllNews();
 
     /**
+     * 删除发布的新闻
+     *
+     * @param id
+     * @return
+     */
+    public String deleteReleaseById(String id);
+
+    /**
      * 修改发布新闻状态
      *
      * @return
      */
-    public Release updateReleaseByStauts();
+    public String updateReleaseById(Release release);
 
     /**
      * 查询所有发布新闻
@@ -51,7 +57,16 @@ public interface NewsManagermentDao {
     public List<Release> selectRelease();
 
     /**
+     * 根据id查询发布新闻
+     *
+     * @param id
+     * @return
+     */
+    public String selectReleaseById(String id);
+
+    /**
      * 新闻类型查询
+     *
      * @param id
      * @return
      */

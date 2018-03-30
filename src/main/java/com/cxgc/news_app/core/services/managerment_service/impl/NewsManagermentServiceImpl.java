@@ -20,12 +20,12 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
     private NewsManagermentDao nmd;
 
     @Override
-    public int addRelease(Release release) {
+    public String addRelease(Release release) {
         return nmd.addRelease(release);
     }
 
     @Override
-    public Map<String, Object> deleteNewsById(String id) {
+    public String deleteNewsById(String id) {
         return nmd.deleteNewsById(id);
     }
 
@@ -35,13 +35,23 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
     }
 
     @Override
-    public Release updateReleaseByStauts() {
-        return nmd.updateReleaseByStauts();
+    public String deleteReleaseById(String id) {
+        return nmd.deleteReleaseById(id);
+    }
+
+    @Override
+    public String updateReleaseById(Release release) {
+        return nmd.updateReleaseById(release);
     }
 
     @Override
     public List<Release> selectRelease() {
         return nmd.selectRelease();
+    }
+
+    @Override
+    public String selectReleaseById(String id) {
+        return nmd.selectReleaseById(id);
     }
 
     @Override

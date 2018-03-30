@@ -20,7 +20,7 @@ public class News {
     private Integer accessCount;//访问量
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;//创建时间
-    private String author;
+    private String author;//作者
 
 
 }

@@ -1,6 +1,6 @@
 <#include "frame.ftl">
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -21,10 +21,6 @@
 </head>
 <body>
 <div class="htmleaf-container">
-    <header class="htmleaf-header">
-
-
-    </header>
     <div class="htmleaf-content">
         <div class="input-group">
             <div class="input-group-addon">过滤条件</div>
@@ -56,6 +52,7 @@
                     <#if new.createTime?exists>
                         <td>${new.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
+
                 </tr>
                 </#list>
             </#if>

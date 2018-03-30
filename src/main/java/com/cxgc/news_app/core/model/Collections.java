@@ -16,7 +16,7 @@ public class Collections {
     private String id;
     private String release;
     // ly   修改数据类型 String --> News
-    private News news;
+    private News newsId;
     private String userId;
     private Date createTime;
 }
