@@ -82,6 +82,18 @@
     select * from news_type where id = #{0}
 </select>
 
+
+    <!--####################新闻数据统计#######################-->
+    <sql id="basicCountColumn">
+
+    </sql>
+    <resultMap id="dataCountResult" type="map">
+
+    </resultMap>
+    <select id="" resultMap="dataCountResult">
+
+    </select>
+
 </mapper>
 
 

@@ -58,6 +58,12 @@ public class ManagerUserHandler {
         return "test";
     }
 
+    @RequestMapping("/ajax-user-list")
+    @ResponseBody
+    public Object allUser(Integer pageSize,Integer pageNum){
+        return ums.selectAllUser(pageSize, pageNum);
+    }
+
     @RequestMapping("/user-statistical")
     public String countNum(Map<String, Object> map) {
         map.put("countMen", ums.countMen());

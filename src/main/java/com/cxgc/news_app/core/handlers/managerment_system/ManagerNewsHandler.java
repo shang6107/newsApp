@@ -26,13 +26,6 @@ public class ManagerNewsHandler {
         return "news_list";
     }
 
-    @RequestMapping("/search-page")
-    public String searchPage(){
-
-        return "";
-    }
-
-
     @RequestMapping("/updateReleaseById")
     public String updateReleaseById(Release release) {
 
@@ -55,4 +48,13 @@ public class ManagerNewsHandler {
         String news = nms.deleteNewsById(id);
         return "news_list";
     }*/
+
+
+    /* *************************新闻数据统计***********************************/
+    @RequestMapping("/search-page")
+    public String searchPage(){
+
+        return "";
+    }
+
 }

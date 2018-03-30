@@ -6,6 +6,7 @@ import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * pjl
@@ -71,5 +72,19 @@ public interface NewsManagermentDao {
      * @return
      */
     NewsType getNewsTypeById(Integer id);
+
+
+    /* **********************************************************/
+    /* *************        新闻数据统计      ********************/
+    /* **********************************************************/
+
+    /**
+     * 根据请求内容返回相关数据
+     * @param reqData
+     * @return
+     */
+    List<Map<String,Object>> dataCount(Map<String,Object> reqData);
+
+
 
 }
