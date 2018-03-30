@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import javax.enterprise.inject.New;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +31,9 @@ public class InfoNewsHandler {
 
     @Autowired
     private NewsService newsService;
+
     public static int num=1;
+
     //获得该新闻的所有评论
     List<Comment> commentCollection ;
     public static String newsId;
@@ -60,7 +61,7 @@ public class InfoNewsHandler {
         collection.setUserId(userId);
         News n=new News();
         n.setId(id);
-        collection.setNews(n);
+        collection.setNewsId(n);
         Collections checkCollection=newsService.checkCollection(collection);
         map.put("checkCollection",checkCollection);
 
@@ -140,7 +141,7 @@ public class InfoNewsHandler {
         collection.setCreateTime(new Date());
         News n=new News();
         n.setId(newsId);
-        collection.setNews(n);
+        collection.setNewsId(n);
         collection.setUserId(userId);
         String result=null;
         //判断是取消收藏还是收藏
