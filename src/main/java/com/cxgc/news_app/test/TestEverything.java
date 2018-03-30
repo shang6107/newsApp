@@ -3,6 +3,7 @@ package com.cxgc.news_app.test;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import sun.security.provider.MD5;
 
 import java.io.*;
 import java.net.MalformedURLException;

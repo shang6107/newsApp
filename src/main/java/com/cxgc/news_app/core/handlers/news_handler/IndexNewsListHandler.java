@@ -35,4 +35,11 @@ public class IndexNewsListHandler {
         map.put("newsList",ns.newsListByType(type));
         return  map;
     }
+    @RequestMapping("records")
+    public void addUserRecords(String newsId,String userId ){
+        ns.addNewsRecords(newsId);
+            if(!"null".equals(userId))
+            ns.addUserRecords(userId,newsId);
+
+    }
 }

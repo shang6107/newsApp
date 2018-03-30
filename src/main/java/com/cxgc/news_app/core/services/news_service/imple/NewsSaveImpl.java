@@ -39,10 +39,13 @@ public  class NewsSaveImpl implements NewsSave {
                 nid.insertNews(newsList);
                 ns.objects=null;
             }
+            ns.objects=null;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }finally {
+            ns.objects=null;
         }
     }
 
