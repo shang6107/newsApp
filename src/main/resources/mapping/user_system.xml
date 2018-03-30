@@ -30,14 +30,7 @@
         <result property="sent" column="sended"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
-    <!--收藏实体类与数据库表的映射-->
-    <resultMap id="collection_result" type="com.cxgc.news_app.core.model.Collections">
-        <id property="id" column="id"/>
-        <result property="releaseId" column="release_id"/>
-        <result property="newsId" column="news_id"/>
-        <result property="userId" column="user_id"/>
-        <result property="createTime" column="create_time"/>
-    </resultMap>
+
 
 
 <!--新增用户-->
@@ -92,15 +85,15 @@
         </trim>
         where id =#{id}
     </update>
-<!--获取指定用户的历史浏览记录-->
+<!--获取指定用户的历史浏览记录
     <select id="listHistory" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.History">
         select * from history where user_id =#{id};
-    </select>
+    </select>-->
 
-    <!--获取指定用户的收藏-->
+    <!--获取指定用户的收藏
     <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collection_result">
         select * from collections where user_id=#{id}
-    </select>
+    </select>-->
    <!--获取指定用户评论信息-->
     <select id="listComment" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.Comment">
         select * from comment where user_id = #{id}
@@ -161,4 +154,41 @@
     </sql>
 
 
+    <!--收藏表与数据库对应表的映射-->
+    <resultMap id="collections_result" type="com.cxgc.news_app.core.model.Collections">
+        <result property="news.id" column="id"/>
+        <result property="news.title" column="title"/>
+        <result property="news.accessCount" column="access_count"/>
+        <result property="news.author" column="author" />
+        <result property="news.createTime" column="create_time"/>
+        <result property="news.type.typeName" column="type_name" />
+    </resultMap>
+
+    <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collections_result">
+        select n.id,c.create_time,n.title,n.access_count,n.author,t.type_name from collections c
+        LEFT JOIN news n on
+        c.news_id=n.id
+        LEFT JOIN news_type t ON
+        n.news_type_id = t.id
+        where c.user_id = #{id}
+    </select>
+
+    <!--历史记录表与数据库对应表的映射-->
+    <resultMap id="history_result" type="com.cxgc.news_app.core.model.History">
+        <result property="news.id" column="id"/>
+        <result property="news.title" column="title"/>
+        <result property="news.accessCount" column="access_count"/>
+        <result property="news.author" column="author" />
+        <result property="news.createTime" column="create_time"/>
+        <result property="news.type.typeName" column="type_name" />
+    </resultMap>
+
+    <select id="listHistory" parameterType="com.cxgc.news_app.core.model.User" resultMap="history_result">
+       select n.id,h.create_time,n.title,n.access_count,n.author,t.type_name from history h
+        LEFT JOIN news n on
+        h.news_id=n.id
+        LEFT JOIN news_type t ON
+        n.news_type_id = t.id
+        where h.user_id = #{id}
+    </select>
 </mapper>

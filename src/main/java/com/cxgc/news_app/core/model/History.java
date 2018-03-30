@@ -2,6 +2,8 @@ package com.cxgc.news_app.core.model;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author 上官炳强
  * @Date 2018-03-20 / 01:57:41
@@ -12,9 +14,11 @@ import lombok.Data;
 public class History {
     private String id;
     private String releaseId;
-    private String newsId;
+    // ly  修改数据类型 String --> News
+    private News news;
     private String userId;
-    private String createTime;
+    // ly  修改数据类型 String --> Date
+    private Date createTime;
 
 
 }

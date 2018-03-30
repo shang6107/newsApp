@@ -73,9 +73,7 @@ public class ManagerLoginHandler {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/" +
-                (request.getContextPath().equals("") ? "" : request.getContextPath() + "/")
-                + "login?logout";
+        return "redirect:/management/login?logout";
     }
 
     @RequestMapping("/commit-form-data")

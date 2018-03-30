@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +18,7 @@ public class News {
     private String url;//网络路径
     private NewsType type;//新闻类型
     private Integer accessCount;//访问量
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;//创建时间
     private String author;
 

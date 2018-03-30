@@ -8,7 +8,8 @@ import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.services.news_service.NewsSave;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -16,43 +17,38 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 @Service
-@Scope
+@EnableAsync
 public  class NewsSaveImpl implements NewsSave {
     @Autowired
     private NewsIndexDao nid;
 
-    private JSONArray objects;
-    private  Integer type;
-    private String path;
-    public NewsSaveImpl(){}
-    public NewsSaveImpl(JSONArray objects,Integer type,String path){
-        this.objects=objects;
-        this.type=type;
-        this.path = path;
-    }
+    private NewsSpider ns;
+    @Async
     @Override
-    public void run() {
+    public void newsSaveAsync(NewsSpider ns,Integer type,String path){
+        this.ns =ns;
+       JSONArray objects = ns.objects;
         try {
-            System.out.println(nid);
-            newsHandle();
-            List<News> newsList = saveNewsToDatabase();
+            List<News> newsList;
+            newsHandle(objects,type,path);
+            newsList = saveNewsToDatabase(type,path);
             if(newsList!=null&&newsList.size()>0){
                 nid.insertNews(newsList);
+                ns.objects=null;
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-        }finally {
-            objects=null;
         }
     }
 
 
     @Override
-    public void newsHandle() throws IOException {
+    public void newsHandle(JSONArray objects,Integer type,String path) throws IOException {
         JSONObject news;
         List<String> strings = null;
         File newsList = new File(path);
@@ -81,9 +77,9 @@ public  class NewsSaveImpl implements NewsSave {
         }
     }
     @Override
-    public List<News> saveNewsToDatabase() throws IOException, ParseException {
+    public List<News> saveNewsToDatabase(Integer type,String path) throws IOException, ParseException {
         News n;
-        NewsSpider ns = new NewsSpider();
+        //NewsSpider ns = new NewsSpider();
         List<News> newsList = ns.newsList(type);
         NewsType nt = new NewsType();
         nt.setId(type);
@@ -91,6 +87,7 @@ public  class NewsSaveImpl implements NewsSave {
             n = newsList.get(i);
             n.setType(nt);
             n.setUrl(path+"\\"+n.getId());
+            n.setCreateTime(new Date());
         }
         return newsList;
     }

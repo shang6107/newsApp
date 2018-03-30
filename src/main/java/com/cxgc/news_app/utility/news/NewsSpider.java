@@ -8,6 +8,8 @@ import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.services.news_service.NewsSave;
 import com.cxgc.news_app.core.services.news_service.imple.NewsSaveImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -24,31 +26,32 @@ import java.util.*;
  * @Version
  * @Description
  */
-@Repository
+@Scope("prototype")
+@Component
 public class NewsSpider{
-@Autowired
-NewsSave nsi;
-
+    @Autowired
+    private NewsSave ns;
     private static Map<Integer,String> newsApi = new HashMap<>();
-    private  JSONArray objects;
+    public JSONArray objects;
     static {
         //1、科技
-        newsApi.put(1,"http://120.76.205.241:8000/news/baijia?catid=1&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
+        newsApi.put(5,"http://120.76.205.241:8000/news/baijia?catid=1&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
         //2、娱乐
-        newsApi.put(2,"http://120.76.205.241:8000/news/baijia?catid=2&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
+        newsApi.put(3,"http://120.76.205.241:8000/news/baijia?catid=2&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
         //3、财经
-        newsApi.put(3,"http://120.76.205.241:8000/news/baijia?catid=3&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
+        newsApi.put(4,"http://120.76.205.241:8000/news/baijia?catid=3&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
         //4、文化
-        newsApi.put(4,"http://120.76.205.241:8000/news/baijia?catid=5&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
+        newsApi.put(1,"http://120.76.205.241:8000/news/baijia?catid=5&apikey=Kf1yDYIZuZibdPyfkotd30ncmUYtD5XFvBMVJjWJI6xuuMCUBPgT2zf00f8QEwJ5");
         //、5体育
-        newsApi.put(5,"http://120.76.205.241:8000/post/qqsport?baid=69&apikey=qZE91UwJqCivYsK6cJu1xpQMmi4QYbhJRJa1tf3erp8U7Tk3ydUyWIkIxct0J6Wq");
+        newsApi.put(2,"http://120.76.205.241:8000/post/qqsport?baid=69&apikey=qZE91UwJqCivYsK6cJu1xpQMmi4QYbhJRJa1tf3erp8U7Tk3ydUyWIkIxct0J6Wq");
 
     }
-
-
-
-
-
+    /*public   List<News> responseAppIndex(Integer type) throws IOException, ParseException {
+        String path = newsPath(type);
+        List<News> newsList = newsList(type);
+        ns.newsSaveAsync(objects,type,path);
+        return newsList;
+    }*/
     public static JSONArray spider(Integer type) throws IOException {
 
         URL url = new URL(newsApi.get(type));
@@ -66,14 +69,7 @@ NewsSave nsi;
         return JSON.parseArray(data.toString());
     }
 
-    public   List<News> responseAppIndex(Integer type) throws IOException, ParseException {
-        String path = newsPath(type);
-        List<News> newsList = newsList(type);
-        System.out.println(nsi);
-        Thread t = new Thread(nsi);
-        t.start();
-        return newsList;
-    }
+
 
     //响应给前台的新闻集合
     public  List<News> newsList(Integer type) throws IOException, ParseException {
@@ -89,7 +85,6 @@ NewsSave nsi;
             n.setId(type);
             n.setTypeDesc("");
             n.setTypeName("");*/
-
                 for (int i=0;i<objects.size();i++){
                     News newsInstance = new News();
                     news = objects.getJSONObject(i);
