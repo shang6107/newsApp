@@ -47,7 +47,7 @@
                 <tr>
                     <td>${new.id!"无"}</td>
                     <td>${new.title!"无"}</td>
-                    <td>${new.type.typeName!"无"}</td>
+                    <td>${(new.type.typeName)!"无"}</td>
                     <td>${new.accessCount!"无"}</td>
                     <#if new.createTime?exists>
                         <td>${new.createTime?string("yyyy-MM-dd")}</td>

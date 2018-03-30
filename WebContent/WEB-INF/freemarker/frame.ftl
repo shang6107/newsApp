@@ -111,9 +111,15 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                     <li>
                         <a href="management/news_release_list">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
-                            <span class="text-normal">新闻发布</span>
+                            <span class="text-normal">新闻</span>
                         </a>
                     </li>
+                    <li>
+                    <a href="management/news_release_list">
+                        <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
+                        <span class="text-normal">新闻发布</span>
+                    </a>
+                </li>
                     <li>
                         <a href="management/news_list">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>

@@ -22,7 +22,11 @@
 <body>
 <div class="htmleaf-container">
     <div class="htmleaf-content">
-
+        <div class="input-group">
+            <div class="input-group-addon">过滤条件</div>
+            <input class="form-control" type="search" id="input-filter" size="15" placeholder="输入过滤条件"></input>
+        </div>
+        <br>
         <table class="">
             <thead>
             <tr>
