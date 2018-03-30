@@ -6,7 +6,7 @@ import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.services.news_service.NewsIndexService;
 import com.cxgc.news_app.core.services.news_service.NewsSave;
-import com.cxgc.news_app.utility.idutil.IdUtil;
+import com.cxgc.news_app.utility.idutil.UtilY;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,7 +99,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         Integer integer = nd.updateUserRecords(userId, newsId);
         if(integer >0){
 
-            nd.insertUserRecords(IdUtil.getId(),userId,newsId);
+            nd.insertUserRecords(UtilY.getId(),userId,newsId);
         }
     }
     Map<String,Integer> map = new HashMap<>();
