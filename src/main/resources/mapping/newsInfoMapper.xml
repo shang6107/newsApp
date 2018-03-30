@@ -18,20 +18,20 @@
         <result property="content" column="content"/>
         <result property="goodCount" column="good_count"/>
         <result property="userId" column="user_id"/>
-        <result property="newsId" column="news_id"/>
         <result property="createTime" column="create_time"/>
+        <association property="newsId" column="news_id" select="getNews"/>
     </resultMap>
 
     <select id="getAllCommentByNewsId" resultMap="allComment">
-        select * from comment where news_id=#{newsId}
+        select * from comment where news_id=#{newsId.newsId}
     </select>
 
     <select id="getCommentByNewIdAndUserId" resultMap="allComment">
-        select * from comment where user_id=#{userId} and news_id=#{newsId}
+        select * from comment where user_id=#{userId} and news_id=#{newsId.newsId}
     </select>
 
     <select id="checkCollection" resultType="collections">
-        select * from collections where news_id=#{newsId} and user_id=#{userId}
+        select * from collections where news_id=#{newsId.newsId} and user_id=#{userId}
     </select>
 
     <select id="getNews" resultMap="oneNews">
@@ -44,7 +44,7 @@
 
     <!--发布评论-->
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
-        insert into comment(id,content,news_id,user_id,create_time) values(#{id},#{content},#{newsId},#{userId},#{createTime})
+        insert into comment(id,content,news_id,user_id,create_time) values(#{id},#{content},#{newsId.newsId},#{userId},#{createTime})
     </insert>
 
     <!--更新评论-->
@@ -54,17 +54,17 @@
 
     <!--收藏-->
     <insert id="inputCollection" parameterType="com.cxgc.news_app.core.model.Collections">
-        insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId},#{userId},#{createTime})
+        insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId.newsId},#{userId},#{createTime})
     </insert>
 
     <!--取消收藏-->
     <delete id="outPutCollection" parameterType="collections">
-        delete from collections where user_Id=#{userId} and news_Id=#{newsId}
+        delete from collections where user_Id=#{userId} and news_Id=#{newsId.newsId}
     </delete>
 
     <!--点赞-->
     <update id="putonGood" parameterType="comment">
-        update comment set good_count=#{goodCount} where news_id=#{newsId}
+        update comment set good_count=#{goodCount} where news_id=#{newsId.newsId}
     </update>
 
 </mapper>
