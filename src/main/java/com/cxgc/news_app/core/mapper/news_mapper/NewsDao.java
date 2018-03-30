@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.mapper.news_mapper;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.model.News;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,14 +13,13 @@ import java.util.List;
  */
 public interface NewsDao {
     /**
-     * 通过新闻id获得新闻的本地地址
+     * 通过新闻id获得当前的新闻评论
      */
-    String getNewsById(String id);
+    List<Comment> getAllCommentByNewsId(@Param("id") String id,@Param("startNo") int startNo,@Param("size") int size);
     /**
-     * 通过新闻id获得所有的新闻评论
+     * 通过新闻id获得所有新闻评论数
      */
-    List<Comment> getAllCommentByNewsId(String newsId);
-
+    int getCommentNum(String id);
     /**
      * 通过用户id和新闻id获得该用户对该新闻的所有评论记录
      */
