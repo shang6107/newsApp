@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-        <!DOCTYPE mapper
-                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao">
 
-<resultMap id="news_result" type="com.cxgc.news_app.core.model.News">
-    <id property="id" column="id"/>
-    <result property="title" column="title"/>
-    <result property="url" column="URL"/>
-    <result property="accessCount" column="access_count"/>
-    <result property="createTime" column="create_time"/>
-    <association property="type" column="news_type_id" select="getNewsTypeById"/>
-</resultMap>
+    <resultMap id="news_result" type="com.cxgc.news_app.core.model.News">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="URL"/>
+        <result property="accessCount" column="access_count"/>
+        <result property="createTime" column="create_time"/>
+        <association property="type" column="news_type_id" select="getNewsTypeById"/>
+    </resultMap>
 
     <select id="selectAllNews" resultMap="news_result">
         select * from news
@@ -21,29 +21,63 @@
         <id property="id" column="id"/>
         <result property="createTime" column="create_time"/>
         <result property="path" column="path"/>
-        <result property="userId" column="user_Id"/>
         <result property="accessCount" column="access_count"/>
         <result property="title" column="title"/>
-        <result property="status" column="status"/>
+        <result property="status" column="status"
+                typeHandler="com.cxgc.news_app.core.config.mybatis.ReleaseTypeHandler"/>
+
+        <association property="userId" javaType="com.cxgc.news_app.core.model.User">
+            <id property="id" column="userId"/>
+            <result property="phoneNum" column="phone_num"/>
+            <result property="nickName" column="nick_name"/>
+            <result property="password" column="password"/>
+            <result property="headImg" column="head_img"/>
+            <result property="gender" column="gender"/>
+            <result property="address" column="address"/>
+            <result property="hobby" column="Hobby"/>
+            <result property="birth" column="birth"/>
+            <result property="introduce" column="introduce"/>
+            <result property="lastTime" column="last_time"/>
+            <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
+            <result property="typeName" column="type_name" typeHandler="com.cxgc.news_app.core.config.mybatis.UserTypeHandler"/>
+            <result property="createTime" column="create_time"/>
+        </association>
         <association property="newTypeId" column="news_type_id" select="getNewsTypeById"/>
     </resultMap>
 
-    <insert id="addRelease" parameterType="com.cxgc.news_app.core.model.Release">
-        insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
-        values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
-    </insert>
+    <!-- <insert id="addRelease" parameterType="com.cxgc.news_app.core.model.Release">
+         insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
+         values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
+     </insert>
+ -->
+    <update id="updateReleaseById" parameterType="com.cxgc.news_app.core.model.Release">
+        UPDATE release
+        <trim prefix="set" suffixOverrides=",">
+            <if test="status !=null">
+                status=#{status},
+            </if>
+            <if test="newTypeId !=null">
+                new_Type_Id=${newTypeId}
+            </if>
+        </trim>
+        where id=${0}
+    </update>
 
     <select id="selectRelease" resultMap="release_result">
-        SELECT * from `release`
+        select * from `release` join users on `release`.user_Id=users.id
+    </select>
+
+    <select id="selectReleaseById" resultMap="release_result">
+        SELECT * from `release` WHERE id=#{0}
     </select>
 
     <resultMap id="newsTypeResult" type="com.cxgc.news_app.core.model.NewsType">
-       <id property="id" column="id"/>
-       <result property="typeName" column="type_name"/>
-       <result property="typeDesc" column="type_desc"/>
+        <id property="id" column="id"/>
+        <result property="typeName" column="type_name"/>
+        <result property="typeDesc" column="type_desc"/>
     </resultMap>
 
-<select id="getNewsTypeById" resultMap="newsTypeResult">
+    <select id="getNewsTypeById" resultMap="newsTypeResult">
     select * from news_type where id = #{0}
 </select>
 

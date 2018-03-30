@@ -18,7 +18,7 @@ public interface NewsManagermentService {
      * @param release
      * @return
      */
-    public int addRelease(Release release);
+    public String addRelease(Release release);
 
     /**
      * 根据id删除新闻
@@ -26,7 +26,7 @@ public interface NewsManagermentService {
      * @param id
      * @return
      */
-    public Map<String, Object> deleteNewsById(String id);
+    public String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
@@ -36,11 +36,19 @@ public interface NewsManagermentService {
     public List<News> selectAllNews();
 
     /**
+     * 删除发布的新闻
+     *
+     * @param id
+     * @return
+     */
+    public String deleteReleaseById(String id);
+
+    /**
      * 修改发布新闻状态
      *
      * @return
      */
-    public Release updateReleaseByStauts();
+    public String updateReleaseById(Release release);
 
     /**
      * 查询所有发布新闻
@@ -48,10 +56,22 @@ public interface NewsManagermentService {
      * @return
      */
     public List<Release> selectRelease();
+
     /**
-     * 新闻类型查询
+     * 根据id查询发布新闻
+     *
      * @param id
      * @return
      */
-     public NewsType getNewsTypeById(Integer id);
+    public String selectReleaseById(String id);
+
+    /**
+     * 新闻类型查询
+     *
+     * @param id
+     * @return
+     */
+    public NewsType getNewsTypeById(Integer id);
+
+
 }
