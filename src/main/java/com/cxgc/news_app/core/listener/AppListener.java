@@ -2,7 +2,6 @@ package com.cxgc.news_app.core.listener;
 
 import com.cxgc.news_app.utility.DBUtil;
 import com.cxgc.news_app.utility.idutil.UtilY;
-import com.sun.corba.se.spi.ior.ObjectKey;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
@@ -14,9 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 上官炳强
- * @Date 2018-03-31 / 03:30:44
- * @Version
- * @Description <h5>
+ * @since 2018-03-31 / 03:30:44
+ * @version 1.0
+ *  <h5>
  * 用来统计应用程序请求的访问情况的简单的侦听器。通过 web.xml 设定的参数：{@code delay}
  * (侦听器启动后统计任务定时器执行的延迟时间) 和 {@code period} (任务定时器的执行周期)，
  * 记录下设定好的周期内的访问数量最多、最低的请求地址及其次数，并通过JDBC保存到数据库
@@ -86,6 +85,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         }
 
         /* 赋值给类变量 **/
+        dbSendPeriod = period;
         periodStr = dbSendPeriod > 0 && dbSendPeriod <= 1000 * 60 ?
                 "minutes" : (dbSendPeriod > 1000 * 60 && dbSendPeriod <= 1000 * 60 * 60 ?
                 "hour" : (dbSendPeriod > 1000 * 60 * 60 && dbSendPeriod <= 1000 * 60 * 60 * 24 ?
@@ -94,7 +94,6 @@ public class AppListener implements ServletRequestListener, ServletContextListen
                 "month" : (dbSendPeriod > 1000 * 60 * 60 * 24 * 30 && dbSendPeriod <= 1000 * 60 * 60 * 24 * 30 * 3 ?
                 "quarter" : "year")))));
         delay = delays;
-        dbSendPeriod = period;
         contextLogPath = servletContext.getContextPath();
         log.info("AppListener初始化完成,延迟{}秒后执行，任务周期:{}秒/次", delay / 1000, dbSendPeriod / 1000);
         timerTask();
@@ -164,7 +163,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
                 Long totalCount = (Long) periodInfo.get("totalCount");
 
                 /* 打印日志**/
-                log.info("上次执行时间：{}，当前时间：{}。 {} 周期 访问次数最高的地址:{}, " +
+                log.info("上次执行时间：{}，\n当前时间：{}。 \n{} 周期 访问次数最高的地址:{}, " +
                                 "次数：{}；\n访问次数最低的地址：{}，次数：{}；\n周期总访问量：{}"
                         , lastExecutorTime != null ?
                                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(lastExecutorTime)
@@ -193,7 +192,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         Connection conn = DBUtil.getInstance().getConn();
         PreparedStatement ps = null;
         String dataSql =
-                "INSERT INTO app_data_count " +
+                        "INSERT INTO app_data_count " +
                         "(id,highest_url,lowest_url," +
                         "period,highest_count" +
                         ",lowest_count,total_count,create_time)" +
