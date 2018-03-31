@@ -49,7 +49,7 @@
             class="com.cxgc.news_app.core.config.security.CustomAuthenticationProvider"
             p:userDetailsService-ref="customManagerDetailsService"
             p:passwordEncoder-ref="bCryptPasswordEncoder"
-            p:isEncoder="false"/>
+            p:isEncoder="true"/>
 
     <authentication-manager>
         <authentication-provider ref="customAuthenticationProvider"/>
