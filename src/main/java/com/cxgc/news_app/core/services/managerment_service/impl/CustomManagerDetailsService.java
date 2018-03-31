@@ -73,8 +73,10 @@ public class CustomManagerDetailsService implements UserDetailsService{
 	private List<GrantedAuthority> getGrantedAuthorities(Manager manager){
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		if(manager.getGroups() != null) {
+			//Group Name 	对应着	 页面菜单等权限控制
 			authorities.add(new SimpleGrantedAuthority("ROLE_" + manager.getGroups().getGroupName()));
 			if (manager.getGroups().getAuthorities() != null)
+				// Authorities Name
 				for (Authorities authorities1 : manager.getGroups().getAuthorities()) {
 					authorities.add(new SimpleGrantedAuthority(authorities1.getAuthoritiesName()));
 				}
@@ -82,5 +84,11 @@ public class CustomManagerDetailsService implements UserDetailsService{
 
 		return authorities;
 	}
-	
+
+	/* **********************************************/
+	/* *****************业务处理*********************/
+	/* **********************************************/
+	public void updateLastLoginTimeAndAddress(String mgrNo,String address){
+		managerDao.updateLastLoginTimeAndAddress(mgrNo,address);
+	}
 }
