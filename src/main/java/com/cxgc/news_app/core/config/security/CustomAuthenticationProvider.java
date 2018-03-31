@@ -68,11 +68,14 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
                     "错误的证书"));
         }
 
-        //证书验证通过后，修改登录时间
-        ((CustomManagerDetailsService)userDetailsService).updateLastLoginTime(
-                ((MyManagerDetails)userDetails).getMgrNo()
-        );
-
+        //证书验证通过后，修改上次登录时间 和 IP地址
+        CustomManagerDetailsService customManagerDetailsService = (CustomManagerDetailsService)userDetailsService;
+        MyManagerDetails managerDetails = (MyManagerDetails) userDetails ;
+        customManagerDetailsService.
+                updateLastLoginTimeAndAddress(
+                        managerDetails.getMgrNo(),
+                        ((CustomWebAuthenticationDetails)
+                                authentication.getDetails()).getRemoteAddress());
     }
 
     /**
