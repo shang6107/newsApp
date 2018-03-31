@@ -28,4 +28,8 @@
         insert into manager (id,mgr_no,password,mgr_name,groups_id) VALUES ()
     </insert>
 
+    <update id="updateLastLoginTimeAndAddress">
+        update manager set last_time = now(),remote_address = #{1}where mgr_no = #{0}
+    </update>
+
 </mapper>
