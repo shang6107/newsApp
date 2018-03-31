@@ -16,19 +16,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author 上官炳强
  * @Date 2018-03-31 / 03:30:44
  * @Version
- * @Description
- *  <h5>
- *          用来统计应用程序请求的访问情况的简单的侦听器。通过 web.xml 设定的参数：{@code delay}
- *      (侦听器启动后统计任务定时器执行的延迟时间) 和 {@code period} (任务定时器的执行周期)，
- *      记录下设定好的周期内的访问数量最多、最低的请求地址及其次数，并通过JDBC保存到数据库
- *  </h5>
+ * @Description <h5>
+ * 用来统计应用程序请求的访问情况的简单的侦听器。通过 web.xml 设定的参数：{@code delay}
+ * (侦听器启动后统计任务定时器执行的延迟时间) 和 {@code period} (任务定时器的执行周期)，
+ * 记录下设定好的周期内的访问数量最多、最低的请求地址及其次数，并通过JDBC保存到数据库
+ * </h5>
  */
 @Slf4j
 public class AppListener implements ServletRequestListener, ServletContextListener {
 
     @SuppressWarnings("Unckecked")
     private static final ConcurrentHashMap<String, Long> COUNT = new ConcurrentHashMap(200);
-    private static final Map<String,Object> TEMP_INFO_CONTAINER = new HashMap<>();
+    private static final Map<String, Object> TEMP_INFO_CONTAINER = new HashMap<>();
     private static java.util.Date lastExecutorTime = null;
     private static String contextLogPath;
     private static Long delay;
@@ -67,7 +66,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         if (splitTime.length > 1) {
             period = stringArray2Long(splitTime);
         } else {
-            period = Long.parseLong(dbSendPeriodStr);
+            period = parthString2Long(dbSendPeriodStr);
         }
         if (!checkValid(period)) {
             NullPointerException exception = new NullPointerException("应用程序数据统计侦听器初始化异常 : period = " + period);
@@ -78,7 +77,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         if (delayTime.length > 1) {
             delays = stringArray2Long(delayTime);
         } else {
-            delays = Long.parseLong(delayParam);
+            delays = parthString2Long(delayParam);
         }
         if (!checkValid(delays)) {
             NullPointerException exception = new NullPointerException("应用程序数据统计侦听器初始化异常 : delay = " + delays);
@@ -101,17 +100,28 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         timerTask();
     }
 
+    private static Long parthString2Long(String target){
+        Long result;
+        try {
+            result = Long.parseLong(target);
+        } catch (Exception e) {
+            log.error("应用程序数据统计侦听器初始化异常 : {}",target);
+            throw new RuntimeException("应用程序数据统计侦听器初始化异常 : delay = " + target);
+        }
+        return result;
+    }
+
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         Map<String, Object> periodInfo = getPeriodInfo();
         save2DB(
-                (String)periodInfo.get("highestURL")
-                ,(String)periodInfo.get("lowestURL")
-                ,(String)periodInfo.get("period")
-                ,(Long)periodInfo.get("highestCount")
-                ,(Long)periodInfo.get("lowestCount")
-                ,(Long)periodInfo.get("totalCount")
-                );
+                (String) periodInfo.get("highestURL")
+                , (String) periodInfo.get("lowestURL")
+                , (String) periodInfo.get("period")
+                , (Long) periodInfo.get("highestCount")
+                , (Long) periodInfo.get("lowestCount")
+                , (Long) periodInfo.get("totalCount")
+        );
         log.info("应用程序关闭，统计任务结束...");
     }
 
@@ -178,8 +188,8 @@ public class AppListener implements ServletRequestListener, ServletContextListen
         }, /*延迟 0 毫秒后开始执行*/delay, dbSendPeriod/* SEND PERIOD */);
     }
 
-    private static void save2DB(String highestURL,String lowestURL,String period,Long highestCount,Long lowestCount,
-                                Long totalCount){
+    private static void save2DB(String highestURL, String lowestURL, String period, Long highestCount, Long lowestCount,
+                                Long totalCount) {
         Connection conn = DBUtil.getInstance().getConn();
         PreparedStatement ps = null;
         String dataSql =
@@ -207,7 +217,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
     }
 
 
-    private static Map<String,Object> getPeriodInfo(){
+    private static Map<String, Object> getPeriodInfo() {
         Long totalCount = 0L; //总访问量
         Long highestCount = 0L;//最高访问量
         Long lowestCount = 100L;//最低访问量
@@ -233,12 +243,12 @@ public class AppListener implements ServletRequestListener, ServletContextListen
             totalCount += e.getValue();
 
         }
-        TEMP_INFO_CONTAINER.put("highestCount",highestCount);
-        TEMP_INFO_CONTAINER.put("lowestCount",lowestCount);
-        TEMP_INFO_CONTAINER.put("highestURL",highestURL);
-        TEMP_INFO_CONTAINER.put("lowestURL",lowestURL);
-        TEMP_INFO_CONTAINER.put("totalCount",totalCount);
-        TEMP_INFO_CONTAINER.put("period",periodStr);
+        TEMP_INFO_CONTAINER.put("highestCount", highestCount);
+        TEMP_INFO_CONTAINER.put("lowestCount", lowestCount);
+        TEMP_INFO_CONTAINER.put("highestURL", highestURL);
+        TEMP_INFO_CONTAINER.put("lowestURL", lowestURL);
+        TEMP_INFO_CONTAINER.put("totalCount", totalCount);
+        TEMP_INFO_CONTAINER.put("period", periodStr);
         return TEMP_INFO_CONTAINER;
     }
 
