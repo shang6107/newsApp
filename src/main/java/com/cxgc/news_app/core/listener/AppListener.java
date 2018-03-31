@@ -163,7 +163,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
                 Long totalCount = (Long) periodInfo.get("totalCount");
 
                 /* 打印日志**/
-                log.info("上次执行时间：{}，\n当前时间：{}。 \n{} 周期 访问次数最高的地址:{}, " +
+                log.info("\n上次执行时间：{}，\n当前时间：{}。\n {} 周期 \n访问次数最高的地址:{}, " +
                                 "次数：{}；\n访问次数最低的地址：{}，次数：{}；\n周期总访问量：{}"
                         , lastExecutorTime != null ?
                                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(lastExecutorTime)
