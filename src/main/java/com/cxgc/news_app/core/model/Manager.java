@@ -19,5 +19,7 @@ public class Manager {
     private Groups groups;
     private Date lastTime;
     private Date createTime;
+    private String remoteAddress;
+    private Integer loginCount;
 
 }
