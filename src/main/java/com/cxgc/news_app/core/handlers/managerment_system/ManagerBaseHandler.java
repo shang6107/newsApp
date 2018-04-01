@@ -130,13 +130,20 @@ public class ManagerBaseHandler {
     @RequestMapping("/root/manager-freeze")
     @ResponseBody
     public Object managerFreeze(String status , String mgrNo){
-        Manager manager = new Manager();
-        manager.setMgrNo(mgrNo);
-        manager.setStatus(UserStatus.getUserStatusByReason(status));
-        managerService.updateManagerStatus(manager);
-        Map<String,Object> map = new HashMap<>(1);
-        map.put("result","ok");
-        return map;
+        if(status != null && mgrNo != null){
+            String reasonChinese = status.equals("NORMAL") ?
+                    "正常" : (status.equals("FREEZE") ?
+                    "冻结" : (status.equals("ABNORMAL") ?
+                    "异常" : "失效"));
+            Manager manager = new Manager();
+            manager.setMgrNo(mgrNo);
+            manager.setStatus(UserStatus.getUserStatusByReason(reasonChinese));
+            managerService.updateManagerStatus(manager);
+            Map<String,Object> map = new HashMap<>(1);
+            map.put("result","ok");
+            return map;
+        }
+        return null;
     }
 
 }
