@@ -134,7 +134,9 @@ public class AppListener implements ServletRequestListener, ServletContextListen
                 (HttpServletRequest) servletRequestEvent.getServletRequest();
         String requestURI = request.getRequestURI();
 
-        if (!requestURI.startsWith(contextLogPath + "/static")) {
+        if (requestURI.startsWith(contextLogPath + "/management")
+                ||requestURI.startsWith(contextLogPath + "/ajax")
+                ||requestURI.startsWith(contextLogPath + "/app")) {
             if (COUNT.get(requestURI) != null) {
                 COUNT.put(requestURI, COUNT.get(requestURI) + 1);
             } else {
