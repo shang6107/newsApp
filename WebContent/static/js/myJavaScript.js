@@ -15,3 +15,16 @@
         }
     }
 }));
+
+
+function popup_msg(msg) {
+    $(".popup").html("" + msg + "");
+    $(".popupDom").animate({
+        "top": "0px"
+    }, 400);
+    setTimeout(function () {
+        $(".popupDom").animate({
+            "top": "-40px"
+        }, 400);
+    }, 2000);
+}
