@@ -2,18 +2,169 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 50539
+Source Server Version : 50719
 Source Host           : localhost:3306
 Source Database       : news_app
 
 Target Server Type    : MYSQL
-Target Server Version : 50539
+Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-03-30 18:56:54
+Date: 2018-04-01 22:59:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `app_data_count`
+-- ----------------------------
+DROP TABLE IF EXISTS `app_data_count`;
+CREATE TABLE `app_data_count` (
+  `id` varchar(32) DEFAULT NULL,
+  `highest_url` varchar(255) DEFAULT NULL,
+  `lowest_url` varchar(255) DEFAULT NULL,
+  `period` varchar(32) DEFAULT NULL,
+  `total_count` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `lowest_count` bigint(20) DEFAULT NULL,
+  `highest_count` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of app_data_count
+-- ----------------------------
+INSERT INTO `app_data_count` VALUES ('27d4e36d8dd74843a049a756a50da679', '/test/management/root_index.html', '/test/login', 'minutes', '10', '2018-03-31 20:00:45', '1', '3');
+INSERT INTO `app_data_count` VALUES ('df85ad7a35074bcaa040a4b504b13f2e', '/test/management/user-list', '/test/management/user-list', 'minutes', '2', '2018-03-31 20:01:44', '1', '1');
+INSERT INTO `app_data_count` VALUES ('b6addce5195442418a1000b041ab1b8a', null, null, 'minutes', '0', '2018-03-31 20:02:44', '0', '0');
+INSERT INTO `app_data_count` VALUES ('1f0c5429556f449e8c94496cf5200cbd', '/test/management/user-list', '/test/login', 'minutes', '16', '2018-03-31 20:56:47', '1', '4');
+INSERT INTO `app_data_count` VALUES ('ef298ede950d43c9bbc3ae78da3d5bef', null, null, 'minutes', '0', '2018-03-31 20:57:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('60beb3111fde4a07a0fcec38e4185974', null, null, 'minutes', '0', '2018-03-31 20:58:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('622db10332c8468bbb2fef40f8d37eb1', null, null, 'minutes', '0', '2018-03-31 20:59:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('ea0aa10e1cd944d181deb1ce8340fd30', null, null, 'minutes', '0', '2018-03-31 21:00:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('fa69d2cbe41149329ebf4b0cde5c3518', null, null, 'minutes', '0', '2018-03-31 21:01:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('7cff6b13665c464397fca8e9928f13bf', null, null, 'minutes', '0', '2018-03-31 21:02:47', '0', '0');
+INSERT INTO `app_data_count` VALUES ('d7d6f83e405944909086e6701713fa2a', null, null, 'minutes', '0', '2018-03-31 21:03:05', '100', '0');
+INSERT INTO `app_data_count` VALUES ('c597aebb29664449a0d1f055aeba62cb', '/test/management/news_search_engine.html', '/test/login', 'minutes', '9', '2018-03-31 23:04:04', '1', '2');
+INSERT INTO `app_data_count` VALUES ('a6121057f8b945a0aaf76af8de593526', '/test/management/user-list', '/test/management/news_search_engine.html', 'minutes', '11', '2018-03-31 23:04:41', '1', '3');
+INSERT INTO `app_data_count` VALUES ('3886a78a8321457dba86e468450e0e4f', '/test/login', '/test/login', 'minutes', '4', '2018-03-31 23:18:19', '1', '1');
+INSERT INTO `app_data_count` VALUES ('a4a4d9732c954345a4f6a74b6bba8d88', '/test/login', '/test/login', 'minutes', '3', '2018-03-31 23:20:48', '1', '1');
+INSERT INTO `app_data_count` VALUES ('217cd517df9a493fa2c80708235b12ba', null, null, 'minutes', '0', '2018-03-31 23:21:48', '0', '0');
+INSERT INTO `app_data_count` VALUES ('2631fdfd63c84864b507c58fcd6cd746', null, null, 'minutes', '0', '2018-03-31 23:21:57', '100', '0');
+INSERT INTO `app_data_count` VALUES ('af88b175d4844730aac84339f77d4ad2', '/test/login', '/test/login', 'minutes', '2', '2018-03-31 23:22:49', '2', '2');
+INSERT INTO `app_data_count` VALUES ('e8a1823a95a64f308dfdd60ed98be528', '/test/login', '/test/login', 'minutes', '2', '2018-03-31 23:24:12', '1', '1');
+INSERT INTO `app_data_count` VALUES ('b35019eedaa94c36a906819be86f185b', null, null, 'minutes', '0', '2018-03-31 23:24:30', '100', '0');
+INSERT INTO `app_data_count` VALUES ('ac9faacdf1d94096bb5e7b58cbef0a74', '/test/management/root_index.html', '/test/login', 'minutes', '6', '2018-03-31 23:26:39', '1', '2');
+INSERT INTO `app_data_count` VALUES ('9bed135fe81644abb79ae8402cebac70', null, null, 'minutes', '0', '2018-03-31 23:27:25', '100', '0');
+INSERT INTO `app_data_count` VALUES ('f2a47a5fe7094044ab4b45f09b3e0d75', '/test/login', '/test/login', 'minutes', '3', '2018-03-31 23:33:14', '1', '1');
+INSERT INTO `app_data_count` VALUES ('7daea2485253421aa65a38dbe50f1329', null, null, 'minutes', '0', '2018-03-31 23:34:14', '0', '0');
+INSERT INTO `app_data_count` VALUES ('136d842a19664e48bf67c60f8279cd3f', null, null, 'minutes', '0', '2018-03-31 23:35:10', '100', '0');
+INSERT INTO `app_data_count` VALUES ('421bd6ce51f643ab829731c36eb8e912', '/test/login', '/test/login', 'minutes', '2', '2018-03-31 23:37:09', '1', '1');
+INSERT INTO `app_data_count` VALUES ('28618e763adb4bbc960a8fcb98ce3fe4', '/test/management/root_index.html', '/test/login', 'minutes', '4', '2018-03-31 23:52:03', '1', '2');
+INSERT INTO `app_data_count` VALUES ('8076ba4d1e614692afb8679c9351051e', null, null, 'minutes', '0', '2018-04-01 13:41:40', '0', '0');
+INSERT INTO `app_data_count` VALUES ('f65dc4ccb252467e9e87c12da8bcd6b9', null, null, 'minutes', '0', '2018-04-01 13:42:40', '0', '0');
+INSERT INTO `app_data_count` VALUES ('f6a4d44c70924a8d91ae56ba1498dfe4', null, null, 'minutes', '0', '2018-04-01 13:43:40', '0', '0');
+INSERT INTO `app_data_count` VALUES ('8083dff851ce49229c2a6100eaac4469', '/test/management/login', '/test/management/login', 'minutes', '1', '2018-04-01 13:44:40', '1', '1');
+INSERT INTO `app_data_count` VALUES ('59b53e398e6c4b08b53802392610db8f', null, null, 'minutes', '0', '2018-04-01 13:45:40', '0', '0');
+INSERT INTO `app_data_count` VALUES ('d83d60058a744fc98e41be5fdd3bdad1', '/test/management/static/css1/layout.css', '/test/test/management/login', 'minutes', '18', '2018-04-01 13:46:40', '1', '3');
+INSERT INTO `app_data_count` VALUES ('fb65f9e7f673431093d238775f33a1bf', '/test/management/static/js/jquery.js', '/test/management/static/img/login-bg.png', 'minutes', '21', '2018-04-01 13:47:40', '1', '4');
+INSERT INTO `app_data_count` VALUES ('de775a7405ec47deae441be130850107', '/test/management/static/js/Validform_v5.3.2_min.js', '/test/login', 'minutes', '18', '2018-04-01 13:48:40', '1', '3');
+INSERT INTO `app_data_count` VALUES ('9e7661c823dd4664a355b341314e430b', '/test/management/static/img/logo.png', '/test/login', 'minutes', '59', '2018-04-01 13:49:40', '1', '4');
+INSERT INTO `app_data_count` VALUES ('0e170a9fa35041f9b05523fbc5b7c688', '/test/management/static/js/select.js', '/test/login', 'minutes', '108', '2018-04-01 13:50:40', '1', '6');
+INSERT INTO `app_data_count` VALUES ('ea97c518c0484c39a120d3c8310ea642', '/test/management/static/js/select.js', '/test/management/static/js/Validform_v5.3.2_min.js', 'minutes', '91', '2018-04-01 13:51:40', '1', '5');
+INSERT INTO `app_data_count` VALUES ('9fa89e94eed44f98a29afb8f0c2e38f2', null, null, 'minutes', '0', '2018-04-01 13:52:03', '100', '0');
+INSERT INTO `app_data_count` VALUES ('476b16fba6d04ddba03d5ebdb70a6d3b', '/test/management/news_search_engine.html', '/test/management/news_search_engine.html', 'minutes', '4', '2018-04-01 14:05:00', '1', '1');
+INSERT INTO `app_data_count` VALUES ('fc28e2c5fbf74f388a204c0ad65b8335', null, null, 'minutes', '0', '2018-04-01 14:05:47', '100', '0');
+INSERT INTO `app_data_count` VALUES ('c20ca8b06e374bba8bf8629307b520ae', '/test/management/login', '/test/management/manager_home.html', 'hour', '3', '2018-04-01 14:23:26', '1', '2');
+INSERT INTO `app_data_count` VALUES ('b0ce236c88164e82b34d806d49f784d1', '/test/management/login', '/test/management/root_index.html', 'hour', '4', '2018-04-01 14:25:18', '1', '2');
+INSERT INTO `app_data_count` VALUES ('fa6f5a9aae2241d9a55bce05d4c14872', null, null, 'hour', '0', '2018-04-01 14:25:22', '100', '0');
+INSERT INTO `app_data_count` VALUES ('5b1a6d5bac34473484021d7a957f8943', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '1', '2018-04-01 14:51:29', '1', '1');
+INSERT INTO `app_data_count` VALUES ('46d1f6b5fdf641a1a7f2d6e2800d7fbb', '/test/management/news_list.html', '/test/management/news_list.html', 'hour', '4', '2018-04-01 14:52:48', '1', '1');
+INSERT INTO `app_data_count` VALUES ('67c55cbdcc284e269eb3561c4408e5b1', '/test/management/root_index.html', '/test/management/root_index.html', 'hour', '3', '2018-04-01 14:54:07', '1', '1');
+INSERT INTO `app_data_count` VALUES ('fa07cb1dbba64d1d96c575575aeb45bc', '/test/management/manager_management.html', '/test/ajax/user-list', 'hour', '9', '2018-04-01 15:04:07', '1', '6');
+INSERT INTO `app_data_count` VALUES ('c845784cc846407bb512e9d200d52401', null, null, 'hour', '0', '2018-04-01 15:14:07', '0', '0');
+INSERT INTO `app_data_count` VALUES ('65ef6d67a5104bab90ef15e16610fefa', '/test/management/manager_management.html', '/test/ajax/user-list', 'hour', '9', '2018-04-01 15:24:07', '1', '8');
+INSERT INTO `app_data_count` VALUES ('5a56f64b7e8e4e90ae80ccfc53859423', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '3', '2018-04-01 15:26:29', '3', '3');
+INSERT INTO `app_data_count` VALUES ('7505f9cae65a41b6a0cf4d746788839b', '/test/ajax//manager-list', '/test/ajax//manager-list', 'hour', '1', '2018-04-01 15:46:12', '1', '1');
+INSERT INTO `app_data_count` VALUES ('e009416bd0364391a0eddb9d399b05ac', '/test/management/manager_management.html', '/test/management/root_index.html', 'hour', '13', '2018-04-01 15:56:12', '1', '6');
+INSERT INTO `app_data_count` VALUES ('bc9c4efe239c421d967d8caeb55caae5', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '24', '2018-04-01 16:06:13', '12', '12');
+INSERT INTO `app_data_count` VALUES ('8504e108e6d6447c8e2390725de7c26e', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '44', '2018-04-01 16:16:12', '22', '22');
+INSERT INTO `app_data_count` VALUES ('a0753e0ceb214687bca66d70bb8f0a2a', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '42', '2018-04-01 16:26:12', '21', '21');
+INSERT INTO `app_data_count` VALUES ('78c759182df6408f93ae79aa4502ee9a', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '10', '2018-04-01 16:36:13', '5', '5');
+INSERT INTO `app_data_count` VALUES ('a509f3b2ba784d34b9f3a6afebc3086b', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '32', '2018-04-01 16:46:12', '16', '16');
+INSERT INTO `app_data_count` VALUES ('2abf1c29d0cd4ec4aea36acc83da3ccc', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '24', '2018-04-01 16:56:12', '12', '12');
+INSERT INTO `app_data_count` VALUES ('7a960f9371d14cd485de88123e4b9d52', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '12', '2018-04-01 17:06:12', '6', '6');
+INSERT INTO `app_data_count` VALUES ('bcf88b8831ca4cd995ea9ae9f8a578a3', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '38', '2018-04-01 17:16:12', '19', '19');
+INSERT INTO `app_data_count` VALUES ('4a660e8481e947a58d60e5d13618632b', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '8', '2018-04-01 17:26:12', '4', '4');
+INSERT INTO `app_data_count` VALUES ('90ddae5516964044aebd786d56eebac7', null, null, 'hour', '0', '2018-04-01 17:36:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('eda75d55a96a48a98edc15886c2ac42e', null, null, 'hour', '0', '2018-04-01 17:46:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('624245197f9a4579b060906a224a5a90', null, null, 'hour', '0', '2018-04-01 17:56:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('3d03372930a8403f862fea0ad06dc267', null, null, 'hour', '0', '2018-04-01 18:06:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('fcc2d0fe757749359edb8765e2dbe6f7', null, null, 'hour', '0', '2018-04-01 18:16:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('06dd5a2f7a1b4ed5876209cc8036c1d5', null, null, 'hour', '0', '2018-04-01 18:26:12', '0', '0');
+INSERT INTO `app_data_count` VALUES ('7f9edd127fc545f88dc472784a8c070f', null, null, 'hour', '0', '2018-04-01 18:36:13', '0', '0');
+INSERT INTO `app_data_count` VALUES ('3243006977cc45a6929e87692d162899', '/test/management/manager_management.html', '/test/management/root_index.html', 'hour', '5', '2018-04-01 18:46:12', '1', '2');
+INSERT INTO `app_data_count` VALUES ('6fc62ec4db1d4ff7a21c133a15c6aa70', '/test/management/manager_management.html', '/test/ajax/manager-list', 'hour', '50', '2018-04-01 18:56:13', '24', '26');
+INSERT INTO `app_data_count` VALUES ('ecdea46efa874a32a4be9007dfc1b07f', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '24', '2018-04-01 19:06:12', '12', '12');
+INSERT INTO `app_data_count` VALUES ('6584f4dc49e347399c528e4fda8ef239', '/test/management/manager_management.html', '/test/management/manager-freeze/m001', 'hour', '47', '2018-04-01 19:16:12', '1', '23');
+INSERT INTO `app_data_count` VALUES ('3d9dbe0f380640adacfef12285edcc50', '/test/management/manager_management.html', '/test/ajax/manager-list', 'hour', '13', '2018-04-01 19:26:12', '6', '7');
+INSERT INTO `app_data_count` VALUES ('ae9969ca00fc4347aa2aa163d473adb1', null, null, 'hour', '0', '2018-04-01 19:33:47', '100', '0');
+INSERT INTO `app_data_count` VALUES ('33447542a1b14db18295064c9cbbf6db', null, null, 'hour', '0', '2018-04-01 19:51:54', '100', '0');
+INSERT INTO `app_data_count` VALUES ('0524ae965ae74ff387783fb86071347d', null, null, 'hour', '0', '2018-04-01 19:52:23', '100', '0');
+INSERT INTO `app_data_count` VALUES ('d42e462dcccd4983b2b1ba791f8b6007', '/test/management/manager_management.html', '/test/management/root_index.html', 'hour', '5', '2018-04-01 19:54:23', '1', '2');
+INSERT INTO `app_data_count` VALUES ('6c6f27e3e8ad44e99744095355687afd', null, null, 'hour', '0', '2018-04-01 19:55:13', '100', '0');
+INSERT INTO `app_data_count` VALUES ('194024bd578c4a57be2db163ff2540c1', '/test/management/manager_management.html', '/test/management/root/manager-freeze/m001', 'hour', '6', '2018-04-01 19:56:32', '1', '2');
+INSERT INTO `app_data_count` VALUES ('9832a7c108ee4039ac075bd686a69c98', '/test/ajax//manager-list', '/test/ajax//manager-list', 'hour', '2', '2018-04-01 19:56:58', '1', '1');
+INSERT INTO `app_data_count` VALUES ('d1f5b55aaa594d058e2b65cc036a2ce4', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '1', '2018-04-01 19:57:46', '1', '1');
+INSERT INTO `app_data_count` VALUES ('e9b867a503f9410f83aed4b49bafe424', null, null, 'hour', '0', '2018-04-01 19:58:17', '100', '0');
+INSERT INTO `app_data_count` VALUES ('f713aac17d1c40e99947b3214d3b6c06', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '1', '2018-04-01 19:59:42', '1', '1');
+INSERT INTO `app_data_count` VALUES ('eb7587258ab24bfc9c6c484898031ec9', null, null, 'hour', '0', '2018-04-01 20:00:40', '100', '0');
+INSERT INTO `app_data_count` VALUES ('3c0ebf4785f048ed849aa95179231e80', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '1', '2018-04-01 20:02:42', '1', '1');
+INSERT INTO `app_data_count` VALUES ('5dc561b11bb9412d976db524273449e9', null, null, 'hour', '0', '2018-04-01 20:03:58', '100', '0');
+INSERT INTO `app_data_count` VALUES ('a5fd3e94e81e44ca9d954179c2371d24', '/test/management/login', '/test/management/root/manager-freeze/m001', 'hour', '5', '2018-04-01 20:05:19', '1', '2');
+INSERT INTO `app_data_count` VALUES ('f2886c45ea4d4b62ba52d221647c4f32', null, null, 'hour', '0', '2018-04-01 20:06:24', '100', '0');
+INSERT INTO `app_data_count` VALUES ('5b4404fcb0cd4de081b412d738503b0d', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '1', '2018-04-01 20:07:45', '1', '1');
+INSERT INTO `app_data_count` VALUES ('fb80dce88b054452b44b175be6aef437', null, null, 'hour', '0', '2018-04-01 20:09:28', '100', '0');
+INSERT INTO `app_data_count` VALUES ('21944484fe5f4d0e8e78abf01b5a8444', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '2', '2018-04-01 20:10:49', '1', '1');
+INSERT INTO `app_data_count` VALUES ('bc5b467eef9349e186b138b87d753444', null, null, 'hour', '0', '2018-04-01 20:11:14', '100', '0');
+INSERT INTO `app_data_count` VALUES ('a4e38a3f46b24d88a39ef46d45151ee0', '/test/management/login', '/test/management/rootadsads21321', 'hour', '4', '2018-04-01 20:12:49', '1', '2');
+INSERT INTO `app_data_count` VALUES ('7be63b1a1b264151b8c18fbaec782c91', '/test/management/root_index.html', '/test/management/root_index.html', 'hour', '3', '2018-04-01 20:14:09', '1', '1');
+INSERT INTO `app_data_count` VALUES ('506aced036e243b9a5f1d26966cb1843', '/test/management/root/manager-freeze/m000', '/test/management/root/manager-freeze/m000', 'hour', '2', '2018-04-01 20:15:11', '1', '1');
+INSERT INTO `app_data_count` VALUES ('5cbf4e3cfa4544fb9ca5ae403bfeb976', '/test/management/root/manager-freeze/m000', '/test/management/root/manager-freeze/m000', 'hour', '4', '2018-04-01 20:17:37', '1', '1');
+INSERT INTO `app_data_count` VALUES ('d84a8ac97e1f43fb88587cbc355ed122', null, null, 'hour', '0', '2018-04-01 20:19:56', '100', '0');
+INSERT INTO `app_data_count` VALUES ('8db23dca4936450db9a173d2fb3dd465', '/test/management/manager_management.html', '/test/management/root/manager-freeze/m001', 'hour', '6', '2018-04-01 20:21:16', '1', '2');
+INSERT INTO `app_data_count` VALUES ('03216920513747b1b6ffbac206675e7f', null, null, 'hour', '0', '2018-04-01 20:25:34', '100', '0');
+INSERT INTO `app_data_count` VALUES ('559ce08790b04249941f50d5e21b0cbc', '/test/management/manager_management.html', '/test/management/login', 'hour', '5', '2018-04-01 20:26:52', '1', '3');
+INSERT INTO `app_data_count` VALUES ('cd1713c1025e4f2c9e305cc4c2674366', '/test/management/manager_management.html', '/test/management/root/manager-freeze/m000', 'hour', '19', '2018-04-01 20:36:53', '1', '7');
+INSERT INTO `app_data_count` VALUES ('d0ab091bd1374666a80af0317c1b27ad', '/test/management/manager_management.html', '/test/management/manager_management.html', 'hour', '2', '2018-04-01 20:42:21', '1', '1');
+INSERT INTO `app_data_count` VALUES ('2787edfb58ab46758870e368fb33824d', '/test/management/login', '/test/management/login', 'hour', '4', '2018-04-01 20:53:14', '1', '1');
+INSERT INTO `app_data_count` VALUES ('a3ae19f1805e45c9bb321c8b3b266cb9', '/test/management/root_index.html', '/test/ajax/manager-list', 'hour', '14', '2018-04-01 21:01:45', '1', '6');
+INSERT INTO `app_data_count` VALUES ('6c88763bba274574aae0566a091cfe24', null, null, 'hour', '0', '2018-04-01 21:03:05', '0', '0');
+INSERT INTO `app_data_count` VALUES ('c6540d0247e24867bf715f9e7c86ef3d', '/test/management/login', '/test/management/root_index.html', 'hour', '7', '2018-04-01 21:06:51', '1', '2');
+INSERT INTO `app_data_count` VALUES ('e6e2880252134959935ae718a097818b', '/test/management/root/manager-freeze/m001', '/test/management/root_index.html', 'hour', '7', '2018-04-01 21:08:11', '1', '2');
+INSERT INTO `app_data_count` VALUES ('0e47ba001cb3492caf3c883ba3a33b2b', '/test/management/root/manager-freeze/m001', '/test/management/root/manager-freeze/m001', 'hour', '1', '2018-04-01 21:14:31', '1', '1');
+INSERT INTO `app_data_count` VALUES ('21e39c19ccab4fcba32e53bcf01192e1', null, null, 'hour', '0', '2018-04-01 21:16:24', '100', '0');
+INSERT INTO `app_data_count` VALUES ('ce9f6be38f6945aca91988fe5b16eb9c', '/test/management/root_management.html', '/test/management/root_index.html', 'hour', '5', '2018-04-01 21:18:44', '1', '2');
+INSERT INTO `app_data_count` VALUES ('687183ca00a542b7b797028e677020cb', '/test/ajax/manager-list', '/test/ajax/manager-list', 'hour', '4', '2018-04-01 21:20:18', '2', '2');
+INSERT INTO `app_data_count` VALUES ('107c4649c1d2496abc00dd907594f026', '/test/management/root_management.html', '/test/management/root_index.html', 'hour', '5', '2018-04-01 21:24:28', '1', '2');
+INSERT INTO `app_data_count` VALUES ('ec303352e11841b9a398f9f4f9dc1629', '/test/ajax/manager-list', '/test/ajax/manager-list', 'hour', '12', '2018-04-01 21:34:28', '6', '6');
+INSERT INTO `app_data_count` VALUES ('ea13ed11ba9e42d69416519790a039b6', '/test/management/root_management.html', '/test/management/root/manager-freeze/m001', 'hour', '24', '2018-04-01 21:44:28', '3', '11');
+INSERT INTO `app_data_count` VALUES ('fe975a57509344b8862e714b1585ae88', '/test/ajax/manager-list', '/test/management/root/manager-freeze/m002', 'hour', '14', '2018-04-01 21:54:28', '1', '4');
+INSERT INTO `app_data_count` VALUES ('9df9c407c88c4734bc67bd7f0b0222dd', '/test/ajax/manager-list', '/test/management/root_index.html', 'hour', '33', '2018-04-01 22:04:28', '1', '11');
+INSERT INTO `app_data_count` VALUES ('afdd5410a8584fa7972b5b11084f3fb9', '/test/management/root/manager-freeze/m002', '/test/management/root/manager-freeze/m002', 'hour', '2', '2018-04-01 22:11:17', '2', '2');
+INSERT INTO `app_data_count` VALUES ('7162a8b298bf47d98a009f42da662aa7', '/test/management/root_management.html', '/test/management/root/manager-freeze', 'hour', '6', '2018-04-01 22:21:40', '1', '2');
+INSERT INTO `app_data_count` VALUES ('7c597962b2a64ebe985ce88701a33b1b', null, null, 'hour', '0', '2018-04-01 22:31:40', '0', '0');
+INSERT INTO `app_data_count` VALUES ('d98441e1e26344e29fad97d0649b5bea', null, null, 'hour', '0', '2018-04-01 22:38:06', '100', '0');
+INSERT INTO `app_data_count` VALUES ('356e28bc47a94a6f974fd5300b336a89', '/test/management/login', '/test/management/login', 'hour', '2', '2018-04-01 22:39:11', '1', '1');
+INSERT INTO `app_data_count` VALUES ('57abc4c7350143edbf23449770dc393e', '/test/management/login', '/test/management/root_index.html', 'hour', '5', '2018-04-01 22:40:31', '1', '2');
+INSERT INTO `app_data_count` VALUES ('7d1a864265d547ea85d8c26c341cb25e', '/test/management/root/manager-freeze', '/test/management/root/manager-freeze', 'hour', '3', '2018-04-01 22:42:19', '1', '1');
+INSERT INTO `app_data_count` VALUES ('4dd54b46e09b4031a045aaca56ba5446', '/test/management/root_management.html', '/test/management/root/manager-freeze', 'hour', '6', '2018-04-01 22:43:38', '1', '2');
+INSERT INTO `app_data_count` VALUES ('9ebea015ca4943fdb1f98901fb2ca92b', null, null, 'hour', '0', '2018-04-01 22:44:01', '100', '0');
+INSERT INTO `app_data_count` VALUES ('77dfb98b302446c5847da96dd2e97770', '/test/management/root_management.html', '/test/management/root/manager-freeze', 'hour', '6', '2018-04-01 22:45:38', '1', '2');
+INSERT INTO `app_data_count` VALUES ('9779b2a0ff7744ee9da1f4ff46316cfe', null, null, 'hour', '0', '2018-04-01 22:45:38', '100', '0');
+INSERT INTO `app_data_count` VALUES ('7177a1d3dd55426b82a1b60663726281', '/test/management/root_management.html', '/test/management/root_index.html', 'hour', '13', '2018-04-01 22:47:48', '1', '5');
+INSERT INTO `app_data_count` VALUES ('1ff2afbd7f5a4e1f8afadebdf5d3f9cf', '/test/management/root/manager-freeze', '/test/management/root/manager-freeze', 'hour', '1', '2018-04-01 22:49:25', '1', '1');
+INSERT INTO `app_data_count` VALUES ('f049b6e491fa499ba963c7b7b2c4e04b', '/test/management/root_management.html', '/test/management/root/manager-freeze', 'hour', '8', '2018-04-01 22:55:19', '1', '3');
+INSERT INTO `app_data_count` VALUES ('8a912e12b30c44f29fda570b4c9c0abb', '/test/management/root/manager-freeze', '/test/management/root/manager-freeze', 'hour', '1', '2018-04-01 22:55:37', '1', '1');
 
 -- ----------------------------
 -- Table structure for `authorities`
@@ -163,12 +314,15 @@ DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
   `id` varchar(32) NOT NULL DEFAULT '',
   `mgr_no` varchar(20) DEFAULT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `mgr_name` varchar(20) DEFAULT NULL,
   `groups_id` varchar(32) DEFAULT NULL,
   `last_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `head_img` varchar(255) DEFAULT NULL,
+  `remote_address` varchar(32) DEFAULT NULL,
+  `login_count` int(11) DEFAULT '0',
+  `status` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `mgr_no` (`mgr_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -176,10 +330,10 @@ CREATE TABLE `manager` (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('30de037bc2174adf9e1ca84803e42ef1', 'm002', '222222', 'users_mgr', '1e1f8ce640b0451197a1ee650463d695', '2018-03-05 11:10:41', null, null);
-INSERT INTO `manager` VALUES ('70b614d1b0d94efe95e1e9cbef59a86c', 'm000', '000000', 'root_mgr', '3a5eb3ec8c5b47e8bbe18817b3ae06ec', '2018-03-22 11:10:44', null, null);
-INSERT INTO `manager` VALUES ('bb21ba909cfa41b88694dd001f9d4a25', 'm001', '111111', 'news_mgr', '43b0a31e08884dc3a18ec918ad2cca28', '2018-03-22 11:10:47', null, null);
-INSERT INTO `manager` VALUES ('c003a9703675499587557f9aa643f7e9', 'm003', '333333', 'news_mgr', '43b0a31e08884dc3a18ec918ad2cca28', '2018-03-22 11:10:50', null, null);
+INSERT INTO `manager` VALUES ('30de037bc2174adf9e1ca84803e42ef1', 'm002', '222222', 'users_mgr', '1e1f8ce640b0451197a1ee650463d695', '2018-03-05 11:10:41', null, null, null, null, '3');
+INSERT INTO `manager` VALUES ('70b614d1b0d94efe95e1e9cbef59a86c', 'm000', '$2a$10$EyvpMVjf7fnY2BN0DcJH.unpUW/rLZuC/KI5F71gVBpjnaze0oPem', 'root_mgr', '3a5eb3ec8c5b47e8bbe18817b3ae06ec', '2018-04-01 22:54:41', null, null, '127.0.0.1', null, '3');
+INSERT INTO `manager` VALUES ('bb21ba909cfa41b88694dd001f9d4a25', 'm001', '$2a$10$HurynLTwWMEdoS2mViax.ecWjKjJLkRg8VaLci5.wbl9EnnExOCQG', 'news_mgr', '43b0a31e08884dc3a18ec918ad2cca28', '2018-04-01 21:04:33', null, null, '127.0.0.1', null, '3');
+INSERT INTO `manager` VALUES ('c003a9703675499587557f9aa643f7e9', 'm003', '333333', 'news_mgr', '43b0a31e08884dc3a18ec918ad2cca28', '2018-03-22 11:10:50', null, null, null, null, '3');
 
 -- ----------------------------
 -- Table structure for `news`
