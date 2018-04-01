@@ -34,5 +34,33 @@
     <update id="updateLastLoginTimeAndAddressAndLoginCount">
         update manager set last_time = now(),login_count = login_count + 1 , remote_address = #{1} where mgr_no = #{0}
     </update>
+    <update id="updateManager">
+        update
+            manager
+        <set>
+            <if test="mgrNo != null">
+                mgr_no = #{mgrNo},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="mgrName != null">
+                mgr_name = #{mgrName},
+            </if>
+            <if test="status != null">
+                status = #{status.status},
+            </if>
+            <if test="groups != null">
+                groups_id = #{groups.id},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg}
+            </if>
+        </set>
+        <where>
+            mgr_no = #{mgrNo}
+        </where>
+    </update>
+
 
 </mapper>
