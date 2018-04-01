@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface ManagerService {
 
-    void updateManagerStatus(String mgrNo,UserStatus status);
+    void updateManagerStatus(Manager manager);
 
     /**
      * 添加管理员
