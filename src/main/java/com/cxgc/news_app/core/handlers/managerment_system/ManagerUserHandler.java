@@ -5,6 +5,7 @@ import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.common.UserType;
 import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
+import com.cxgc.news_app.utility.RequestParameterWrapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.Map;
 
 /**
@@ -56,12 +58,6 @@ public class ManagerUserHandler {
         map.put("user", user);
 
         return "test";
-    }
-
-    @RequestMapping("/ajax-user-list")
-    @ResponseBody
-    public Object allUser(Integer pageSize,Integer pageNum){
-        return ums.selectAllUser(pageSize, pageNum);
     }
 
     @RequestMapping("/user-statistical")
