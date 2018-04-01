@@ -16,7 +16,7 @@
 
     <context-param>
         <param-name>period</param-name>
-        <param-value>1000*60</param-value>
+        <param-value>1000*60*10</param-value>
     </context-param>
     <context-param>
         <param-name>delay</param-name>
