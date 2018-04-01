@@ -59,7 +59,7 @@
                         $(data.currentTarget).html("<i class='layui-icon layui-anim layui-anim-rotate layui-anim-loop'>&#xe63d;</i>");
                         hasFreeze = true;
                         $.ajax({
-                            url: data.currentTarget.href + "&status=\u51bb\u7ed3",
+                            url: data.currentTarget.href + "&status=FREEZE",
                             success: function (result) {
                                 if (result.result) {
                                     statusTextDescNode.innerText = "\u51bb\u7ed3";
@@ -80,7 +80,7 @@
                         $(data.currentTarget).html("<i class='layui-icon layui-anim layui-anim-rotate layui-anim-loop'>&#xe63d;</i>");
                         hasFreeze = false;
                         $.ajax({
-                            url: data.currentTarget.href + "&status=\u6b63\u5e38",
+                            url: data.currentTarget.href + "&status=NORMAL",
                             success: function (result) {
                                 if (result.result) {
                                     $(data.currentTarget).html("<i class='layui-icon'>&#xe640;</i>");
