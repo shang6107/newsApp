@@ -72,7 +72,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         CustomManagerDetailsService customManagerDetailsService = (CustomManagerDetailsService)userDetailsService;
         MyManagerDetails managerDetails = (MyManagerDetails) userDetails ;
         customManagerDetailsService.
-                updateLastLoginTimeAndAddress(
+                updateLastLoginTimeAndAddressAndLoginCount(
                         managerDetails.getMgrNo(),
                         ((CustomWebAuthenticationDetails)
                                 authentication.getDetails()).getRemoteAddress());
