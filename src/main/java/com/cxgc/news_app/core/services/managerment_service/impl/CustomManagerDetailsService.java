@@ -88,7 +88,7 @@ public class CustomManagerDetailsService implements UserDetailsService{
 	/* **********************************************/
 	/* *****************业务处理*********************/
 	/* **********************************************/
-	public void updateLastLoginTimeAndAddress(String mgrNo,String address){
-		managerDao.updateLastLoginTimeAndAddress(mgrNo,address);
+	public void updateLastLoginTimeAndAddressAndLoginCount(String mgrNo,String address){
+		managerDao.updateLastLoginTimeAndAddressAndLoginCount(mgrNo,address);
 	}
 }
