@@ -12,7 +12,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , height: 700
+            , height: 500
             , curr: 1
             , hash: true
             , limit: 10
@@ -26,8 +26,8 @@
                 pageName: 'pageNum' //页码的参数名称，默认：page
                 , limitName: 'pageSize' //每页数据量的参数名，默认：limit
             }
-            , url: 'management/ajax-user-list' //数据接口
-            , page: {theme: '#2a94de'} //开启分页
+            , url: 'ajax/user-list' //数据接口
+            , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 300, sort: true}
                 , {field: 'phoneNum', title: '手机号', width: 150}
