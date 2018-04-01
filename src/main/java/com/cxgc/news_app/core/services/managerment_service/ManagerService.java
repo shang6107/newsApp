@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.managerment_service;
 
+import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.core.model.Manager;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerService {
+
+    void updateManagerStatus(String mgrNo,UserStatus status);
 
     /**
      * 添加管理员
@@ -34,7 +37,7 @@ public interface ManagerService {
  * @return
  */
 
-    public List<Manager> getManager();
+    public Object getManager(Integer pageNum , Integer pageSize);
 
 
 /**
