@@ -1,6 +1,8 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.core.model.Manager;
+import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -123,23 +125,18 @@ public class ManagerBaseHandler {
     }
 
 
-    @RequestMapping("/root/manager-freeze/{mgrNo}")
+    @Autowired
+    private ManagerService managerService;
+    @RequestMapping("/root/manager-freeze")
     @ResponseBody
-    public Object managerFreeze(@PathVariable("mgrNo") String mgrNo){
-        //TODO:修改管理员账户状态
+    public Object managerFreeze(String status , String mgrNo){
+        Manager manager = new Manager();
+        manager.setMgrNo(mgrNo);
+        manager.setStatus(UserStatus.getUserStatusByReason(status));
+        managerService.updateManagerStatus(manager);
         Map<String,Object> map = new HashMap<>(1);
         map.put("result","ok");
         return map;
     }
-
-    @RequestMapping("/rootadsads21321")
-    @ResponseBody
-    public Object managerFreeze1(String mgrNo){
-        //TODO:修改管理员账户状态
-        Map<String,Object> map = new HashMap<>(1);
-        map.put("result","ok");
-        return map;
-    }
-
 
 }
