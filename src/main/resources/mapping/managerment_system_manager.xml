@@ -28,7 +28,7 @@
         insert into manager (id,mgr_no,password,mgr_name,groups_id) VALUES ()
     </insert>
 
-    <update id="updateLastLoginTimeAndAddress">
+    <update id="updateLastLoginTimeAndAddressAndLoginCount">
         update manager set last_time = now(),login_count = login_count + 1 , remote_address = #{1} where mgr_no = #{0}
     </update>
 
