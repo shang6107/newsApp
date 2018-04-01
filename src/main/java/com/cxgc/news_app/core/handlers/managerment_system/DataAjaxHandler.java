@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.NewsManagermentService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import static com.cxgc.news_app.utility.RequestParameterWrapUtil.*;
@@ -20,9 +21,15 @@ import java.text.ParseException;
  */
 @Controller
 @RequestMapping("/ajax")
-public class BasicAjaxHandler {
+public class DataAjaxHandler {
     private UserManagementService userManagementService;
     private NewsManagermentService newsManagermentService;
+    private ManagerService managerService;
+
+    @Autowired
+    public void setManagerService(ManagerService managerService) {
+        this.managerService = managerService;
+    }
 
     @Autowired
     public void setUserManagementService(UserManagementService userManagementService) {
@@ -44,4 +51,11 @@ public class BasicAjaxHandler {
     public Object getUserByPhone(@PathVariable("phoneNum") String phoneNum) throws ParseException, IllegalAccessException {
         return $(userManagementService.getUserByPhoneNum(phoneNum));
     }
+
+    @RequestMapping("/manager-list")
+    @ResponseBody
+    public Object managerList(Integer pageNum , Integer pageSize) throws ParseException, IllegalAccessException {
+        return $(managerService.getManager(pageNum, pageSize));
+    }
+
 }
