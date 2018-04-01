@@ -80,10 +80,12 @@ public interface NewsManagermentDao {
 
     /**
      * 根据请求内容返回相关数据
-     * @param reqData
      * @return
      */
-    List<Map<String,Object>> dataCount(Map<String,Object> reqData);
+    Map<String,Object> getMinCountOfNewsType();//访问量最小的新闻类型
+    Map<String,Object> getMaxCountOfNewsType();//访问量最大的新闻类型
+    List<News> getTop10News();//访问量前十的新闻
+    List<Release> getTop10Release();//访问量前十的新闻(后台发布)
 
 
 
