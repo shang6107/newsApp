@@ -16,6 +16,7 @@
         <intercept-url pattern="/management/root**/**" access="hasRole('超级管理员')" />
         <intercept-url pattern="/management/user**/**" access="hasRole('超级管理员') or hasRole('用户管理员')" />
         <intercept-url pattern="/management/news**/**" access="hasRole('超级管理员') or hasRole('新闻管理员')" />
+        <intercept-url pattern="/management/manager**/**" access="isAuthenticated()"/>
         <form-login  login-page="/management/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
