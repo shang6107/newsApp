@@ -14,7 +14,7 @@
         <result property="createTime" column="create_time"/>
         <result property="remoteAddress" column="remote_address"/>
         <result property="loginCount" column="login_count"/>
-        <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserTypeHandler"/>
+        <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
         <association property="groups" column="groups_id"
                      select="com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao.getGroupById"/>
     </resultMap>
