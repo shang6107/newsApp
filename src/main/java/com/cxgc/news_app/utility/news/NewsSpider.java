@@ -23,7 +23,7 @@ import java.util.*;
 /**
  * @author 徐瑜壮
  * @Date 2018-03-22 / 04:46:28
- * @Version
+ * @Version 通过新闻接口抓取新闻
  * @Description
  */
 @Scope("prototype")

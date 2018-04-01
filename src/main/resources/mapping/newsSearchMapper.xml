@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.news_app.core.mapper.news_mapper.NewsIndexDao">
+
+    <select id="newsSearch" resultType="com.cxgc.news_app.core.model.News" parameterType="java.util.List">
+        SELECT id,title,author,url FROM news WHERE
+        <foreach collection="list" item="s" index="index" separator="or">
+            title  LIKE concat("%",#{item},"%")
+        </foreach>
+    </select>
+</mapper>
