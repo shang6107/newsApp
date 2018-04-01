@@ -44,8 +44,15 @@ table tr{
 
 td{
     text-align: center;
-    font-size: 15px;
-    color: #F2F2F2;: #2a94de;
+    font-size: 18px;
+    color: #F2F2F2;
     background: #2a94de;
     padding: 5px 30px 5px 30px;
+}
+
+.commons-td{
+    background: #F2F2F2;
+    color: #000;
+    border:1px solid white;
+    font-size: 14px;
 }
