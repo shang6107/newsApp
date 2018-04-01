@@ -28,7 +28,7 @@
 
 
     <select id="selectAllManager" resultMap="manager_result">
-        select * from manager
+        select * from manager where mgr_no != m001
     </select>
     <update id="updateLastLoginTimeAndAddressAndLoginCount">
         update manager set last_time = now(),login_count = login_count + 1 , remote_address = #{1} where mgr_no = #{0}
