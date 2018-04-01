@@ -27,6 +27,12 @@ public class AppListener implements ServletRequestListener, ServletContextListen
     @SuppressWarnings("Unckecked")
     private static final ConcurrentHashMap<String, Long> COUNT = new ConcurrentHashMap(200);
     private static final Map<String, Object> TEMP_INFO_CONTAINER = new HashMap<>();
+    private static final String HIGHEST_COUNT = "highestCount";
+    private static final String LOWEST_COUNT = "lowestCount";
+    private static final String HIGHEST_URL = "highestURL";
+    private static final String LOWEST_URL = "lowestURL";
+    private static final String TOTAL_COUNT = "totalCount";
+    private static final String PERIOD = "period";
     private static java.util.Date lastExecutorTime = null;
     private static String contextLogPath;
     private static Long delay;
@@ -114,12 +120,12 @@ public class AppListener implements ServletRequestListener, ServletContextListen
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         Map<String, Object> periodInfo = getPeriodInfo();
         save2DB(
-                (String) periodInfo.get("highestURL")
-                , (String) periodInfo.get("lowestURL")
-                , (String) periodInfo.get("period")
-                , (Long) periodInfo.get("highestCount")
-                , (Long) periodInfo.get("lowestCount")
-                , (Long) periodInfo.get("totalCount")
+                (String) periodInfo.get(HIGHEST_URL)
+                , (String) periodInfo.get(LOWEST_URL)
+                , (String) periodInfo.get(PERIOD)
+                , (Long) periodInfo.get(HIGHEST_COUNT)
+                , (Long) periodInfo.get(LOWEST_COUNT)
+                , (Long) periodInfo.get(TOTAL_COUNT)
         );
         log.info("应用程序关闭，统计任务结束...");
     }
@@ -157,12 +163,12 @@ public class AppListener implements ServletRequestListener, ServletContextListen
                 log.info("*****开始执行应用程序数据统计定时器*****");
                 /* 统计出上次任务执行到现在时刻的数据 **/
                 Map<String, Object> periodInfo = getPeriodInfo();
-                String period = (String) periodInfo.get("period");
-                String highestURL = (String) periodInfo.get("highestURL");
-                String lowestURL = (String) periodInfo.get("lowestURL");
-                Long highestCount = (Long) periodInfo.get("highestCount");
-                Long lowestCount = (Long) periodInfo.get("lowestCount");
-                Long totalCount = (Long) periodInfo.get("totalCount");
+                String period = (String) periodInfo.get(PERIOD);
+                String highestURL = (String) periodInfo.get(HIGHEST_URL);
+                String lowestURL = (String) periodInfo.get(LOWEST_URL);
+                Long highestCount = (Long) periodInfo.get(HIGHEST_COUNT);
+                Long lowestCount = (Long) periodInfo.get(LOWEST_COUNT);
+                Long totalCount = (Long) periodInfo.get(TOTAL_COUNT);
 
                 /* 打印日志**/
                 log.info("\n上次执行时间：{}，\n当前时间：{}。\n {} 周期 \n访问次数最高的地址:{}, " +
@@ -244,13 +250,15 @@ public class AppListener implements ServletRequestListener, ServletContextListen
             totalCount += e.getValue();
 
         }
-        TEMP_INFO_CONTAINER.put("highestCount", highestCount);
-        TEMP_INFO_CONTAINER.put("lowestCount", lowestCount);
-        TEMP_INFO_CONTAINER.put("highestURL", highestURL);
-        TEMP_INFO_CONTAINER.put("lowestURL", lowestURL);
-        TEMP_INFO_CONTAINER.put("totalCount", totalCount);
-        TEMP_INFO_CONTAINER.put("period", periodStr);
+        TEMP_INFO_CONTAINER.put(HIGHEST_COUNT, highestCount);
+        TEMP_INFO_CONTAINER.put(LOWEST_COUNT, lowestCount);
+        TEMP_INFO_CONTAINER.put(HIGHEST_URL, highestURL);
+        TEMP_INFO_CONTAINER.put(LOWEST_URL, lowestURL);
+        TEMP_INFO_CONTAINER.put(TOTAL_COUNT, totalCount);
+        TEMP_INFO_CONTAINER.put(PERIOD, periodStr);
         return TEMP_INFO_CONTAINER;
     }
+
+
 
 }
