@@ -13,12 +13,17 @@
 	<context:component-scan base-package="com.cxgc.news_app.core.handlers" />
 	<context:component-scan base-package="com.cxgc.news_app.test"/>
 
+
+	<!--i18n-->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	</bean>
+
 	<!--JSR 303-->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="validator"/>
 	</bean>
 
-	<bean id="validatorFactoryBean"
+	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
 		<property name="validationMessageSource" ref="messageSource"/>
@@ -101,5 +106,5 @@
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 	<import resource="application-context.xml" />
 	<mvc:default-servlet-handler/>
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator" />
 </beans>
