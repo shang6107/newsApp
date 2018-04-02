@@ -9,5 +9,5 @@ public interface NewsSearchService {
 
     List<News> newsSearch(String str);
 
-    Map<String,List<Object>> searchInit();
+    List<String> searchInit();
 }

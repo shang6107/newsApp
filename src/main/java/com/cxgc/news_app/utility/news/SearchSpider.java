@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 /**@author 徐瑜壮
@@ -23,6 +25,7 @@ import java.util.concurrent.Future;
 @Component
 @EnableAsync
 public class SearchSpider {
+    private static final String HOT_SEARCH_URL="http://top.baidu.com/buzz?b=1&fr=topcategory_c513";
     @Async
     public Future<List<News>> baiduSearch(String str) {
         String url ="http://baidu.com/s?wd=";
@@ -63,5 +66,22 @@ public class SearchSpider {
         return search;
     }
 
+    public List<String> hotSearch(){
+        Document doc = null;
+        List<String> list = new ArrayList<>();
+        try {
+            doc = Jsoup.connect(HOT_SEARCH_URL).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Elements hots = doc.select("a[class=list-title]");
+        for(int i = 0 ;i<10;i++){
 
+            Element element = hots.get(i);
+            list.add(element.text());
+
+        }
+
+        return list;
+    }
 }
