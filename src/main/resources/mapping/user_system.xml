@@ -67,7 +67,7 @@
         update users
         <trim prefix="set" suffixOverrides=",">
             <if test="headImg != null">
-                headImg =#{headImg}
+                head_img =#{headImg}
             </if>
             <if test="nickName != null">
                 nick_name =#{nickName}
