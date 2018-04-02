@@ -22,7 +22,7 @@
     }));
 </script>
 <div class="manager-update-form">
-    <form class="layui-form" action="management/root/manager-update" method="post" enctype="multipart/form-data">
+    <form id="manager-update-form" class="layui-form" action="management/root/manager-update" method="post" enctype="multipart/form-data">
         <input id="file" type="file" name="file" style="display: none"/>
         <input type="hidden" name="mgrNo" value="${manager.mgrNo!''}"/>
         <input type="hidden" name="id" value="${manager.id!''}"/>
@@ -41,7 +41,7 @@
             <div class="layui-input-block">
             <@spring.bind "manager.password"/>
                 <input type="password" name="password" autocomplete="off" lay-verify="pass" class="layui-input">
-                <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/></div>
+                <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
             </div>
         </div>
@@ -163,11 +163,10 @@
 <script>
     var form = layui.form;
     form.render();
-
-    form.on('submit(manager-update-form)', function () {
-        if ($("input[name='password']").val() !== $("input[name='password1']").val()) {
-            $("input[type='password']").css("border", "1px solid red").next().css("color", "red").text("两次密码不一致");
-            return false;
+    $("#manager-update-form").submit(function () {
+        if($("input[name='password']").val() === "" || $("input[name='password1']").val() === ""){
+            $("input[name='password']").attr("name","");
+            $("input[name='password1']").attr("name","");
         }
         return true;
     });
