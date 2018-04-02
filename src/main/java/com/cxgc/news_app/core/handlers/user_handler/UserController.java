@@ -69,7 +69,7 @@ public class UserController {
         return user_service.editUserInfo(user);}
 
     /**
-     * 查看浏览记录
+     * 查看用户浏览过的所有新闻
      * @param user
      * @return
      */
@@ -88,7 +88,7 @@ public class UserController {
     }
 
     /**
-     * 获取用户收藏记录
+     * 获取用户收藏的所有新闻
      * @param user
      * @return
      */
@@ -103,38 +103,21 @@ public class UserController {
     }
 
     /**
-     * 获取用户评论信息
-     * @param user
+     * 获取用户评论过的所有新闻
+     * @param id
      * @return
      */
     @RequestMapping("/listComment")
     @ResponseBody
-    public Object listComment(User user){
-        List<Comment> comments = user_service.listComment(user);
-        return comments;
+    public Object listComment(String id){
+        Map<String,Object> map =new HashMap<String,Object>();
+        List<Comment> comments = user_service.listComment(id);
+        map.put("comments",comments);
+        return map;
     }
 
-    /*添加浏览记录*/
-    @RequestMapping("/addHistory")
-    @ResponseBody
-    public Object addHistory(History history){
 
-        return null;
-    }
-    /*添加收藏记录*/
-    @RequestMapping("/addCollections")
-    @ResponseBody
-    public Object addCollections(Collections collections){
 
-        return null;
-    }
-    /*添加评论记录*/
-    @RequestMapping("/addComment")
-    @ResponseBody
-    public Object addComment(Comment comment){
-
-        return null;
-    }
 
     /**
      * 账号密码登陆
@@ -169,7 +152,12 @@ public class UserController {
     }
 
 
-
+    /**
+     * 修改头像
+     * @param user
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping( value = "/img_upload",method = RequestMethod.POST)
     public Object imgUpload(User user, HttpServletRequest request){
