@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -29,30 +30,28 @@ public class NewsSearchServiceImpl implements NewsSearchService{
                 continue;
             strings.add(search);
         }
-
      future = ss.baiduSearch(str);
-
       fromDatabase=  nsd.newsSearch(strings);
-        boolean flag = true;
-        while (flag){
-            if(future.isDone()){
-                try {
-                    fromBaidu = future.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }finally {
-                    flag=false;
-                }
+        try {
+            fromBaidu = future.get();
 
-            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+
 
         if(fromDatabase!=null){
             fromBaidu.addAll(fromDatabase);
         }
 
         return fromBaidu;
+    }
+
+    @Override
+    public Map<String, List<Object>> searchInit() {
+
+        return null;
     }
 }

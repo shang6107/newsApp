@@ -23,12 +23,13 @@ import java.util.concurrent.Future;
 @Component
 @EnableAsync
 public class SearchSpider {
-    private static String url="http://baidu.com/s?wd=";
     @Async
     public Future<List<News>> baiduSearch(String str) {
+        String url ="http://baidu.com/s?wd=";
         List<News> newsList = new ArrayList<>();
 
         url+=searchString(str);
+
         Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
@@ -39,7 +40,7 @@ public class SearchSpider {
         for (Element element : news) {
             News n = new News();
             Elements e = element.select("h3[class=t]");
-            n.setTitle(e.select("a").attr("href"));
+            n.setTitle(e.text());
             n.setUrl(e.select("a").attr("href"));
             //用News对象的作者属性代替快照
             n.setAuthor(element.select("div[class=c-abstract]").text());
@@ -54,10 +55,12 @@ public class SearchSpider {
         for (String string : strs) {
             if ("".equals(string))
                 continue;
-            s.append(string+"20%");
+
+            s.append(string+"%20");
         }
-        s.substring(0,s.length()-3);
-        return s.toString();
+
+      String search=  s.substring(0,s.length()-3);
+        return search;
     }
 
 
