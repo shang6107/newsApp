@@ -47,6 +47,10 @@ public interface NewsDao {
      */
     void updateComment(Comment comment);
     /**
+     * 删除用户评论
+     */
+    void outPutComment(Comment comment);
+    /**
      * 添加用户收藏记录
      */
     int inputCollection(Collections collection);

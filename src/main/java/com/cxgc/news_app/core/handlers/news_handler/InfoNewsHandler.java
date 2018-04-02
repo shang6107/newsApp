@@ -30,9 +30,9 @@ public class InfoNewsHandler {
 
     @Autowired
     private NewsService newsService;
-
-    public static int num=1;
     public static int size=2;
+    public static int num=0;
+    public static int dissCount=0;
     /**
      * 通过新闻id获得新闻及所有评论,收藏
      * @return
@@ -62,9 +62,8 @@ public class InfoNewsHandler {
         //所有的评论数
         int commentsNum = newsService.getCommentNum(id);
         map.put("commentsNum",commentsNum);
-
         //获得每次请求的前5条数据
-        num=1;
+        int num=1;
         int startNo=size * (num - 1);
         List<Comment> eachComment=newsService.getAllCommentByNewsId(id,startNo,size);
         map.put("comments",eachComment);
@@ -76,23 +75,29 @@ public class InfoNewsHandler {
      */
     @CrossOrigin
     @RequestMapping("/getEachComment")
-    public @ResponseBody Map<String,Object> getEachComment(String id){
+    public @ResponseBody Map<String,Object> getEachComment(@Param("id") String id,@Param("reCount") String reCount){
         Map<String,Object> map=new HashedMap();
-        num++;
-        int startNo=size * (num - 1);
-        List<Comment> eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
-
-        if(eachComment.size()==0){
-            num--;
-            startNo=size * (num - 1);
-            eachComment.clear();
-            eachComment.add(newsService.getAllCommentByNewsId(id, startNo, size).get(1));
-        }
 
         //所有的评论数
         int commentsNum = newsService.getCommentNum(id);
         map.put("commentsNum",commentsNum);
 
+        int count=Integer.parseInt(reCount);
+        System.out.println("count = " + count);
+        if(count<1){
+            count=1;
+        }
+        int startNo=size * count;
+        List<Comment> eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+
+        if(eachComment.size()<=2&&count==1){
+            num++;
+            System.out.println("num = " + num);
+            if(num%2==0){
+                eachComment.remove(0);
+              num=0;
+            }
+        }
         map.put("eachComment",eachComment);
         return map;
     }
@@ -113,12 +118,27 @@ public class InfoNewsHandler {
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
         comment.setGoodCount(0);
-        int result=newsService.putIntoComment(comment,disscussNum);
+        dissCount=disscussNum;
+        int result=newsService.putIntoComment(comment,dissCount);
         if(result>1){
             return "评论成功！";
         }
        return "评论失败！";
     }
+
+    /**
+     * 删除评论
+     * @param comment
+     * @return
+     */
+    @CrossOrigin
+    @RequestMapping("/outMyselfDiscuss")
+    public @ResponseBody String outDiscuss(Comment comment){
+        newsService.outPutComment(comment);
+        dissCount--;
+        return "yes";
+    }
+
 
     /**
      * 用户收藏与取消收藏

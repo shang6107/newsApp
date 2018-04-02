@@ -55,6 +55,11 @@
         update comment set content=#{content} where id=#{id}
     </update>
 
+    <!--删除评论-->
+    <delete id="outPutComment" parameterType="comment">
+        delete from comment where id=#{id} and user_id=#{userId}
+    </delete>
+
     <!--收藏-->
     <insert id="inputCollection" parameterType="com.cxgc.news_app.core.model.Collections">
         insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId.id},#{userId},#{createTime})

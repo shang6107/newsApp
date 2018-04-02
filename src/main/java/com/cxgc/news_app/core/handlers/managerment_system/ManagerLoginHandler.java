@@ -46,25 +46,7 @@ public class ManagerLoginHandler {
         return "news_index";
     }
 
-    /**
-     * 用户管理员主页。登录成功根据重定向策略自动跳转到该 View
-     * @param map
-     * @return
-     */
-    @RequestMapping("/user_index")
-    public String userPage(ModelMap map){
-        map.put("mgr",getPrincipal());
-        map.put("countMen",ums.countMen());
-        map.put("test",ums.test());
-        map.put("countAll",ums.countAll());
-        map.put("countFreeze",ums.countFreeze());
-        map.put("countFailure",ums.countFailure());
-        map.put("reports",ums.report());
-        map.put("typename",ums.typeName());
-        map.put("abnormals",ums.abnormal());
-        map.put("report",ums.getAllReport());
-        return "user_index";
-    }
+
 
     /**
      * 新闻管理员主页。登录成功根据重定向策略自动跳转到该 View
@@ -96,28 +78,6 @@ public class ManagerLoginHandler {
         return "redirect:/management/login?logout";
     }
 
-    /**
-     * 管理员上传头像图片资料的处理方法
-     * @param file
-     * @param manager
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/commit-form-data")
-    public String test(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
-        String realPath = request.getServletContext().getRealPath("/static/img/user/head");
-        File headPath = new File(realPath);
-        if(!headPath.exists()){
-            headPath.mkdirs();
-        }
-        String fileName = System.currentTimeMillis()
-                + "-" + manager.getMgrNo()
-                + "-" + file.getOriginalFilename();
-        headPath = new File(headPath,fileName);
-        file.transferTo(headPath);
-        return "test";
-    }
 
 
 

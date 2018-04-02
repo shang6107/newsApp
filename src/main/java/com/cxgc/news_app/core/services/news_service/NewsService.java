@@ -38,6 +38,10 @@ public interface NewsService {
      */
     int putIntoComment(Comment comment,int disscussNum);
     /**
+     * 删除用户评论
+     */
+    void outPutComment(Comment comment);
+    /**
      * 记录用户收藏数据
      */
     int inputCollection(Collections collection);
