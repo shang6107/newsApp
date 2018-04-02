@@ -75,7 +75,7 @@
     </div>
     <div class="table-div float-table-div">
         <table id='myTable3'>
-            <caption>新闻查看量分布</caption>
+            <caption>新闻搜索量分布</caption>
             <thead>
             <tr>
                 <th></th>

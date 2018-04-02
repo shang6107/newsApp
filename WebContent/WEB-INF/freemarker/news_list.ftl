@@ -42,7 +42,7 @@
                     <#if new.createTime?exists>
                         <td>${new.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
-                    <td>删除</td>
+                    <td class="sel"><a href="management/deleteNewsById">删除</a></td>
                 </tr>
                 </#list>
             </#if>

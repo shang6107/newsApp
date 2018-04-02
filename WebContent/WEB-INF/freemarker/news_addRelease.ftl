@@ -14,13 +14,16 @@
 
     <div class="bootstrap-frm">
         <br><br>
-        <form action="/management/news_addRelease" method="post" class="STYLE-NAME">
+        <form action="/management/news_release_list" method="post" class="STYLE-NAME">
             <h1>添加新闻
             </h1>
             <label>
-                <span>新闻类型 :</span><select name="selection">
-                <option value="体育">体育</option>
-                <option value="娱乐">娱乐</option>
+                <span>新闻类型 :</span><select name="typeName">
+                <option value="1">社会</option>
+                <option value="2">体育</option>
+                <option value="3">娱乐</option>
+                <option value="4">财经</option>
+                <option value="5">科技</option>
             </select>
             </label>
             <label>
@@ -30,7 +33,7 @@
 
             <label>
                 <span>内容 :</span>
-                <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
+                <textarea rows="4" cols="50" name="path" form="usrform"></textarea>
             </label>
 
             <label>
