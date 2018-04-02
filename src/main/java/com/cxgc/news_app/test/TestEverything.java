@@ -3,6 +3,7 @@ package com.cxgc.news_app.test;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.cxgc.news_app.common.UserStatus;
 import sun.security.provider.MD5;
 
 import java.io.*;
@@ -64,8 +65,9 @@ public class TestEverything {
     }*/
 
     public static void main(String[] args) throws IOException, JSONException {
-        for(int i = 0 ; i < 100 ; i ++){
-            System.out.println(UUID.randomUUID().toString().replaceAll("-",""));
-        }
+        UserStatus abnormal = UserStatus.ABNORMAL;
+
+        System.out.println("abnormal == UserStatus.ABNORMAL = " + (abnormal == UserStatus.ABNORMAL));
+
     }
 }

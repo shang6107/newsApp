@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
+import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.core.config.security.MyManagerDetails;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Authorities;
@@ -57,7 +58,7 @@ public class CustomManagerDetailsService implements UserDetailsService{
 				manager.getMgrNo(),
 				getGrantedAuthorities(manager),				// get GrantedAuthorities
 				true,						// is Expired
-				true,		//dao data		// is Locked
+				(manager.getStatus() == UserStatus.NORMAL),	// is Locked
 				true,					// is Expired(credentials)
 				true								// is Enabled
 		);

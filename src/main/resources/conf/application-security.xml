@@ -20,8 +20,8 @@
         <form-login  login-page="/management/login"
                      username-parameter="mgrNo"
                      password-parameter="password"
+                     authentication-failure-handler-ref="authenticationFailureHandler"
                      authentication-details-source-ref="customAuthenticationDetailsSource"
-                     authentication-failure-forward-url="/management/login?error"
                      authentication-success-handler-ref="authenticationSuccessHandler"
                      />
         <access-denied-handler error-page="/management/403.html"/>
@@ -50,6 +50,16 @@
             p:userDetailsService-ref="customManagerDetailsService"
             p:passwordEncoder-ref="bCryptPasswordEncoder"
             p:isEncoder="true"/>
+
+    <!-- 登录认证失败处理类 -->
+    <beans:bean
+            id="authenticationFailureHandler"
+            class="com.cxgc.news_app.core.config.security.AuthenticationFailureHandler"
+            p:useForward="true"
+            p:defaultFailureUrl="/management/login?error"
+            p:accountStatusAbnormalUrl="/management/login?abnormal"
+            p:unAuthenticatedUrl="/management/login?unAuthenticated"/>
+
 
     <authentication-manager>
         <authentication-provider ref="customAuthenticationProvider"/>
