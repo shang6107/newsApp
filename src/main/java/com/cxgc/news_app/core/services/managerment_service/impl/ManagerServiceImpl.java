@@ -10,6 +10,7 @@ import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,17 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public void updateManagerStatus(Manager manager) {
         md.updateManager(manager);
+    }
+
+    @Override
+    public void updateManager(Manager manager) {
+        manager.setPassword(new BCryptPasswordEncoder().encode(manager.getPassword()));
+        md.updateManager(manager);
+    }
+
+    @Override
+    public Groups getGroupByName(String name) {
+        return groupDao.getGroupByName(name);
     }
 
     @Override

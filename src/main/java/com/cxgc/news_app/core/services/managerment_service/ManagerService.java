@@ -19,7 +19,8 @@ public interface ManagerService {
     List<Groups> getAllGroups();
     List<Authorities> getAuthoritiesByGroupId(String id);
     void updateManagerStatus(Manager manager);
-
+    void updateManager(Manager manager);
+    Groups getGroupByName(String name);
     /**
      * 添加管理员
      * @param manager

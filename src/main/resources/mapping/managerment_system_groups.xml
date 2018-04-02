@@ -21,6 +21,10 @@
         select * from groups
     </select>
 
+    <select id="getGroupByName" resultMap="groupsResult">
+        select * from groups where group_name = #{0}
+    </select>
+
     <select id="getGroupById" resultMap="groupsResult">
         select * from groups where id = #{0}
     </select>

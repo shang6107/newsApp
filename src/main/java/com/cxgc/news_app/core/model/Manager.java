@@ -3,6 +3,8 @@ package com.cxgc.news_app.core.model;
 import com.cxgc.news_app.common.UserStatus;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -17,17 +19,22 @@ public class Manager {
     private String id;
     private String headImg;
     @NotNull(message = "{Manager.mgrNo.notNull}")
+    @NotEmpty(message = "不能为\"\"")
     @Length(min = 4,max = 16,message = "{Manager.mgrNo.length}")
     private String mgrNo;
+    @NotNull(message = "{Manager.password.notNull}")
+    @NotEmpty(message = "不能为\"\"")
     private String password;
+    @NotNull(message = "{Manager.mgeName.notNull}")
+    @NotEmpty(message = "不能为\"\"")
     private String mgrName;
-    @NotNull(message = "{Manager.groups.notNull}")
     private Groups groups;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date lastTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
     private String remoteAddress;
     private Integer loginCount;
-    @NotNull(message = "{Manager.status}")
     private UserStatus status;
 
 }

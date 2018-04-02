@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,28 +108,23 @@ public class ManagerBaseHandler {
         return "redirect:/management/login?logout";
     }
 
-    /**
-     * 管理员上传头像图片资料的处理方法
-     * @param file
-     * @param manager
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/commit-form-data")
-    @ResponseBody
-    public String test(@RequestParam(value = "file",required = true) MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
+
+    private String saveManagerHeadImg(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
         String realPath = request.getServletContext().getRealPath("/static/img/user/head");
         File headPath = new File(realPath);
         if(!headPath.exists()){
             headPath.mkdirs();
         }
+        if(file.getSize() == 0){
+            return null;
+        }
         String fileName = System.currentTimeMillis()
                 + "-" + manager.getMgrNo()
                 + "-" + file.getOriginalFilename();
-        headPath = new File(headPath + "/" + fileName);
+        realPath = headPath + "\\" + fileName;
+        headPath = new File(realPath);
         file.transferTo(headPath);
-        return "test";
+        return realPath;
     }
 
 
@@ -153,21 +150,58 @@ public class ManagerBaseHandler {
     }
 
 
+    private void setManagerResultMap(Map<String,Object> map){
+        List<Groups> allGroups = managerService.getAllGroups();
+        for(Groups g : allGroups){
+            if(g.getGroupName().equals("超级管理员")){
+                allGroups.remove(g);
+            }
+        }
+        map.put("allStatus",UserStatus.values());
+        map.put("allGroups",allGroups);
+    }
+
     @Autowired
     private UserDetailsService userDetailsService;
     @RequestMapping("/root/manager-edit/{mgrNo}")
-    public String updateManagerInfo(@PathVariable("mgrNo")String mgrNo, Map<String,Object> map){
-        Manager manager = null;
-        List<Groups> allGroups = null;
+    public String updateManagerInfo(@PathVariable("mgrNo")String mgrNo, Map<String,Object> map,HttpServletRequest request){
         if(mgrNo != null && !mgrNo.equals("")){
-            allGroups = managerService.getAllGroups();
+            setManagerResultMap(map);
             MyManagerDetails managerDetails =(MyManagerDetails) userDetailsService.loadUserByUsername(mgrNo);
-            manager = managerDetails.getDomain();
+            Manager manager = managerDetails.getDomain();
+            if(manager != null){
+                String headImg = manager.getHeadImg();
+                //:TODO 管理员头像！！
+            }
+            map.put("manager",manager);
         }
-        map.put("manager",manager);
-        map.put("allGroups",allGroups);
         return "root_management_edit";
     }
 
+    @RequestMapping("/root/manager-update")
+    public String updateManager(@Validated Manager manager,
+                                BindingResult result,
+                                String password1,
+                                @RequestParam("file") MultipartFile file,
+                                Map<String,Object> map,
+                                HttpServletRequest request,
+                                String stat) throws IOException {
+        if(result.hasFieldErrors() || password1 != null && !password1.equals(manager.getPassword())){
+            if(result.hasFieldErrors()){
+                setManagerResultMap(map);
+                return "root_management_edit";
+            }
+            result.rejectValue("password","两次密码不一致");
+            return "root_management_edit";
+        }
+        setManagerResultMap(map);
+        String path = saveManagerHeadImg(file, manager, request);
+
+        manager.setHeadImg(path);
+        manager.setStatus(UserStatus.getUserStatusByReason(stat));
+//        manager.setGroups(managerService.getGroupByName(manager.getGroups().getGroupName()));
+        managerService.updateManager(manager);
+        return "redirect:/management/root_management.html";
+    }
 
 }

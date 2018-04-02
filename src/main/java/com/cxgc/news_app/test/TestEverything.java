@@ -66,9 +66,6 @@ public class TestEverything {
     }*/
 
     public static void main(String[] args) throws IOException, JSONException {
-        UserStatus abnormal = UserStatus.ABNORMAL;
-
-        System.out.println(new BCryptPasswordEncoder().encode("222222"));
-
+        System.out.println(new BCryptPasswordEncoder().encode("333333"));
     }
 }

@@ -56,3 +56,13 @@ td{
     border:1px solid white;
     font-size: 14px;
 }
+
+.manager-update-form{
+    margin:10px auto auto 40px;
+}
+.manager-update-form input{
+    width:50%;
+}
+#head-img:hover{
+    cursor: pointer;
+}
