@@ -98,6 +98,15 @@ public class NewsServiceImpl implements NewsService{
     }
 
     /**
+     * 删除当前用户评论
+     * @param comment
+     */
+    @Override
+    public void outPutComment(Comment comment) {
+        newsDao.outPutComment(comment);
+    }
+
+    /**
      * 添加用户收藏记录
      */
     @Override
