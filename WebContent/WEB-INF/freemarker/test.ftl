@@ -1,6 +1,7 @@
 <#include "index.ftl"/>
 <link rel="stylesheet" href="static/css1/style1.css">
 
+<#--
 <script type="text/javascript" src="static/js/easyform.js"></script>
 
 <br>
@@ -56,6 +57,11 @@ $(document).ready(function(){
 	$('#reg-form').easyform();
 });
 </script>
+-->
 
-
+<form action="commit-form-data" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"/>
+    <br/>
+    <input type="submit"/>
+</form>
 <#include "frame_end.ftl"/>

@@ -110,7 +110,8 @@ public class ManagerBaseHandler {
      * @throws IOException
      */
     @RequestMapping("/commit-form-data")
-    public String test(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
+    @ResponseBody
+    public String test(@RequestParam(value = "file",required = true) MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
         String realPath = request.getServletContext().getRealPath("/static/img/user/head");
         File headPath = new File(realPath);
         if(!headPath.exists()){
@@ -119,7 +120,7 @@ public class ManagerBaseHandler {
         String fileName = System.currentTimeMillis()
                 + "-" + manager.getMgrNo()
                 + "-" + file.getOriginalFilename();
-        headPath = new File(headPath,fileName);
+        headPath = new File(headPath + "/" + fileName);
         file.transferTo(headPath);
         return "test";
     }
@@ -145,5 +146,11 @@ public class ManagerBaseHandler {
         }
         return null;
     }
+
+
+    public String updateManagerInfo(){
+        return "";
+    }
+
 
 }
