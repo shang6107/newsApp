@@ -10,13 +10,16 @@
         <result property="descpt" column="descpt"/>
     </resultMap>
 
-
     <resultMap id="groupsResult" type="groups">
         <id property="id" column="id"/>
         <result property="groupName" column="group_name"/>
         <result property="descpt" column="descpt"/>
         <association property="authorities" column="id" select="getAuthoritiesByGroupId"/>
     </resultMap>
+
+    <select id="getAllGroups" resultMap="groupsResult">
+        select * from groups
+    </select>
 
     <select id="getGroupById" resultMap="groupsResult">
         select * from groups where id = #{0}

@@ -4,6 +4,7 @@ package com.cxgc.news_app.test;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.cxgc.news_app.common.UserStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import sun.security.provider.MD5;
 
 import java.io.*;
@@ -67,7 +68,7 @@ public class TestEverything {
     public static void main(String[] args) throws IOException, JSONException {
         UserStatus abnormal = UserStatus.ABNORMAL;
 
-        System.out.println("abnormal == UserStatus.ABNORMAL = " + (abnormal == UserStatus.ABNORMAL));
+        System.out.println(new BCryptPasswordEncoder().encode("222222"));
 
     }
 }

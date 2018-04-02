@@ -14,7 +14,7 @@ import java.util.List;
 public interface GroupDao {
 
     Groups getGroupById(String id);
-
     List<Authorities> getAuthoritiesByGroupId(String id);
+    List<Groups> getAllGroups();
 
 }

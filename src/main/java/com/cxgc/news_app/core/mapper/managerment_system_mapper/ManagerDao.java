@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.mapper.managerment_system_mapper;
 
 
 import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +18,7 @@ public interface ManagerDao {
     Manager getManagerByMgrNo(String mgrNo);//根据ID得到管理员信息
     void updateLastLoginTimeAndAddressAndLoginCount(String mgrNo,String address);//修改管理员上次登录时间
     void updateManager(Manager manager);
+    
     /**
      *
      * @param manager

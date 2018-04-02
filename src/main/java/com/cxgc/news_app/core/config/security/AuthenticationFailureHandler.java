@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author 上官炳强
  * @Date 2018-04-02 / 10:07:35
  * @Version
- * @Description
+ * @Description     表单认真失败的处理类
  */
 public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 

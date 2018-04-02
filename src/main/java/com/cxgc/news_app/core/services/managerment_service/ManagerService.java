@@ -1,6 +1,8 @@
 package com.cxgc.news_app.core.services.managerment_service;
 
 import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.model.Authorities;
+import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 
 import java.util.List;
@@ -13,6 +15,9 @@ import java.util.Map;
  */
 public interface ManagerService {
 
+    
+    List<Groups> getAllGroups();
+    List<Authorities> getAuthoritiesByGroupId(String id);
     void updateManagerStatus(Manager manager);
 
     /**

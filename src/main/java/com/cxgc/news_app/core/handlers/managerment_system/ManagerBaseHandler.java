@@ -1,6 +1,9 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
 import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.config.security.MyManagerDetails;
+import com.cxgc.news_app.core.model.Authorities;
+import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
@@ -9,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +26,7 @@ import javax.ws.rs.Path;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -148,8 +153,20 @@ public class ManagerBaseHandler {
     }
 
 
-    public String updateManagerInfo(){
-        return "";
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @RequestMapping("/root/manager-edit/{mgrNo}")
+    public String updateManagerInfo(@PathVariable("mgrNo")String mgrNo, Map<String,Object> map){
+        Manager manager = null;
+        List<Groups> allGroups = null;
+        if(mgrNo != null && !mgrNo.equals("")){
+            allGroups = managerService.getAllGroups();
+            MyManagerDetails managerDetails =(MyManagerDetails) userDetailsService.loadUserByUsername(mgrNo);
+            manager = managerDetails.getDomain();
+        }
+        map.put("manager",manager);
+        map.put("allGroups",allGroups);
+        return "root_management_edit";
     }
 
 
