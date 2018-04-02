@@ -17,7 +17,9 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -171,37 +173,60 @@ public class ManagerBaseHandler {
             Manager manager = managerDetails.getDomain();
             if(manager != null){
                 String headImg = manager.getHeadImg();
-                //:TODO 管理员头像！！
+                if(headImg != null && !headImg.equals("") && headImg.contains("\\static")){
+                    String headImgPath = headImg.substring(headImg.indexOf("\\static") + 1);
+                    manager.setHeadImg(headImgPath);
+                }
             }
             map.put("manager",manager);
         }
         return "root_management_edit";
     }
 
+    @ModelAttribute
+    public void getModel(@RequestParam(value = "id",required = false) String id,Map<String,Object> map){
+        if(id != null){
+            Manager manager1 = managerService.getManagerById(id);
+            map.put("manager",manager1);
+        }
+    }
+
     @RequestMapping("/root/manager-update")
-    public String updateManager(@Validated Manager manager,
-                                BindingResult result,
-                                String password1,
-                                @RequestParam("file") MultipartFile file,
-                                Map<String,Object> map,
-                                HttpServletRequest request,
-                                String stat) throws IOException {
-        if(result.hasFieldErrors() || password1 != null && !password1.equals(manager.getPassword())){
-            if(result.hasFieldErrors()){
-                setManagerResultMap(map);
+    public String updateManager(
+            @ModelAttribute @Validated Manager manager,
+            BindingResult result,
+            String password1,
+            @RequestParam("file") MultipartFile file,
+            Map<String,Object> map,
+            HttpServletRequest request,
+            String stat) throws IOException {
+        setManagerResultMap(map);
+
+        if(result.hasFieldErrors()){
+            if(password1 != null && manager.getPassword() != null && !password1.equals(manager.getPassword())){
+                result.rejectValue("password","manager.password.eq");
                 return "root_management_edit";
             }
-            result.rejectValue("password","两次密码不一致");
+            if(password1 == null && manager.getPassword() != null){
+                List<FieldError> fieldErrors = result.getFieldErrors();
+                for(FieldError fieldError : fieldErrors){
+                    /*if(fieldError.getField().equals("password")
+                            && (fieldError.getDefaultMessage().equals("manager's password's length must between 6 and 16")
+                            || fieldError.getDefaultMessage().equals("两次密码必须一致"))){
+                        fieldErrors.remove(fieldError);
+                        return "redirect:/management/root_management.html";
+                    }*/
+                }
+            }
             return "root_management_edit";
         }
-        setManagerResultMap(map);
         String path = saveManagerHeadImg(file, manager, request);
-
         manager.setHeadImg(path);
         manager.setStatus(UserStatus.getUserStatusByReason(stat));
-//        manager.setGroups(managerService.getGroupByName(manager.getGroups().getGroupName()));
         managerService.updateManager(manager);
         return "redirect:/management/root_management.html";
     }
+
+
 
 }
