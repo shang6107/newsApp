@@ -12,6 +12,7 @@
         <result property="mgrName" column="mgr_name"/>
         <result property="lastTime" column="last_time"/>
         <result property="createTime" column="create_time"/>
+        <result property="headImg" column="head_img"/>
         <result property="remoteAddress" column="remote_address"/>
         <result property="loginCount" column="login_count"/>
         <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
@@ -27,6 +28,9 @@
         insert into manager (id,mgr_no,password,mgr_name,groups_id) VALUES ()<!--//TODO:？-->
     </insert>
 
+    <select id="getManagerById" resultMap="manager_result">
+        select * from manager where id = #{0}
+    </select>
 
     <select id="selectAllManager" resultMap="manager_result">
         select * from manager where mgr_no != 'm000'
