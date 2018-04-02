@@ -12,12 +12,13 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 <head>
     <base href="${path!''}/"><#-- Context Path -->
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" type="text/css" href="static/css1/identify.css"/>
     <link rel="stylesheet" type="text/css" href="static/js/skin/layer.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/layout.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css1/login.css">
     <link rel="stylesheet" type="text/css" href="static/css1/style.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/login.css"/>
     <link rel="stylesheet" type="text/css" href="static/css1/control_index.css"/>
@@ -29,13 +30,19 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-<script type="text/javascript" src="static/js/myJavaScript.js"></script>
+    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
     <script type="text/javascript" src="static/js/jsapi.js"></script>
     <script type="text/javascript" src="static/js/corechart.js"></script>
     <script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
 </head>
 <body>
+
+<div class="popupDom">
+    <div class="popup text-default">
+    </div>
+</div>
+
 
 <div class="view-topbar">
     <div class="topbar-console">
@@ -87,7 +94,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="management/manager_home.html">个人中心</a></li>
-                        <li><a href="management/logout">退出</a></li>
+                        <li><a href="management/logout?">退出</a></li>
                     </ul>
                 </div>
             </li>
@@ -118,13 +125,13 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         </a>
                     </li>
                     <li>
-                    <a href="management/news_release_list">
-                        <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
-                        <span class="text-normal">新闻发布</span>
-                    </a>
-                </li>
+                        <a href="management/news_release_list">
+                            <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
+                            <span class="text-normal">新闻发布</span>
+                        </a>
+                    </li>
                     <li>
-                        <a href="management/search_engine.html">
+                        <a href="management/news_search_engine.html">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>
                         </a>
@@ -158,6 +165,33 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </ul>
             </div>
         </@security.authorize>
+
+        <#-- root management -->
+        <@security.authorize access="hasRole('超级管理员')">
+            <div class="sidebar-nav user-menu">
+                <div class="sidebar-title">
+                    <a href="javascript:void(0)">
+                        <span class="icon"><b class="fl icon-arrow-down"></b></span>
+                        <span class="text-normal">管理员管理</span>
+                    </a>
+                </div>
+                <ul class="sidebar-trans">
+                    <li>
+                        <a href="management/root_management.html">
+                            <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
+                            <span class="text-normal">管理员列表</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="management/root_account.html">
+                            <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
+                            <span class="text-normal">账号管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </@security.authorize>
+
         <#--    hasAuthorited    Authentication  -->
         <@security.authorize access="isAuthenticated()">
             <div class="sidebar-nav">

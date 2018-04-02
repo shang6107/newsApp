@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.model;
 
+import com.cxgc.news_app.common.UserStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,5 +20,8 @@ public class Manager {
     private Groups groups;
     private Date lastTime;
     private Date createTime;
+    private String remoteAddress;
+    private Integer loginCount;
+    private UserStatus status;
 
 }

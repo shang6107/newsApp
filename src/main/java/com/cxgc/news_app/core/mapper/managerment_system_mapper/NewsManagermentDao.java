@@ -6,6 +6,7 @@ import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * pjl
@@ -71,5 +72,21 @@ public interface NewsManagermentDao {
      * @return
      */
     NewsType getNewsTypeById(Integer id);
+
+
+    /* **********************************************************/
+    /* *************        新闻数据统计      ********************/
+    /* **********************************************************/
+
+    /**
+     * 根据请求内容返回相关数据
+     * @return
+     */
+    Map<String,Object> getMinCountOfNewsType();//访问量最小的新闻类型
+    Map<String,Object> getMaxCountOfNewsType();//访问量最大的新闻类型
+    List<News> getTop10News();//访问量前十的新闻
+    List<Release> getTop10Release();//访问量前十的新闻(后台发布)
+
+
 
 }

@@ -82,6 +82,40 @@
     select * from news_type where id = #{0}
 </select>
 
+
+    <!--####################新闻数据统计#######################-->
+    <select id="getMaxCountOfNewsType" resultType="map">
+        SELECT
+            nt.type_name,
+            count(news_type_id) counts
+        FROM
+            news n
+        JOIN
+            news_type nt
+        ON
+            n.news_type_id = nt.id
+        GROUP BY
+            news_type_id
+        ORDER BY
+            counts DESC
+        LIMIT 1
+    </select>
+    <select id="getMinCountOfNewsType" resultType="map">
+        SELECT
+            nt.type_name,
+            count(news_type_id) counts
+        FROM
+            news n
+        JOIN
+            news_type nt
+        ON
+            n.news_type_id = nt.id
+        GROUP BY
+            news_type_id
+        ORDER BY
+            counts
+        LIMIT 1
+    </select>
 </mapper>
 
 

@@ -12,6 +12,9 @@
         <result property="mgrName" column="mgr_name"/>
         <result property="lastTime" column="last_time"/>
         <result property="createTime" column="create_time"/>
+        <result property="remoteAddress" column="remote_address"/>
+        <result property="loginCount" column="login_count"/>
+        <result property="status" column="status" typeHandler="com.cxgc.news_app.core.config.mybatis.UserStatusTypeHandler"/>
         <association property="groups" column="groups_id"
                      select="com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao.getGroupById"/>
     </resultMap>
@@ -20,12 +23,44 @@
     <select id="getManagerByMgrNo" resultMap="manager_result">
         select * from manager where mgr_no = #{0}
     </select>
+    <insert id="addManager" parameterType="com.cxgc.news_app.core.model.Manager">
+        insert into manager (id,mgr_no,password,mgr_name,groups_id) VALUES ()<!--//TODO:？-->
+    </insert>
+
 
     <select id="selectAllManager" resultMap="manager_result">
-        select * from manager
+        select * from manager where mgr_no != 'm000'
     </select>
-    <insert id="addManager" parameterType="com.cxgc.news_app.core.model.Manager">
-        insert into manager (id,mgr_no,password,mgr_name,groups_id) VALUES ()
-    </insert>
+    <update id="updateLastLoginTimeAndAddressAndLoginCount">
+        update manager set last_time = now(),login_count = login_count + 1 , remote_address = #{1} where mgr_no = #{0}
+    </update>
+    <update id="updateManager">
+        update
+            manager
+        <set>
+            <if test="mgrNo != null">
+                mgr_no = #{mgrNo},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="mgrName != null">
+                mgr_name = #{mgrName},
+            </if>
+            <if test="status != null">
+                status = #{status.status},
+            </if>
+            <if test="groups != null">
+                groups_id = #{groups.id},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg}
+            </if>
+        </set>
+        <where>
+            mgr_no = #{mgrNo}
+        </where>
+    </update>
+
 
 </mapper>
