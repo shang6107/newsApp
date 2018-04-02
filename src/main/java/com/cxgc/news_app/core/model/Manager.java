@@ -18,15 +18,16 @@ import java.util.Date;
 public class Manager {
     private String id;
     private String headImg;
-    @NotNull(message = "{Manager.mgrNo.notNull}")
-    @NotEmpty(message = "不能为\"\"")
-    @Length(min = 4,max = 16,message = "{Manager.mgrNo.length}")
+    @NotNull(message = "{manager.mgrNo.notNull}")
+    @NotEmpty(message = "{manager.mgrNo.notNull}")
+    @Length(min = 4,max = 16,message = "{manager.mgrNo.length}")
     private String mgrNo;
-    @NotNull(message = "{Manager.password.notNull}")
-    @NotEmpty(message = "不能为\"\"")
+    @Length(min = 6,max = 16,message = "{manager.password.length}")
+//    @NotNull(message = "{manager.password.notNull}")
+    @NotEmpty(message = "{manager.password.notNull}")
     private String password;
-    @NotNull(message = "{Manager.mgeName.notNull}")
-    @NotEmpty(message = "不能为\"\"")
+    @NotNull(message = "{manager.mgeName.notNull}")
+    @NotEmpty(message = "{manager.ngrName.notNull}")
     private String mgrName;
     private Groups groups;
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
