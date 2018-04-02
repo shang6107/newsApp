@@ -10,6 +10,7 @@
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.js"></script>
     <script type="text/javascript" src="static/js/js.js"></script>
+    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
     <script type="text/javascript" src="static/js/Validform_v5.3.2_min.js"></script>
 </head>
 <body style="background: url('static/img/login-bg.png')">
@@ -46,22 +47,14 @@
         </div>
     </div>
     <script>
-        function popup_msg(msg) {
-            $(".popup").html("" + msg + "");
-            $(".popupDom").animate({
-                "top": "0px"
-            }, 400);
-            setTimeout(function () {
-                $(".popupDom").animate({
-                    "top": "-40px"
-                }, 400);
-            }, 2000);
-        }
         <#if RequestParameters.unAuthenticated?exists>
             popup_msg("\u8bf7\u767b\u5f55");
         </#if>
         <#if RequestParameters.error?exists>
             popup_msg("\u7528\u6237\u540d\u6216\u5bc6\u7801\u4e0d\u6b63\u786e");
+        </#if>
+        <#if RequestParameters.logout?exists>
+            popup_msg("\u60a8\u5df2\u5b89\u5168\u9000\u51fa\u7cfb\u7edf");
         </#if>
     </script>
 </div>

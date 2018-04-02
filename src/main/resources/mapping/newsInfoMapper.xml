@@ -3,48 +3,51 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.news_mapper.NewsDao">
-
-    <resultMap id="oneNews" type="com.cxgc.news_app.core.model.News">
-       <id property="id" column="id"/>
+    <select id="getNews" resultMap="oneNews">
+        select title,url,news_type_id,access_count,create_time,author from news where id=#{id}
+    </select>
+    <resultMap id="oneNews" type="news">
+       <result property="id" column="id"/>
+        <result property="title" column="title"/>
        <result property="url" column="URL"/>
        <result property="accessCount" column="access_count"/>
-       <result property="status" column="status"/>
        <result property="createTime" column="create_time"/>
-       <association property="type" column="news_type_id" select="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"/>
+        <result property="author" column="author"/>
+       <association property="type" column="news_type_id"
+                    select="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"
+                    javaType="com.cxgc.news_app.core.model.NewsType"/>
    </resultMap>
 
     <resultMap id="allComment" type="comment">
-        <id property="id" column="id"/>
+        <result property="id" column="id"/>
         <result property="content" column="content"/>
         <result property="goodCount" column="good_count"/>
+        <result property="newsId" column="news_id"/>
         <result property="userId" column="user_id"/>
         <result property="createTime" column="create_time"/>
-        <association property="newsId" column="news_id" select="getNews"/>
     </resultMap>
 
     <select id="getAllCommentByNewsId" resultMap="allComment">
-        select * from comment where news_id=#{newsId.newsId}
+        select * from comment where news_id=${id} limit ${startNo},${size}
+    </select>
+
+    <select id="getCommentNum" resultType="int">
+        select count(*) from comment where news_id=#{id}
     </select>
 
     <select id="getCommentByNewIdAndUserId" resultMap="allComment">
-        select * from comment where user_id=#{userId} and news_id=#{newsId.newsId}
+        select * from comment where user_id=#{userId} and news_id=#{newsId}
     </select>
 
     <select id="checkCollection" resultType="collections">
-        select * from collections where news_id=#{newsId.newsId} and user_id=#{userId}
+        select * from collections where news_id=#{newsId.id} and user_id=#{userId}
     </select>
 
-    <select id="getNews" resultMap="oneNews">
-        select * from news where id=#{id}
-    </select>
-    <!--获得新闻的url-->
-    <select id="getNewsById" resultType="java.lang.String">
-        select url from news where id=#{id}
-    </select>
+
 
     <!--发布评论-->
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
-        insert into comment(id,content,news_id,user_id,create_time) values(#{id},#{content},#{newsId.newsId},#{userId},#{createTime})
+        insert into comment values(#{id},#{content},#{goodCount},#{newsId},#{userId},#{createTime})
     </insert>
 
     <!--更新评论-->
@@ -54,17 +57,17 @@
 
     <!--收藏-->
     <insert id="inputCollection" parameterType="com.cxgc.news_app.core.model.Collections">
-        insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId.newsId},#{userId},#{createTime})
+        insert into collections(id,news_id,user_id,create_time) values(#{id},#{newsId.id},#{userId},#{createTime})
     </insert>
 
     <!--取消收藏-->
     <delete id="outPutCollection" parameterType="collections">
-        delete from collections where user_Id=#{userId} and news_Id=#{newsId.newsId}
+        delete from collections where user_Id=#{userId} and news_Id=#{newsId.id}
     </delete>
 
     <!--点赞-->
     <update id="putonGood" parameterType="comment">
-        update comment set good_count=#{goodCount} where news_id=#{newsId.newsId}
+        update comment set good_count=#{goodCount} where news_id=#{newsId} and id=#{id}
     </update>
 
 </mapper>

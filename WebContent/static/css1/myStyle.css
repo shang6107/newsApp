@@ -4,6 +4,7 @@
 }
 
 .float-table-div{
+
     margin-left: -120px
 }
 
@@ -13,12 +14,13 @@
 .color-span{
     color: rgba(141, 141, 141, 0.78);
 }
+
 .part-div-child{
 
     float: left;
     margin-left: 10px;
     width: 200px;
-    height: 130px;
+    height: 50px;
     background: #d8eaf6;
 }
 
@@ -36,3 +38,21 @@
     background: #f2f2f2;
 }
 
+table tr{
+    border: 1px solid #f2f2f2;
+}
+
+td{
+    text-align: center;
+    font-size: 18px;
+    color: #F2F2F2;
+    background: #2a94de;
+    padding: 5px 30px 5px 30px;
+}
+
+.commons-td{
+    background: #F2F2F2;
+    color: #000;
+    border:1px solid white;
+    font-size: 14px;
+}
