@@ -33,9 +33,8 @@ public class NewsSearchHandler {
 
     @RequestMapping("searchInit")
     @ResponseBody
-    public Map<String,List<Object>> searchInit(String userId){
+    public List<String> searchInit(String userId){
 
-
-        return null;
+        return nss.searchInit();
     }
 }
