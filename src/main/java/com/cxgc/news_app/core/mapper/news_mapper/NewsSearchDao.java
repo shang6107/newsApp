@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface NewsSearchDao {
 
-    List<News> newsSearch(List<String> str);
+    List<News> newsSearch(List<String> list);
+
+
 }

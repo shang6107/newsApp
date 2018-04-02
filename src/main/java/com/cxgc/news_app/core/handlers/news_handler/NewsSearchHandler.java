@@ -25,8 +25,17 @@ public class NewsSearchHandler {
     @RequestMapping("newsSearch")
     @ResponseBody
     public Map<String, List<News>> newsSearch(String search) {
+        System.out.println(search);
         Map<String, List<News>> map = new HashMap<>();
         map.put("newsSearch", nss.newsSearch(search));
         return map;
+    }
+
+    @RequestMapping("searchInit")
+    @ResponseBody
+    public Map<String,List<Object>> searchInit(String userId){
+
+
+        return null;
     }
 }

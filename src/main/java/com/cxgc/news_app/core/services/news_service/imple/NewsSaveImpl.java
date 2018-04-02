@@ -34,6 +34,7 @@ public  class NewsSaveImpl implements NewsSave {
         try {
             List<News> newsList;
             newsHandle(objects,type,path);
+            System.out.println(objects);
             newsList = saveNewsToDatabase(type,path);
             if(newsList!=null&&newsList.size()>0){
                 nid.insertNews(newsList);
@@ -61,7 +62,7 @@ public  class NewsSaveImpl implements NewsSave {
         }
         a:  for(int i=0;i<objects.size();i++){
             news = objects.getJSONObject(i);
-            String id = news.getString("id");
+            String id =ns.newsDate()+news.getString("id");
             if(strings!=null){
                 for (int j=0;j<strings.size();j++){
                     if(strings.get(j).equals(id)){
@@ -76,7 +77,7 @@ public  class NewsSaveImpl implements NewsSave {
             }
             String content= news.getString("content");
 
-            NewsSpider.newsSave(content,id,type);
+            ns.newsSave(content,id,type);
         }
     }
     @Override

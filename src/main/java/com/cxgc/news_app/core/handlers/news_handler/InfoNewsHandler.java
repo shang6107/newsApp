@@ -40,6 +40,7 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/getOneNews")
     public @ResponseBody Map<String,Object> test(String id,String userId) throws IOException {
+
         Map<String,Object> map=new HashedMap();
 
         //获得新闻对象
