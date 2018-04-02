@@ -27,8 +27,8 @@ public class SearchSpider {
     public Future<List<News>> baiduSearch(String str) {
         String url ="http://baidu.com/s?wd=";
         List<News> newsList = new ArrayList<>();
-
-        url+=searchString(str);
+        url+=str;
+        //url+=searchString(str);
 
         Document doc = null;
         try {

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +21,13 @@ public class NewsSearchHandler {
     @Autowired
     private NewsSearchService nss;
 
-    @RequestMapping("newsSearch")
+    @RequestMapping(value = "newsSearch")
     @ResponseBody
     public Map<String, List<News>> newsSearch(String search) {
-        System.out.println(search);
+
         Map<String, List<News>> map = new HashMap<>();
         map.put("newsSearch", nss.newsSearch(search));
+
         return map;
     }
 
