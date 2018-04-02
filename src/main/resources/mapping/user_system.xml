@@ -67,7 +67,7 @@
         update users
         <trim prefix="set" suffixOverrides=",">
             <if test="headImg != null">
-                headImg =#{headImg}
+                head_img =#{headImg}
             </if>
             <if test="nickName != null">
                 nick_name =#{nickName}
@@ -102,9 +102,9 @@
     <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collection_result">
         select * from collections where user_id=#{id}
     </select>-->
-   <!--获取指定用户评论信息-->
-    <select id="listComment" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.Comment">
-        select * from comment where user_id = #{id}
+   <!--获取指定用户评论过的所有新闻-->
+    <select id="listComment"  resultType="com.cxgc.news_app.core.model.Comment">
+        select id,content,good_count goodCount,news_id newsId,user_id userId,create_time createTime from comment where user_id = #{id}
     </select>
 
     <!--添加浏览记录-->

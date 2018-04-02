@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 获取用户浏览记录
+     * 获取用户浏览过的新闻
      * @param user
      * @return
      */
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 获取用户收藏
+     * 获取用户收藏的新闻
      * @param user
      * @return
      */
@@ -155,12 +155,17 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 获取用户评论信息
-     * @param user
+     * 获取用户评论过的新闻
+     * @param id
      * @return
      */
-    public List<Comment> listComment(User user){
-        return userMapper.listComment(user);
+    public List<Comment> listComment(String id){
+        List<Comment> comments = userMapper.listComment(id);
+        for (Comment comment : comments) {
+            System.out.println("comment = " + comment);
+        }
+
+        return comments;
     }
 
     /**
