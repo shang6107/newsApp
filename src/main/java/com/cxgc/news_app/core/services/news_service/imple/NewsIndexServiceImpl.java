@@ -64,6 +64,8 @@ public class NewsIndexServiceImpl implements NewsIndexService{
         List<News> list = new ArrayList<>();
         List<News> newsList = nd.selectNewsList();
         Random r = new Random();
+        if (newsList.isEmpty())
+            return null;
         for (int i =0;i<10;i++){
          int index= r.nextInt(newsList.size());
          list.add(newsList.get(index));
@@ -97,8 +99,8 @@ public class NewsIndexServiceImpl implements NewsIndexService{
     @Override
     public void addUserRecords(String userId, String newsId) {
         Integer integer = nd.updateUserRecords(userId, newsId);
+        System.out.println(integer);
         if(integer >0){
-
             nd.insertUserRecords(UtilY.getId(),userId,newsId);
         }
     }

@@ -105,7 +105,7 @@ public class NewsSpider{
     }
 
     //保存新闻到本地
-    public static void newsSave(String content,Object id,Integer apiNo) throws IOException {
+    public  void newsSave(String content,Object id,Integer apiNo) throws IOException {
         File news = new File(newsPath(apiNo)+"\\"+id);
         FileWriter fw = new FileWriter(news);
         BufferedWriter bfw = new BufferedWriter(fw);
@@ -113,12 +113,12 @@ public class NewsSpider{
         bfw.close();
         fw.close();
     }
-    public static String  newsDate(){
+    public  String  newsDate(){
         String format = dateFormat.format(d.getTime());
         return format;
     }
 
-    public static String newsPath(Integer type){
+    public  String newsPath(Integer type){
         File path = new File("D:\\news\\"+newsDate()+"\\"+type);
         if (!path.exists()){
             path.mkdirs();
