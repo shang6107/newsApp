@@ -49,25 +49,25 @@ public interface UserService {
     public User editUserInfo(User user);
 
     /**
-     * 获取用户浏览记录
+     * 获取用户浏览过的新闻
      * @param user
      * @return
      */
     public List<History> listHistory(User user);
 
     /**
-     * 获取用户收藏
+     * 获取用户收藏的新闻
      * @param user
      * @return
      */
     public List<Collections> listCollections(User user);
 
     /**
-     * 获取用户评论信息
-     * @param user
+     * 获取用户评论过的新闻
+     * @param id
      * @return
      */
-    public List<Comment> listComment(User user);
+    public List<Comment> listComment(String id);
 
     /**
      * 账号密码登陆

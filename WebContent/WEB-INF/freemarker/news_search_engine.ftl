@@ -12,7 +12,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , height: 500
+            , height: 750
             , curr: 1
             , hash: true
             , limit: 10

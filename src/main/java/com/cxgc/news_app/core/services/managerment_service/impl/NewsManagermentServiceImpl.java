@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * pjl
@@ -35,13 +34,30 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
     }
 
     @Override
+    public String insertRelease(Release release) {
+        return nmd.insertRelease(release);
+    }
+
+    @Override
     public String deleteReleaseById(String id) {
         return nmd.deleteReleaseById(id);
     }
 
+
     @Override
-    public String updateReleaseById(Release release) {
-        return nmd.updateReleaseById(release);
+    public Release updateReleaseById(Release release) {
+
+        int i= nmd.updateReleaseById(release);
+
+        if(i>0){
+            return nmd.selectReleaseById(release.getId());
+        }
+        return null;
+    }
+
+    @Override
+    public Release selectReleaseById(String id) {
+        return nmd.selectReleaseById(id);
     }
 
     @Override
@@ -49,10 +65,6 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.selectRelease();
     }
 
-    @Override
-    public String selectReleaseById(String id) {
-        return nmd.selectReleaseById(id);
-    }
 
     @Override
     public NewsType getNewsTypeById(Integer id) {

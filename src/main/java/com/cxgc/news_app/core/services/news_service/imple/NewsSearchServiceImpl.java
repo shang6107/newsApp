@@ -31,7 +31,7 @@ public class NewsSearchServiceImpl implements NewsSearchService{
             strings.add(search);
         }
      future = ss.baiduSearch(str);
-      fromDatabase=  nsd.newsSearch(strings);
+      //fromDatabase=  nsd.newsSearch(strings);
         try {
             fromBaidu = future.get();
 
@@ -41,10 +41,10 @@ public class NewsSearchServiceImpl implements NewsSearchService{
             e.printStackTrace();
         }
 
-
-        if(fromDatabase!=null){
+        //System.out.println(fromDatabase);
+        /*if(fromDatabase!=null){
             fromBaidu.addAll(fromDatabase);
-        }
+        }*/
 
         return fromBaidu;
     }
