@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.handlers.news_handler;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
@@ -114,7 +115,6 @@ public class InfoNewsHandler {
 //                   System.out.println("eachComment = " + eachComment);
 //               }
 //           }
-
         return map;
     }
 
@@ -129,7 +129,9 @@ public class InfoNewsHandler {
     public @ResponseBody String putDiscuss(@Param("userId") String userId,@Param("newsId") String newsId,@Param("content") String content,@Param("disscussNum") int disscussNum){
         Comment comment=new Comment();
         comment.setNewsId(newsId);
-        comment.setUserId(userId);
+        User u=new User();
+        u.setId(userId);
+        comment.setUserId(u);
         comment.setContent(content);
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
@@ -152,6 +154,7 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/outMyselfDiscuss")
     public @ResponseBody String outDiscuss(Comment comment){
+        System.out.println("删除c评论***********omment = " + comment);
         newsService.outPutComment(comment);
         dissCount--;
         zcount--;
@@ -196,6 +199,7 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/putonGood")
       public @ResponseBody String putonGood(Comment comment){
+        System.out.println("点赞******comment = " + comment);
         newsService.putonGood(comment);
         return "true";
       }
