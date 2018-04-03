@@ -89,11 +89,12 @@
             </div>
         </div>
         <script>
-            var groupName = "${(manager.groups.groupName)!''}";
+            var groupId = "${(manager.groups.id)!''}";
             var flag = 0;
-            for (var i = 0; i < $("select[name='groups.groupName'] option").length; i++) {
-                if ($("select[name='groups.groupName'] option")[i].value === groupName) {
-                    $("select[name='groups.groupName'] option")[i].selected = "selected";
+            for (var i = 0; i < $("select[name='groups.id'] option").length; i++) {
+            console.log($("select[name='groups.id'] option")[i]);
+                if ($("select[name='groups.id'] option")[i].value === groupId) {
+                    $("select[name='groups.id'] option")[i].selected = "selected";
                     flag = 1;
                     break;
                 }
