@@ -1,9 +1,6 @@
 package com.cxgc.news_app.core.handlers.news_handler;
 
-import com.cxgc.news_app.core.model.Collections;
-import com.cxgc.news_app.core.model.Comment;
-import com.cxgc.news_app.core.model.News;
-import com.cxgc.news_app.core.model.User;
+import com.cxgc.news_app.core.model.*;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
@@ -85,17 +82,18 @@ public class InfoNewsHandler {
         map.put("commentsNum",commentsNum);
 
         int count=Integer.parseInt(reCount);
-        System.out.println("count = " + count);
         if(count<1||zcount<1){
             count=1;
         }
         zcount=count;
         List<Comment> eachComment;
         int startNo=size * (zcount-1);
+
         if(userId!=null){
             if(num!=0){
                 eachComment= newsService.getAllCommentByNewsId(id, num, 1);
                 map.put("eachComment",eachComment);
+                return map;
             }
             eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
             map.put("eachComment",eachComment);
@@ -103,18 +101,6 @@ public class InfoNewsHandler {
             eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
             map.put("eachComment",eachComment);
         }
-
-//           if (eachComment.size() == 1||eachComment.size() == 0) {//评论为奇数
-//               num -= 2;
-//               System.out.println("num = " + num);
-//               if (commentsNum - num == 1) {
-//                   System.out.println("zcount = " + zcount);
-//                   startNo = size * (zcount - 1 - 1);
-//                   eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
-//                   eachComment.remove(0);
-//                   System.out.println("eachComment = " + eachComment);
-//               }
-//           }
         return map;
     }
 
@@ -136,7 +122,6 @@ public class InfoNewsHandler {
         comment.setCreateTime(new Date());
         comment.setId(""+System.currentTimeMillis());
         comment.setGoodCount(0);
-        System.out.println("comment = 添加评论" + comment);
         dissCount=disscussNum;
         System.out.println("disscussNum = " + disscussNum);
         int result=newsService.putIntoComment(comment,dissCount);
@@ -148,13 +133,17 @@ public class InfoNewsHandler {
 
     /**
      * 删除评论
-     * @param comment
+     * @param id userId
      * @return
      */
     @CrossOrigin
     @RequestMapping("/outMyselfDiscuss")
-    public @ResponseBody String outDiscuss(Comment comment){
-        System.out.println("删除c评论***********omment = " + comment);
+    public @ResponseBody String outDiscuss(@Param("id") String id,@Param("userId") String userId){
+        Comment comment=new Comment();
+        User u=new User();
+        u.setId(userId);
+        comment.setId(id);
+        comment.setUserId(u);
         newsService.outPutComment(comment);
         dissCount--;
         zcount--;
@@ -199,9 +188,23 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/putonGood")
       public @ResponseBody String putonGood(Comment comment){
-        System.out.println("点赞******comment = " + comment);
         newsService.putonGood(comment);
         return "true";
       }
+
+    /**
+     * 获得用户的历史浏览记录
+     */
+    @CrossOrigin
+    @RequestMapping("/userNewsHistories")
+    public @ResponseBody Map<String,Object> getUserHistory(String userId){
+        Map<String,Object> map=new HashedMap();
+
+        List<History> newsHistory = newsService.getUserNewsHistory(userId);
+        System.out.println("newsHistory = " + newsHistory);
+
+        map.put("newsHistory",newsHistory);
+        return map;
+    }
 
 }
