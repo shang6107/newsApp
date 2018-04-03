@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.news_service;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.History;
 import com.cxgc.news_app.core.model.News;
 
 import java.util.Collection;
@@ -54,5 +55,9 @@ public interface NewsService {
      * 保存用户的点赞
      */
     void putonGood(Comment comment);
+    /**
+     * 获得用户历史浏览记录
+     */
+    List<History> getUserNewsHistory(String userId);
 
 }
