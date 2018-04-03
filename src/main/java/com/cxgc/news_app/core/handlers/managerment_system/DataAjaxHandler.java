@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
+import com.cxgc.news_app.common.WorkType;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.NewsManagermentService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
@@ -56,6 +57,12 @@ public class DataAjaxHandler {
     @ResponseBody
     public Object managerList(Integer pageNum , Integer pageSize) throws ParseException, IllegalAccessException {
         return $(managerService.getManager(pageNum, pageSize));
+    }
+
+    @RequestMapping("/workType-list")
+    @ResponseBody
+    public Object allOfWorkType() throws ParseException, IllegalAccessException {
+        return $(WorkType.values());
     }
 
 }
