@@ -35,7 +35,7 @@ public class IndexNewsListHandler {
         map.put("newsList",ns.newsListByType(type));
         return  map;
     }
-    @RequestMapping("records")
+    @RequestMapping(value = "records")
     public void addUserRecords(String newsId,String userId ){
         ns.addNewsRecords(newsId);
             if(!"null".equals(userId))
