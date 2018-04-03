@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.handlers.news_handler;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
 import com.cxgc.news_app.core.model.News;
+import com.cxgc.news_app.core.model.User;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import com.cxgc.news_app.utility.news.NewsIO;
 import org.apache.commons.collections.map.HashedMap;
@@ -30,8 +31,7 @@ public class InfoNewsHandler {
 
     @Autowired
     private NewsService newsService;
-    public static int size=2;
-    public static int num=0;
+    public static int size=10;
     public static int dissCount=0;
     /**
      * 通过新闻id获得新闻及所有评论,收藏
@@ -45,8 +45,12 @@ public class InfoNewsHandler {
 
         //获得新闻对象
         News oneNew = newsService.getNewsById(id);
-        if(oneNew.getUrl()==null){return null;}
+        if(oneNew==null){
+            return null;
+        }
+
         StringBuffer stringFromFile = NewsIO.getStringFromFile(oneNew.getUrl());
+        if(stringFromFile==null){map.put("newsFile",null);}
         map.put("newsFile",stringFromFile);//新闻内容
         map.put("news",oneNew);//新闻对象
 
@@ -60,23 +64,20 @@ public class InfoNewsHandler {
             Collections checkCollection=newsService.checkCollection(collection);
             map.put("checkCollection",checkCollection);
         }
+
         //所有的评论数
         int commentsNum = newsService.getCommentNum(id);
         map.put("commentsNum",commentsNum);
-        //获得每次请求的前5条数据
-        int num=1;
-        int startNo=size * (num - 1);
-        List<Comment> eachComment=newsService.getAllCommentByNewsId(id,startNo,size);
-        map.put("comments",eachComment);
         return map;
 }
 
     /**
      * 每次刷新获得即时评论
      */
+    public static int zcount=0;
     @CrossOrigin
     @RequestMapping("/getEachComment")
-    public @ResponseBody Map<String,Object> getEachComment(@Param("id") String id,@Param("reCount") String reCount){
+    public @ResponseBody Map<String,Object> getEachComment(@Param("id") String id,@Param("userId") String userId,@Param("reCount") String reCount,@Param("num") int num){
         Map<String,Object> map=new HashedMap();
 
         //所有的评论数
@@ -85,21 +86,35 @@ public class InfoNewsHandler {
 
         int count=Integer.parseInt(reCount);
         System.out.println("count = " + count);
-        if(count<1){
+        if(count<1||zcount<1){
             count=1;
         }
-        int startNo=size * count;
-        List<Comment> eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
-
-        if(eachComment.size()<=2&&count==1){
-            num++;
-            System.out.println("num = " + num);
-            if(num%2==0){
-                eachComment.remove(0);
-              num=0;
+        zcount=count;
+        List<Comment> eachComment;
+        int startNo=size * (zcount-1);
+        if(userId!=null){
+            if(num!=0){
+                eachComment= newsService.getAllCommentByNewsId(id, num, 1);
+                map.put("eachComment",eachComment);
             }
+            eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+            map.put("eachComment",eachComment);
+        }else {
+            eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+            map.put("eachComment",eachComment);
         }
-        map.put("eachComment",eachComment);
+
+//           if (eachComment.size() == 1||eachComment.size() == 0) {//评论为奇数
+//               num -= 2;
+//               System.out.println("num = " + num);
+//               if (commentsNum - num == 1) {
+//                   System.out.println("zcount = " + zcount);
+//                   startNo = size * (zcount - 1 - 1);
+//                   eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+//                   eachComment.remove(0);
+//                   System.out.println("eachComment = " + eachComment);
+//               }
+//           }
         return map;
     }
 
@@ -114,12 +129,16 @@ public class InfoNewsHandler {
     public @ResponseBody String putDiscuss(@Param("userId") String userId,@Param("newsId") String newsId,@Param("content") String content,@Param("disscussNum") int disscussNum){
         Comment comment=new Comment();
         comment.setNewsId(newsId);
-        comment.setUserId(userId);
+        User u=new User();
+        u.setId(userId);
+        comment.setUserId(u);
         comment.setContent(content);
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
         comment.setGoodCount(0);
+        System.out.println("comment = 添加评论" + comment);
         dissCount=disscussNum;
+        System.out.println("disscussNum = " + disscussNum);
         int result=newsService.putIntoComment(comment,dissCount);
         if(result>1){
             return "评论成功！";
@@ -135,8 +154,10 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/outMyselfDiscuss")
     public @ResponseBody String outDiscuss(Comment comment){
+        System.out.println("删除c评论***********omment = " + comment);
         newsService.outPutComment(comment);
         dissCount--;
+        zcount--;
         return "yes";
     }
 
@@ -178,6 +199,7 @@ public class InfoNewsHandler {
     @CrossOrigin
     @RequestMapping("/putonGood")
       public @ResponseBody String putonGood(Comment comment){
+        System.out.println("点赞******comment = " + comment);
         newsService.putonGood(comment);
         return "true";
       }

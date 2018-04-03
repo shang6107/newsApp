@@ -16,6 +16,7 @@ public class Comment {
     private String content;
     private Integer goodCount;
     private String newsId;
-    private String userId;
+    //唐倩 修改数据类型 String--->User
+    private User userId;
     private Date createTime;
 }

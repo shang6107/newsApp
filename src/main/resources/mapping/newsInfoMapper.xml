@@ -23,8 +23,8 @@
         <result property="content" column="content"/>
         <result property="goodCount" column="good_count"/>
         <result property="newsId" column="news_id"/>
-        <result property="userId" column="user_id"/>
         <result property="createTime" column="create_time"/>
+        <association property="userId" column="user_id" select="com.cxgc.news_app.core.mapper.user_mapper.UserMapper.getUserById" javaType="com.cxgc.news_app.core.model.User"/>
     </resultMap>
 
     <select id="getAllCommentByNewsId" resultMap="allComment">
@@ -36,7 +36,7 @@
     </select>
 
     <select id="getCommentByNewIdAndUserId" resultMap="allComment">
-        select * from comment where user_id=#{userId} and news_id=#{newsId}
+        select * from comment where user_id=#{userId.id} and news_id=#{newsId}
     </select>
 
     <select id="checkCollection" resultType="collections">
@@ -47,7 +47,7 @@
 
     <!--发布评论-->
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
-        insert into comment values(#{id},#{content},#{goodCount},#{newsId},#{userId},#{createTime})
+        insert into comment values(#{id},#{content},#{goodCount},#{newsId},#{userId.id},#{createTime})
     </insert>
 
     <!--更新评论-->
