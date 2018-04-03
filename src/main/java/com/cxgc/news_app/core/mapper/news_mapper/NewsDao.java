@@ -2,6 +2,7 @@ package com.cxgc.news_app.core.mapper.news_mapper;
 
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.History;
 import com.cxgc.news_app.core.model.News;
 import org.apache.ibatis.annotations.Param;
 
@@ -62,5 +63,9 @@ public interface NewsDao {
      * 保存用户的点赞
      */
     void putonGood(Comment comment);
+    /**
+     * 通过用户id获得历史浏览记录
+     */
+    List<History> userNewsHistory(String id);
 
 }
