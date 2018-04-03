@@ -281,11 +281,7 @@ public class ManagerBaseHandler {
                     //如果还有其他错误，转发回输入页面
                     result.rejectValue("password", "manager.password.eq");
                     return "root_management_edit";
-                } else if (flag && !hasOtherError) {
-                    //如果仅有密码字段出错，则忽略错误，重定向
-                    return "redirect:/management/root_management.html";
                 }
-
             }
         }
         //保存管理员上传的头像图片到指定路径
