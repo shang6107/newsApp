@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface ManagerDao {
     
+    Manager getManagerById(String id);
     Manager getManagerByMgrNo(String mgrNo);//根据ID得到管理员信息
     void updateLastLoginTimeAndAddressAndLoginCount(String mgrNo,String address);//修改管理员上次登录时间
     void updateManager(Manager manager);

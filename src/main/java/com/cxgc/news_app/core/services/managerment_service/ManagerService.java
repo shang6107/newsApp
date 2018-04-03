@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface ManagerService {
 
-    
+    Manager getManagerById(String id);
     List<Groups> getAllGroups();
     List<Authorities> getAuthoritiesByGroupId(String id);
     void updateManagerStatus(Manager manager);

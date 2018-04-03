@@ -29,6 +29,11 @@ public class ManagerServiceImpl implements ManagerService {
     private GroupDao groupDao;
 
     @Override
+    public Manager getManagerById(String id) {
+        return md.getManagerById(id);
+    }
+
+    @Override
     public List<Groups> getAllGroups() {
         return groupDao.getAllGroups();
     }
