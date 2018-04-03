@@ -43,8 +43,6 @@
         select * from collections where news_id=#{newsId.id} and user_id=#{userId}
     </select>
 
-
-
     <!--发布评论-->
     <insert id="putIntoComment" parameterType="com.cxgc.news_app.core.model.Comment">
         insert into comment values(#{id},#{content},#{goodCount},#{newsId},#{userId.id},#{createTime})
@@ -57,7 +55,7 @@
 
     <!--删除评论-->
     <delete id="outPutComment" parameterType="comment">
-        delete from comment where id=#{id} and user_id=#{userId}
+        delete from comment where id=#{id} and user_id=#{userId.id}
     </delete>
 
     <!--收藏-->
