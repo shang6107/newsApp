@@ -103,4 +103,11 @@ public interface UserMapper {
      * @return
      */
     public User getUserByPhoneAndPassword(User user);
+
+    /**
+     * 删除用户评论表中用户评论记录
+     * @param comment
+     * @return
+     */
+    public Integer deleteCommnetByNewIDAndUserId(Comment comment);
 }

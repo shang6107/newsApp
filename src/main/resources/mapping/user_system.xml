@@ -93,20 +93,12 @@
         </trim>
         where id =#{id}
     </update>
-<!--获取指定用户的历史浏览记录
-    <select id="listHistory" parameterType="com.cxgc.news_app.core.model.User" resultType="com.cxgc.news_app.core.model.History">
-        select * from history where user_id =#{id};
-    </select>-->
 
-    <!--获取指定用户的收藏
-    <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collection_result">
-        select * from collections where user_id=#{id}
-    </select>-->
    <!--获取指定用户评论过的所有新闻-->
-    <select id="listComment"  resultType="com.cxgc.news_app.core.model.Comment">
-        select id,content,good_count goodCount,news_id newsId,user_id userId,create_time createTime from comment where user_id = #{id}
-    </select>
 
+    <select id="listComment"  resultType="com.cxgc.news_app.core.model.Comment">
+        select DISTINCT news_id newsId from comment where user_id = #{id}
+    </select>
     <!--添加浏览记录-->
    <!-- <insert id="addHistory" parameterType="com.cxgc.news_app.core.model.History">
         insert into history values(#{},#{},#{})
@@ -199,4 +191,8 @@
         n.news_type_id = t.id
         where h.user_id = #{id}
     </select>
+
+    <delete id="deleteCommnetByNewIDAndUserId" parameterType="com.cxgc.news_app.core.model.Comment">
+        delete FROM  comment where user_id = #{userId.id} and news_id = #{newsId}
+    </delete>
 </mapper>

@@ -1,19 +1,23 @@
 package com.cxgc.news_app.core.services.user_service.impl;
 
 
+import com.cxgc.news_app.core.mapper.news_mapper.NewsDao;
 import com.cxgc.news_app.core.mapper.user_mapper.UserMapper;
 import com.cxgc.news_app.core.model.*;
+import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.services.user_service.UserService;
+import com.cxgc.news_app.utility.idutil.UtilY;
 import com.cxgc.news_app.utility.user_uitl.RegisterUtil;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 用户
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService{
     private UserMapper userMapper;
     @Autowired
     private RegisterUtil registerUtil;
+    @Autowired
+    private NewsDao newsDao;
     /**
      * 通过id获取用户信息
      * @param id
@@ -141,8 +147,15 @@ public class UserServiceImpl implements UserService{
      * @param user
      * @return
      */
-    public List<History> listHistory(User user){
-        return userMapper.listHistory(user);
+    public Object listHistory(User user){
+        Map<String,Object> map = new HashMap<>();
+        List<History> histories = userMapper.listHistory(user);
+        if(histories.isEmpty()){
+            System.out.println("histories = " + histories);
+            return null;
+        }
+        map.put("histories",histories);
+        return map;
     }
 
     /**
@@ -150,8 +163,15 @@ public class UserServiceImpl implements UserService{
      * @param user
      * @return
      */
-    public List<Collections> listCollections(User user){
-        return userMapper.listCollections(user);
+    public Object listCollections(User user){
+        Map<String,Object> map = new HashMap<>();
+        List<Collections> collections = userMapper.listCollections(user);
+        if(collections.isEmpty()){
+            return null;
+        }
+        map.put("collections",collections);
+
+        return map;
     }
 
     /**
@@ -159,13 +179,17 @@ public class UserServiceImpl implements UserService{
      * @param id
      * @return
      */
-    public List<Comment> listComment(String id){
+    public Object listComment(String id){
+        Map<String,Object> map =new HashMap<String,Object>();
         List<Comment> comments = userMapper.listComment(id);
+        List<News> listnews = new ArrayList<>();
         for (Comment comment : comments) {
-            System.out.println("comment = " + comment);
+            News news = newsDao.getNews(comment.getNewsId());
+            news.setId(comment.getNewsId());
+            listnews.add(news);
         }
-
-        return comments;
+        map.put("comments",listnews);
+        return map;
     }
 
     /**
@@ -174,10 +198,94 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     public User getUserByPhoneAndPassword(User user){
+        //密码MD5加密
+        user.setPassword(UtilY.MD5(user.getPassword()));
         User sucUser = userMapper.getUserByPhoneAndPassword(user);
         if(sucUser!=null){
             return sucUser;
         }
         return null;
+    }
+
+    /**
+     * 修改密码
+     * @param user
+     * @param newPassword
+     * @return
+     */
+    public Object editPassword(User user,String newPassword){
+        user.setPassword(UtilY.MD5(user.getPassword()));
+        if(userMapper.getUserByPhoneAndPassword(user)!=null){
+            user.setPassword(UtilY.MD5(newPassword));
+            System.out.println("user = " + user);
+            userMapper.editUserInfo(user);
+            return "修改成功！";
+        }
+        return null;
+    }
+
+    /**
+     * 修改头像
+     * @param user
+     * @param request
+     * @return
+     */
+    public Object imgUpload(User user, HttpServletRequest request){
+        String imgBase64Data = user.getHeadImg();
+        try {
+
+            if(imgBase64Data == null || "".equals(imgBase64Data)){
+                return "上传失败，上传图片数据为空！";
+            }
+            String projectPath = request.getSession().getServletContext().getRealPath("/");
+            String context = request.getContextPath();
+            String imgFilePath ="/userfiles/images/";
+            File uploadPathFile = new File(projectPath+imgFilePath);
+
+            //创建父类文件
+            if(!uploadPathFile.exists() && !uploadPathFile.isDirectory()){
+                uploadPathFile.mkdirs();
+            }
+            File imgeFile = new File(projectPath+imgFilePath,new Date().getTime()+".jpg");
+            if(!imgeFile.exists()){
+                imgeFile.createNewFile();
+            }
+            System.out.println("imgeFile = " + imgeFile);
+            //对base64进行解码
+            byte[] result = decodeBase64(imgBase64Data);
+            //使用Apache提供的工具类将图片写到指定路径下
+            FileUtils.writeByteArrayToFile(imgeFile,result);
+
+            //entity.setData(imgFilePath+imgeFile.getName());
+            System.out.println("result = " + result);
+            System.out.println(imgFilePath+imgeFile.getName());
+            String headImg =imgFilePath+imgeFile.getName();
+            user.setHeadImg(headImg);
+        }catch (Exception e){
+            e.printStackTrace();
+            //entity.setData("上传失败，系统异常");
+        }
+        System.out.println("user = " + user);
+        return userMapper.editUserInfo(user);
+    }
+
+    /**
+     * Base64解码.
+     */
+    public static byte[] decodeBase64(String input) {
+        return Base64.decodeBase64(input.getBytes());
+    }
+
+    /**
+     * 删除用户评论表中用户评论记录
+     * @param comment
+     * @return
+     */
+    public String deleteCommnetByNewIDAndUserId(Comment comment){
+        System.out.println("comment = " + comment);
+       if(userMapper.deleteCommnetByNewIDAndUserId(comment)>0){
+           return "1";
+       }
+       return "-1";
     }
 }

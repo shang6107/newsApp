@@ -53,21 +53,21 @@ public interface UserService {
      * @param user
      * @return
      */
-    public List<History> listHistory(User user);
+    public Object listHistory(User user);
 
     /**
      * 获取用户收藏的新闻
      * @param user
      * @return
      */
-    public List<Collections> listCollections(User user);
+    public Object listCollections(User user);
 
     /**
      * 获取用户评论过的新闻
      * @param id
      * @return
      */
-    public List<Comment> listComment(String id);
+    public Object listComment(String id);
 
     /**
      * 账号密码登陆
@@ -75,4 +75,27 @@ public interface UserService {
      * @return
      */
     public User getUserByPhoneAndPassword(User user);
+
+    /**
+     * 修改密码
+     * @param user
+     * @param newPassword
+     * @return
+     */
+    public Object editPassword(User user,String newPassword);
+
+    /**
+     * 修改头像
+     * @param user
+     * @param request
+     * @return
+     */
+    public Object imgUpload(User user, HttpServletRequest request);
+
+    /**
+     * 删除用户评论表中用户评论记录
+     * @param comment
+     * @return
+     */
+    public String deleteCommnetByNewIDAndUserId(Comment comment);
 }

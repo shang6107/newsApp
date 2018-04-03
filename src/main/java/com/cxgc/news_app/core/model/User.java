@@ -25,6 +25,7 @@ public class User {
     private String address;//住址
     private String hobby;//爱好
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birth;//生日
     private String introduce;//个人介绍
     @DateTimeFormat(pattern = "yyyy-MM-dd")
