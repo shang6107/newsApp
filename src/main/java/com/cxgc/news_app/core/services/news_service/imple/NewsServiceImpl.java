@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.services.news_service.imple;
 import com.cxgc.news_app.core.mapper.news_mapper.NewsDao;
 import com.cxgc.news_app.core.model.Collections;
 import com.cxgc.news_app.core.model.Comment;
+import com.cxgc.news_app.core.model.History;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.services.news_service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +144,18 @@ public class NewsServiceImpl implements NewsService{
 //        list.add(comment);
         newsDao.putonGood(comment);
     }
-//    public void addBath(List<Comment> comment){
+    //    public void addBath(List<Comment> comment){
 //        newsDao.putonGood(comment);
 //    }
+
+    /**
+     * 通过用户id获得所有新闻记录
+     * @param userId 用户id
+     * @return 得到历史浏览集合
+     */
+    @Override
+    public List<History> getUserNewsHistory(String userId) {
+        return newsDao.userNewsHistory(userId);
+    }
+
 }
