@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.news_mapper.NewsDao">
+
+    <resultMap id="newsHistory" type="com.cxgc.news_app.core.model.History">
+        <result property="news.id" column="id"/>
+        <result property="news.title" column="title"/>
+        <result property="news.accessCount" column="access_count"/>
+        <result property="news.author" column="author" />
+        <result property="news.createTime" column="create_time"/>
+        <result property="news.type.typeName" column="type_name" />
+    </resultMap>
+
     <select id="getNews" resultMap="oneNews">
         select title,url,news_type_id,access_count,create_time,author from news where id=#{id}
     </select>
@@ -17,6 +27,7 @@
                     select="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao.getNewsTypeById"
                     javaType="com.cxgc.news_app.core.model.NewsType"/>
    </resultMap>
+
 
     <resultMap id="allComment" type="comment">
         <result property="id" column="id"/>
@@ -72,5 +83,15 @@
     <update id="putonGood" parameterType="comment">
         update comment set good_count=#{goodCount} where news_id=#{newsId} and id=#{id}
     </update>
+
+    <!--用户的历史浏览记录-->
+    <select id="userNewsHistory" parameterType="String" resultMap="newsHistory">
+        select n.id,h.create_time,n.title,n.access_count,n.author,t.type_name from history h
+        LEFT JOIN news n on
+        h.news_id=n.id
+        LEFT JOIN news_type t ON
+        n.news_type_id = t.id
+        where h.user_id = #{id}
+    </select>
 
 </mapper>
