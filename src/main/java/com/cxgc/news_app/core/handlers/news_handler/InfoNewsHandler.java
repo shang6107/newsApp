@@ -134,7 +134,7 @@ public class InfoNewsHandler {
         comment.setUserId(u);
         comment.setContent(content);
         comment.setCreateTime(new Date());
-        comment.setId("cre"+System.currentTimeMillis());
+        comment.setId(""+System.currentTimeMillis());
         comment.setGoodCount(0);
         System.out.println("comment = 添加评论" + comment);
         dissCount=disscussNum;
