@@ -79,16 +79,17 @@ public class NewsServiceImpl implements NewsService{
      */
     int num=1;
     public int putIntoComment(Comment comment,int disscussNum) {
+
         if(disscussNum==2){
             //获得该用户对该新闻的所有评论
             List<Comment> commentByNewIdAndUserId = newsDao.getCommentByNewIdAndUserId(comment);
             if(num%2==1){
-                commentByNewIdAndUserId.get(0).setContent(comment.getContent());
-                newsDao.updateComment(commentByNewIdAndUserId.get(0));
+                commentByNewIdAndUserId.get(commentByNewIdAndUserId.size()-1).setContent(comment.getContent());
+                newsDao.updateComment(commentByNewIdAndUserId.get(commentByNewIdAndUserId.size()-1));
                 num++;
             }else if(num%2==0){
-                commentByNewIdAndUserId.get(1).setContent(comment.getContent());
-                newsDao.updateComment(commentByNewIdAndUserId.get(1));
+                commentByNewIdAndUserId.get(commentByNewIdAndUserId.size()-2).setContent(comment.getContent());
+                newsDao.updateComment(commentByNewIdAndUserId.get(commentByNewIdAndUserId.size()-2));
                 num++;
             }
             return 2;
