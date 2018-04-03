@@ -1,5 +1,6 @@
 package com.cxgc.news_app.core.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,5 +19,6 @@ public class Collections {
     // ly   修改数据类型 String --> News
     private News newsId;
     private String userId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 }
