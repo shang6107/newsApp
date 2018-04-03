@@ -26,7 +26,6 @@
                 <th scope="col">类型</th>
                 <th scope="col">访问量</th>
                 <th scope="col">创建时间</th>
-                <th scope="col">操作</th>
 
             </tr>
             </thead>
@@ -42,7 +41,6 @@
                     <#if new.createTime?exists>
                         <td>${new.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
-                    <td class="sel"><a href="management/deleteNewsById">删除</a></td>
                 </tr>
                 </#list>
             </#if>

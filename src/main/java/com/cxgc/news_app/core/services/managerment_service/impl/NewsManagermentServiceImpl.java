@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * pjl
@@ -17,16 +18,6 @@ import java.util.List;
 public class NewsManagermentServiceImpl implements NewsManagermentService {
     @Autowired
     private NewsManagermentDao nmd;
-
-    @Override
-    public String addRelease(Release release) {
-        return nmd.addRelease(release);
-    }
-
-    @Override
-    public String deleteNewsById(String id) {
-        return nmd.deleteNewsById(id);
-    }
 
     @Override
     public List<News> selectAllNews() {
@@ -65,10 +56,35 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.selectRelease();
     }
 
+    @Override
+    public List<Release> updateRelease() {
+        return nmd.updateRelease();
+    }
+
 
     @Override
     public NewsType getNewsTypeById(Integer id) {
         return nmd.getNewsTypeById(id);
+    }
+
+    @Override
+    public Map<String, Object> getMinCountOfNewsType() {
+        return nmd.getMinCountOfNewsType();
+    }
+
+    @Override
+    public Map<String, Object> getMaxCountOfNewsType() {
+        return nmd.getMaxCountOfNewsType();
+    }
+
+    @Override
+    public List<News> getTop10News() {
+        return nmd.getTop10News();
+    }
+
+    @Override
+    public List<Release> getTop10Release() {
+        return nmd.getTop10Release();
     }
 
 

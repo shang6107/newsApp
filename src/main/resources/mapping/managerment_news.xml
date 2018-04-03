@@ -65,12 +65,15 @@
         insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
         values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
     </insert>
-    <delete id="deleteNewsById" parameterType="com.cxgc.news_app.core.model.Release">
-        DELETE FROM `release` where id=#{0}
-    </delete>
 
+    <delete id="deleteNewsById" parameterType="com.cxgc.news_app.core.model.Release">
+     DELETE FROM news where id=#{0}
+    </delete>
+    <select id="updateRelease" resultMap="release_result">
+select * from `release` as r join users as u on r.user_Id=u.id where not r.`status`=2
+</select>
     <select id="selectRelease" resultMap="release_result">
-        select * from `release` join users on `release`.user_Id=users.id
+select * from `release` as r join users as u on r.user_Id=u.id where r.`status`=2
     </select>
 
     <select id="selectReleaseById" resultMap="release_result">
@@ -89,37 +92,68 @@
 
 
     <!--####################新闻数据统计#######################-->
+    <resultMap id="getMaxCountOfNewsType" type="map">
+        <result column="getMaxCountOfNewsType" property="getMaxCountOfNewsType"/>
+    </resultMap>
+    <resultMap id="getMinCountOfNewsType" type="map">
+        <result column="getMinCountOfNewsType" property="getMinCountOfNewsType"/>
+    </resultMap>
+    <resultMap id="getTop10News" type="map">
+        <result column="getTop10News" property="getTop10News"/>
+    </resultMap>
+    <resultMap id="getTop10Release" type="map">
+        <result column="getTop10Release" property="getTop10Release"/>
+    </resultMap>
+
+
     <select id="getMaxCountOfNewsType" resultType="map">
-        SELECT
-        nt.type_name,
-        count(news_type_id) counts
-        FROM
-        news n
-        JOIN
-        news_type nt
-        ON
-        n.news_type_id = nt.id
-        GROUP BY
-        news_type_id
-        ORDER BY
-        counts DESC
-        LIMIT 1
+SELECT t.news_type_id,t.type_name,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as cs
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id is NOT NULL GROUP BY t.news_type_id
+
+ORDER BY access_counts
+DESC
+     LIMIT 1
     </select>
     <select id="getMinCountOfNewsType" resultType="map">
-        SELECT
-        nt.type_name,
-        count(news_type_id) counts
-        FROM
-        news n
-        JOIN
-        news_type nt
-        ON
-        n.news_type_id = nt.id
-        GROUP BY
-        news_type_id
-        ORDER BY
-        counts
-        LIMIT 1
+     SELECT t.news_type_id,t.type_name,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as cs
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id is NOT NULL GROUP BY t.news_type_id
+
+ORDER BY access_counts
+     LIMIT 1
+    </select>
+    <select id="getTop10News" resultMap="news_result">
+SELECT n.*,access_count from news  n ORDER BY access_count DESC
+     LIMIT 10
+    </select>
+    <select id="getTop10Release" resultMap="release_result">
+SELECT r.*,access_count from `release`  r ORDER BY access_count DESC
+     LIMIT 10
     </select>
 </mapper>
 
