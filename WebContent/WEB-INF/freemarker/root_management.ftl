@@ -48,7 +48,7 @@
                     "<a class='freeze-manager' href='management/root/manager-freeze?mgrNo=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>" + (list[k].status === "NORMAL" ? "&#xe640;" : "&#xe64d;") + "</i>" +
                     "</a>&nbsp;" +
-                    "<a class='logback-manager' href='management/root/manager-sendMsg/=" + list[k].mgrNo + "'>" +
+                    "<a class='logback-manager' href='management/root_backlog.html?mgrNo=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>&#xe622;</i>" +
                     "</a></td>";
             tableContentHtml += "</tr>";
