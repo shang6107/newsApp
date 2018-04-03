@@ -251,7 +251,7 @@ public class AppListener implements ServletRequestListener, ServletContextListen
 
         }
         TEMP_INFO_CONTAINER.put(HIGHEST_COUNT, highestCount);
-        TEMP_INFO_CONTAINER.put(LOWEST_COUNT, lowestCount);
+        TEMP_INFO_CONTAINER.put(LOWEST_COUNT, lowestURL == null ? 0L : lowestCount);
         TEMP_INFO_CONTAINER.put(HIGHEST_URL, highestURL);
         TEMP_INFO_CONTAINER.put(LOWEST_URL, lowestURL);
         TEMP_INFO_CONTAINER.put(TOTAL_COUNT, totalCount);

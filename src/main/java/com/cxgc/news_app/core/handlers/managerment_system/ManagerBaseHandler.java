@@ -1,6 +1,9 @@
 package com.cxgc.news_app.core.handlers.managerment_system;
 
 import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.config.security.MyManagerDetails;
+import com.cxgc.news_app.core.model.Authorities;
+import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
@@ -9,9 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +30,7 @@ import javax.ws.rs.Path;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,27 +110,23 @@ public class ManagerBaseHandler {
         return "redirect:/management/login?logout";
     }
 
-    /**
-     * 管理员上传头像图片资料的处理方法
-     * @param file
-     * @param manager
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/commit-form-data")
-    public String test(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
+
+    private String saveManagerHeadImg(MultipartFile file, Manager manager,HttpServletRequest request) throws IOException {
         String realPath = request.getServletContext().getRealPath("/static/img/user/head");
         File headPath = new File(realPath);
         if(!headPath.exists()){
             headPath.mkdirs();
         }
+        if(file.getSize() == 0){
+            return null;
+        }
         String fileName = System.currentTimeMillis()
                 + "-" + manager.getMgrNo()
                 + "-" + file.getOriginalFilename();
-        headPath = new File(headPath,fileName);
+        realPath = headPath + "\\" + fileName;
+        headPath = new File(realPath);
         file.transferTo(headPath);
-        return "test";
+        return realPath;
     }
 
 
@@ -145,5 +150,83 @@ public class ManagerBaseHandler {
         }
         return null;
     }
+
+
+    private void setManagerResultMap(Map<String,Object> map){
+        List<Groups> allGroups = managerService.getAllGroups();
+        for(Groups g : allGroups){
+            if(g.getGroupName().equals("超级管理员")){
+                allGroups.remove(g);
+            }
+        }
+        map.put("allStatus",UserStatus.values());
+        map.put("allGroups",allGroups);
+    }
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @RequestMapping("/root/manager-edit/{mgrNo}")
+    public String updateManagerInfo(@PathVariable("mgrNo")String mgrNo, Map<String,Object> map,HttpServletRequest request){
+        if(mgrNo != null && !mgrNo.equals("")){
+            setManagerResultMap(map);
+            MyManagerDetails managerDetails =(MyManagerDetails) userDetailsService.loadUserByUsername(mgrNo);
+            Manager manager = managerDetails.getDomain();
+            if(manager != null){
+                String headImg = manager.getHeadImg();
+                if(headImg != null && !headImg.equals("") && headImg.contains("\\static")){
+                    String headImgPath = headImg.substring(headImg.indexOf("\\static") + 1);
+                    manager.setHeadImg(headImgPath);
+                }
+            }
+            map.put("manager",manager);
+        }
+        return "root_management_edit";
+    }
+
+    @ModelAttribute
+    public void getModel(@RequestParam(value = "id",required = false) String id,Map<String,Object> map){
+        if(id != null){
+            Manager manager1 = managerService.getManagerById(id);
+            map.put("manager",manager1);
+        }
+    }
+
+    @RequestMapping("/root/manager-update")
+    public String updateManager(
+            @ModelAttribute @Validated Manager manager,
+            BindingResult result,
+            String password1,
+            @RequestParam("file") MultipartFile file,
+            Map<String,Object> map,
+            HttpServletRequest request,
+            String stat) throws IOException {
+        setManagerResultMap(map);
+
+        if(result.hasFieldErrors()){
+            if(password1 != null && manager.getPassword() != null && !password1.equals(manager.getPassword())){
+                result.rejectValue("password","manager.password.eq");
+                return "root_management_edit";
+            }
+            if(password1 == null && manager.getPassword() != null){
+                List<FieldError> fieldErrors = result.getFieldErrors();
+                for(FieldError fieldError : fieldErrors){
+                    /*if(fieldError.getField().equals("password")
+                            && (fieldError.getDefaultMessage().equals("manager's password's length must between 6 and 16")
+                            || fieldError.getDefaultMessage().equals("两次密码必须一致"))){
+                        fieldErrors.remove(fieldError);
+                        return "redirect:/management/root_management.html";
+                    }*/
+                }
+            }
+            return "root_management_edit";
+        }
+        String path = saveManagerHeadImg(file, manager, request);
+        manager.setHeadImg(path);
+        manager.setStatus(UserStatus.getUserStatusByReason(stat));
+        managerService.updateManager(manager);
+        return "redirect:/management/root_management.html";
+    }
+
+
 
 }

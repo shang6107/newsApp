@@ -3,16 +3,20 @@ package com.cxgc.news_app.core.handlers.user_handler;
 import com.cxgc.news_app.core.model.*;
 import com.cxgc.news_app.core.services.user_service.UserService;
 import com.cxgc.news_app.utility.idutil.UtilY;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +69,7 @@ public class UserController {
         return user_service.editUserInfo(user);}
 
     /**
-     * 查看浏览记录
+     * 查看用户浏览过的所有新闻
      * @param user
      * @return
      */
@@ -84,7 +88,7 @@ public class UserController {
     }
 
     /**
-     * 获取用户收藏记录
+     * 获取用户收藏的所有新闻
      * @param user
      * @return
      */
@@ -99,38 +103,21 @@ public class UserController {
     }
 
     /**
-     * 获取用户评论信息
-     * @param user
+     * 获取用户评论过的所有新闻
+     * @param id
      * @return
      */
     @RequestMapping("/listComment")
     @ResponseBody
-    public Object listComment(User user){
-        List<Comment> comments = user_service.listComment(user);
-        return comments;
+    public Object listComment(String id){
+        Map<String,Object> map =new HashMap<String,Object>();
+        List<Comment> comments = user_service.listComment(id);
+        map.put("comments",comments);
+        return map;
     }
 
-    /*添加浏览记录*/
-    @RequestMapping("/addHistory")
-    @ResponseBody
-    public Object addHistory(History history){
 
-        return null;
-    }
-    /*添加收藏记录*/
-    @RequestMapping("/addCollections")
-    @ResponseBody
-    public Object addCollections(Collections collections){
 
-        return null;
-    }
-    /*添加评论记录*/
-    @RequestMapping("/addComment")
-    @ResponseBody
-    public Object addComment(Comment comment){
-
-        return null;
-    }
 
     /**
      * 账号密码登陆
@@ -162,5 +149,62 @@ public class UserController {
             return "修改成功！";
         }
         return null;
+    }
+
+
+    /**
+     * 修改头像
+     * @param user
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping( value = "/img_upload",method = RequestMethod.POST)
+    public Object imgUpload(User user, HttpServletRequest request){
+
+        String imgBase64Data = user.getHeadImg();
+        try {
+
+            if(imgBase64Data == null || "".equals(imgBase64Data)){
+               return "上传失败，上传图片数据为空！";
+            }
+            String projectPath = request.getSession().getServletContext().getRealPath("/");
+            String context = request.getContextPath();
+            String imgFilePath ="/userfiles/images/";
+            File uploadPathFile = new File(projectPath+imgFilePath);
+
+            //创建父类文件
+            if(!uploadPathFile.exists() && !uploadPathFile.isDirectory()){
+                uploadPathFile.mkdirs();
+            }
+            File imgeFile = new File(projectPath+imgFilePath,new Date().getTime()+".jpg");
+            if(!imgeFile.exists()){
+                imgeFile.createNewFile();
+            }
+            System.out.println("imgeFile = " + imgeFile);
+            //对base64进行解码
+            byte[] result = decodeBase64(imgBase64Data);
+            //使用Apache提供的工具类将图片写到指定路径下
+            FileUtils.writeByteArrayToFile(imgeFile,result);
+
+            //entity.setData(imgFilePath+imgeFile.getName());
+            System.out.println("result = " + result);
+            System.out.println(imgFilePath+imgeFile.getName());
+            String headImg =imgFilePath+imgeFile.getName();
+            user.setHeadImg(headImg);
+        }catch (Exception e){
+            e.printStackTrace();
+            //entity.setData("上传失败，系统异常");
+        }
+        System.out.println("user = " + user);
+         return user_service.editUserInfo(user);
+    }
+
+
+    /**
+     * Base64解码.
+     */
+    public static byte[] decodeBase64(String input) {
+        return Base64.decodeBase64(input.getBytes());
     }
 }

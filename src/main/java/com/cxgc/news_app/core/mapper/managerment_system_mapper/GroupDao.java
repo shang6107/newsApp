@@ -12,9 +12,9 @@ import java.util.List;
  * @Description
  */
 public interface GroupDao {
-
+    Groups getGroupByName(String name);
     Groups getGroupById(String id);
-
     List<Authorities> getAuthoritiesByGroupId(String id);
+    List<Groups> getAllGroups();
 
 }

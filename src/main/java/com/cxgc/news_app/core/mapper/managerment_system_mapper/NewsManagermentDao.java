@@ -48,7 +48,15 @@ public interface NewsManagermentDao {
      *
      * @return
      */
-    public String updateReleaseById(Release release);
+    public int updateReleaseById(Release release);
+
+    /**
+     * 发布新闻
+     *
+     * @param release
+     * @return
+     */
+    public String insertRelease(Release release);
 
     /**
      * 查询所有发布新闻
@@ -63,7 +71,7 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public String selectReleaseById(String id);
+    public Release selectReleaseById(String id);
 
     /**
      * 新闻类型查询
@@ -80,13 +88,16 @@ public interface NewsManagermentDao {
 
     /**
      * 根据请求内容返回相关数据
+     *
      * @return
      */
-    Map<String,Object> getMinCountOfNewsType();//访问量最小的新闻类型
-    Map<String,Object> getMaxCountOfNewsType();//访问量最大的新闻类型
-    List<News> getTop10News();//访问量前十的新闻
-    List<Release> getTop10Release();//访问量前十的新闻(后台发布)
+    Map<String, Object> getMinCountOfNewsType();//访问量最小的新闻类型
 
+    Map<String, Object> getMaxCountOfNewsType();//访问量最大的新闻类型
+
+    List<News> getTop10News();//访问量前十的新闻
+
+    List<Release> getTop10Release();//访问量前十的新闻(后台发布)
 
 
 }

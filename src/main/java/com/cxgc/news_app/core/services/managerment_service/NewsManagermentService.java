@@ -3,10 +3,8 @@ package com.cxgc.news_app.core.services.managerment_service;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.model.Release;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * pjl
@@ -34,7 +32,13 @@ public interface NewsManagermentService {
      * @return
      */
     public List<News> selectAllNews();
-
+    /**
+     * 发布新闻
+     *
+     * @param release
+     * @return
+     */
+    public String insertRelease(Release release);
     /**
      * 删除发布的新闻
      *
@@ -48,7 +52,14 @@ public interface NewsManagermentService {
      *
      * @return
      */
-    public String updateReleaseById(Release release);
+    public Release updateReleaseById(Release release);
+
+    /**
+     * 通过Id获取新闻
+     * @param id
+     * @return
+     */
+    Release selectReleaseById(String id);
 
     /**
      * 查询所有发布新闻
@@ -57,13 +68,6 @@ public interface NewsManagermentService {
      */
     public List<Release> selectRelease();
 
-    /**
-     * 根据id查询发布新闻
-     *
-     * @param id
-     * @return
-     */
-    public String selectReleaseById(String id);
 
     /**
      * 新闻类型查询

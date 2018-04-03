@@ -10,6 +10,7 @@
             background-color: rgba(230, 127, 34, 0.2);
         }
     </style>
+
 <div class="htmleaf-container">
     <div class="htmleaf-content">
         <div class="input-group">
@@ -39,21 +40,21 @@
                 <#list release as releas>
                 <tr>
                     <td>${releas.id!"无"}</td>
-                    <td>${releas.newTypeId.typeName!"无"}</td>
+                    <td>${(releas.newTypeId.typeName)!"无"}</td>
                     <td>${releas.title!"无"}</td>
-                    <td>${releas.userId.nickName!"无"}</td>
+                    <td>${(releas.userId.nickName)!"无"}</td>
                     <#if releas.createTime?exists>
                         <td>${releas.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
                     <td>${releas.accessCount!"无"}</td>
                     <td>${releas.path!"无"}</td>
-                    <td>${releas.status.reason!"无"}</td>
-                    <td class="sel"><a href="/management/updateReleaseById?id=${releas.id!""}">修改</a></td>
+                    <td>${(releas.status.reason)!"无"}</td>
+                    <td class="sel"><a href="management/updateReleaseById?id=${releas.id!''}">修改</a></td>
                 </tr>
                 </#list>
             </#if>
             </tbody>
-        </table>
+        </table><br><br>
         <a href="management/addRelease">发布新闻</a>
     </div>
 </div>
@@ -66,4 +67,5 @@
         });
     });
 </script>
+
 <#include "frame_end.ftl">

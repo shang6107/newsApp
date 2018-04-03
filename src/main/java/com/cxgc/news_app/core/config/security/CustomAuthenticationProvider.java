@@ -1,10 +1,13 @@
 package com.cxgc.news_app.core.config.security;
 
+import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.impl.CustomManagerDetailsService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -68,6 +71,18 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
                     "错误的证书"));
         }
 
+        //管理员状态验证
+        Manager domain = ((MyManagerDetails) userDetails).getDomain();
+        UserStatus status = domain.getStatus();
+        if(status != UserStatus.NORMAL){
+            log.info("com.cxgc.news_app.core.config.security." +
+                    "AuthenticationFailureHandler.abNormalStatus 。用户状态异常：" + status);
+            throw new LockedException(messages.getMessage(
+                    "CustomAuthenticationProvider.abNormalStatus 。",
+                    "用户状态异常 ： " + status ));
+        }
+
+
         //证书验证通过后，修改上次登录时间 和 IP地址
         CustomManagerDetailsService customManagerDetailsService = (CustomManagerDetailsService)userDetailsService;
         MyManagerDetails managerDetails = (MyManagerDetails) userDetails ;
@@ -76,6 +91,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
                         managerDetails.getMgrNo(),
                         ((CustomWebAuthenticationDetails)
                                 authentication.getDetails()).getRemoteAddress());
+
     }
 
     /**

@@ -4,7 +4,8 @@
     var pageSize = 5;
     $.post("ajax/manager-list", {"pageNum": pageNum, "pageSize": pageSize}, function (d) {
         var list = d.data;
-        var tableContentHtml = "<table style='margin: 20px auto' align='center' cellspacing='0' cellpadding='0' border='1'>";
+        console.log(list);
+        var tableContentHtml = "<table style='margin:20px auto' align='center' cellspacing='0' cellpadding='0' border='1'>";
         tableContentHtml +=
                 "<tr>" +
                 "<td>\u7ba1\u7406\u5458\u7f16\u53f7</td>" +
@@ -19,27 +20,36 @@
             tableContentHtml += "<tr>";
             tableContentHtml += "<td class='commons-td'>" + list[k].mgrNo + "</td>";
             tableContentHtml += "<td class='commons-td'>" + list[k].mgrName + "</td>";
-            tableContentHtml += "<td class='commons-td'>" + list[k].groups.groupName + "</td>";
-            tableContentHtml += "<td class='commons-td'>" + list[k].groups.descpt + "</td>";
-            tableContentHtml += "<td class='commons-td'><select  style='width: 170px;'>";
-            tableContentHtml += "<option>\u8be5\u4e0b\u62c9\u5217\u8868\u4ec5\u4f9b\u67e5\u770b</option>";
-            for (var i = 0; i < list[k].groups.authorities.length; i++) {
-                tableContentHtml += "<option>" + list[k].groups.authorities[i].descpt + "</option>";
+            if(list[k].groups){
+                tableContentHtml += "<td class='commons-td'>" + list[k].groups.groupName + "</td>";
+                tableContentHtml += "<td class='commons-td'>" + list[k].groups.descpt + "</td>";
+                if(list[k].groups.authorities){
+                    tableContentHtml += "<td class='commons-td'><select  style='width:170px;'>";
+                    tableContentHtml += "<option>\u8be5\u4e0b\u62c9\u5217\u8868\u4ec5\u4f9b\u67e5\u770b</option>";
+                    for (var i = 0; i < list[k].groups.authorities.length; i++) {
+                        tableContentHtml += "<option>" + list[k].groups.authorities[i].descpt + "</option>";
+                    }
+                    tableContentHtml += "</select></td>";
+                }
+            }else{
+                tableContentHtml += "<td class='commons-td'>无</td>";
+                tableContentHtml += "<td class='commons-td'>无</td>";
+                tableContentHtml += "<td class='commons-td'>无</td>";
             }
-            tableContentHtml += "</select></td>";
+
             tableContentHtml += "<td class='commons-td'>" +
                     (list[k].status === "NORMAL" ? "\u6b63\u5e38" : (list[k].status === "FREEZE"
-                                            ? "\u51bb\u7ed3" : (list[k].status === "ABNORMAL"
-                                            ? "\u5f02\u5e38" : "\u5931\u6548")))
+                            ? "\u51bb\u7ed3" : (list[k].status === "ABNORMAL"
+                                    ? "\u5f02\u5e38" : "\u5931\u6548")))
                     + "</td>";
-            tableContentHtml += "<td style='padding: 0; background: #F2F2F2'>" +
+            tableContentHtml += "<td style='padding:0;background:#F2F2F2'>" +
                     "<a class='edit-manager' href='management/root/manager-edit/" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>&#xe642;</i>" +
                     "</a>&nbsp;" +
-                    " <a class='freeze-manager' href='management/root/manager-freeze?mgrNo=" + list[k].mgrNo + "'>" +
+                    "<a class='freeze-manager' href='management/root/manager-freeze?mgrNo=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>" + (list[k].status === "NORMAL" ? "&#xe640;" : "&#xe64d;") + "</i>" +
                     "</a>&nbsp;" +
-                    " <a class='logback-manager' href='management/root/manager-sendMsg/=" + list[k].mgrNo + "'>" +
+                    "<a class='logback-manager' href='management/root/manager-sendMsg/=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>&#xe622;</i>" +
                     "</a></td>";
             tableContentHtml += "</tr>";
@@ -97,8 +107,8 @@
                         });
                     }
                 }
+                return false;
             }
-            return false;
         });
     }))
 </script>

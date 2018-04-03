@@ -6,16 +6,22 @@
     <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
 </head>
 <body>
-<button id="btn">click</button>
-<script>
-   $("#btn").click(function () {
-       $.post(
-           "http://200883bc.nat123.cc/logon",{mgrNo:"m001",password:"111111"},function (data) {
-               console.log(data);
-           }
-       );
-   });
 
-</script>
+<img src="C:\Users\Administrator\IdeaProjects\newsApp\target\newsApp-0.0.1-SNAPSHOT\static\img\user\head\1522667815893-m003-timg1.jpg"/>
+<!--<form>
+    <input type="file" id="file">
+    <img src="">
+</form>
+<script>
+    ($(function () {
+        var x=new FileReader();
+        document.getElementById("file").onchange = function () {
+            x.readAsDataURL(this.files[0]);
+        };
+        x.onloadend = function () {
+            $("img").attr("src",this.result);
+        }
+    }))
+</script>-->
 </body>
 </html>

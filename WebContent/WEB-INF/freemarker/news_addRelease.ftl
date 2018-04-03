@@ -1,17 +1,30 @@
 <#include "frame.ftl">
+
+
     <link href="static/css1/update.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+        td.alt {
+            background-color: #ffc;
+            background-color: rgba(230, 127, 34, 0.2);
+        }
+    </style>
+
 <div>
 
     <div class="bootstrap-frm">
-
         <br><br>
-        <form action="" method="post" class="STYLE-NAME">
+        <form action="/management/news_release_list" method="post" class="STYLE-NAME">
             <h1>添加新闻
             </h1>
             <label>
-                <span>新闻类型 :</span>
-                <option value="审核通过">审核通过</option>
-                <option value="审核未通过">审核未通过</option>
+                <span>新闻类型 :</span><select name="typeName">
+                <option value="1">社会</option>
+                <option value="2">体育</option>
+                <option value="3">娱乐</option>
+                <option value="4">财经</option>
+                <option value="5">科技</option>
+            </select>
             </label>
             <label>
                 <span>标题 :</span>
@@ -19,34 +32,17 @@
             </label>
 
             <label>
-                <span>发布者 :</span>
-                <input id="userId" type="text" name="userId"/>
-            </label>
-            <label>
-                <span>发布时间 :</span>
-                <input id="createTime" type="date" name="createTime"/>
-            </label>
-            <label>
-                <span>浏览量 :</span>
-                <input id="accessCount" type="number" name="accessCount"/>
-            </label>
-            <label>
-                <span>保存路径 :</span>
-                <input id="path" type="url" name="path"/>
+                <span>内容 :</span>
+                <textarea rows="4" cols="50" name="path" form="usrform"></textarea>
             </label>
 
             <label>
-                <span>状态 :</span><select name="selection">
-                <option value="审核通过">审核通过</option>
-                <option value="审核未通过">审核未通过</option>
-            </select>
-            </label>
-            <label>
                 <span>&nbsp;</span>
-                <input type="button" class="button" value="提交"/>
+                <input type="submit" class="button" value="提交"/>
             </label>
         </form>
     </div>
 </div>
+
 
 <#include "frame_end.ftl">

@@ -7,7 +7,9 @@ import com.cxgc.news_app.utility.news.SearchSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -29,30 +31,28 @@ public class NewsSearchServiceImpl implements NewsSearchService{
                 continue;
             strings.add(search);
         }
-
      future = ss.baiduSearch(str);
+      //fromDatabase=  nsd.newsSearch(strings);
+        try {
+            fromBaidu = future.get();
 
-      fromDatabase=  nsd.newsSearch(strings);
-        boolean flag = true;
-        while (flag){
-            if(future.isDone()){
-                try {
-                    fromBaidu = future.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }finally {
-                    flag=false;
-                }
-
-            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
-        if(fromDatabase!=null){
+        //System.out.println(fromDatabase);
+        /*if(fromDatabase!=null){
             fromBaidu.addAll(fromDatabase);
-        }
+        }*/
 
         return fromBaidu;
+    }
+
+    @Override
+    public List<String> searchInit() {
+
+        return ss.hotSearch();
     }
 }
