@@ -114,7 +114,6 @@ public class InfoNewsHandler {
 //               }
 //           }
 
-//        map.put("eachComment",eachComment);
         return map;
     }
 
