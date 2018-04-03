@@ -30,8 +30,7 @@ public class InfoNewsHandler {
 
     @Autowired
     private NewsService newsService;
-    public static int size=2;
-    public static int num=0;
+    public static int size=10;
     public static int dissCount=0;
     /**
      * 通过新闻id获得新闻及所有评论,收藏
@@ -44,8 +43,12 @@ public class InfoNewsHandler {
 
         //获得新闻对象
         News oneNew = newsService.getNewsById(id);
-        if(oneNew.getUrl()==null){return null;}
+        if(oneNew==null){
+            return null;
+        }
+
         StringBuffer stringFromFile = NewsIO.getStringFromFile(oneNew.getUrl());
+        if(stringFromFile==null){map.put("newsFile",null);}
         map.put("newsFile",stringFromFile);//新闻内容
         map.put("news",oneNew);//新闻对象
 
@@ -59,23 +62,20 @@ public class InfoNewsHandler {
             Collections checkCollection=newsService.checkCollection(collection);
             map.put("checkCollection",checkCollection);
         }
+
         //所有的评论数
         int commentsNum = newsService.getCommentNum(id);
         map.put("commentsNum",commentsNum);
-        //获得每次请求的前5条数据
-        int num=1;
-        int startNo=size * (num - 1);
-        List<Comment> eachComment=newsService.getAllCommentByNewsId(id,startNo,size);
-        map.put("comments",eachComment);
         return map;
 }
 
     /**
      * 每次刷新获得即时评论
      */
+    public static int zcount=0;
     @CrossOrigin
     @RequestMapping("/getEachComment")
-    public @ResponseBody Map<String,Object> getEachComment(@Param("id") String id,@Param("reCount") String reCount){
+    public @ResponseBody Map<String,Object> getEachComment(@Param("id") String id,@Param("userId") String userId,@Param("reCount") String reCount,@Param("num") int num){
         Map<String,Object> map=new HashedMap();
 
         //所有的评论数
@@ -84,21 +84,37 @@ public class InfoNewsHandler {
 
         int count=Integer.parseInt(reCount);
         System.out.println("count = " + count);
-        if(count<1){
+        if(count<1||zcount<1){
             count=1;
         }
-        int startNo=size * count;
-        List<Comment> eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
-
-        if(eachComment.size()<=2&&count==1){
-            num++;
-            System.out.println("num = " + num);
-            if(num%2==0){
-                eachComment.remove(0);
-              num=0;
+        zcount=count;
+        List<Comment> eachComment;
+        int startNo=size * (zcount-1);
+        if(userId!=null){
+            if(num!=0){
+                eachComment= newsService.getAllCommentByNewsId(id, num, 1);
+                map.put("eachComment",eachComment);
             }
+            eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+            map.put("eachComment",eachComment);
+        }else {
+            eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+            map.put("eachComment",eachComment);
         }
-        map.put("eachComment",eachComment);
+
+//           if (eachComment.size() == 1||eachComment.size() == 0) {//评论为奇数
+//               num -= 2;
+//               System.out.println("num = " + num);
+//               if (commentsNum - num == 1) {
+//                   System.out.println("zcount = " + zcount);
+//                   startNo = size * (zcount - 1 - 1);
+//                   eachComment = newsService.getAllCommentByNewsId(id, startNo, size);
+//                   eachComment.remove(0);
+//                   System.out.println("eachComment = " + eachComment);
+//               }
+//           }
+
+//        map.put("eachComment",eachComment);
         return map;
     }
 
@@ -118,7 +134,9 @@ public class InfoNewsHandler {
         comment.setCreateTime(new Date());
         comment.setId("cre"+System.currentTimeMillis());
         comment.setGoodCount(0);
+        System.out.println("comment = 添加评论" + comment);
         dissCount=disscussNum;
+        System.out.println("disscussNum = " + disscussNum);
         int result=newsService.putIntoComment(comment,dissCount);
         if(result>1){
             return "评论成功！";
@@ -136,6 +154,7 @@ public class InfoNewsHandler {
     public @ResponseBody String outDiscuss(Comment comment){
         newsService.outPutComment(comment);
         dissCount--;
+        zcount--;
         return "yes";
     }
 
