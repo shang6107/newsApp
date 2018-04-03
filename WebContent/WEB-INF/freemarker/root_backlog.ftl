@@ -1,14 +1,19 @@
 <#include "frame.ftl"/>
 
 <script>
-
+    <#if RequestParameters.mgrNo?exists>
+    var mgrNo = "${RequestParameters.mgrNo!''}";
+    </#if>
     function dataFill2Select(url, selector, showField, valueField) {
         $.get(url, function (result) {
             var list = result.data;
             if (list) {
                 var html = "";
                 for (var i = 0; i < list.length; i++) {
-                    html += "<option value='" + list[i][valueField] + "'>" + list[i][showField] + "</option>";
+                    if (mgrNo === list[i][valueField])
+                        html += "<option selected value='" + list[i][valueField] + "'>" + list[i][showField] + "</option>";
+                    else
+                        html += "<option value='" + list[i][valueField] + "'>" + list[i][showField] + "</option>";
                 }
             }
             $(selector).html($(selector).html() + html);
@@ -23,7 +28,7 @@
                 var html = "";
                 for (var i = 0; i < list.length; i++) {
                     for (var k in list[i][showField]) {
-                        html += "<input type='checkbox' name='work' " +
+                        html += "<input type='checkbox' name='work' lay-filter='work'" +
                                 "title='" + list[i][showField][k] + "' value='" + list[i][showField][k] + "'/>";
                     }
                 }
@@ -36,6 +41,9 @@
     ($(function () {
         dataFill2Select("ajax/manager-list", "select[name='mgrNo']", "mgrName", "mgrNo");
         dataFill2CheckBok("ajax/workType-list", "#work-input", "workDetails");
+        $("input[type='checkbox']").click(function () {
+//            $("input[name='title']").val($(this).val()+ ";");
+        })
     }));
 </script>
 
@@ -85,14 +93,14 @@
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">文本域</label>
+            <label class="layui-form-label">工作内容</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" name="content" class="layui-textarea"></textarea>
+                <textarea placeholder="请务必尽快完成" name="content" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-filter="demo1" lay-submit="" >立即提交</button>
+                <button class="layui-btn" lay-filter="demo1" lay-submit="">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -142,7 +150,7 @@
  */
     //监听提交
     form.on('submit(demo1)', function (data) {
-        if(data.field.title === ""){
+        if (data.field.title === "") {
             $("#title-prompt").text("标题不能为空");
             return false;
         }
@@ -150,29 +158,28 @@
             $("#title-prompt").text("标题不能小于4个字符");
             return false;
         }
-        if(data.field.date === ""){
+        if (data.field.date === "") {
             $("#date-prompt").text("日期不能为空");
             return false;
         }
-        if(data.field.mgrNO === "请选择"){
+        if (data.field.mgrNO === "请选择") {
             $("#mgrNo-prompt").text("请选择指派人员");
         }
-        if (String(data.field.content).length <= 10) {
-            alert("内容不能小于10个字符");
-            return false;
-        }
-        console.log(data.field);
-        if(data.field.content === ""){
-            alert("内容不能为空");
-            return false;
+        if (data.field.content === "") {
+            data.field.content = "请务必尽快完成!!!";
+        } else {
+            if (String(data.field.content).length <= 10) {
+                alert("内容不能小于10个字符");
+                return false;
+            }
         }
         var v = confirm(
                 "给" + data.field.mgrNo + "指派任务：" + data.field.work + "。时间范围：" + data.field.date
-                ,{
+                , {
                     title: '最终的提交信息'
                 }
         );
-        if(v){
+        if (v) {
             return true;
         }
         return false;
@@ -190,6 +197,12 @@
         });
         form.render('checkbox');
     })
+    form.on('checkbox(work)', function (data) {
+        if(String($("input[name='title']").val()).lastIndexOf(this.value) === -1){
+            $("input[name='title']").val($("input[name='title']").val() + this.value + ";");
+        }
 
+        form.render('checkbox');
+    })
 </script>
 <#include "frame_end.ftl"/>
