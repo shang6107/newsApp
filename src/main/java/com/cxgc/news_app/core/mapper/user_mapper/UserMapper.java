@@ -110,4 +110,17 @@ public interface UserMapper {
      * @return
      */
     public Integer deleteCommnetByNewIDAndUserId(Comment comment);
+
+    /**
+     * 删除收藏表中用户收藏的新闻
+     * @param collections
+     * @return
+     */
+    public Integer deleteCollectionsByNewIDAndUserId(Collections collections);
+    /**
+     * 删除历史浏览表中用户浏览过的新闻
+     * @param history
+     * @return
+     */
+    public Integer deleteHistoryByNewIDAndUserId(History history);
 }

@@ -98,4 +98,18 @@ public interface UserService {
      * @return
      */
     public String deleteCommnetByNewIDAndUserId(Comment comment);
+
+    /**
+     * 删除收藏表中用户收藏的新闻
+     * @param collections
+     * @return
+     */
+    public String deleteCollectionsByNewIDAndUserId(Collections collections);
+
+    /**
+     * 删除历史浏览表中用户浏览过的新闻
+     * @param history
+     * @return
+     */
+    public String deleteHistoryByNewIDAndUserId(History history);
 }
