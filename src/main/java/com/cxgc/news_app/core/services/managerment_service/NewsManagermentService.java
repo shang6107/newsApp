@@ -25,7 +25,7 @@ public interface NewsManagermentService {
      * @param id
      * @return
      */
-     String deleteNewsById(String id);
+    String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
@@ -33,6 +33,7 @@ public interface NewsManagermentService {
      * @return
      */
     List<News> selectAllNews();
+
     /**
      * 发布新闻
      *
@@ -40,6 +41,7 @@ public interface NewsManagermentService {
      * @return
      */
     String insertRelease(Release release);
+
     /**
      * 删除发布的新闻
      *
@@ -49,6 +51,7 @@ public interface NewsManagermentService {
     String deleteReleaseById(String id);
 
     List<Release> updateRelease();
+
     /**
      * 修改发布新闻状态
      *
@@ -58,6 +61,7 @@ public interface NewsManagermentService {
 
     /**
      * 通过Id获取新闻
+     *
      * @param id
      * @return
      */
@@ -78,6 +82,62 @@ public interface NewsManagermentService {
      * @return
      */
     NewsType getNewsTypeById(Integer id);
+
+
+
+    /* **********************************************************/
+    /* *************        新闻数据统计      ********************/
+    /* **********************************************************/
+
+    /**
+     * 统计新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> NewsCount();
+
+    /**
+     * 统计发布的新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> ReleaseCount();
+
+    /**
+     * 查询社会类新闻
+     *
+     * @return
+     */
+
+    Map<String, Object> sociology();
+
+    /**
+     * 查询体育类新闻
+     *
+     * @return
+     */
+    Map<String, Object> sport();
+
+    /**
+     * 查询娱乐类新闻
+     *
+     * @return
+     */
+    Map<String, Object> entertainment();
+
+    /**
+     * 查询财经类新闻
+     *
+     * @return
+     */
+    Map<String, Object> finance();
+
+    /**
+     * 查询科技类新闻
+     *
+     * @return
+     */
+    Map<String, Object> technology();
 
     /**
      * 根据请求内容返回相关数据

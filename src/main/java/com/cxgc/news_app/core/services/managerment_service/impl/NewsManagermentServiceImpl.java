@@ -49,7 +49,6 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.updateRelease();
     }
 
-
     @Override
     public Boolean updateReleaseById(Release release) {
         return nmd.updateReleaseById(release);
@@ -65,10 +64,44 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.selectRelease();
     }
 
-
     @Override
     public NewsType getNewsTypeById(Integer id) {
         return nmd.getNewsTypeById(id);
+    }
+
+    @Override
+    public Map<String, Object> NewsCount() {
+        return nmd.NewsCount();
+    }
+
+    @Override
+    public Map<String, Object> ReleaseCount() {
+        return nmd.ReleaseCount();
+    }
+
+    @Override
+    public Map<String, Object> sociology() {
+        return nmd.sociology();
+    }
+
+    @Override
+    public Map<String, Object> sport() {
+        return nmd.sport();
+    }
+
+    @Override
+    public Map<String, Object> entertainment() {
+        return nmd.entertainment();
+    }
+
+    @Override
+    public Map<String, Object> finance() {
+        return nmd.finance();
+    }
+
+    @Override
+    public Map<String, Object> technology() {
+        return nmd.technology();
     }
 
     @Override

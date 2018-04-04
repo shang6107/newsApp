@@ -6,6 +6,7 @@ import com.cxgc.news_app.core.model.Authorities;
 import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
+import com.cxgc.news_app.core.services.managerment_service.NewsManagermentService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
 import com.cxgc.news_app.utility.idutil.UtilY;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,8 @@ public class ManagerBaseHandler {
     private UserDetailsService userDetailsService;
     @Autowired
     private ManagerService managerService;
-
+    @Autowired
+    private NewsManagermentService nms;
 
     @ModelAttribute
     public void getModel(@RequestParam(value = "id", required = false) String id, Map<String, Object> map) {
@@ -65,6 +67,7 @@ public class ManagerBaseHandler {
 
     /**
      * 管理员登录
+     *
      * @return
      */
     @RequestMapping(value = "/login")
@@ -72,9 +75,23 @@ public class ManagerBaseHandler {
         return "login";
     }
 
+    /**
+     * 新闻管理员主页
+     *
+     * @param map
+     * @return
+     */
     @RequestMapping("/news_index")
     public String newsPage(ModelMap map) {
         map.put("mgr", getPrincipal());
+        map.put("NewsCount", nms.NewsCount());
+        map.put("ReleaseCount", nms.ReleaseCount());
+        map.put("sociology",nms.sociology());
+        map.put("sport",nms.sport());
+        map.put("entertainment",nms.entertainment());
+        map.put("finance",nms.finance());
+        map.put("technology",nms.technology());
+
         return "news_index";
     }
 
@@ -297,21 +314,21 @@ public class ManagerBaseHandler {
     }
 
     @RequestMapping("/backlog")
-    public String backlog(String content,String work,String title,String mgrNo,String date) throws ParseException {
-        Map<String,Object> backlog =  new HashMap<>();
+    public String backlog(String content, String work, String title, String mgrNo, String date) throws ParseException {
+        Map<String, Object> backlog = new HashMap<>();
         Date[] range = new Date[2];
-        if(date != null && date.split(" - ").length == 2){
+        if (date != null && date.split(" - ").length == 2) {
             String[] dates = date.split(" - ");
             range[0] = new SimpleDateFormat("yyyy-MM-dd").parse(dates[0].trim());
             range[1] = new SimpleDateFormat("yyyy-MM-dd").parse(dates[1].trim());
         }
-        backlog.put("content",content);
+        backlog.put("content", content);
         backlog.put("id", UtilY.getId());
-        backlog.put("work",work);
-        backlog.put("beginDate",range[0]);
-        backlog.put("endDate",range[1]);
-        backlog.put("title",title);
-        backlog.put("mgrNo",mgrNo);
+        backlog.put("work", work);
+        backlog.put("beginDate", range[0]);
+        backlog.put("endDate", range[1]);
+        backlog.put("title", title);
+        backlog.put("mgrNo", mgrNo);
         managerService.backlog(backlog);
         return "redirect:/management/root_management.html";
     }

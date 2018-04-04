@@ -43,10 +43,15 @@ public interface NewsManagermentDao {
      */
     String deleteReleaseById(String id);
 
+    /**
+     * 对查询的的数据进行修改
+     *
+     * @return
+     */
     List<Release> updateRelease();
 
     /**
-     * 修改发布新闻状态
+     * 根据id查找需要修改的发布新闻
      *
      * @return
      */
@@ -87,6 +92,56 @@ public interface NewsManagermentDao {
     /* **********************************************************/
     /* *************        新闻数据统计      ********************/
     /* **********************************************************/
+
+    /**
+     * 统计新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> NewsCount();
+
+    /**
+     * 统计发布的新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> ReleaseCount();
+
+    /**
+     * 查询社会类新闻
+     *
+     * @return
+     */
+
+    Map<String, Object> sociology();
+
+    /**
+     * 查询体育类新闻
+     *
+     * @return
+     */
+    Map<String, Object> sport();
+
+    /**
+     * 查询娱乐类新闻
+     *
+     * @return
+     */
+    Map<String, Object> entertainment();
+
+    /**
+     * 查询财经类新闻
+     *
+     * @return
+     */
+    Map<String, Object> finance();
+
+    /**
+     * 查询科技类新闻
+     *
+     * @return
+     */
+    Map<String, Object> technology();
 
     /**
      * 根据请求内容返回相关数据

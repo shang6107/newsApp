@@ -58,27 +58,22 @@ public class ManagerNewsHandler {
         return "news_update";
     }
 
-   /* @RequestMapping("/insertRelease")
-    public String insertRelease(Release release) {
-
-        *//* nms.insertRelease(release);*//*
-        return "news_release_list";
-    }
-
-    @RequestMapping("/addRelease")
-    public String addRelease(Release release, Map<String, Object> map) {
-        map.put("release", release);
-        return "news_addRelease";
-    }*/
-
 
     /* *************************新闻数据统计***********************************/
     @RequestMapping("/search-page")
     public String searchPage(Map<String, Object> map) {
-        map.put("getMaxCountOfNewsType", nms.getMaxCountOfNewsType());
+     /*   map.put("getMaxCountOfNewsType", nms.getMaxCountOfNewsType());
         map.put("getMinCountOfNewsType", nms.getMaxCountOfNewsType());
         map.put("getTop10News", nms.getTop10News());
-        map.put("getTop10Release", nms.getTop10News());
+        map.put("getTop10Release", nms.getTop10News());*/
+        map.put("NewsCount", nms.NewsCount());
+        map.put("ReleaseCount", nms.ReleaseCount());
+        map.put("sociology", nms.sociology());
+        map.put("sport", nms.sport());
+        map.put("entertainment", nms.entertainment());
+        map.put("finance", nms.finance());
+        map.put("technology", nms.technology());
+
         return "news_index";
     }
 

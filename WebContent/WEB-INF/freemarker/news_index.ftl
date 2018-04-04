@@ -38,8 +38,12 @@
 <div class="part-div">
     <p>数据信息</p>
     <div style="width: 1070px;margin: 0 auto">
-        <div class="part-div-child"></div>
-        <div class="part-div-child"></div>
+        <div class="part-div-child" style="...">
+            <h3>新闻总数:&nbsp;&nbsp;${(NewsCount.counts)!""}</h3>
+        </div>
+        <div class="part-div-child" style="...">
+            <h3>发布新闻总数:&nbsp;&nbsp;${(ReleaseCount.counts)!""}</h3>
+        </div>
         <div class="part-div-child"></div>
         <div class="part-div-child"></div>
         <div class="part-div-child"></div>
@@ -53,23 +57,23 @@
             <thead>
             <tr>
                 <th></th>
-                <th>社会</th>
-                <th>体育</th>
-                <th>娱乐</th>
-                <th>财经</th>
-                <th>科技</th>
-
+                <th>${(sociology.typeName)!""}</th>
+                <th>${(sport.typeName)!""}</th>
+                <th>${(entertainment.typeName)!""}</th>
+                <th>${(finance.typeName)!""}</th>
+                <th>${(technology.typeName)!""}</th>
+                <th></th>
             </tr>
 
             </thead>
             <tbody>
 
             <tr>
-                <td>540</td>
-                <td>300</td>
-                <td>150</td>
-                <td>180</td>
-                <td>200</td>
+                <td>${(sociology.counts)!""}</td>
+                <td>${(sport.counts)!""}</td>
+                <td>${(entertainment.counts)!""}</td>
+                <td>${(finance.counts)!""}</td>
+                <td>${(technology.counts)!""}</td>
             </tr>
 
             </tbody>
@@ -81,21 +85,22 @@
             <thead>
             <tr>
                 <th></th>
-                <th>社会</th>
-                <th>体育</th>
-                <th>娱乐</th>
-                <th>财经</th>
-                <th>科技</th>
+                <th>${(sociology.typeName)!""}</th>
+                <th>${(sport.typeName)!""}</th>
+                <th>${(entertainment.typeName)!""}</th>
+                <th>${(finance.typeName)!""}</th>
+                <th>${(technology.typeName)!""}</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr>
 
-                <td></td>
-                <td>200</td>
-                <td>300</td>
-                <td>500</td>
-                <td>400</td>
+                <td>${(sociology.access_counts)!""}</td>
+                <td>${(sport.access_counts)!""}</td>
+                <td>${(entertainment.access_counts)!""}</td>
+                <td>${(finance.access_counts)!""}</td>
+                <td>${(technology.access_counts)!""}</td>
             </tr>
 
             </tbody>
