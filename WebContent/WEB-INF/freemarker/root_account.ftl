@@ -1,9 +1,9 @@
-<#include "frame.ftl">
+<#include "frame.ftl"/>
 
 <br/>
-<h2 align="center">${manager.mgrNo!""}管理员资料</h2>
+<h2 align="center">管理员资料</h2>
 <div id="head-img" style="position: absolute;right: 15%;top: 10%; ">
-    <img id="head-img-tag" src="${manager.headImg!'static/img/timg.jpg'}" style="width: 115px;height: 165px;"/><br>
+    <img id="head-img-tag" src="static/img/noavatar_middle.gif" style="width: 115px;height: 165px;"/><br>
     <p align="center">头像</p>
 </div>
 <script>
@@ -24,14 +24,14 @@
 <div class="manager-update-form">
     <form id="manager-update-form" class="layui-form" action="management/root/manager-update" method="post" enctype="multipart/form-data">
         <input id="file" type="file" name="file" style="display: none"/>
-        <input type="hidden" name="mgrNo" value="${manager.mgrNo!''}"/>
-        <input type="hidden" name="id" value="${manager.id!''}"/>
+        <input type="hidden" name="mgrNo" value="${(manager.mgrNo)!''}"/>
+        <input type="hidden" name="id" value="${(manager.id)!''}"/>
         <input type="hidden" name="remoteAddress" value="${(manager.remoteAddress)!''}"/>
         <div class="layui-form-item">
             <label class="layui-form-label">管理员姓名</label>
             <div class="layui-input-block">
             <@spring.bind "manager.mgrName"/>
-                <input type="text" name="mgrName" value="${manager.mgrName!''}" class="layui-input"/>
+                <input type="text" name="mgrName" value="${(manager.mgrName)!''}" class="layui-input"/>
                 <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/></div>
                 <div class="layui-form-mid layui-word-aux">请输入管理员姓名</div>
             </div>
@@ -59,7 +59,7 @@
             <div class="layui-input-block">
                 <select name="stat">
                 <#list allStatus as status>
-                    <option value="${status.reason!""}">${status.reason!""}</option>
+                    <option value="${(status.reason)!""}">${(status.reason)!""}</option>
                 </#list>
                 </select>
             </div>
@@ -83,7 +83,7 @@
             <div class="layui-input-block">
                 <select name="groups.id">
                 <#list allGroups as group>
-                    <option value="${group.id!""}">${group.groupName!""}</option>
+                    <option value="${(group.id)!""}">${(group.groupName)!""}</option>
                 </#list>
                 </select>
             </div>
@@ -92,7 +92,7 @@
             var groupId = "${(manager.groups.id)!''}";
             var flag = 0;
             for (var i = 0; i < $("select[name='groups.id'] option").length; i++) {
-            console.log($("select[name='groups.id'] option")[i]);
+                console.log($("select[name='groups.id'] option")[i]);
                 if ($("select[name='groups.id'] option")[i].value === groupId) {
                     $("select[name='groups.id'] option")[i].selected = "selected";
                     flag = 1;
@@ -113,8 +113,8 @@
                     <#if group.authorities?exists>
                         <#list group.authorities as authority>
                             <input type="checkbox" name="authorities"
-                                   title="${authority.descpt}"
-                                   value="${authority.descpt}">
+                                   title="${(authority.descpt)!''}"
+                                   value="${(authority.descpt)!''}">
                         </#list>
                     </#if>
                 </#list>
@@ -128,7 +128,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label">账号创建时间</label>
             <div class="layui-input-block">
-            <@spring.bind "manager.createTime"/>
+                <#if manager?exists>
+                    <@spring.bind "manager.createTime"/>
+                </#if>
                 <input type="text" readonly name="createTime"
                        value="${(manager.createTime?string('yyyy-MM-dd hh:mm:ss'))!''}" class="layui-input">
                 <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/></div>
@@ -179,4 +181,5 @@
         form.render('checkbox');
     })
 </script>
-<#include "frame_end.ftl">
+
+<#include "frame_end.ftl"/>

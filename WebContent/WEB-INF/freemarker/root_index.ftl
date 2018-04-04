@@ -9,8 +9,8 @@
                 gvSettings: {
                     vAxis: {title: 'No of players'},
                     hAxis: {title: 'Month'},
-                    width: 370,
-                    height: 170
+                    width: 400,
+                    height: 230
                 }
             });
         }
@@ -24,7 +24,7 @@
             chartType: 'LineChart',
             gvSettings: {
                 vAxis: {title: '数据分析'},
-                width: 500,
+                width: 600,
                 height: 230
             }
         });

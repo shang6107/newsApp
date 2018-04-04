@@ -252,4 +252,4 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 });
             }));
         </script>
-        <script type="text/javascript" src="static/js/communication.js"></script>
+        <#--<script type="text/javascript" src="static/js/communication.js"></script>-->

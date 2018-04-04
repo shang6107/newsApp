@@ -12,22 +12,22 @@ function ws() {
 
     //连接发生错误的回调方法
     websocket.onerror = function () {
-        alert("error");
+        console.log("error");
     };
 
     //连接成功建立的回调方法
     websocket.onopen = function (event) {
-        alert("open");
+        console.log("open");
     };
 
     //接收到消息的回调方法
     websocket.onmessage = function () {
-        alert(event.data);
+        console.log(event.data);
     };
 
     //连接关闭的回调方法
     websocket.onclose = function () {
-        alert("close");
+        console.log("close");
     };
 }
 

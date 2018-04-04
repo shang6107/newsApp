@@ -67,6 +67,6 @@ public class TestEverything {
     }*/
 
     public static void main(String[] args) throws IOException, JSONException {
-        System.out.println();
+        System.out.println(new BCryptPasswordEncoder().encode("111111"));
     }
 }
