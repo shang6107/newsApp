@@ -17,7 +17,7 @@
             , hash: true
             , limit: 10
             , limits: 5
-            ,skin:"row"
+            , skin: "row"
             , loading: true
             , text: {
                 none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
@@ -46,22 +46,26 @@
                     }
                 }
                 , {field: 'introduce', title: '介绍', width: 80}
-                , {field: 'status', title: '状态', width: 80, sort: true,templet:function (d) {
-                    return d.status == "FREEZE" ? "冻结" : (d.status == "NORMAL" ? "正常" : "异常");
-                }}
-                ,{field: 'edit', title: '编辑', width: 120,templet:function (d) {
-                    return d.edit == null ?
-                            "<a href='management/user-edit?id=" + d.id +"'>" +
-                            "<img width='18' height='18' src='static/img/edit26.png'>" +
-                            "</a>&nbsp;" +
-                            " <a href=''>" +
-                            "<img width='18' height='18' src='static/img/edit26.png'>" +
-                            "</a>&nbsp;" +
-                            " <a href=''>" +
-                            "<img width='18' height='18' src='static/img/edit26.png'>" +
-                            "</a>"
-                            : "";
-                }}
+                , {
+                    field: 'status', title: '状态', width: 80, sort: true, templet: function (d) {
+                        return d.status == "FREEZE" ? "冻结" : (d.status == "NORMAL" ? "正常" : "异常");
+                    }
+                }
+                , {
+                    field: 'edit', title: '编辑', width: 120, templet: function (d) {
+                        return d.edit == null ?
+                                "<a href='management/user-edit?id=" + d.id + "'>" +
+                                "<img width='18' height='18' src='static/img/edit26.png'>" +
+                                "</a>&nbsp;" +
+                                " <a href=''>" +
+                                "<img width='18' height='18' src='static/img/edit26.png'>" +
+                                "</a>&nbsp;" +
+                                " <a href=''>" +
+                                "<img width='18' height='18' src='static/img/edit26.png'>" +
+                                "</a>"
+                                : "";
+                    }
+                }
             ]]
         });
 

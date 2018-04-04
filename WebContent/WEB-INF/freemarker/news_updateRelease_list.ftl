@@ -21,35 +21,44 @@
         <table class="">
             <thead>
             <tr>
+
                 <th scope="col">ID</th>
+                <th scope="col">新闻类型</th>
                 <th scope="col">标题</th>
-                <th scope="col">类型</th>
-                <th scope="col">访问量</th>
-                <th scope="col">创建时间</th>
+                <th scope="col">发布者</th>
+                <th scope="col">发布时间</th>
+                <th scope="col">浏览量</th>
+                <th scope="col">保存路径</th>
+                <th scope="col">状态</th>
+                <th scope="col">操作</th>
 
             </tr>
             </thead>
             <tbody>
 
-            <#if news??>
-                <#list news as new>
+            <#if release??>
+                <#list release as releas>
                 <tr>
-                    <td>${new.id!"无"}</td>
-                    <td>${new.title!"无"}</td>
-                    <td>${(new.type.typeName)!"无"}</td>
-                    <td>${new.accessCount!"无"}</td>
-                    <#if new.createTime?exists>
-                        <td>${new.createTime?string("yyyy-MM-dd")}</td>
+                    <td>${releas.id!"无"}</td>
+                    <td>${(releas.newTypeId.typeName)!"无"}</td>
+                    <td>${releas.title!"无"}</td>
+                    <td>${(releas.userId.nickName)!"无"}</td>
+                    <#if releas.createTime?exists>
+                        <td>${releas.createTime?string("yyyy-MM-dd")}</td>
                     </#if>
+                    <td>${releas.accessCount!"无"}</td>
+                    <td>${releas.path!"无"}</td>
+                    <td>${(releas.status.reason)!"无"}</td>
+                    <td class="sel"><a href="management/updateReleaseById?id=${releas.id!''}">修改</a></td>
                 </tr>
                 </#list>
             </#if>
             </tbody>
         </table>
+        <br><br>
+        <#--<a href="management/addRelease">发布新闻</a>-->
     </div>
-
 </div>
-
 <script src="static/js/jquery-1.11.0.min.js"></script>
 <script src="static/js/jquery.filtertable.min.js"></script>
 <script>

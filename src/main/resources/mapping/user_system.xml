@@ -156,12 +156,12 @@
 
     <!--收藏表与数据库对应表的映射-->
     <resultMap id="collections_result" type="com.cxgc.news_app.core.model.Collections">
-        <result property="news.id" column="id"/>
-        <result property="news.title" column="title"/>
-        <result property="news.accessCount" column="access_count"/>
-        <result property="news.author" column="author" />
-        <result property="news.createTime" column="create_time"/>
-        <result property="news.type.typeName" column="type_name" />
+        <result property="newsId.id" column="id"/>
+        <result property="newsId.title" column="title"/>
+        <result property="newsId.accessCount" column="access_count"/>
+        <result property="newsId.author" column="author" />
+        <result property="newsId.createTime" column="create_time"/>
+        <result property="newsId.type.typeName" column="type_name" />
     </resultMap>
 
     <select id="listCollections" parameterType="com.cxgc.news_app.core.model.User" resultMap="collections_result">
@@ -191,8 +191,16 @@
         n.news_type_id = t.id
         where h.user_id = #{id}
     </select>
-
+<!--删除用户评论表中用户评论记录-->
     <delete id="deleteCommnetByNewIDAndUserId" parameterType="com.cxgc.news_app.core.model.Comment">
         delete FROM  comment where user_id = #{userId.id} and news_id = #{newsId}
+    </delete>
+    <!--删除收藏表中用户收藏的新闻-->
+    <delete id="deleteCollectionsByNewIDAndUserId" parameterType="com.cxgc.news_app.core.model.Collections">
+        delete FROM collections where user_id = #{userId} and news_id = #{newsId.id}
+    </delete>
+    <!--删除历史浏览表中用户浏览过的新闻-->
+    <delete id="deleteHistoryByNewIDAndUserId" parameterType="com.cxgc.news_app.core.model.History">
+         delete FROM  history where user_id = #{userId} and news_id = #{newsId.id}
     </delete>
 </mapper>

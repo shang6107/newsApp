@@ -9,8 +9,8 @@
                 gvSettings: {
                     vAxis: {title: 'No of players'},
                     hAxis: {title: 'Month'},
-                    width: 420,
-                    height: 220
+                    width: 400,
+                    height: 230
                 }
             });
         }
@@ -24,7 +24,7 @@
             chartType: 'LineChart',
             gvSettings: {
                 vAxis: {title: '数据分析'},
-                width: 700,
+                width: 600,
                 height: 230
             }
         });
@@ -59,7 +59,7 @@
 </div>
 <div class="part-div">
     <p>概要信息</p>
-    <div class="table-div first-table-div">
+    <div class="table-div first-table-div" style="margin-left: -15px">
         <table id='myTable5'>
             <caption>会员地区分布</caption>
             <thead>
@@ -217,7 +217,7 @@
 
     </div>
 
-    <div class="inline-block-part" style="margin-left: 20px">
+    <div class="inline-block-part" style="margin-left: 10px">
         <p>最新动态</p>
         <div style="width: 600px;height: 230px;background: #fffffd;">
             <p align="right"><a href="#">更多 >></a></p>

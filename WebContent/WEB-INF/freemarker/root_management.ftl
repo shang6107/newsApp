@@ -4,17 +4,16 @@
     var pageSize = 5;
     $.post("ajax/manager-list", {"pageNum": pageNum, "pageSize": pageSize}, function (d) {
         var list = d.data;
-        console.log(list);
         var tableContentHtml = "<table style='margin:20px auto' align='center' cellspacing='0' cellpadding='0' border='1'>";
         tableContentHtml +=
                 "<tr>" +
-                "<td>\u7ba1\u7406\u5458\u7f16\u53f7</td>" +
-                "<td>\u7ba1\u7406\u5458\u59d3\u540d</td>" +
-                "<td>\u7ba1\u7406\u5458\u6743\u9650\u7ec4</td>" +
-                "<td>\u7ba1\u7406\u5458\u6743\u9650\u7ec4\u63cf\u8ff0</td>" +
-                "<td>\u6743\u9650\u7ec4\u8be6\u7ec6\u4fe1\u606f</td>" +
-                "<td>\u7528\u6237\u72b6\u6001</td>" +
-                "<td style='width: 100px'>\u64cd\u4f5c</td>" +
+                "<td class='th-td'>\u7ba1\u7406\u5458\u7f16\u53f7</td>" +
+                "<td class='th-td'>\u7ba1\u7406\u5458\u59d3\u540d</td>" +
+                "<td class='th-td'>\u7ba1\u7406\u5458\u6743\u9650\u7ec4</td>" +
+                "<td class='th-td'>\u7ba1\u7406\u5458\u6743\u9650\u7ec4\u63cf\u8ff0</td>" +
+                "<td class='th-td'>\u6743\u9650\u7ec4\u8be6\u7ec6\u4fe1\u606f</td>" +
+                "<td class='th-td'>\u7528\u6237\u72b6\u6001</td>" +
+                "<td  class='th-td' style='width: 100px'>\u64cd\u4f5c</td>" +
                 "</tr>";
         for (var k = 0; k < list.length; k++) {
             tableContentHtml += "<tr>";
@@ -49,7 +48,7 @@
                     "<a class='freeze-manager' href='management/root/manager-freeze?mgrNo=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>" + (list[k].status === "NORMAL" ? "&#xe640;" : "&#xe64d;") + "</i>" +
                     "</a>&nbsp;" +
-                    "<a class='logback-manager' href='management/root/manager-sendMsg/=" + list[k].mgrNo + "'>" +
+                    "<a class='logback-manager' href='management/root_backlog.html?mgrNo=" + list[k].mgrNo + "'>" +
                     "<i class='layui-icon'>&#xe622;</i>" +
                     "</a></td>";
             tableContentHtml += "</tr>";

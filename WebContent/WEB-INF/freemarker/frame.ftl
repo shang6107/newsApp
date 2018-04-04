@@ -30,11 +30,11 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/select.js"></script>
     <script type="text/javascript" src="static/js/haidao.validate.js"></script>
-    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
     <script type="text/javascript" src="static/js/jsapi.js"></script>
     <script type="text/javascript" src="static/js/corechart.js"></script>
     <script type="text/javascript" src="static/js/jquery.gvChart-1.0.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.ba-resize.min.js"></script>
+    <script type="text/javascript" src="static/js/myJavaScript.js"></script>
 </head>
 <body>
 
@@ -128,6 +128,12 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         <a href="management/news_release_list">
                             <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
                             <span class="text-normal">新闻发布</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="management/news_updateRelease_list">
+                            <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
+                            <span class="text-normal">新闻审核</span>
                         </a>
                     </li>
                     <li>
@@ -227,7 +233,10 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
 <#if (Session.SPRING_SECURITY_CONTEXT.authentication.principal)?exists>
     <#assign foo = (Session.SPRING_SECURITY_CONTEXT.authentication.principal)/>
     <script>
-        $("#current-user-span").text("${(foo.username)!''}");
+        var currentUser = "${(foo.username)!''}";
+        ($(function () {
+            $("#current-user-span").text("${(foo.username)!''}");
+        }));
     </script>
 <#else >
     <script>
@@ -249,3 +258,4 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 });
             }));
         </script>
+        <#--<script type="text/javascript" src="static/js/communication.js"></script>-->

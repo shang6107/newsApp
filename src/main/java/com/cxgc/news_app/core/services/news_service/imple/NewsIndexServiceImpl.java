@@ -111,7 +111,7 @@ public class NewsIndexServiceImpl implements NewsIndexService{
             map.put(newsId,1);
         }else {
             map.put(newsId,map.get(newsId)+1);
-            if(map.get(newsId)==1){
+            if(map.get(newsId)==2){
                 nd.addNewsRecords(newsId);
             }
         }

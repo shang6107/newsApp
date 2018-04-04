@@ -1,5 +1,6 @@
 package com.cxgc.news_app.utility;
 
+import com.cxgc.news_app.common.WorkType;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.User;
 import com.github.pagehelper.PageInfo;
@@ -7,10 +8,7 @@ import com.github.pagehelper.PageInfo;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 上官炳强
@@ -40,6 +38,18 @@ public class RequestParameterWrapUtil {
             map.put(_Page_DATA, ((PageInfo) result).getList());
             map.put(_Page_LIMIT, 10);
             map.put(_Page_COUNT, ((PageInfo) result).getTotal());
+        } else if (result instanceof Enum[]){
+            if(result instanceof WorkType[]) {
+                List<Map<String,Object>> list = new ArrayList<>();
+                for(WorkType workType : (WorkType[]) result){
+                    Map<String,Object> kv = new HashMap<>();
+                    kv.put("name",workType.getName());
+                    kv.put("workDetails",workType.getWorkDetails());
+                    kv.put("no",workType.getNo());
+                    list.add(kv);
+                }
+                map.put(_Page_DATA,list);
+            }
         } else if (result != null && (result instanceof User || result instanceof News)) {
             map.put(_Page_DATA, result);
         } 

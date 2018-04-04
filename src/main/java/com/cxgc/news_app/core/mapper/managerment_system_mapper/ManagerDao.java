@@ -7,6 +7,7 @@ import com.cxgc.news_app.core.model.Manager;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *  @author 何其勇
@@ -14,7 +15,7 @@ import java.util.List;
  *  @Description
  */
 public interface ManagerDao {
-    
+    void backlog(Map<String,Object> backlog);
     Manager getManagerById(String id);
     Manager getManagerByMgrNo(String mgrNo);//根据ID得到管理员信息
     void updateLastLoginTimeAndAddressAndLoginCount(String mgrNo,String address);//修改管理员上次登录时间

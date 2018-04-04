@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * pjl
@@ -43,16 +44,14 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.deleteReleaseById(id);
     }
 
+    @Override
+    public List<Release> updateRelease() {
+        return nmd.updateRelease();
+    }
 
     @Override
-    public Release updateReleaseById(Release release) {
-
-        int i= nmd.updateReleaseById(release);
-
-        if(i>0){
-            return nmd.selectReleaseById(release.getId());
-        }
-        return null;
+    public Boolean updateReleaseById(Release release) {
+        return nmd.updateReleaseById(release);
     }
 
     @Override
@@ -65,10 +64,64 @@ public class NewsManagermentServiceImpl implements NewsManagermentService {
         return nmd.selectRelease();
     }
 
-
     @Override
     public NewsType getNewsTypeById(Integer id) {
         return nmd.getNewsTypeById(id);
+    }
+
+    @Override
+    public Map<String, Object> NewsCount() {
+        return nmd.NewsCount();
+    }
+
+    @Override
+    public Map<String, Object> ReleaseCount() {
+        return nmd.ReleaseCount();
+    }
+
+    @Override
+    public Map<String, Object> sociology() {
+        return nmd.sociology();
+    }
+
+    @Override
+    public Map<String, Object> sport() {
+        return nmd.sport();
+    }
+
+    @Override
+    public Map<String, Object> entertainment() {
+        return nmd.entertainment();
+    }
+
+    @Override
+    public Map<String, Object> finance() {
+        return nmd.finance();
+    }
+
+    @Override
+    public Map<String, Object> technology() {
+        return nmd.technology();
+    }
+
+    @Override
+    public Map<String, Object> getMinCountOfNewsType() {
+        return nmd.getMinCountOfNewsType();
+    }
+
+    @Override
+    public Map<String, Object> getMaxCountOfNewsType() {
+        return nmd.getMaxCountOfNewsType();
+    }
+
+    @Override
+    public List<News> getTop10News() {
+        return nmd.getTop10News();
+    }
+
+    @Override
+    public List<Release> getTop10Release() {
+        return nmd.getTop10Release();
     }
 
 

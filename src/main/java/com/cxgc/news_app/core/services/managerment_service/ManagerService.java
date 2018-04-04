@@ -14,7 +14,7 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerService {
-
+    void backlog(Map<String,Object> backlog);
     Manager getManagerById(String id);
     List<Groups> getAllGroups();
     List<Authorities> getAuthoritiesByGroupId(String id);

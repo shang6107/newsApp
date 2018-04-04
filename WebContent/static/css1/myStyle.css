@@ -9,7 +9,7 @@
 }
 
 .part-div{
-    margin: 10px auto auto auto;background: #f2f2f2;width: 95%;overflow-x: hidden;
+    margin: 10px auto auto auto;background: #ffffff;width: 95%;overflow-x: hidden;
 }
 .color-span{
     color: rgba(141, 141, 141, 0.78);
@@ -20,7 +20,7 @@
     float: left;
     margin-left: 10px;
     width: 200px;
-    height: 50px;
+    height: 130px;
     background: #d8eaf6;
 }
 
@@ -42,7 +42,7 @@ table tr{
     border: 1px solid #f2f2f2;
 }
 
-td{
+.th-td{
     text-align: center;
     font-size: 18px;
     color: #F2F2F2;
@@ -51,6 +51,7 @@ td{
 }
 
 .commons-td{
+    text-align: center;
     background: #F2F2F2;
     color: #000;
     border:1px solid white;

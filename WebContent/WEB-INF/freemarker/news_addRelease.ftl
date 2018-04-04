@@ -14,7 +14,7 @@
 
     <div class="bootstrap-frm">
         <br><br>
-        <form action="/management/news_release_list" method="post" class="STYLE-NAME">
+        <form action="management/insertRelease" method="post" class="STYLE-NAME">
             <h1>添加新闻
             </h1>
             <label>
@@ -33,7 +33,7 @@
 
             <label>
                 <span>内容 :</span>
-                <textarea rows="4" cols="50" name="path" form="usrform"></textarea>
+                <textarea rows="4" cols="50" name="path" form="path"></textarea>
             </label>
 
             <label>

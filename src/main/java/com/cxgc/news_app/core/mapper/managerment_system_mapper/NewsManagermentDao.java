@@ -18,7 +18,7 @@ public interface NewsManagermentDao {
      * @param release
      * @return
      */
-    public String addRelease(Release release);
+    String addRelease(Release release);
 
     /**
      * 根据id删除新闻
@@ -26,14 +26,14 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public String deleteNewsById(String id);
+    String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
      *
      * @return
      */
-    public List<News> selectAllNews();
+    List<News> selectAllNews();
 
     /**
      * 删除发布的新闻
@@ -41,14 +41,21 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public String deleteReleaseById(String id);
+    String deleteReleaseById(String id);
 
     /**
-     * 修改发布新闻状态
+     * 对查询的的数据进行修改
      *
      * @return
      */
-    public int updateReleaseById(Release release);
+    List<Release> updateRelease();
+
+    /**
+     * 根据id查找需要修改的发布新闻
+     *
+     * @return
+     */
+    Boolean updateReleaseById(Release release);
 
     /**
      * 发布新闻
@@ -56,14 +63,14 @@ public interface NewsManagermentDao {
      * @param release
      * @return
      */
-    public String insertRelease(Release release);
+    String insertRelease(Release release);
 
     /**
      * 查询所有发布新闻
      *
      * @return
      */
-    public List<Release> selectRelease();
+    List<Release> selectRelease();
 
     /**
      * 根据id查询发布新闻
@@ -71,7 +78,7 @@ public interface NewsManagermentDao {
      * @param id
      * @return
      */
-    public Release selectReleaseById(String id);
+    Release selectReleaseById(String id);
 
     /**
      * 新闻类型查询
@@ -85,6 +92,56 @@ public interface NewsManagermentDao {
     /* **********************************************************/
     /* *************        新闻数据统计      ********************/
     /* **********************************************************/
+
+    /**
+     * 统计新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> NewsCount();
+
+    /**
+     * 统计发布的新闻总条数
+     *
+     * @return
+     */
+    Map<String, Object> ReleaseCount();
+
+    /**
+     * 查询社会类新闻
+     *
+     * @return
+     */
+
+    Map<String, Object> sociology();
+
+    /**
+     * 查询体育类新闻
+     *
+     * @return
+     */
+    Map<String, Object> sport();
+
+    /**
+     * 查询娱乐类新闻
+     *
+     * @return
+     */
+    Map<String, Object> entertainment();
+
+    /**
+     * 查询财经类新闻
+     *
+     * @return
+     */
+    Map<String, Object> finance();
+
+    /**
+     * 查询科技类新闻
+     *
+     * @return
+     */
+    Map<String, Object> technology();
 
     /**
      * 根据请求内容返回相关数据

@@ -28,6 +28,12 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private GroupDao groupDao;
 
+
+    @Override
+    public void backlog(Map<String, Object> backlog) {
+        md.backlog(backlog);
+    }
+
     @Override
     public Manager getManagerById(String id) {
         return md.getManagerById(id);

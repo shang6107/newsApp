@@ -74,6 +74,8 @@ public class SearchSpider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(doc==null)
+            return list;
         Elements hots = doc.select("a[class=list-title]");
         for(int i = 0 ;i<10;i++){
 

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxgc.news_app.core.mapper.managerment_system_mapper.NewsManagermentDao">
 
-    <update id="updateReleaseById" parameterType="com.cxgc.news_app.core.model.Release">
+    <update id="updateReleaseById">
         UPDATE `release`
         <set>
             <if test="status !=null">
@@ -65,12 +65,15 @@
         insert into release(id,create_time,path,user_id,access_count,new_type_id,title,status)
         values(#{release.id},#{release.create_time},#{release.path},#{release.user_id},#{release.access_count},#{release.new_type_id},#{release.title},#{release.status})
     </insert>
-    <delete id="deleteNewsById" parameterType="com.cxgc.news_app.core.model.Release">
-        DELETE FROM `release` where id=#{0}
-    </delete>
 
+    <delete id="deleteNewsById" parameterType="com.cxgc.news_app.core.model.Release">
+     DELETE FROM news where id=#{0}
+    </delete>
+    <select id="updateRelease" resultMap="release_result">
+select * from `release` as r join users as u on r.user_Id=u.id where not r.`status`=2
+</select>
     <select id="selectRelease" resultMap="release_result">
-        select * from `release` join users on `release`.user_Id=users.id
+select * from `release` as r join users as u on r.user_Id=u.id where r.`status`=2
     </select>
 
     <select id="selectReleaseById" resultMap="release_result">
@@ -89,38 +92,170 @@
 
 
     <!--####################新闻数据统计#######################-->
-    <select id="getMaxCountOfNewsType" resultType="map">
-        SELECT
-        nt.type_name,
-        count(news_type_id) counts
-        FROM
-        news n
-        JOIN
-        news_type nt
-        ON
-        n.news_type_id = nt.id
-        GROUP BY
-        news_type_id
-        ORDER BY
-        counts DESC
-        LIMIT 1
+    <resultMap id="sociology" type="map">
+        <result column="sociology" property="sociology"/>
+    </resultMap>
+    <resultMap id="sport" type="map">
+        <result column="sport" property="sport"/>
+    </resultMap>
+    <resultMap id="entertainment" type="map">
+        <result column="entertainment" property="entertainment"/>
+    </resultMap>
+    <resultMap id="finance" type="map">
+        <result column="finance" property="finance"/>
+    </resultMap>
+    <resultMap id="technology" type="map">
+        <result column="technology" property="technology"/>
+    </resultMap>
+    <resultMap id="NewsCount" type="map">
+        <result column="NewsCount" property="NewsCount"/>
+    </resultMap>
+    <resultMap id="ReleaseCount" type="map">
+        <result column="ReleaseCount" property="ReleaseCount"/>
+    </resultMap>
+
+
+    <select id="NewsCount" resultMap="NewsCount">
+    select count(1) as counts from news where news_type_id is not NULL
+</select>
+    <select id="ReleaseCount" resultMap="ReleaseCount">
+      select count(1) as counts from `release` where news_type_id is not NULL
+</select>
+    <select id="sociology" resultMap="sociology">
+SELECT t.news_type_id as id2,t.type_name as typeName,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as counts
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id=1
     </select>
-    <select id="getMinCountOfNewsType" resultType="map">
-        SELECT
-        nt.type_name,
-        count(news_type_id) counts
-        FROM
-        news n
-        JOIN
-        news_type nt
-        ON
-        n.news_type_id = nt.id
-        GROUP BY
-        news_type_id
-        ORDER BY
-        counts
-        LIMIT 1
+    <select id="sport" resultMap="sport">
+   SELECT t.news_type_id as id2,t.type_name as typeName,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as counts
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id=2
+</select>
+    <select id="entertainment" resultMap="entertainment">
+SELECT t.news_type_id as id2,t.type_name as typeName,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as counts
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id=3
     </select>
+    <select id="finance" resultMap="finance">
+SELECT t.news_type_id as id2,t.type_name as typeName,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as counts
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id=4
+    </select>
+    <select id="technology" resultMap="technology">
+SELECT t.news_type_id as id2,t.type_name as typeName,(t1.ac+t.ac) as access_counts,(t.counts+t1.counts) as counts
+FROM (
+
+    SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+    FROM news n JOIN news_type nt on n.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t
+
+JOIN (
+    SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+    FROM `release` r join news_type nt on r.news_type_id = nt.id
+    where news_type_id is NOT NULL GROUP BY news_type_id
+)t1
+ON t.news_type_id = t1.news_type_id
+where t.news_type_id=5
+    </select>
+
+    <!-- <select id="getMaxCountOfNewsType" resultType="">
+ SELECT t.type_name as typeName,(t1.ac+t.ac) as access_counts
+ FROM (
+
+     SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+     FROM news n JOIN news_type nt on n.news_type_id = nt.id
+     where news_type_id is NOT NULL GROUP BY news_type_id
+ )t
+
+ JOIN (
+     SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+     FROM `release` r join news_type nt on r.news_type_id = nt.id
+     where news_type_id is NOT NULL GROUP BY news_type_id
+ )t1
+ ON t.news_type_id = t1.news_type_id
+ where t.news_type_id is NOT NULL GROUP BY t.news_type_id
+
+ ORDER BY access_counts
+ DESC
+      LIMIT 1
+     </select>
+     <select id="getMinCountOfNewsType" resultType="">
+     SELECT t.type_name as typeName,(t1.ac+t.ac) as access_counts
+ FROM (
+
+     SELECT news_type_id,nt.type_name,sum(access_count) as ac,count(1) as counts
+     FROM news n JOIN news_type nt on n.news_type_id = nt.id
+     where news_type_id is NOT NULL GROUP BY news_type_id
+ )t
+
+ JOIN (
+     SELECT news_type_id,nt.type_name as type_name,sum(access_count) as ac ,count(1) as counts
+     FROM `release` r join news_type nt on r.news_type_id = nt.id
+     where news_type_id is NOT NULL GROUP BY news_type_id
+ )t1
+ ON t.news_type_id = t1.news_type_id
+ where t.news_type_id is NOT NULL GROUP BY t.news_type_id
+
+ ORDER BY access_counts
+      LIMIT 1
+     </select>
+    <select id="getTop10News" resultMap="">
+ SELECT n.*,access_count from news  n ORDER BY access_count DESC
+      LIMIT 10
+     </select>
+     <select id="getTop10Release" resultMap="">
+ SELECT r.*,access_count from `release`  r ORDER BY access_count DESC
+      LIMIT 10
+     </select>-->
 </mapper>
 
 
