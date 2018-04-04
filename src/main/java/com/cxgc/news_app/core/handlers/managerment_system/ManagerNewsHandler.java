@@ -53,6 +53,7 @@ public class ManagerNewsHandler {
     @RequestMapping("/updateReleaseById")
     public String selectReleaseById(String id, Map<String, Object> map) {
         Release release = nms.selectReleaseById(id);
+
         map.put("release", release);
         return "news_update";
     }

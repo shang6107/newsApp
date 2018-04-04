@@ -11,7 +11,21 @@ import java.util.Map;
  * pjl
  */
 public interface NewsManagermentService {
+    /**
+     * 发布新闻
+     *
+     * @param release
+     * @return
+     */
+    String addRelease(Release release);
 
+    /**
+     * 根据id删除新闻
+     *
+     * @param id
+     * @return
+     */
+     String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
@@ -19,7 +33,6 @@ public interface NewsManagermentService {
      * @return
      */
     List<News> selectAllNews();
-
     /**
      * 发布新闻
      *
@@ -27,7 +40,6 @@ public interface NewsManagermentService {
      * @return
      */
     String insertRelease(Release release);
-
     /**
      * 删除发布的新闻
      *
@@ -36,16 +48,16 @@ public interface NewsManagermentService {
      */
     String deleteReleaseById(String id);
 
+    List<Release> updateRelease();
     /**
      * 修改发布新闻状态
      *
      * @return
      */
-    Release updateReleaseById(Release release);
+    Boolean updateReleaseById(Release release);
 
     /**
      * 通过Id获取新闻
-     *
      * @param id
      * @return
      */
@@ -58,12 +70,6 @@ public interface NewsManagermentService {
      */
     List<Release> selectRelease();
 
-    /**
-     * 审核发布的新闻
-     *
-     * @return
-     */
-    List<Release> updateRelease();
 
     /**
      * 新闻类型查询

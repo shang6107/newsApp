@@ -12,6 +12,21 @@ import java.util.Map;
  * pjl
  */
 public interface NewsManagermentDao {
+    /**
+     * 发布新闻
+     *
+     * @param release
+     * @return
+     */
+    String addRelease(Release release);
+
+    /**
+     * 根据id删除新闻
+     *
+     * @param id
+     * @return
+     */
+    String deleteNewsById(String id);
 
     /**
      * 查询所有新闻
@@ -28,12 +43,14 @@ public interface NewsManagermentDao {
      */
     String deleteReleaseById(String id);
 
+    List<Release> updateRelease();
+
     /**
      * 修改发布新闻状态
      *
      * @return
      */
-    int updateReleaseById(Release release);
+    Boolean updateReleaseById(Release release);
 
     /**
      * 发布新闻
@@ -49,13 +66,6 @@ public interface NewsManagermentDao {
      * @return
      */
     List<Release> selectRelease();
-
-    /**
-     * 审核发布的新闻
-     *
-     * @return
-     */
-    List<Release> updateRelease();
 
     /**
      * 根据id查询发布新闻
