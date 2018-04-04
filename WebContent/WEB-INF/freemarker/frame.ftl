@@ -131,6 +131,12 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                         </a>
                     </li>
                     <li>
+                        <a href="management/news_updateRelease_list">
+                            <b class="sidebar-icon"><img src="static/img/icon_author.png" width="16" height="16"/></b>
+                            <span class="text-normal">新闻审核</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="management/news_search_engine.html">
                             <b class="sidebar-icon"><img src="static/img/icon_message.png" width="16" height="16"/></b>
                             <span class="text-normal">搜索引擎</span>

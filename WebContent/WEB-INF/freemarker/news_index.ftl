@@ -22,7 +22,7 @@
 
 
     $(document).ready(function () {
-        var elements = ["#myTable5", "#myTable3"];
+        var elements = ["#myTable1", "#myTable2"];
         paint(elements);
         $("#myTable4").gvChart({
             chartType: 'LineChart',
@@ -48,90 +48,94 @@
 <div class="part-div">
     <p>概要信息</p>
     <div class="table-div first-table-div">
-        <table id='myTable5'>
+        <table id='myTable1'>
             <caption>新闻发布类型分布</caption>
             <thead>
             <tr>
                 <th></th>
+                <th>社会</th>
                 <th>体育</th>
-                <th>经济</th>
-                <th>政治</th>
-                <th>国际</th>
-                <th>军事</th>
+                <th>娱乐</th>
+                <th>财经</th>
+                <th>科技</th>
 
             </tr>
+
             </thead>
             <tbody>
+
             <tr>
-                <th>1400</th>
                 <td>540</td>
                 <td>300</td>
                 <td>150</td>
                 <td>180</td>
                 <td>200</td>
             </tr>
+
             </tbody>
         </table>
     </div>
     <div class="table-div float-table-div">
-        <table id='myTable3'>
+        <table id='myTable2'>
             <caption>新闻搜索量分布</caption>
             <thead>
             <tr>
                 <th></th>
+                <th>社会</th>
                 <th>体育</th>
-                <th>经济</th>
-                <th>政治</th>
-                <th>国际</th>
-                <th>军事</th>
-
-
+                <th>娱乐</th>
+                <th>财经</th>
+                <th>科技</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>200</td>
+
+                <td></td>
                 <td>200</td>
                 <td>300</td>
                 <td>500</td>
                 <td>400</td>
             </tr>
+
             </tbody>
         </table>
     </div>
+    <table>
 
-<div class="part-div">
-    <p>数据分析</p>
-    <table id='myTable4'>
-        <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th>第一季度</th>
-            <th>第二季度</th>
-            <th>第三季度</th>
-            <th>第四季度</th>
-            <th>总年度</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>发布量</th>
-            <td>1</td>
-            <td>2</td>
-            <td>4</td>
-            <td>7</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <th>搜索量</th>
-            <td>1</td>
-            <td>4</td>
-            <td>2</td>
-            <td>1</td>
-            <td>6</td>
-        </tr>
-        </tbody>
     </table>
-</div>
+    <div class="part-div">
+        <p>数据分析</p>
+        <table id='myTable4'>
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>第一季度</th>
+                <th>第二季度</th>
+                <th>第三季度</th>
+                <th>第四季度</th>
+                <th>总年度</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>发布量</th>
+                <td>1</td>
+                <td>2</td>
+                <td>4</td>
+                <td>7</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <th>搜索量</th>
+                <td>1</td>
+                <td>4</td>
+                <td>2</td>
+                <td>1</td>
+                <td>6</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 <#include "frame_end.ftl"/>
