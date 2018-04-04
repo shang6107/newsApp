@@ -110,7 +110,7 @@ public class UserController {
      * @param newPassword
      * @return
      */
-    @RequestMapping("/editPassword")
+    @RequestMapping(value = "/editPassword",produces = "Content-Type" + MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
     @ResponseBody
     public Object editPassword(User user,String newPassword){return user_service.editPassword(user,newPassword); }
 
@@ -134,6 +134,27 @@ public class UserController {
     @RequestMapping( value = "/deleteCommnetByNewIDAndUserId",method = RequestMethod.POST)
     public String deleteCommnetByNewIDAndUserId(Comment comment){
        return user_service.deleteCommnetByNewIDAndUserId(comment);
+    }
+
+    /**
+     * 删除收藏表中用户收藏的新闻
+     * @param collections
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping( value = "/deleteCollectionsByNewIDAndUserId",method = RequestMethod.POST)
+    public String deleteCollectionsByNewIDAndUserId(Collections collections){
+        return user_service.deleteCollectionsByNewIDAndUserId(collections);
+    }
+    /**
+     * 删除历史浏览表中用户浏览过的新闻
+     * @param history
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping( value = "/deleteHistoryByNewIDAndUserId",method = RequestMethod.POST)
+    public String deleteHistoryByNewIDAndUserId(History history){
+        return user_service.deleteHistoryByNewIDAndUserId(history);
     }
 
     @RequestMapping("/listCommnt")

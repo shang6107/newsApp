@@ -284,8 +284,31 @@ public class UserServiceImpl implements UserService{
     public String deleteCommnetByNewIDAndUserId(Comment comment){
         System.out.println("comment = " + comment);
        if(userMapper.deleteCommnetByNewIDAndUserId(comment)>0){
-           return "1";
+           return "1";//删除成功
        }
-       return "-1";
+       return "-1";//删除失败
+    }
+
+    /**
+     * 删除收藏表中用户收藏的新闻
+     * @param collections
+     * @return
+     */
+    public String deleteCollectionsByNewIDAndUserId(Collections collections){
+        if(userMapper.deleteCollectionsByNewIDAndUserId(collections)>0){
+            return "1";//删除成功
+        }
+        return "-1";//删除失败
+    }
+    /**
+     * 删除历史浏览表中用户浏览过的新闻
+     * @param history
+     * @return
+     */
+    public String deleteHistoryByNewIDAndUserId(History history){
+        if(userMapper.deleteHistoryByNewIDAndUserId(history)>0){
+            return "1";//删除成功
+        }
+        return "-1";//删除失败
     }
 }
