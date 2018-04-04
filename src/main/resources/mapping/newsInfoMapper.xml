@@ -94,4 +94,24 @@
         where h.user_id = #{id}
     </select>
 
+    <!--举报-->
+    <insert id="putonReport" parameterType="report">
+        insert into report values(#{id},#{reporterId},#{reportedId},#{reportedContent},#{createTime})
+    </insert>
+
+    <!--取消举报-->
+    <delete id="putoutReport" parameterType="String" >
+        delete from report where id=#{id}
+    </delete>
+
+    <!--核对举报信息-->
+    <select id="checkReport" parameterType="report" resultType="String">
+        select id from report where reporter_id=#{reporterId} and reported_id=#{reportedId}
+    </select>
+
+    <!--获得用户对象-->
+    <select id="getUserById" parameterType="String" resultType="user">
+        select * from users where id=#{id}
+    </select>
+
 </mapper>
