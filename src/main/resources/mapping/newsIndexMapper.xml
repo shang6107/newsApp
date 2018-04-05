@@ -46,4 +46,13 @@
     <insert id="insertUserRecords">
         INSERT INTO history(id,user_id,news_id,CREATE_time) VALUES(#{0},#{1},#{2},NOW());
     </insert>
+
+    <insert id="insertNewsImg" parameterType="java.util.Map">
+        INSERT INTO imgs(news_id,img_path) VALUES
+          <foreach collection="imgs.keys" index="index" item="item" separator=",">
+              <foreach collection="imgs[item]" index="index_path" item="path" separator=",">
+                  (#{item},#{path})
+              </foreach>
+          </foreach>
+    </insert>
 </mapper>
