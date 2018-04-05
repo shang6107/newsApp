@@ -23,7 +23,7 @@ public interface NewsIndexDao {
      */
     List<NewsType> selectNewsType();
 
-
+    List<String> selectImgByNewsId(String id);
 
     /**
      *

@@ -9,6 +9,11 @@
         <result property="typeDesc" column="type_desc"/>
     </resultMap>
 
+    <resultMap id="newsBean" type="news">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="imgPath" column="id"  select="newsImgById"/>
+</resultMap>
 
         <!--
          private String id;//新闻ID
@@ -23,10 +28,13 @@
     <select id="selectNewsType" resultMap="nt">
         SELECT id,type_name from news_type;
     </select>
-
+    <!--通过新闻id查询新闻图片-->
+    <select id="newsImgById" resultType="string">
+        SELECT img_path imgPath FROM imgs WHERE news_id=#{id} limit 3
+    </select>
     <!--查询最新的新闻-->
-    <select id="selectNewsList" resultType="com.cxgc.news_app.core.model.News">
-  SELECT id,title,news_type_id,access_count,status,author,create_time createTime from news order by create_time desc LIMIT 30
+    <select id="selectNewsList" resultMap="newsBean">
+  SELECT  * from news ORDER BY create_time DESC LIMIT 30
 </select>
     
     <insert id="insertNews">

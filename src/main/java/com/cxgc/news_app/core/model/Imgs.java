@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class Imgs {
-    private Integer id;
+    private Integer imgId;
     private String newsId;
     private String[] imgPath;
 }

@@ -2,9 +2,9 @@ package com.cxgc.news_app.core.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
+import java.util.List;
+
 /**
  * @author 上官炳强
  * @Date 2018-03-20 / 01:57:41
@@ -21,6 +21,6 @@ public class News {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;//创建时间
     private String author;//作者
-
+    private List<String> imgPath;
 
 }

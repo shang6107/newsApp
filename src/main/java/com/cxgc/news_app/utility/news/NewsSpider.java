@@ -62,21 +62,36 @@ public class NewsSpider{
     }
 
     //响应给前台的新闻集合
-    public    List<News> newsList(Integer type) throws IOException, ParseException {
+    public   List<News> newsList(Integer type) throws IOException, ParseException {
         List<News> newsList = new ArrayList<>();
+
         JSONObject news;
         if(objects==null){
             objects=spider(type);
         }
             int size = objects.size();
+
                 for (int i=0;i<size;i++){
                     News newsInstance = new News();
+                    List<String> img;
                     news = objects.getJSONObject(i);
                     newsInstance.setTitle(news.getString("title"));
                     newsInstance.setId(newsDate()+news.getString("id"));
                     newsInstance.setAuthor(news.getString("posterScreenName"));
                     newsInstance.setCreateTime(sdf.parse(news.getString("publishDateStr").replace("T"," ")));
+                    img = JSONArray.parseArray(news.getJSONArray("imageUrls").toString(), String.class);
+                    List<String> img1 = new ArrayList<>();
+                    if(img.size()>3){
+                        for (int j =0;j<3;j++){
+                            img1.add(img.get(j));
+                        }
+                        newsInstance.setImgPath(img1);
+                    }else {
+                        newsInstance.setImgPath(img);
+                    }
+
                     newsList.add(newsInstance);
+
                 }
 
         return newsList;
