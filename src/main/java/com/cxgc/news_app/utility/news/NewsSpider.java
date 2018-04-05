@@ -29,8 +29,7 @@ import java.util.*;
 @Scope("prototype")
 @Component
 public class NewsSpider{
-    @Autowired
-    private NewsSave ns;
+
     private static Map<Integer,String> newsApi = new HashMap<>();
     public JSONArray objects;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -56,7 +55,6 @@ public class NewsSpider{
         return newsList;
     }*/
     public static JSONArray spider(Integer type) throws IOException {
-
         URL url = new URL(newsApi.get(type));
         URLConnection urlConnection = url.openConnection();
         urlConnection.setConnectTimeout(5000);
@@ -75,19 +73,13 @@ public class NewsSpider{
 
 
     //响应给前台的新闻集合
-    public  List<News> newsList(Integer type) throws IOException, ParseException {
+    public synchronized   List<News> newsList(Integer type) throws IOException, ParseException {
         List<News> newsList = new ArrayList<>();
-
         JSONObject news;
         if(objects==null){
             objects=spider(type);
         }
             synchronized (objects){
-
-            /*NewsType n = new NewsType();
-            n.setId(type);
-            n.setTypeDesc("");
-            n.setTypeName("");*/
                 for (int i=0;i<objects.size();i++){
                     News newsInstance = new News();
                     news = objects.getJSONObject(i);
@@ -95,9 +87,6 @@ public class NewsSpider{
                     newsInstance.setId(newsDate()+news.getString("id"));
                     newsInstance.setAuthor(news.getString("posterScreenName"));
                     newsInstance.setCreateTime(sdf.parse(news.getString("publishDateStr").replace("T"," ")));
-                    /*newsInstance.setUrl("");
-                    newsInstance.setType(n);
-                    newsInstance.setAccessCount(0);*/
                     newsList.add(newsInstance);
                 }
             }

@@ -8,6 +8,7 @@ import com.cxgc.news_app.core.model.NewsType;
 import com.cxgc.news_app.core.services.news_service.NewsSave;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -15,26 +16,25 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Service
 @EnableAsync
+@Scope("prototype")
 public  class NewsSaveImpl implements NewsSave {
     @Autowired
     private NewsIndexDao nid;
-
+    @Autowired
     private NewsSpider ns;
+
     @Async
     @Override
-    public void newsSaveAsync(NewsSpider ns,Integer type,String path){
+    public void newsSaveAsync(NewsSpider ns, Integer type, String path){
         this.ns =ns;
        JSONArray objects = ns.objects;
         try {
             List<News> newsList;
             newsHandle(objects,type,path);
-            System.out.println(objects);
             newsList = saveNewsToDatabase(type,path);
             if(newsList!=null&&newsList.size()>0){
                 nid.insertNews(newsList);
@@ -50,9 +50,10 @@ public  class NewsSaveImpl implements NewsSave {
         }
     }
 
-
     @Override
     public void newsHandle(JSONArray objects,Integer type,String path) throws IOException {
+        Map<String,Object[]> imgMap = new HashMap<>();
+
         JSONObject news;
         List<String> strings = null;
         File newsList = new File(path);
@@ -76,14 +77,17 @@ public  class NewsSaveImpl implements NewsSave {
 
             }
             String content= news.getString("content");
-
+            JSONArray imageUrls = news.getJSONArray("imageUrls");
+            Object[] imgs = imageUrls.toArray();
+            imgMap.put(id,imgs);
             ns.newsSave(content,id,type);
         }
+        if(!imgMap.isEmpty())
+        nid.insertNewsImg(imgMap);
     }
     @Override
     public List<News> saveNewsToDatabase(Integer type,String path) throws IOException, ParseException {
         News n;
-        //NewsSpider ns = new NewsSpider();
         List<News> newsList = ns.newsList(type);
         NewsType nt = new NewsType();
         nt.setId(type);

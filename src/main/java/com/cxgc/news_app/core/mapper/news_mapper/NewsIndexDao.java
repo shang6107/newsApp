@@ -1,12 +1,14 @@
 package com.cxgc.news_app.core.mapper.news_mapper;
 
 
+import com.cxgc.news_app.core.model.Imgs;
 import com.cxgc.news_app.core.model.News;
 import com.cxgc.news_app.core.model.NewsType;
 import org.apache.ibatis.annotations.Param;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 徐瑜壮
@@ -34,4 +36,5 @@ public interface NewsIndexDao {
     void addNewsRecords(String newsId);
     Integer updateUserRecords(String userId,String newsId);
     void insertUserRecords(String id,String userId,String newsId);
+    void insertNewsImg(@Param("imgs") Map<String,Object[]> imgList);
 }

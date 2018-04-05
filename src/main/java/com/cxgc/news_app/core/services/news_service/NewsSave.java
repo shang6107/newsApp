@@ -11,4 +11,5 @@ public interface NewsSave{
      void newsSaveAsync(NewsSpider ns, Integer type, String path);
     void newsHandle(JSONArray objects,Integer type,String path) throws IOException;
     List<News> saveNewsToDatabase(Integer type,String path) throws IOException, ParseException;
+
 }
