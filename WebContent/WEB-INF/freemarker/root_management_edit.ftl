@@ -16,13 +16,13 @@
             x.readAsDataURL(this.files[0]);
         };
         x.onloadend = function () {
-            console.log($("#head-img-tag").attr("src"));
             $("#head-img-tag").attr("src", this.result);
         }
     }));
 </script>
 <div class="manager-update-form">
-    <form id="manager-update-form" class="layui-form" action="management/root/manager-update" method="post" enctype="multipart/form-data">
+    <form id="manager-update-form" class="layui-form" action="management/root/manager-update" method="post"
+          enctype="multipart/form-data">
         <input id="file" type="file" name="file" style="display: none"/>
         <input type="hidden" name="mgrNo" value="${manager.mgrNo!''}"/>
         <input type="hidden" name="id" value="${manager.id!''}"/>
@@ -32,23 +32,26 @@
             <div class="layui-input-block">
             <@spring.bind "manager.mgrName"/>
                 <input type="text" name="mgrName" value="${manager.mgrName!''}" class="layui-input"/>
-                <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/></div>
+                <div class="layui-form-mid layui-word-aux" style="color: red;"
+                     id="mgrName-prompt"><@spring.showErrors ","/></div>
                 <div class="layui-form-mid layui-word-aux">请输入管理员姓名</div>
             </div>
         </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">管理员密码</label>
             <div class="layui-input-block">
             <@spring.bind "manager.password"/>
-                <input type="password" name="password" autocomplete="off" lay-verify="pass" class="layui-input">
-                <div class="layui-form-mid layui-word-aux" style="color: red;"><@spring.showErrors ","/>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <input type="password" name="password" autocomplete="off" class="layui-input">
+                <div class="layui-form-mid layui-word-aux" style="color: red;"
+                     id="pass-prompt"><@spring.showErrors ","/></div>
                 <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码确认</label>
             <div class="layui-input-block">
-                <input type="password" name="password1" lay-verify="pass" autocomplete="off" class="layui-input">
+                <input type="password" name="password1" value="" autocomplete="off" class="layui-input">
                 <div class="layui-form-mid layui-word-aux">请再次填写6到12位密码</div>
             </div>
         </div>
@@ -74,7 +77,7 @@
                     break;
                 }
             }
-            if(!flag){
+            if (!flag) {
                 $("select[name='stat']").html("<option selected>无</option>");
             }
         </script>
@@ -92,14 +95,13 @@
             var groupId = "${(manager.groups.id)!''}";
             var flag = 0;
             for (var i = 0; i < $("select[name='groups.id'] option").length; i++) {
-            console.log($("select[name='groups.id'] option")[i]);
                 if ($("select[name='groups.id'] option")[i].value === groupId) {
                     $("select[name='groups.id'] option")[i].selected = "selected";
                     flag = 1;
                     break;
                 }
             }
-            if(!flag){
+            if (!flag) {
                 $("select[name='groups.groupName']").html("<option selected>无</option>" + $("select[name='groups.groupName']").html());
             }
         </script>
@@ -154,7 +156,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-filter="manager-update-form">立即提交</button>
+                <button class="layui-btn" lay-filter="form" lay-submit="">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -164,13 +166,30 @@
 <script>
     var form = layui.form;
     form.render();
-    $("#manager-update-form").submit(function () {
-        if($("input[name='password']").val() === "" || $("input[name='password1']").val() === ""){
-            $("input[name='password']").attr("name","");
-            $("input[name='password1']").attr("name","");
+
+    form.on("submit(form)", function (data) {
+        var param = data.field;
+        console.log(param);
+        if (param.mgrName.length < 6) {
+            $("#mgrName-prompt").text("用户名长度必须大于6");
+            return false;
+        }
+        if (param.password === "" && param.password1 === "") {
+            $("input[type='password']").attr("name", "");
+        } else {
+            if(param.password1 !== param.password){
+                $("#pass-prompt").text("两次密码必须一样");
+                return false;
+            }
+            if(param.password1.length < 6 || param.password.length < 6){
+                $("#pass-prompt").text("密码长度必须大于6");
+                return false;
+            }
         }
         return true;
     });
+
+
     form.on('checkbox(allChoose)', function (data) {
         var child = $(data.elem.parentNode).find("input");
         child.each(function (index, item) {

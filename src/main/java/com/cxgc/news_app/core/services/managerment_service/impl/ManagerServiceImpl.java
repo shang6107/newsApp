@@ -30,6 +30,11 @@ public class ManagerServiceImpl implements ManagerService {
 
 
     @Override
+    public String getNextMgrNo() {
+        return md.getNextMgrNo();
+    }
+
+    @Override
     public void backlog(Map<String, Object> backlog) {
         md.backlog(backlog);
     }
@@ -72,8 +77,9 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public int addManager(Manager manager) {
-        return md.addManager(manager);
+    public void addManager(Manager manager) {
+        manager.setPassword(new BCryptPasswordEncoder().encode(manager.getPassword()));
+        md.addManager(manager);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.cxgc.news_app.core.handlers.managerment_system;
 import com.cxgc.news_app.common.UserStatus;
 import com.cxgc.news_app.core.config.security.MyManagerDetails;
 import com.cxgc.news_app.core.model.Authorities;
+import com.cxgc.news_app.core.model.Group;
 import com.cxgc.news_app.core.model.Groups;
 import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,14 +58,6 @@ public class ManagerBaseHandler {
     private ManagerService managerService;
     @Autowired
     private NewsManagermentService nms;
-
-    @ModelAttribute
-    public void getModel(@RequestParam(value = "id", required = false) String id, Map<String, Object> map) {
-        if (id != null) {
-            Manager manager1 = managerService.getManagerById(id);
-            map.put("manager", manager1);
-        }
-    }
 
     /**
      * 管理员登录
@@ -248,12 +242,24 @@ public class ManagerBaseHandler {
         return "root_management_edit";
     }
 
+    private boolean passwordNotChanged = true;
+
+    @ModelAttribute
+    public void getModel(
+            @RequestParam(value = "id", required = false) String id,
+            @RequestParam(value = "password", required = false) String password,
+            @RequestParam(value = "password1", required = false) String password1,
+            Map<String, Object> map) {
+        if (id != null && password == null && password1 == null) {
+            Manager manager1 = managerService.getManagerById(id);
+            map.put("manager", manager1);
+        }
+    }
+
     /**
      * 超级管理员对普通管理员的资料编辑处理方法
      *
      * @param manager
-     * @param result
-     * @param password1
      * @param file
      * @param map
      * @param request
@@ -263,44 +269,13 @@ public class ManagerBaseHandler {
      */
     @RequestMapping("/root/manager-update")
     public String updateManager(
-            @ModelAttribute @Validated Manager manager,
-            BindingResult result,
-            String password1,
+            @ModelAttribute Manager manager,
             @RequestParam("file") MultipartFile file,
             Map<String, Object> map,
             HttpServletRequest request,
             String stat) throws IOException {
         setManagerResultMap(map);
 
-        //判断验证结果
-        if (result.hasFieldErrors()) {
-            //如果前台页面修改了密码字段，且两次密码输入不相同，则注入该错误消息，并转发回编辑页面
-            if (password1 != null && manager.getPassword() != null && !password1.equals(manager.getPassword())) {
-                result.rejectValue("password", "manager.password.eq");
-                return "root_management_edit";
-            }
-
-            //如果第二次密码输入框为空
-            if (password1 == null && manager.getPassword() != null) {
-                boolean flag = false;
-                boolean hasOtherError = false;
-                List<FieldError> fieldErrors = result.getFieldErrors();
-                for (FieldError fieldError : fieldErrors) {
-                    if (fieldError.getField().equals("password")) {
-                        flag = true;
-                    } else {
-                        hasOtherError = true;
-                    }
-                }
-
-                //判断是否只有密码字段出错。
-                if (flag && hasOtherError) {
-                    //如果还有其他错误，转发回输入页面
-                    result.rejectValue("password", "manager.password.eq");
-                    return "root_management_edit";
-                }
-            }
-        }
         //保存管理员上传的头像图片到指定路径
         String path = saveManagerHeadImg(file, manager, request);
 
@@ -331,6 +306,49 @@ public class ManagerBaseHandler {
         backlog.put("mgrNo", mgrNo);
         managerService.backlog(backlog);
         return "redirect:/management/root_management.html";
+    }
+
+
+    @RequestMapping("/root/add-manager")
+    public String addManager(@Validated(Group.B.class) Manager manager,
+                             BindingResult result,
+                             @RequestParam("file") MultipartFile file,
+                             Map<String, Object> map,
+                             String password1,
+                             HttpServletRequest request) {
+        //验证
+        //不通过返回编辑页面
+        //return "root_account.html"
+        if (result.hasFieldErrors()) {
+            return "root_account";
+        }
+
+        if (password1 != null && !password1.equals(manager.getPassword())) {
+            result.rejectValue("password", "manager.password.eq");
+            return "root_account";
+        }
+        if (manager.getGroups().getId() != null && manager.getGroups().getId().equals("")) {
+            result.rejectValue("groups.id", "groups.id.notNull");
+            return "root_account";
+        }
+
+        //通过则生成 mgrNo 并赋值
+        String nextMgrNo = managerService.getNextMgrNo();
+        manager.setMgrNo(wrapMgrNo(nextMgrNo));
+
+        //设置ID
+        manager.setId(UtilY.getId());
+
+        //添加到数据库
+        managerService.addManager(manager);
+
+        //转发到成功页面
+        return "root_management";
+
+    }
+
+    private String wrapMgrNo(String mgrNo) {
+        return "m" + (Integer.parseInt(mgrNo.replaceAll("[a-z]", ""))+1);
     }
 
 }

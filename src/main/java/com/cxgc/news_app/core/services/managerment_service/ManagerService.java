@@ -14,6 +14,7 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerService {
+    String getNextMgrNo();
     void backlog(Map<String,Object> backlog);
     Manager getManagerById(String id);
     List<Groups> getAllGroups();
@@ -27,7 +28,7 @@ public interface ManagerService {
      * @return
      */
 
-    public int addManager(Manager manager);
+    void addManager(Manager manager);
 
 /**
  * 根据ID删除管理员

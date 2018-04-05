@@ -65,4 +65,11 @@ public class DataAjaxHandler {
         return $(WorkType.values());
     }
 
+    @RequestMapping("/groups-list")
+    @ResponseBody
+    public Object allOfGroups() throws ParseException, IllegalAccessException {
+        return $(managerService.getAllGroups());
+    }
+
+
 }

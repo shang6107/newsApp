@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @Data
 public class Groups {
+    @NotEmpty(message = "{groups.id.notNull}")
     private String id;
     private String groupName;
     private String descpt;

@@ -191,7 +191,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                     <li>
                         <a href="management/root_account.html">
                             <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
-                            <span class="text-normal">账号管理</span>
+                            <span class="text-normal">账号分发</span>
                         </a>
                     </li>
                 </ul>

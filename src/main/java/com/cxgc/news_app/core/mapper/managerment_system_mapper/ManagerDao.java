@@ -15,6 +15,7 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerDao {
+    String getNextMgrNo();
     void backlog(Map<String,Object> backlog);
     Manager getManagerById(String id);
     Manager getManagerByMgrNo(String mgrNo);//根据ID得到管理员信息
@@ -26,7 +27,7 @@ public interface ManagerDao {
      * @param manager
      * @return 增加行数
      */
-    public int addManager(@Param("manager") Manager manager);
+    void addManager(Manager manager);
 
     /**
      * 通过管理员ID删除管理员
