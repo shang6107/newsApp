@@ -9,6 +9,7 @@ import com.cxgc.news_app.core.services.news_service.NewsSave;
 import com.cxgc.news_app.utility.idutil.UtilY;
 import com.cxgc.news_app.utility.news.NewsSpider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,10 +26,11 @@ import java.util.*;
 public class NewsIndexServiceImpl implements NewsIndexService{
     @Autowired
     private NewsIndexDao nd;
-    @Autowired
-    private NewsSpider ns;
+    /*@Autowired
+    private NewsSpider ns;*/
     @Autowired
     NewsSave newsSave;
+
     /**
      *
      *
@@ -81,11 +83,11 @@ public class NewsIndexServiceImpl implements NewsIndexService{
      */
     @Override
     public List<News> newsListByType(Integer type){
+    NewsSpider ns = new NewsSpider();
         try {
-            String path = ns.newsPath(type);
             List<News> newsList = ns.newsList(type);
             if(ns.objects!=null){
-                newsSave.newsSaveAsync(ns,type,path);
+                newsSave.newsSaveAsync(ns,type);
             }
             return newsList;
         } catch (IOException e) {
@@ -99,7 +101,6 @@ public class NewsIndexServiceImpl implements NewsIndexService{
     @Override
     public void addUserRecords(String userId, String newsId) {
         Integer integer = nd.updateUserRecords(userId, newsId);
-        System.out.println(integer);
         if(integer >0){
             nd.insertUserRecords(UtilY.getId(),userId,newsId);
         }

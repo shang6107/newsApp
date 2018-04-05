@@ -34,7 +34,7 @@ public interface NewsIndexService{
     List<News> selectNewsList();
 
     List<News> newsListByType(Integer type);
-    /*List<News> responseAppIndex(Integer type) throws IOException, ParseException;*/
+
     void addUserRecords(String userId ,String newsId);
     void addNewsRecords(String newsId);
 }
