@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 上官炳强
@@ -71,5 +73,19 @@ public class DataAjaxHandler {
         return $(managerService.getAllGroups());
     }
 
+    @RequestMapping("/back-log/{worker}")
+    @ResponseBody
+    public Object getAllBackLog(@PathVariable("worker")String mgrNo) throws ParseException, IllegalAccessException {
+        if(mgrNo == null || "".equals(mgrNo))
+            return null;
+        return managerService.getBackLogByMgrNo(mgrNo);
+    }
+    @RequestMapping("/app-account")
+    @ResponseBody
+    public Object appAccount(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("data",managerService.getTotalData());
+        return map;
+    }
 
 }

@@ -29,3 +29,22 @@ function popup_msg(msg) {
     }, 2000);
 }
 
+function paint(target) {
+    for (var i = 0; i < target.length; i++) {
+        $(target[i]).gvChart({
+            chartType: 'PieChart',
+            gvSettings: {
+                vAxis: {title: 'No of players'},
+                hAxis: {title: 'Month'},
+                width: 400,
+                height: 230
+            }
+        });
+    }
+}
+
+function backToIndex(url) {
+    setTimeout(function () {
+        
+    },5000);
+}

@@ -17,11 +17,6 @@ import java.util.Map;
  * </h5>
  */
 public interface AppDao {
-    List<Map<String, Object>> getHourTop10();//小时前十
 
-    List<Map<String, Object>> getDailyTop10();//日榜前十
-
-    List<Map<String, Object>> getWeekTop10(); //周榜前十
-
-    List<Map<String, Object>> getMonthTop10();//月榜前十
+    List<Map<String, Object>> getTotalData();
 }

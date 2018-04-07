@@ -41,6 +41,9 @@
         );
     </insert>
 
+    <select id="getBackLogByMgrNo" resultType="map">
+        select * from backlog where worker = #{0}
+    </select>
 
     <select id="getManagerById" resultMap="manager_result">
         select * from manager where id = #{0}

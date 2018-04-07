@@ -14,14 +14,16 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerService {
-    String getNextMgrNo();
-    void backlog(Map<String,Object> backlog);
-    Manager getManagerById(String id);
+    List<Map<String, Object>> getTotalData();
+    List<Map<String,Object>> getBackLogByMgrNo(String mgrNo);
     List<Groups> getAllGroups();
     List<Authorities> getAuthoritiesByGroupId(String id);
+    String getNextMgrNo();
+    Groups getGroupByName(String name);
+    Manager getManagerById(String id);
+    void backlog(Map<String,Object> backlog);
     void updateManagerStatus(Manager manager);
     void updateManager(Manager manager);
-    Groups getGroupByName(String name);
     /**
      * 添加管理员
      * @param manager

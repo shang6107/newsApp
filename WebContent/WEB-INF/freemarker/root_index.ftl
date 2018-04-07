@@ -2,21 +2,6 @@
 <script type="text/javascript">
     gvChartInit();
 
-    function paint(target) {
-        for (var i = 0; i < target.length; i++) {
-            $(target[i]).gvChart({
-                chartType: 'PieChart',
-                gvSettings: {
-                    vAxis: {title: 'No of players'},
-                    hAxis: {title: 'Month'},
-                    width: 400,
-                    height: 230
-                }
-            });
-        }
-    }
-
-
     $(document).ready(function () {
         var elements = ["#myTable1", "#myTable2", "#myTable5", "#myTable3"];
         paint(elements);
@@ -223,10 +208,9 @@
             <p align="right"><a href="#">更多 >></a></p>
             <hr class="layui-layer-border"/>
             <ul class="ul-list layui-upload-list">
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
-                <li>sdafdsaf</li>
+                <li>用户 13556154812 ，身份待审核</li>
+                <li>用户 13308032858 ，身份待审核</li>
+                <li>新闻编号 n45645645622154 ，待审核</li>
             </ul>
         </div>
     </div>

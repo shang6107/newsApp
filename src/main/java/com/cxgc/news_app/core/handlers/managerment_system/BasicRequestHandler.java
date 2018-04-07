@@ -20,4 +20,10 @@ public class BasicRequestHandler {
     public String base(@PathVariable String pageName){
         return pageName;
     }
+
+    @RequestMapping("/**")
+    public String notFoundPage(){
+        return "404";
+    }
+
 }

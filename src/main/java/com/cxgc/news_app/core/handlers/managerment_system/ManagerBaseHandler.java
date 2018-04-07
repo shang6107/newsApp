@@ -9,6 +9,7 @@ import com.cxgc.news_app.core.model.Manager;
 import com.cxgc.news_app.core.services.managerment_service.ManagerService;
 import com.cxgc.news_app.core.services.managerment_service.NewsManagermentService;
 import com.cxgc.news_app.core.services.managerment_service.UserManagementService;
+import com.cxgc.news_app.utility.CharactorWrapper;
 import com.cxgc.news_app.utility.idutil.UtilY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -35,10 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 上官炳强
@@ -304,6 +302,7 @@ public class ManagerBaseHandler {
         backlog.put("endDate", range[1]);
         backlog.put("title", title);
         backlog.put("mgrNo", mgrNo);
+        backlog = CharactorWrapper.wrap(backlog);
         managerService.backlog(backlog);
         return "redirect:/management/root_management.html";
     }
@@ -315,14 +314,13 @@ public class ManagerBaseHandler {
                              @RequestParam("file") MultipartFile file,
                              Map<String, Object> map,
                              String password1,
-                             HttpServletRequest request) {
+                             HttpServletRequest request) throws IOException {
         //验证
         //不通过返回编辑页面
         //return "root_account.html"
         if (result.hasFieldErrors()) {
             return "root_account";
         }
-
         if (password1 != null && !password1.equals(manager.getPassword())) {
             result.rejectValue("password", "manager.password.eq");
             return "root_account";
@@ -336,6 +334,10 @@ public class ManagerBaseHandler {
         String nextMgrNo = managerService.getNextMgrNo();
         manager.setMgrNo(wrapMgrNo(nextMgrNo));
 
+        //设置头像
+        String headImgPath = saveManagerHeadImg(file, manager, request);
+        manager.setHeadImg(headImgPath);
+
         //设置ID
         manager.setId(UtilY.getId());
 
@@ -348,7 +350,13 @@ public class ManagerBaseHandler {
     }
 
     private String wrapMgrNo(String mgrNo) {
-        return "m" + (Integer.parseInt(mgrNo.replaceAll("[a-z]", ""))+1);
+        return String.format("m%03d",(Integer.parseInt(mgrNo.replaceAll("[a-z]", ""))+1));
+    }
+
+    @RequestMapping("/app-account.html")
+    public String appAccount(Map<String,Object> map){
+        map.put("data",managerService.getTotalData());
+        return "app_acount";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.cxgc.news_app.core.services.managerment_service.impl;
 
 import com.cxgc.news_app.common.UserStatus;
+import com.cxgc.news_app.core.mapper.commons_mapper.AppDao;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.GroupDao;
 import com.cxgc.news_app.core.mapper.managerment_system_mapper.ManagerDao;
 import com.cxgc.news_app.core.model.Authorities;
@@ -27,7 +28,19 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerDao md;
     @Autowired
     private GroupDao groupDao;
+    @Autowired
+    private AppDao appDao;
 
+
+    @Override
+    public List<Map<String, Object>> getTotalData() {
+        return appDao.getTotalData();
+    }
+
+    @Override
+    public List<Map<String,Object>> getBackLogByMgrNo(String mgrNo) {
+        return md.getBackLogByMgrNo(mgrNo);
+    }
 
     @Override
     public String getNextMgrNo() {

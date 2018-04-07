@@ -209,16 +209,9 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
                 </div>
                 <ul class="sidebar-trans">
                     <li>
-                        <a href="userInfo.html">
+                        <a href="management/app-account.html">
                             <b class="sidebar-icon"><img src="static/img/icon_cost.png" width="16" height="16"/></b>
                             <span class="text-normal">APP数据统计</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="identify.html">
-                            <b class="sidebar-icon"><img src="static/img/icon_order.png" width="16"
-                                                         height="16"/></b>
-                            <span class="text-normal">其他</span>
                         </a>
                     </li>
 
@@ -243,7 +236,7 @@ JspTaglibs["/WEB-INF/freemarker/security.tld"]-->
         location = "${path!''}/management/login?error"
     </script>
 </#if>
-    <div class="view-product background-color" style="overflow: hidden">
+    <div class="view-product background-color" >
 
         <script>
             ($(function () {

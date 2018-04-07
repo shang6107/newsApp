@@ -15,6 +15,7 @@ import java.util.Map;
  *  @Description
  */
 public interface ManagerDao {
+    List<Map<String,Object>> getBackLogByMgrNo(String mgrNo);
     String getNextMgrNo();
     void backlog(Map<String,Object> backlog);
     Manager getManagerById(String id);

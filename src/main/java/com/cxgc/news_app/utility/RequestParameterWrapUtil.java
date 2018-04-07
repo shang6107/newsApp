@@ -24,6 +24,11 @@ public class RequestParameterWrapUtil {
     private static final String _Page_COUNT = "count";
     private static final String _Page_DATA = "data";
 
+    private static final String PERIOD_WEEK = "week";
+    private static final String PERIOD_TODAY = "today";
+    private static final String PERIOD_YESTERDAY = "yesterday";
+    private static final String PERIOD_MONTH = "month";
+    private static final String PERIOD_TOTAL = "total";
 
     public static Map<String, Object> $(Object result) throws ParseException, IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
@@ -52,7 +57,9 @@ public class RequestParameterWrapUtil {
             }
         } else if (result != null && (result instanceof User || result instanceof News)) {
             map.put(_Page_DATA, result);
-        } 
+        } else if (result instanceof Map){
+            map.put(_Page_DATA,result);
+        }
         return map;
     }
 
@@ -73,5 +80,8 @@ public class RequestParameterWrapUtil {
             }
         }
     }
+
+
+
 
 }

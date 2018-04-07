@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxgc.news_app.core.mapper.commons_mapper.AppDao">
+
+    <sql id="part1">
+        (SELECT
+    </sql>
+    <sql id="part2">
+        period ,highest_url url,sum(highest_count) `sum`
+        FROM
+        app_data_count
+        WHERE
+        highest_url LIKE "/app%"
+    </sql>
+    <sql id="part3">
+        GROUP BY
+        highest_url
+        ORDER BY
+        sum(highest_count)
+    </sql>
+    <sql id="part4">
+        LIMIT 0,1)
+    </sql>
+    <select id="getTotalData" resultType="map">
+        <!--<include refid="part1"/> "total_highest" <include refid="part2"/>  <include
+            refid="part3"/> desc <include refid="part4"/>   UNION
+        <include refid="part1"/> "total_lowest" <include refid="part2"/>  <include
+            refid="part3"/> asc <include refid="part4"/>    UNION
+        <include refid="part1"/> "today_highest" <include refid="part2"/> AND TO_DAYS(CREATE_TIME) = TO_DAYS(NOW()) <include
+            refid="part3"/> desc <include refid="part4"/>   UNION
+        <include refid="part1"/> "today_lowest" <include refid="part2"/> AND TO_DAYS(CREATE_TIME) = TO_DAYS(NOW()) <include
+            refid="part3"/> asc <include refid="part4"/>    UNION
+        <include refid="part1"/> "yesterday_highest" <include refid="part2"/> AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) = 1 <include
+            refid="part3"/> desc <include refid="part4"/>    UNION
+        <include refid="part1"/> "yesterday_lowest" <include refid="part2"/> AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) = 1 <include
+            refid="part3"/> asc <include refid="part4"/>    UNION
+        <include refid="part1"/> "week_highest" <include refid="part2"/> <![CDATA[ AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) <= 7]]> <include
+            refid="part3"/> desc <include refid="part4"/>    UNION
+        <include refid="part1"/> "week_lowest" <include refid="part2"/> <![CDATA[ AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) <= 7]]> <include
+            refid="part3"/> asc <include refid="part4"/>    UNION
+        <include refid="part1"/> "month_highest" <include refid="part2"/> <![CDATA[ AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) <= 30]]> <include
+            refid="part3"/> desc <include refid="part4"/>    UNION
+        <include refid="part1"/> "month_lowest" <include refid="part2"/> <![CDATA[ AND TO_DAYS(NOW()) - TO_DAYS(CREATE_TIME) <= 30]]> <include
+            refid="part3"/> asc <include refid="part4"/>-->
+
+        <![CDATA[
+
+                (SELECT 'yesterday' period, highest_url,sum(highest_count) `sum_high`,t.*  FROM app_data_count
+          JOIN (SELECT lowest_url,sum(lowest_count) `sum_low`  FROM app_data_count
+          WHERE lowest_url LIKE "/app%" AND
+               TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
+          GROUP BY lowest_url ORDER BY `sum_low` LIMIT 0,1)t
+        WHERE highest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) = 1 GROUP BY highest_url
+         ORDER BY `sum_high` DESC LIMIT 0,1)
+        UNION
+        (SELECT 'week' period, highest_url,sum(highest_count) `sum_high`,t.*  FROM app_data_count
+          JOIN (SELECT lowest_url,sum(lowest_count) `sum_low`  FROM app_data_count
+          WHERE app_data_count.lowest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) <= 7 GROUP BY lowest_url LIMIT 0,1)t
+        WHERE highest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) <= 7
+          GROUP BY highest_url ORDER BY `sum_high` DESC LIMIT 0,1)
+        UNION
+        (SELECT 'today' period, highest_url,sum(highest_count) `sum_high`,t.*  FROM app_data_count
+          JOIN (SELECT lowest_url,sum(lowest_count) `sum_low`  FROM app_data_count
+          WHERE app_data_count.lowest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) =0 GROUP BY lowest_url LIMIT 0,1)t
+        WHERE highest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) =0
+        GROUP BY highest_url ORDER BY `sum_high` DESC LIMIT 0,1)
+        UNION
+        (SELECT 'month' period, highest_url,sum(highest_count) `sum_high`,t.*  FROM app_data_count
+          JOIN (SELECT lowest_url,sum(lowest_count) `sum_low`  FROM app_data_count
+          WHERE app_data_count.lowest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time)<= 30 GROUP BY lowest_url LIMIT 0,1)t
+        WHERE highest_url LIKE "/app%" AND TO_DAYS(NOW()) - TO_DAYS(create_time) <= 30
+        GROUP BY highest_url ORDER BY `sum_high` DESC LIMIT 0,1)
+        UNION
+        (SELECT 'total' period, highest_url,sum(highest_count) `sum_high`,t.*  FROM app_data_count
+          JOIN (SELECT lowest_url,sum(lowest_count) `sum_low`  FROM app_data_count
+          WHERE app_data_count.lowest_url LIKE "/app%"  GROUP BY lowest_url LIMIT 0,1)t
+        WHERE highest_url LIKE "/app%"
+        GROUP BY highest_url ORDER BY `sum_high` DESC LIMIT 0,1)
+
+        ]]>
+
+    </select>
+
+</mapper>
