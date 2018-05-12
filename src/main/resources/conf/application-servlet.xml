@@ -58,13 +58,17 @@
 		<property name="viewClass"
 				  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
 		<property name="contentType" value="text/html; charset=UTF-8" />
+		<!--可以在Freemarker页面中使用表达式访问Request属性-->
 		<property name="exposeRequestAttributes" value="true" />
+		<!--可以在Freemarker页面中使用表达式访问Session属性-->
 		<property name="exposeSessionAttributes" value="true" />
+		<!--使用上面两个宏，必须设置exposeSpringMacroHelpers属性为true-->
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="allowRequestOverride" value="true"/>
 		<property name="allowSessionOverride" value="true"/>
 		<property name="exposeContextBeansAsAttributes" value="true"/>
 		<property name="exposePathVariables" value="true"/>
+		<!-- 在页面中使用${rc.contextPath}就可获得contextPath -->
 		<property name="requestContextAttribute" value="request" />
 		<property name="cache" value="false" />
 		<property name="suffix" value=".ftl" />
