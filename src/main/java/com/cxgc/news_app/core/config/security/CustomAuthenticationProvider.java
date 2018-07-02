@@ -39,13 +39,14 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
      *  获取数据库中的数据
      * @param username
      * @param authentication
-     * @return  返回数据库得到的对象
+     * @return 返回数据库得到的对象
      * @throws AuthenticationException
      */
 
 
     /**
      * 判断数据库密码数据是否和表单的密码字段一致
+     *
      * @param userDetails
      * @param authentication
      * @throws AuthenticationException
@@ -56,14 +57,14 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         String presentedPassword = authentication/*令牌对象*/.getCredentials()/*密码*/.toString();
         //密码判断(使用加密判断)
         boolean result = false;
-        if(isEncoder){
+        if (isEncoder) {
             //将数据库获取的密码和页面证书进行加密比对
-            result = passwordEncoder.matches(presentedPassword,userDetails.getPassword());
-        }else{
+            result = passwordEncoder.matches(presentedPassword, userDetails.getPassword());
+        } else {
             //直接比对
             result = presentedPassword.equals(userDetails.getPassword());
         }
-        if(!result){
+        if (!result) {
             log.info("com.cxgc.news_app.core.config.security." +
                     "CustomAuthenticationProvider.badCredentials : 错误的证书");
             throw new BadCredentialsException(messages.getMessage(
@@ -74,18 +75,18 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
         //管理员状态验证
         Manager domain = ((MyManagerDetails) userDetails).getDomain();
         UserStatus status = domain.getStatus();
-        if(status != UserStatus.NORMAL){
+        if (status != UserStatus.NORMAL) {
             log.info("com.cxgc.news_app.core.config.security." +
                     "AuthenticationFailureHandler.abNormalStatus 。用户状态异常：" + status);
             throw new LockedException(messages.getMessage(
                     "CustomAuthenticationProvider.abNormalStatus 。",
-                    "用户状态异常 ： " + status ));
+                    "用户状态异常 ： " + status));
         }
 
 
         //证书验证通过后，修改上次登录时间 和 IP地址
-        CustomManagerDetailsService customManagerDetailsService = (CustomManagerDetailsService)userDetailsService;
-        MyManagerDetails managerDetails = (MyManagerDetails) userDetails ;
+        CustomManagerDetailsService customManagerDetailsService = (CustomManagerDetailsService) userDetailsService;
+        MyManagerDetails managerDetails = (MyManagerDetails) userDetails;
         customManagerDetailsService.
                 updateLastLoginTimeAndAddressAndLoginCount(
                         managerDetails.getMgrNo(),
@@ -96,6 +97,7 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 
     /**
      * 为后续的 FilterChain 提供 Authentication(UsernamePasswordAuthenticationToken)
+     *
      * @param authentication
      * @return
      * @throws AuthenticationException
